@@ -84,8 +84,8 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:text="@string/powered_lucidleanlabs"
-            android:textStyle="bold"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
