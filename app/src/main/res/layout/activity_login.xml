@@ -17,9 +17,10 @@
             android:layout_width="150dp"
             android:layout_height="163dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo"
+            android:id="@+id/icon"/>
 
         <TextView
             android:id="@+id/application_name"
@@ -31,10 +32,12 @@
 
         <!--  Email Label -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/area_input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="6dp"
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/input_email"
@@ -47,10 +50,12 @@
 
         <!--  Password Label -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/area_input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="6dp"
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/input_password"
@@ -60,14 +65,57 @@
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
+        <!-- Name Label -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/area_input_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/input_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- mobile number -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/area_input_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/input_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mobile_number"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
             android:padding="12dp"
             android:text="Login" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_guest"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="12dp"
+            android:padding="12dp"
+            android:text="Instead Login as Guest" />
 
         <TextView
             android:id="@+id/link_signup"
@@ -77,6 +125,16 @@
             android:gravity="center"
             android:text="@string/signup_trigger"
             android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/return_to_login"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="@string/return_to_login"
+            android:textSize="16sp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/lucidlealabs"

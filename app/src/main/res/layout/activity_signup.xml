@@ -39,6 +39,7 @@
 
         <!-- Name Label -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/area_input_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -54,6 +55,7 @@
 
         <!-- Address Label -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/area_input_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -70,10 +72,12 @@
 
         <!--  Email Label -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/area_input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/input_email"
@@ -86,10 +90,12 @@
 
         <!-- mobile number -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/area_input_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/input_mobile"
@@ -101,10 +107,12 @@
 
         <!-- Password Label -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/area_input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/input_password"
@@ -116,10 +124,12 @@
 
         <!-- Password Re-enter Label -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/area_input_reEnterPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/input_reEnterPassword"
