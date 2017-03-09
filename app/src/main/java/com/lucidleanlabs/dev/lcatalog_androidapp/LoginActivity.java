@@ -92,9 +92,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 convert_view_guest();
 
-                _guestLoginButton.setOnClickListener(new View.OnClickListener(){
+                _guestLoginButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v1){
+                    public void onClick(View v1) {
                         guest_login();
                     }
                 });
@@ -167,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void convert_view_guest(){
+    public void convert_view_guest() {
 
         area_emailText.setVisibility(View.GONE);
         area_passwordText.setVisibility(View.GONE);
@@ -177,6 +177,7 @@ public class LoginActivity extends AppCompatActivity {
         _returnToLogin.setVisibility(View.VISIBLE);
 
     }
+
     public void guest_login() {
         Log.d(TAG, "Guest User Login");
 
