@@ -22,12 +22,69 @@
 
     <include layout="@layout/content_main" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_gravity="end|bottom"
+        app:fab_addButtonColorNormal="@color/primary_dark"
+        app:fab_addButtonColorPressed="@color/jet"
+        app:fab_addButtonPlusIconColor="@color/primary_darker"
+        app:fab_addButtonStrokeVisible="false"
+        app:fab_labelStyle="@style/menu_labels_style"
+        app:fab_labelsPosition="left">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/primary_dark"
+            app:fab_colorPressed="@color/jet"
+            app:fab_icon="@mipmap/ic_launcher"
+            app:fab_plusIconColor="@color/primary_darker"
+            app:fab_size="mini"
+            app:fab_title="Events" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/primary_dark"
+            app:fab_colorPressed="@color/jet"
+            app:fab_icon="@mipmap/ic_launcher"
+            app:fab_plusIconColor="@color/primary_darker"
+            app:fab_size="mini"
+            app:fab_title="Photographs" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_others"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/primary_dark"
+            app:fab_colorPressed="@color/jet"
+            app:fab_icon="@mipmap/ic_launcher"
+            app:fab_plusIconColor="@color/primary_darker"
+            app:fab_size="mini"
+            app:fab_title="Others" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/oil" />
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>
