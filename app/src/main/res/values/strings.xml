@@ -16,6 +16,7 @@
     <string name="powered_lucidleanlabs">Powered by Lucid Lean Labs.</string>
     <string name="title_activity_main">MainActivity</string>
 
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_settings">Preferences</string>
@@ -95,6 +96,12 @@
     <string name="signup_chance">You Still can Signup, Click here</string>
     <string name="return_to_login">Return back to the login Screen</string>
 
+    <!--Strings related to Price and Discount-->
+
+    <string name="price">Price</string>
+    <string name="discount">Discount</string>
+
+
 
     <!--Strings related to About us page-->
 
@@ -106,7 +113,7 @@
                               This product will let the vendor/manufacturer to have his own android mobile application in the android app store, which will let him have more exposure to the rest of the country aswellas the world if possible and the greatest exposure to the market. This android app will have the capability of augmenting the furniture into the real world physically, as in when the user/customer places the pattern at the right place as per the instructions. This product also lets the users/customers to reach out to the vendor/manufacturer instantly using a feedback form for each article provided in the catalogue if he/she needs a customized furniture. The vendor will be able to choose this option while product development depending upon his/hers selling forte is static designer products or customized manufacturing.</string>
 
     <string name="Definition">The L – Catalog is an Augmented reality (AR) catalogue which helps the furniture manufacturers/vendors to deliver the user/customer the furniture portably in the form of a pattern printed on a paper. Each manufacturer/vendor will be having an android application of his own in the android play store, which lets the user/ customer when installed this app on his/her android phone to scan the pattern provided by the manufacturer/vendor sticking it on the walls as per the instructions provided behind the pattern. For example, the instructions behind says 2ft above the surface/floor where you exactly want the furniture (if it is 4ft tall) to place inside your house. This process lets the user/customer to get the feel of the furniture, without placing the furniture at the required place physically.</string>
-
+    <string name="switch_view">Switch view</string>
 
 
 </resources>
