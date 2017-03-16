@@ -19,57 +19,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    // Binding Application Name for Font Setting
-    @Bind(R.id.application_name)
-    TextView app_name;
-    //Binding UserName and the Area
-    @Bind(R.id.area_input_name)
-    TextInputLayout area_nameText;
-    @Bind(R.id.input_name)
-    EditText _nameText;
-    //Binding mobile Number and the Area
-    @Bind(R.id.area_input_mobile)
-    TextInputLayout area_mobileText;
-    @Bind(R.id.input_mobile)
-    EditText _mobileText;
-    //Bindind Login Button
-    @Bind(R.id.btn_login)
-    Button _loginButton;
-    //Binding Signup Field
-    @Bind(R.id.link_signup)
-    TextView _signupLink;
-    //Binding Return to Login Screen Text Field
-    @Bind(R.id.return_to_login)
-    TextView _returnToLogin;
-    //Binding Guest Login Button
-    @Bind(R.id.btn_guest)
-    Button _guestLoginButton;
-    //Binding Email Text Field and the area
-    @Bind(R.id.area_input_email)
-    TextInputLayout area_emailText;
-    @Bind(R.id.input_email)
-    EditText _emailText;
-    //Binding Password Input Field and the Area
-    @Bind(R.id.area_input_password)
-    TextInputLayout area_passwordText;
-    @Bind(R.id.input_password)
-    EditText _passwordText;
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
 
+        TextView app_name = (TextView) findViewById(R.id.application_name);
+        Button _loginButton = (Button) findViewById(R.id.btn_login);
+        TextView _returnToLogin = (TextView) findViewById(R.id.return_to_login);
+        final Button _guestLoginButton = (Button) findViewById(R.id.btn_guest);
+        TextView _signupLink = (TextView) findViewById(R.id.link_signup);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         app_name.setTypeface(custom_font);
@@ -169,6 +133,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public void convert_view_guest() {
 
+        TextInputLayout area_nameText = (TextInputLayout) findViewById(R.id.area_input_name);
+        TextInputLayout area_mobileText = (TextInputLayout) findViewById(R.id.area_input_mobile);
+        TextInputLayout area_emailText = (TextInputLayout) findViewById(R.id.area_input_email);
+        TextInputLayout area_passwordText = (TextInputLayout) findViewById(R.id.area_input_password);
+        Button _loginButton = (Button) findViewById(R.id.btn_login);
+        TextView _returnToLogin = (TextView) findViewById(R.id.return_to_login);
+
         area_emailText.setVisibility(View.GONE);
         area_passwordText.setVisibility(View.GONE);
         area_nameText.setVisibility(View.VISIBLE);
@@ -186,6 +157,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        Button _guestLoginButton = (Button) findViewById(R.id.btn_guest);
         _guestLoginButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
@@ -214,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
             onLoginFailed();
             return;
         }
-
+        Button _loginButton = (Button) findViewById(R.id.btn_login);
         _loginButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
@@ -222,6 +194,9 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
+
+        EditText _emailText = (EditText) findViewById(R.id.input_email);
+        EditText _passwordText = (EditText) findViewById(R.id.input_password);
 
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
@@ -273,11 +248,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginSuccess() {
+        Button _loginButton = (Button) findViewById(R.id.btn_login);
         _loginButton.setEnabled(true);
         finish();
     }
 
     public void onLoginFailed() {
+        Button _loginButton = (Button) findViewById(R.id.btn_login);
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
         _loginButton.setEnabled(true);
@@ -285,6 +262,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean validateGuest() {
         boolean validGuest = true;
+
+        EditText _nameText = (EditText) findViewById(R.id.input_name);
+        EditText _mobileText = (EditText) findViewById(R.id.input_mobile);
 
         String name = _nameText.getText().toString();
         String mobile = _mobileText.getText().toString();
@@ -307,6 +287,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public boolean validate() {
+
+        EditText _emailText = (EditText) findViewById(R.id.input_email);
+        EditText _passwordText = (EditText) findViewById(R.id.input_password);
         boolean valid = true;
 
         String email = _emailText.getText().toString();

@@ -7,7 +7,4 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/item_menu_1"
-        android:title="@string/switch_view" />
 </menu>

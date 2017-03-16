@@ -8,17 +8,22 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,13 +119,65 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_catalog) {
 
-            Intent catalog = new Intent(this, CatalogViewActivity.class);
-            startActivity(catalog);
+            RecyclerView gridView = (RecyclerView) findViewById(R.id.grid_recycler);
+            gridView.setHasFixedSize(true);
+
+            GridLayoutManager gridManager = new GridLayoutManager(this, 2);
+            gridView.setLayoutManager(gridManager);
+            GridViewAdapter gridAdapter = new GridViewAdapter(this);
+            gridView.setAdapter(gridAdapter);
+
+
+            RelativeLayout grid_layout = (RelativeLayout) findViewById(R.id.grid_layout);
+            RelativeLayout horizontal_view = (RelativeLayout) findViewById(R.id.horizontal_layout);
+            RelativeLayout vertical_view = (RelativeLayout) findViewById(R.id.vertical_layout);
+
+            if(horizontal_view.getVisibility() == View.VISIBLE || vertical_view.getVisibility() == View.VISIBLE){
+                horizontal_view.setVisibility(View.GONE);
+                vertical_view.setVisibility(View.GONE);
+                grid_layout.setVisibility(View.VISIBLE);
+            }
 
         } else if (id == R.id.nav_gallery) {
 
+            RecyclerView horizontalList = (RecyclerView) findViewById(R.id.horizontal_recycler);
+            horizontalList.setHasFixedSize(true);
+
+            LinearLayoutManager horizontalManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            horizontalList.setLayoutManager(horizontalManager);
+            ListViewHorizontalAdapter horizontalAdapter = new ListViewHorizontalAdapter(this);
+            horizontalList.setAdapter(horizontalAdapter);
+
+            RelativeLayout grid_layout = (RelativeLayout) findViewById(R.id.grid_layout);
+            RelativeLayout horizontal_view = (RelativeLayout) findViewById(R.id.horizontal_layout);
+            RelativeLayout vertical_view = (RelativeLayout) findViewById(R.id.vertical_layout);
+
+            if(grid_layout.getVisibility() == View.VISIBLE || vertical_view.getVisibility() == View.VISIBLE){
+                grid_layout.setVisibility(View.GONE);
+                vertical_view.setVisibility(View.GONE);
+                horizontal_view.setVisibility(View.VISIBLE);
+            }
 
         } else if (id == R.id.nav_slideshow) {
+
+            RecyclerView verticalList = (RecyclerView) findViewById(R.id.vertical_recycler);
+            verticalList.setHasFixedSize(true);
+
+            LinearLayoutManager verticalManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            verticalList.setLayoutManager(verticalManager);
+            ListViewVerticalAdapter verticalAdapter = new ListViewVerticalAdapter(this);
+            verticalList.setAdapter(verticalAdapter);
+
+            RelativeLayout grid_layout = (RelativeLayout) findViewById(R.id.grid_layout);
+            RelativeLayout horizontal_view = (RelativeLayout) findViewById(R.id.horizontal_layout);
+            RelativeLayout vertical_view = (RelativeLayout) findViewById(R.id.vertical_layout);
+
+            if(grid_layout.getVisibility() == View.VISIBLE || horizontal_view.getVisibility() == View.VISIBLE){
+                grid_layout.setVisibility(View.GONE);
+                horizontal_view.setVisibility(View.GONE);
+                vertical_view.setVisibility(View.VISIBLE);
+            }
+
 
         } else if (id == R.id.nav_manage) {
 

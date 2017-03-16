@@ -16,47 +16,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
-
-
-
-
-    TextView app_name;
-
-    @Bind(R.id.input_name)
-    EditText _nameText;
-    @Bind(R.id.input_address)
-    EditText _addressText;
-    @Bind(R.id.input_email)
-    EditText _emailText;
-    @Bind(R.id.input_mobile)
-    EditText _mobileText;
-    @Bind(R.id.input_password)
-    EditText _passwordText;
-    @Bind(R.id.input_reEnterPassword)
-    EditText _reEnterPasswordText;
-    @Bind(R.id.btn_signup)
-    Button _signupButton;
-    @Bind(R.id.link_login)
-    TextView _loginLink;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        ButterKnife.bind(this);
 
 
-        app_name = (TextView) findViewById(R.id.application_name);
-
+        TextView app_name = (TextView) findViewById(R.id.application_name);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         app_name.setTypeface(custom_font);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        Button _signupButton = (Button) findViewById(R.id.btn_signup);
+        TextView _loginLink = (TextView) findViewById(R.id.link_login);
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +60,14 @@ public class SignupActivity extends AppCompatActivity {
             onSignupFailed();
             return;
         }
+
+        EditText _nameText = (EditText) findViewById(R.id.input_name);
+        EditText _addressText = (EditText) findViewById(R.id.input_address);
+        EditText _emailText = (EditText) findViewById(R.id.input_email);
+        EditText _mobileText = (EditText) findViewById(R.id.input_mobile);
+        EditText _passwordText = (EditText) findViewById(R.id.input_password);
+        EditText _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
+        Button _signupButton = (Button) findViewById(R.id.btn_signup);
 
         _signupButton.setEnabled(false);
 
@@ -116,6 +100,8 @@ public class SignupActivity extends AppCompatActivity {
 
 
     public void onSignupSuccess() {
+
+        Button _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
@@ -124,6 +110,7 @@ public class SignupActivity extends AppCompatActivity {
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "SignUp failed", Toast.LENGTH_LONG).show();
 
+        Button _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
     }
 
@@ -150,6 +137,13 @@ public class SignupActivity extends AppCompatActivity {
 
     public boolean validate() {
         boolean valid = true;
+
+        EditText _nameText = (EditText) findViewById(R.id.input_name);
+        EditText _addressText = (EditText) findViewById(R.id.input_address);
+        EditText _emailText = (EditText) findViewById(R.id.input_email);
+        EditText _mobileText = (EditText) findViewById(R.id.input_mobile);
+        EditText _passwordText = (EditText) findViewById(R.id.input_password);
+        EditText _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
 
         String name = _nameText.getText().toString();
         String address = _addressText.getText().toString();
