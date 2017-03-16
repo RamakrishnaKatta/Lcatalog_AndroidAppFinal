@@ -1,53 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#d1d1d1"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="56dp"
-            android:layout_height="35dp"
-            android:layout_gravity="end"
-            android:layout_weight="0.02"
-            android:background="@drawable/list" />
-
-        <LinearLayout
+        <GridView
+            android:id="@+id/custom_gridview"
             android:layout_width="fill_parent"
-            android:layout_height="450dp"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal">
-
-            <GridView
-                android:id="@+id/mygridview"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:columnWidth="110dp"
-                android:gravity="center|bottom"
-                android:horizontalSpacing="5dp"
-                android:numColumns="3"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:stretchMode="spacingWidth"
-                android:verticalSpacing="5dp"
-                android:visibility="visible" />
-        </LinearLayout>
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:columnWidth="110dp"
+            android:gravity="center|bottom"
+            android:horizontalSpacing="5dp"
+            android:numColumns="3"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:stretchMode="spacingWidth"
+            android:verticalSpacing="5dp"
+            android:visibility="visible" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="180dp"
-        android:layout_height="62dp"
-        android:layout_weight="25.38"
-        android:text="  L-Catalog"
-        android:textSize="25dp" />
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

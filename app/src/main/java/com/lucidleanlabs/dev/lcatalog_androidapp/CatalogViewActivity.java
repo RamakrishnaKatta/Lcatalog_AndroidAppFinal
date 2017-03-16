@@ -40,8 +40,8 @@ public class CatalogViewActivity extends AppCompatActivity {
         stubList.inflate();
         stubGrid.inflate();
 
-        listView = (ListView) findViewById(R.id.mylistview);
-        gridView = (GridView) findViewById(R.id.mygridview);
+        listView = (ListView) findViewById(R.id.custom_listview);
+        gridView = (GridView) findViewById(R.id.custom_gridview);
 
         //get list of product
         getProductList();
@@ -75,10 +75,10 @@ public class CatalogViewActivity extends AppCompatActivity {
 
     private void setAdapters() {
         if (VIEW_MODE_LISTVIEW == currentViewMode) {
-            Custom_ListViewAdapter listViewAdapter = new Custom_ListViewAdapter(this, R.layout.custom_listitem, productList);
+            Custom_ListViewAdapter listViewAdapter = new Custom_ListViewAdapter(this, R.layout.custom_item, productList);
             listView.setAdapter(listViewAdapter);
         } else {
-            Custom_GridViewAdapter gridViewAdapter = new Custom_GridViewAdapter(this, R.layout.custom_griditem, productList);
+            Custom_GridViewAdapter gridViewAdapter = new Custom_GridViewAdapter(this, R.layout.custom_item, productList);
             gridView.setAdapter(gridViewAdapter);
         }
     }
@@ -87,7 +87,7 @@ public class CatalogViewActivity extends AppCompatActivity {
         //pseudo code to get product, replace your code to get real product here
         productList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            productList.add(new Product(R.drawable.icon_android, "Price", "Discount"));
+            productList.add(new Product(R.drawable.dummy_icon, "Price", "Discount"));
         }
 
         return productList;

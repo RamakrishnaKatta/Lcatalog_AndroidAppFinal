@@ -22,6 +22,9 @@ import butterknife.ButterKnife;
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
 
+
+
+
     TextView app_name;
 
     @Bind(R.id.input_name)
