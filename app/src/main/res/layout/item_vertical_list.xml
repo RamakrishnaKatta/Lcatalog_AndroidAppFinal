@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp">
 
     <RelativeLayout
         android:id="@+id/container"
@@ -14,15 +15,14 @@
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:contentDescription="@string/app_name"
-            android:padding="5dp"
-            android:src="@drawable/odd" />
+            android:src="@drawable/dummy_icon" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="30dp"
             android:layout_toRightOf="@+id/image"
+            android:paddingTop="30dp"
             android:text="@string/app_name"
             android:textColor="@color/primary_dark"
             android:textStyle="bold" />
@@ -31,8 +31,8 @@
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="50dp"
             android:layout_toRightOf="@+id/image"
+            android:paddingTop="50dp"
             android:text="This is my description."
             android:textColor="@color/primary_dark" />
 

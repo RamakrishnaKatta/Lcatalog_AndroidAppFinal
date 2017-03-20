@@ -20,6 +20,9 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.lucidleanlabs.dev.lcatalog_androidapp.adapters.GridViewAdapter;
+import com.lucidleanlabs.dev.lcatalog_androidapp.adapters.ListViewHorizontalAdapter;
+import com.lucidleanlabs.dev.lcatalog_androidapp.adapters.ListViewVerticalAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -119,63 +122,56 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_catalog) {
 
-            RecyclerView gridView = (RecyclerView) findViewById(R.id.grid_recycler);
-            gridView.setHasFixedSize(true);
+            RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
+            RecyclerView vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);
+            RecyclerView grid_recycler = (RecyclerView) findViewById(R.id.grid_recycler);
+            grid_recycler.setHasFixedSize(true);
 
             GridLayoutManager gridManager = new GridLayoutManager(this, 2);
-            gridView.setLayoutManager(gridManager);
+            grid_recycler.setLayoutManager(gridManager);
             GridViewAdapter gridAdapter = new GridViewAdapter(this);
-            gridView.setAdapter(gridAdapter);
+            grid_recycler.setAdapter(gridAdapter);
 
-
-            RelativeLayout grid_layout = (RelativeLayout) findViewById(R.id.grid_layout);
-            RelativeLayout horizontal_view = (RelativeLayout) findViewById(R.id.horizontal_layout);
-            RelativeLayout vertical_view = (RelativeLayout) findViewById(R.id.vertical_layout);
-
-            if(horizontal_view.getVisibility() == View.VISIBLE || vertical_view.getVisibility() == View.VISIBLE){
-                horizontal_view.setVisibility(View.GONE);
-                vertical_view.setVisibility(View.GONE);
-                grid_layout.setVisibility(View.VISIBLE);
+            if (horizontal_recycler.getVisibility() == View.VISIBLE || vertical_recycler.getVisibility() == View.VISIBLE) {
+                horizontal_recycler.setVisibility(View.GONE);
+                vertical_recycler.setVisibility(View.GONE);
+                grid_recycler.setVisibility(View.VISIBLE);
             }
 
         } else if (id == R.id.nav_gallery) {
 
-            RecyclerView horizontalList = (RecyclerView) findViewById(R.id.horizontal_recycler);
-            horizontalList.setHasFixedSize(true);
+            RecyclerView grid_recycler = (RecyclerView) findViewById(R.id.grid_recycler);
+            RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
+            RecyclerView vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);
+            horizontal_recycler.setHasFixedSize(true);
 
             LinearLayoutManager horizontalManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-            horizontalList.setLayoutManager(horizontalManager);
+            horizontal_recycler.setLayoutManager(horizontalManager);
             ListViewHorizontalAdapter horizontalAdapter = new ListViewHorizontalAdapter(this);
-            horizontalList.setAdapter(horizontalAdapter);
+            horizontal_recycler.setAdapter(horizontalAdapter);
 
-            RelativeLayout grid_layout = (RelativeLayout) findViewById(R.id.grid_layout);
-            RelativeLayout horizontal_view = (RelativeLayout) findViewById(R.id.horizontal_layout);
-            RelativeLayout vertical_view = (RelativeLayout) findViewById(R.id.vertical_layout);
-
-            if(grid_layout.getVisibility() == View.VISIBLE || vertical_view.getVisibility() == View.VISIBLE){
-                grid_layout.setVisibility(View.GONE);
-                vertical_view.setVisibility(View.GONE);
-                horizontal_view.setVisibility(View.VISIBLE);
+            if (grid_recycler.getVisibility() == View.VISIBLE || vertical_recycler.getVisibility() == View.VISIBLE) {
+                grid_recycler.setVisibility(View.GONE);
+                vertical_recycler.setVisibility(View.GONE);
+                horizontal_recycler.setVisibility(View.VISIBLE);
             }
 
         } else if (id == R.id.nav_slideshow) {
 
-            RecyclerView verticalList = (RecyclerView) findViewById(R.id.vertical_recycler);
-            verticalList.setHasFixedSize(true);
+            RecyclerView grid_recycler = (RecyclerView) findViewById(R.id.grid_recycler);
+            RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
+            RecyclerView vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);
+            vertical_recycler.setHasFixedSize(true);
 
             LinearLayoutManager verticalManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            verticalList.setLayoutManager(verticalManager);
+            vertical_recycler.setLayoutManager(verticalManager);
             ListViewVerticalAdapter verticalAdapter = new ListViewVerticalAdapter(this);
-            verticalList.setAdapter(verticalAdapter);
+            vertical_recycler.setAdapter(verticalAdapter);
 
-            RelativeLayout grid_layout = (RelativeLayout) findViewById(R.id.grid_layout);
-            RelativeLayout horizontal_view = (RelativeLayout) findViewById(R.id.horizontal_layout);
-            RelativeLayout vertical_view = (RelativeLayout) findViewById(R.id.vertical_layout);
-
-            if(grid_layout.getVisibility() == View.VISIBLE || horizontal_view.getVisibility() == View.VISIBLE){
-                grid_layout.setVisibility(View.GONE);
-                horizontal_view.setVisibility(View.GONE);
-                vertical_view.setVisibility(View.VISIBLE);
+            if (grid_recycler.getVisibility() == View.VISIBLE || horizontal_recycler.getVisibility() == View.VISIBLE) {
+                grid_recycler.setVisibility(View.GONE);
+                horizontal_recycler.setVisibility(View.GONE);
+                vertical_recycler.setVisibility(View.VISIBLE);
             }
 
 

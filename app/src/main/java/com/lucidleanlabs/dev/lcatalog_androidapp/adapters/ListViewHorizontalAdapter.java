@@ -1,4 +1,4 @@
-package com.lucidleanlabs.dev.lcatalog_androidapp;
+package com.lucidleanlabs.dev.lcatalog_androidapp.adapters;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHorizontalAdapter.ViewHolder> {
+import com.lucidleanlabs.dev.lcatalog_androidapp.R;
+
+public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHorizontalAdapter.ViewHolder> {
 
     private Activity activity;
 
-    ListViewHorizontalAdapter(Activity activity) {
+    public ListViewHorizontalAdapter(Activity activity) {
         this.activity = activity;
     }
 
