@@ -2,6 +2,7 @@ package com.lucidleanlabs.dev.lcatalog_androidapp;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHolder> {
 
     private Activity activity;
+    private Context mcontext;
 
     public GridViewAdapter(Activity activity) {
         this.activity = activity;

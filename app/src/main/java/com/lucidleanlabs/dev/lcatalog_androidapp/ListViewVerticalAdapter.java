@@ -1,6 +1,8 @@
 package com.lucidleanlabs.dev.lcatalog_androidapp;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVerticalAdapter.ViewHolder> {
+import static android.support.v4.content.ContextCompat.startActivity;
+
+public class  ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVerticalAdapter.ViewHolder> {
 
     private Activity activity;
 
@@ -26,7 +30,7 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         if ((position + 1) % 2 == 0) {
             viewHolder.imageView.setImageResource(R.drawable.even);
         } else {
@@ -35,8 +39,11 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
         viewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity, "Position: " + position, Toast.LENGTH_SHORT).show();
+
+//                Toast.makeText(activity, "Position: " + position, Toast.LENGTH_SHORT).show();
+
             }
+
         });
     }
 
@@ -48,14 +55,29 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
     /**
      * View holder to display each RecylerView item
      */
-    protected class ViewHolder extends RecyclerView.ViewHolder {
+    protected class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView imageView;
         private RelativeLayout container;
+        private final Context context;
 
-        public ViewHolder(View view) {
-            super(view);
-            imageView = (ImageView) view.findViewById(R.id.image);
-            container = (RelativeLayout) view.findViewById(R.id.container);
+        public ViewHolder(View itemView) {
+            super(itemView);
+            context = itemView.getContext();
+            imageView = (ImageView) itemView.findViewById(R.id.image);
+            container = (RelativeLayout) itemView.findViewById(R.id.container);
+            itemView.setClickable(true);
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+
+
+            Intent intent = new Intent(context,ProductPage.class);
+              context.startActivity(intent);
+
+
         }
 
     }

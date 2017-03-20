@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:layout_margin="10dp"
+     android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/dummy_icon"
+                android:id="@+id/product_image"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <ImageButton
+                android:id="@+id/augment_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/odd"
+                android:layout_alignParentBottom="true"
+                android:layout_alignEnd="@+id/share_icon" />
+
+            <ImageButton
+                android:id="@+id/view_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/imageView"
+                android:layout_alignParentBottom="true"
+                app:srcCompat="@drawable/even" />
+
+            <ImageButton
+                android:id="@+id/fav_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                app:srcCompat="@mipmap/ic_launcher"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/share_icon" />
+
+            <ImageButton
+                android:id="@+id/share_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_menu_share"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="22dp" />
+        </RelativeLayout>
+
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_margin="10dp"
+         android:orientation="vertical">
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_gravity="center_horizontal|center_vertical|left"
+             android:layout_height="wrap_content"
+             android:orientation="vertical">
+
+             <TextView
+                 android:id="@+id/title_text"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="TITLE : "
+                 android:textColor="#000000"
+                 android:textSize="16sp"
+                 android:textStyle="bold" />
+
+             <TextView
+                 android:id="@+id/title_display"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="3dp"
+                 android:textSize="14sp"
+                 android:hint="please display the text here............"
+                 android:textColor="#000000"
+                 android:maxLength="50" />
+         </LinearLayout>
+
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_horizontal|center_vertical|left"
+             android:layout_marginTop="5dp"
+             android:orientation="vertical">
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/description_text"
+                 android:text="DESCRIPTION :"
+                 android:textColor="#000000"
+                 android:textSize="16sp"
+                 android:textStyle="bold"/>
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/description_display"
+                 android:textColor="#000000"
+                 android:textSize="14sp"
+                 android:hint="description of the product will be displayed here and also the the related products "
+                 android:maxLength="200"/>
+         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pricetext"
+                android:text="PRICE : "
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000000" />
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/price_icon"
+                    android:src="@drawable/greyrupee"
+                    android:drawingCacheQuality="high"
+                    android:layout_gravity="center">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint=" price value"
+                    android:id="@+id/price_display"
+                    android:textColor="#000000"
+                    android:textSize="14sp"/>
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+     </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+</android.support.v7.widget.CardView>
