@@ -1,6 +1,8 @@
 package com.lucidleanlabs.dev.lcatalog_androidapp.adapters;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.lucidleanlabs.dev.lcatalog_androidapp.ProductPage;
 import com.lucidleanlabs.dev.lcatalog_androidapp.R;
 
 public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHorizontalAdapter.ViewHolder> {
@@ -28,9 +31,18 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
 
     @Override
     public void onBindViewHolder(ListViewHorizontalAdapter.ViewHolder viewHolder, final int position) {
+
+        final Context[] context = new Context[1];
+
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                context[0] = v.getContext();
+
+                Intent intent = new Intent(context[0], ProductPage.class);
+                context[0].startActivity(intent);
+
                 Toast.makeText(activity, "Position clicked: " + position, Toast.LENGTH_SHORT).show();
             }
         });

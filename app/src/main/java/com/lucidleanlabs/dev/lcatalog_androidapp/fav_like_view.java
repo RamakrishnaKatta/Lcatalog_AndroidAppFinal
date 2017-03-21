@@ -21,26 +21,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 
-
 public class fav_like_view extends FrameLayout implements View.OnClickListener {
     private static final DecelerateInterpolator DECCELERATE_INTERPOLATOR = new DecelerateInterpolator();
     private static final AccelerateDecelerateInterpolator ACCELERATE_DECELERATE_INTERPOLATOR = new AccelerateDecelerateInterpolator();
     private static final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4);
 
 
-
-
-    ImageView heart_button =(ImageView)findViewById(R.id.heart_button);
-
-
-    @Bind(R.id.vDotsView)
-    fav_Dots vDotsView;
-    @Bind(R.id.vCircleView)
-    fav_circle vCircleView;
-
     private boolean isChecked;
     private AnimatorSet animatorSet;
-
 
     public fav_like_view(@NonNull Context context) {
         super(context);
@@ -57,14 +45,11 @@ public class fav_like_view extends FrameLayout implements View.OnClickListener {
         init();
     }
 
-
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public fav_like_view(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
-
 
     private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.view_favourite_button, this, true);
@@ -74,6 +59,10 @@ public class fav_like_view extends FrameLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        final ImageView heart_button = (ImageView) findViewById(R.id.heart_button);
+        final fav_Dots vDotsView = (fav_Dots) findViewById(R.id.vDotsView);
+        final fav_circle vCircleView = (fav_circle) findViewById(R.id.vCircleView);
+
         isChecked = !isChecked;
         heart_button.setImageResource(isChecked ? R.drawable.heart_on : R.drawable.heart_off);
 
@@ -85,6 +74,7 @@ public class fav_like_view extends FrameLayout implements View.OnClickListener {
             heart_button.animate().cancel();
             heart_button.setScaleX(0);
             heart_button.setScaleY(0);
+
             vCircleView.setInnerCircleRadiusProgress(0);
             vCircleView.setOuterCircleRadiusProgress(0);
             //  vDotsView.setCurrentProgress(0);
@@ -140,6 +130,9 @@ public class fav_like_view extends FrameLayout implements View.OnClickListener {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+        ImageView heart_button = (ImageView) findViewById(R.id.heart_button);
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 heart_button.animate().scaleX(0.7f).scaleY(0.7f).setDuration(150).setInterpolator(DECCELERATE_INTERPOLATOR);

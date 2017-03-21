@@ -1,16 +1,11 @@
 package com.lucidleanlabs.dev.lcatalog_androidapp;
 
-/**
- * Created by ramky on 17-03-2017.
- */
-
-public class Utils {
-    public static double mapValueFromRangeToRange(double value,double fromLow,double fromHigh,double toLow, double toHigh)
-    {
+class Utils {
+    static double mapValueFromRangeToRange(double value, double fromLow, double fromHigh, double toLow, double toHigh) {
         return toLow + ((value - fromLow) / (fromHigh - fromLow) * (toHigh - toLow));
-
     }
-    public static double clamp(double value, double low, double high){
-        return Math.min(Math.max(value, low),high);
+
+    static double clamp(double value, double low, double high) {
+        return Math.min(Math.max(value, low), high);
     }
 }

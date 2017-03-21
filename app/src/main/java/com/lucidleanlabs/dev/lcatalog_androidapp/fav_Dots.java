@@ -9,15 +9,12 @@ import android.util.AttributeSet;
 import android.util.Property;
 import android.view.View;
 
-/**
- * Created by ramky on 17-03-2017.
- */
 
-public class fav_Dots extends View{
+public class fav_Dots extends View {
 
 
     private static final int DOTS_COUNT = 7;
-    private static final int OUTER_DOTS_POSITION_ANGLE = 360 /DOTS_COUNT;
+    private static final int OUTER_DOTS_POSITION_ANGLE = 360 / DOTS_COUNT;
 
 
     private static final int COLOR_1 = 0xFFFFC107;
@@ -70,8 +67,7 @@ public class fav_Dots extends View{
 
 
     private void init() {
-        for (int i=0; i<circlePaints.length;i++)
-        {
+        for (int i = 0; i < circlePaints.length; i++) {
             circlePaints[i] = new Paint();
             circlePaints[i].setStyle(Paint.Style.FILL);
         }

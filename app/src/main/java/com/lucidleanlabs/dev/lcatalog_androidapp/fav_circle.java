@@ -20,7 +20,6 @@ public class fav_circle extends View {
     private ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
 
-
     private Paint circlePaint = new Paint();
     private Paint maskPaint = new Paint();
 
@@ -33,12 +32,10 @@ public class fav_circle extends View {
     private int maxCircleSize;
 
 
-
     public fav_circle(Context context) {
         super(context);
         init();
     }
-
 
 
     public fav_circle(Context context, @Nullable AttributeSet attrs) {
@@ -60,6 +57,7 @@ public class fav_circle extends View {
         circlePaint.setStyle(Paint.Style.FILL);
         maskPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
     }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -128,41 +126,6 @@ public class fav_circle extends View {
                 }
             };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //    private static final int START_COLOR = 0xFFFF5722;
