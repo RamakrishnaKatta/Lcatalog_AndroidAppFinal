@@ -64,7 +64,7 @@ public class fav_like_view extends FrameLayout implements View.OnClickListener {
         final fav_circle vCircleView = (fav_circle) findViewById(R.id.vCircleView);
 
         isChecked = !isChecked;
-        heart_button.setImageResource(isChecked ? R.drawable.heart_on : R.drawable.heart_off);
+        heart_button.setImageResource(isChecked ? R.mipmap.ic_heart_off : R.mipmap.ic_heart_on);
 
         if (animatorSet != null) {
             animatorSet.cancel();

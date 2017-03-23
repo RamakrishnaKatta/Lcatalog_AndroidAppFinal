@@ -5,14 +5,31 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:paddingTop="50dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
+            android:background="@drawable/background"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -29,43 +46,40 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="@color/primary_darker"
+                android:weightSum="4">
 
-                <FrameLayout
-                    xmlns:tools="http://schemas.android.com/tools"
+                <com.lucidleanlabs.dev.lcatalog_androidapp.fav_like_view xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:context="com.lucidleanlabs.dev.lcatalog_androidapp.ProductPage">
-
-                    <com.lucidleanlabs.dev.lcatalog_androidapp.fav_like_view
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
-
-                </FrameLayout>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    tools:context="com.lucidleanlabs.dev.lcatalog_androidapp.ProductPage" />
 
                 <ImageButton
                     android:id="@+id/share_icon"
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_menu_share" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@mipmap/ic_menu_share" />
 
                 <ImageButton
                     android:id="@+id/augment_icon"
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_menu_camera" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@mipmap/ic_3d" />
 
                 <ImageButton
                     android:id="@+id/view_icon"
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_menu_gallery" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="AUGMENT"
+                    app:srcCompat="@mipmap/ic_augment" />
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TITLE : "
-                        android:textColor="#000000"
+                        android:textColor="#FFFFFF"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -93,9 +107,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:hint="please display the text here............"
                         android:maxLength="50"
-                        android:textColor="#000000"
+                        android:text="please display the text here............"
+                        android:textColor="#FFFFFF"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -112,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="DESCRIPTION :"
-                        android:textColor="#000000"
+                        android:textColor="#FFFFFF"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -120,9 +134,9 @@
                         android:id="@+id/description_display"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="description of the product will be displayed here and also the the related products "
                         android:maxLength="200"
-                        android:textColor="#000000"
+                        android:text="description of the product will be displayed here and also the the related products "
+                        android:textColor="#FFFFFF"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -143,7 +157,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="PRICE : "
-                            android:textColor="#000000"
+                            android:textColor="#FFFFFF"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -160,7 +174,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint=" price value"
-                            android:textColor="#000000"
+                            android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
 
@@ -177,7 +191,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint=" description of the product will be displayed here and also the the related products "
-                            android:textColor="#000000"
+                            android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
                         <TextView
@@ -185,7 +199,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint=" description of the product will be displayed here and also the the related products "
-                            android:textColor="#000000"
+                            android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
                         <TextView
@@ -193,7 +207,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint=" description of the product will be displayed here and also the the related products "
-                            android:textColor="#000000"
+                            android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
 

@@ -35,7 +35,7 @@
         <item name="colorPrimary">@color/primary</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -45,7 +45,7 @@
     </style>
 
     <style name="menu_labels_style">
-        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:background">#FFFFFF</item>
         <item name="android:textColor">@color/secondary_text</item>
     </style>
 
