@@ -114,6 +114,15 @@
     <string name="Definition">The L – Catalog is an Augmented reality (AR) catalogue which helps the furniture manufacturers/vendors to deliver the user/customer the furniture portably in the form of a pattern printed on a paper. Each manufacturer/vendor will be having an android application of his own in the android play store, which lets the user/ customer when installed this app on his/her android phone to scan the pattern provided by the manufacturer/vendor sticking it on the walls as per the instructions provided behind the pattern. For example, the instructions behind says 2ft above the surface/floor where you exactly want the furniture (if it is 4ft tall) to place inside your house. This process lets the user/customer to get the feel of the furniture, without placing the furniture at the required place physically.</string>
     <string name="switch_view">Switch view</string>
     <string name="title_activity_catalog">CatalogActivity</string>
+    <string name="start">START</string>
+    <string name="next">NEXT</string>
+    <string name="play_again_desc"><![CDATA[To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data]]></string>
+    <string name="play_again">play_again</string>
+    <string name="skip">SKIP</string>
+    <string name="_3d_description">This feature lets you rotate you object in and around, to get a clear picture what you are exactly buying</string>
+    <string name="_3d_text">360 Deg Object Rotation</string>
+    <string name="_augment_desc">Augment will let you see the object choosen by you augmented into the real world.</string>
+    <string name="_augment_text">AUGMENT</string>
 
 
 </resources>

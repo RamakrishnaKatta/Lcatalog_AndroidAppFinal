@@ -18,4 +18,18 @@
     <color name="secondary_text">#727272</color>
     <color name="white_overlay">#F3F3F3</color>
     <color name="accent_dark">#004D40</color>
+
+    <array name="array_dot_active">
+        <item>@color/primary_darker</item>
+        <item>@color/primary_darker</item>
+        <item>@color/primary_darker</item>
+        <item>@color/primary_darker</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+        <item>@color/white</item>
+    </array>
 </resources>
