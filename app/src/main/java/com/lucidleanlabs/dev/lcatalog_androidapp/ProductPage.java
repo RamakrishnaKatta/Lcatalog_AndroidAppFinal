@@ -1,5 +1,6 @@
 package com.lucidleanlabs.dev.lcatalog_androidapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,6 +59,14 @@ public class ProductPage extends AppCompatActivity {
         TextView pricedisplay = (TextView) findViewById(R.id.price_display);
         ImageView priceicon = (ImageView) findViewById(R.id.price_icon);
 
+
+        augment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(ProductPage.this,AugmentActivity.class);
+                startActivity(intent);
+            }
+        });
 
         init();
 
