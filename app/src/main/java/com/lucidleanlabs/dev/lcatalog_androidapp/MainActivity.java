@@ -14,11 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.lucidleanlabs.dev.lcatalog_androidapp.adapters.GridViewAdapter;
 import com.lucidleanlabs.dev.lcatalog_androidapp.adapters.ListViewHorizontalAdapter;
 import com.lucidleanlabs.dev.lcatalog_androidapp.adapters.ListViewVerticalAdapter;
@@ -31,9 +28,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,39 +47,6 @@ public class MainActivity extends AppCompatActivity
                 finish();
             }
         });
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-        final FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame_layout);
-        frameLayout.getBackground().setAlpha(0);
-        final FloatingActionsMenu fabMenu = (FloatingActionsMenu) findViewById(R.id.fab_menu);
-        fabMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
-            @Override
-            public void onMenuExpanded() {
-                frameLayout.getBackground().setAlpha(240);
-                frameLayout.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        fabMenu.collapse();
-                        return true;
-                    }
-                });
-            }
-
-            @Override
-            public void onMenuCollapsed() {
-                frameLayout.getBackground().setAlpha(0);
-                frameLayout.setOnTouchListener(null);
-            }
-        });
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -139,64 +100,23 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_catalog) {
 
-            RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
-            RecyclerView vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);
-            RecyclerView grid_recycler = (RecyclerView) findViewById(R.id.grid_recycler);
-            grid_recycler.setHasFixedSize(true);
+            Intent intent = new Intent(this, CatalogActivity.class);
+            startActivity(intent);
 
-            GridLayoutManager gridManager = new GridLayoutManager(this, 2);
-            grid_recycler.setLayoutManager(gridManager);
-            GridViewAdapter gridAdapter = new GridViewAdapter(this);
-            grid_recycler.setAdapter(gridAdapter);
-
-            if (horizontal_recycler.getVisibility() == View.VISIBLE || vertical_recycler.getVisibility() == View.VISIBLE) {
-                horizontal_recycler.setVisibility(View.GONE);
-                vertical_recycler.setVisibility(View.GONE);
-                grid_recycler.setVisibility(View.VISIBLE);
-            }
+        } else if (id == R.id.nav_favourites) {
 
         } else if (id == R.id.nav_gallery) {
 
-            RecyclerView grid_recycler = (RecyclerView) findViewById(R.id.grid_recycler);
-            RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
-            RecyclerView vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);
-            horizontal_recycler.setHasFixedSize(true);
-
-            LinearLayoutManager horizontalManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-            horizontal_recycler.setLayoutManager(horizontalManager);
-            ListViewHorizontalAdapter horizontalAdapter = new ListViewHorizontalAdapter(this);
-            horizontal_recycler.setAdapter(horizontalAdapter);
-
-            if (grid_recycler.getVisibility() == View.VISIBLE || vertical_recycler.getVisibility() == View.VISIBLE) {
-                grid_recycler.setVisibility(View.GONE);
-                vertical_recycler.setVisibility(View.GONE);
-                horizontal_recycler.setVisibility(View.VISIBLE);
-            }
-
-        } else if (id == R.id.nav_slideshow) {
-
-            RecyclerView grid_recycler = (RecyclerView) findViewById(R.id.grid_recycler);
-            RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
-            RecyclerView vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);
-            vertical_recycler.setHasFixedSize(true);
-
-            LinearLayoutManager verticalManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            vertical_recycler.setLayoutManager(verticalManager);
-            ListViewVerticalAdapter verticalAdapter = new ListViewVerticalAdapter(this);
-            vertical_recycler.setAdapter(verticalAdapter);
-
-            if (grid_recycler.getVisibility() == View.VISIBLE || horizontal_recycler.getVisibility() == View.VISIBLE) {
-                grid_recycler.setVisibility(View.GONE);
-                horizontal_recycler.setVisibility(View.GONE);
-                vertical_recycler.setVisibility(View.VISIBLE);
-            }
-
-
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_sign_up) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
+
+        } else if (id == R.id.nav_about) {
+
+            Intent intent = new Intent(this, AboutUsActivity.class);
+            startActivity(intent);
 
         }
 

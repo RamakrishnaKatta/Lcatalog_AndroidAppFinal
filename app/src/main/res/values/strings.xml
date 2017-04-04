@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">L Catalog</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="create_account">Create Account</string>
     <string name="password">Password</string>
@@ -15,86 +14,13 @@
     <string name="l_catalog">L-Catalog</string>
     <string name="powered_lucidleanlabs">Powered by Lucid Lean Labs.</string>
     <string name="title_activity_main">MainActivity</string>
-
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_settings">Preferences</string>
-
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
-
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value" />
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
     <string name="enter_as_guest">Enter as Guest</string>
     <string name="signup_chance">You Still can Signup, Click here</string>
     <string name="return_to_login">Return back to the login Screen</string>
+
 
     <!--Strings related to Price and Discount-->
 
@@ -104,7 +30,6 @@
 
     <!--Strings related to About us page-->
 
-
     <string name="data">In this section, we provide a general description of the product, its purpose and functionality. We also explain how this product fits into the overall corporate product strategy. We will try to add the architecture diagram for some specific needs. L – Catalogue is a digital catalogue that helps the furniture manufacturers/vendors/interior designers to showcase the furniture in a much-enhanced way by generating a pattern for each individual product/article. The customers/users then can take the pattern home and try the product/article in an augmented way using the company specific android application available in the android app store. By this way, the user/customer gets the clear picture of whether the article/product fits as per his/her specifications in real world. L – Catalogue is an android application that constitute of 100 3D furniture models ~50 regular (mono fabric) designs. ~50 designs which had multiple fabrics. Each 3D furniture model is bound with a unique pattern. Each pattern will be provided with a set of instructions Like at what height the patter should be pasted on the wall from the surface. A camera screen that can recognize these patterns and augment into the real world This screen can recognize multiple patterns lessthan 10 i.e., it can augment 10 3D models on to the real world. Theses 3D objects are intractable as in Single Click displays the accurate dimensions of the object. Double click lets the user choose the fabrics, if exist. Long press opens the feedback message opens right below the object. The feedback screen lets the user to send a personal message to the vendor/ manufacturer if he/she needs a customization to the existing furniture object. Once submitted, the message will be tagged with the object ID as well as the User contact details, in case provided (One means is mandatory). Once the user scans the articles, the user will be able to take a screenshot of the screen in the image format which lets the user to share the image between multiple apps which is a native feature. The tricky part is to take a screen shot as if the furniture exists in the real * There will be a home button which shows the list of screenshots that were taken earlier using the L – Catalog app.</string>
     <string name="Catalogue">The goal of this product is to provide the opportunity to all the furniture vendors to deliver the customers the feel of having the furniture right in front of him/her without bringing the actual furniture home. This could bring down the availability cost at the store, manufacturing cost of the larger units drastically increases the customer -vendor interaction in a much-sophisticated way. Along with all these, think about the situation where the user takes the furniture home and feels the article doesn’t fit as he felt at the showroom and he/she as in the customer thinks of returning the product, L-Catalogue will eradicate this problem and the huge transportation cost that is involved in this process.</string>
     <string name="objectives">This product helps you reduce the transport cost, if managed, the manufacturing cost as well as the availability of the product in the store cost.
@@ -113,16 +38,19 @@
 
     <string name="Definition">The L – Catalog is an Augmented reality (AR) catalogue which helps the furniture manufacturers/vendors to deliver the user/customer the furniture portably in the form of a pattern printed on a paper. Each manufacturer/vendor will be having an android application of his own in the android play store, which lets the user/ customer when installed this app on his/her android phone to scan the pattern provided by the manufacturer/vendor sticking it on the walls as per the instructions provided behind the pattern. For example, the instructions behind says 2ft above the surface/floor where you exactly want the furniture (if it is 4ft tall) to place inside your house. This process lets the user/customer to get the feel of the furniture, without placing the furniture at the required place physically.</string>
     <string name="switch_view">Switch view</string>
-    <string name="title_activity_catalog">CatalogActivity</string>
+    <string name="title_activity_catalog">Catalog</string>
     <string name="start">START</string>
     <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+
     <string name="play_again_desc"><![CDATA[To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data]]></string>
     <string name="play_again">play_again</string>
-    <string name="skip">SKIP</string>
     <string name="_3d_description">This feature lets you rotate you object in and around, to get a clear picture what you are exactly buying</string>
     <string name="_3d_text">360 Deg Object Rotation</string>
-    <string name="_augment_desc">Augment will let you see the object choosen by you augmented into the real world.</string>
+    <string name="_augment_desc">Augment will let you see the object chosen by you augmented into the real world.</string>
     <string name="_augment_text">AUGMENT</string>
+    <string name="title_activity_aboutus">About Us</string>
+    <string name="slide3_desc">This feature lets you capture the surrounds after the objects are augmented. Also lets you share between the close ones.</string>
 
 
 </resources>

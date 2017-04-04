@@ -4,36 +4,38 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_catalog"
-            android:icon="@mipmap/ic_menu_camera"
+            android:icon="@mipmap/ic_catalog"
             android:title="Catalog" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@mipmap/ic_menu_gallery"
+            android:id="@+id/nav_favourites"
+            android:icon="@mipmap/ic_heart_off"
             android:title="Favourites" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_gallery"
             android:icon="@mipmap/ic_menu_slideshow"
             android:title="Sale" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@mipmap/ic_menu_manage"
             android:title="Information" />
+
     </group>
 
     <item android:title="Login Session">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_sign_up"
                 android:icon="@mipmap/ic_menu_share"
                 android:title="Sign Up" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_logout"
                 android:icon="@mipmap/ic_menu_send"
                 android:title="Logout" />
             <item
                 android:id="@+id/nav_about"
                 android:icon="@mipmap/ic_menu_about"
                 android:title="About" />
+
         </menu>
     </item>
 

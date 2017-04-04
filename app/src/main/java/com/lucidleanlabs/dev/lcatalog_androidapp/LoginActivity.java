@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+//                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
 
@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
-                overridePendingTransition(R.anim.push_left_out, R.anim.push_left_in);
+//                overridePendingTransition(R.anim.push_left_out, R.anim.push_left_in);
             }
         });
     }
@@ -189,8 +189,7 @@ public class LoginActivity extends AppCompatActivity {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
         _loginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
@@ -250,6 +249,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginSuccess() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
         _loginButton.setEnabled(true);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
         finish();
     }
 

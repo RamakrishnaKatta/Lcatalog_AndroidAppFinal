@@ -104,6 +104,10 @@ public class SignupActivity extends AppCompatActivity {
         Button _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
         finish();
     }
 
