@@ -15,7 +15,6 @@ import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.ErrorCallback;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PictureCallback;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -52,7 +51,6 @@ public class AugmentActivity extends ProductPage implements Callback,
     private boolean flashmode = false;
     private int rotation;
     ImageButton screenshot;
-    private Uri uri;
     private boolean previewRunning;
     ImageView imageView;
 
