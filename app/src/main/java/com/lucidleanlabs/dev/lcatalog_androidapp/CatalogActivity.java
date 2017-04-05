@@ -29,6 +29,7 @@ public class CatalogActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
+        gridView();
 
         final FloatingActionButton fab_grid = (FloatingActionButton) findViewById(R.id.fab_grid);
         final FloatingActionButton fab_vertical_list = (FloatingActionButton) findViewById(R.id.fab_vertical_list);
@@ -37,27 +38,31 @@ public class CatalogActivity extends AppCompatActivity {
         fab_grid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Snackbar.make(v, "You Choose Grid View", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+//                Snackbar.make(v, "You Choose Grid View", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 gridView();
+                fab_vertical_list.setSize(1);
+                fab_horizontal_list.setSize(1);
+                fab_grid.setSize(0);
             }
         });
 
         fab_vertical_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Snackbar.make(v, "You Choose Vertical List View", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 verticalRecyclerListView();
+                fab_vertical_list.setSize(0);
+                fab_horizontal_list.setSize(1);
+                fab_grid.setSize(1);
             }
         });
 
         fab_horizontal_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Snackbar.make(v, "You Choose Horizontal List View", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 horizontalRecyclerListView();
+                fab_vertical_list.setSize(1);
+                fab_horizontal_list.setSize(0);
+                fab_grid.setSize(1);
             }
         });
 

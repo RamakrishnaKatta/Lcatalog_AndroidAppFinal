@@ -23,27 +23,28 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_catalog" />
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_grid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="top|end"
         android:layout_margin="30dp"
         android:visibility="visible"
         app:backgroundTint="@color/monsoon"
+        app:fabSize="mini"
+        app:layout_anchorGravity="top"
         app:srcCompat="@mipmap/ic_grid_on" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_vertical_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|right|end"
+        android:layout_gravity="top"
         android:layout_margin="30dp"
         android:visibility="visible"
         app:backgroundTint="@color/monsoon"
+        app:fabSize="mini"
         app:layout_anchor="@id/fab_grid"
         app:layout_anchorGravity="top"
         app:srcCompat="@mipmap/ic_list" />
@@ -52,11 +53,14 @@
         android:id="@+id/fab_horizontal_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
+        android:layout_gravity="top"
         android:layout_margin="30dp"
         android:visibility="visible"
         app:backgroundTint="@color/monsoon"
+        app:fabSize="mini"
         app:layout_anchor="@id/fab_vertical_list"
         app:srcCompat="@mipmap/ic_grid_off" />
+
+    <include layout="@layout/content_catalog" />
 
 </android.support.design.widget.CoordinatorLayout>
