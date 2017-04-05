@@ -1,7 +1,6 @@
 package com.lucidleanlabs.dev.lcatalog_androidapp;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -140,8 +139,8 @@ public class ProductPage extends AppCompatActivity {
     private void addBottomDots(int currentPage) {
         dots = new TextView[slider_images.size()];
 
-//        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
-//        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
+        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
+        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
 
 
         ll_dots.removeAllViews();
@@ -150,14 +149,12 @@ public class ProductPage extends AppCompatActivity {
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml("&#8226;"));
             dots[i].setTextSize(35);
-            // dots[i].setTextColor(colorsInactive[currentPage]);
-            dots[i].setTextColor(Color.parseColor("#000000"));
+            dots[i].setTextColor(colorsInactive[currentPage]);
             ll_dots.addView(dots[i]);
         }
 
         if (dots.length > 0)
-            dots[currentPage].setTextColor(Color.parseColor("#FFFFFF"));
-        // dots[currentPage].setTextColor(colorsActive[currentPage]);
+        dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
 
 }
