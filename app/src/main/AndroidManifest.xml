@@ -1,46 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lucidleanlabs.dev.lcatalog_androidapp">
-
+    package="com.lucidleanlabs.dev.lcatalog">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera2" />
-
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+    <uses-feature android:name="android.hardware.camera2" />
+    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature android:glEsVersion="0x00010100" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
 
     <application
+        android:name=".ar.ARNativeApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name="com.lucidleanlabs.dev.lcatalog.LoginActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".SignupActivity"
+            android:name="com.lucidleanlabs.dev.lcatalog.SignupActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".ProductPage"
+            android:name="com.lucidleanlabs.dev.lcatalog.ProductPage"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.lucidleanlabs.dev.lcatalog.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AboutUsActivity"
+            android:name="com.lucidleanlabs.dev.lcatalog.AboutUsActivity"
             android:label="@string/title_activity_aboutus"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CatalogActivity"
+            android:name="com.lucidleanlabs.dev.lcatalog.CatalogActivity"
             android:label="@string/title_activity_catalog"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AugmentActivity"
+            android:name="com.lucidleanlabs.dev.lcatalog.AugmentActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name="com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name="com.lucidleanlabs.dev.lcatalog.WelcomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -49,7 +70,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
     </application>
 

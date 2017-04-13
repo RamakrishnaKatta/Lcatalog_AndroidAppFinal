@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lucidleanlabs.dev.lcatalog_androidapp.ProductPage">
+    tools:context="com.lucidleanlabs.dev.lcatalog.ProductPage">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -73,11 +73,11 @@
                 android:background="@color/primary_darker"
                 android:weightSum="4">
 
-                <com.lucidleanlabs.dev.lcatalog_androidapp.fav_like_view xmlns:tools="http://schemas.android.com/tools"
+                <com.lucidleanlabs.dev.lcatalog.fav_like_view xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    tools:context="com.lucidleanlabs.dev.lcatalog_androidapp.ProductPage" />
+                    tools:context="com.lucidleanlabs.dev.lcatalog.ProductPage" />
 
                 <ImageButton
                     android:id="@+id/share_icon"

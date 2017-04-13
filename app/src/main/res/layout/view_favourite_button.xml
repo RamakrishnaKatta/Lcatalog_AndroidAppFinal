@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.lucidleanlabs.dev.lcatalog_androidapp.fav_Dots
+    <com.lucidleanlabs.dev.lcatalog.fav_Dots
         android:id="@id/vDotsView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center" />
 
-    <com.lucidleanlabs.dev.lcatalog_androidapp.fav_circle
+    <com.lucidleanlabs.dev.lcatalog.fav_circle
         android:id="@id/vCircleView"
         android:layout_width="100dp"
         android:layout_height="100dp"
