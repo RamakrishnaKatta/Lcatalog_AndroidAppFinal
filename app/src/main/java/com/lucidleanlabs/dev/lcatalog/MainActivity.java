@@ -21,7 +21,7 @@ import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private static final int MY_PERMISSIONS_REQUEST_CAPTURE_CAMERA =10;
+    private static final int MY_PERMISSIONS_REQUEST_CAPTURE_CAMERA = 10;
 
 
     @Override
@@ -29,14 +29,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RequestPermissions();
 
-      RequestPermissions();
-
-
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
 
         findViewById(R.id.btn_play_again).setOnClickListener(new View.OnClickListener() {
@@ -55,9 +51,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-
-
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);

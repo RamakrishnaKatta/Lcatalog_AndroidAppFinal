@@ -33,11 +33,11 @@
 
         JNIEXPORT void JNICALL JNIFUNCTION_DEMO(demoInitialise(JNIEnv * env, jobject object)) {
 
-                const char *model0file = "Data/models/Porsche_911_GT3.obj";
+                const char *model0file = "Data/models/sofaa.obj";
                 const char *model1file = "Data/models/Ferrari_Modena_Spider.obj";
                 const char *model2file = "Data/models/BMW_X5_4.obj";
                 const char *model3file = "Data/models/BookShelf.obj";
-                const char *model4file = "Data/models/Sofa.obj";
+                const char *model4file = "Data/models/Porsche_911_GT3.obj";
 
                 models[0].patternID = arwAddMarker("single;Data/lucid_lean.patt;80");
 
@@ -49,7 +49,7 @@
                         LOGE("Error loading model from file '%s'.", model0file);
                         exit(-1);
                     }
-                glmScale(models[0].obj, 0.035f);
+                glmScale(models[0].obj, 1.0f);
                     //glmRotate(models[0].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
                 glmCreateArrays(models[0].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE);
                 models[0].visible = false;

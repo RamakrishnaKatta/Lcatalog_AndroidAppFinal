@@ -24,16 +24,17 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        TextView app_name = (TextView) findViewById(R.id.application_name);
-        Button _loginButton = (Button) findViewById(R.id.btn_login);
-        TextView _returnToLogin = (TextView) findViewById(R.id.return_to_login);
+        final TextView app_name = (TextView) findViewById(R.id.application_name);
+        final Button _loginButton = (Button) findViewById(R.id.btn_login);
+        final TextView _returnToLogin = (TextView) findViewById(R.id.return_to_login);
         final Button _guestLoginButton = (Button) findViewById(R.id.btn_guest);
-        TextView _signupLink = (TextView) findViewById(R.id.link_signup);
+        final TextView _signupLink = (TextView) findViewById(R.id.link_signup);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         app_name.setTypeface(custom_font);
@@ -62,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                         guest_login();
                     }
                 });
-
             }
         });
 
@@ -219,6 +219,7 @@ public class LoginActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 // TODO: Implement successful signup logic here
+
                 // By default we just finish the Activity and log them in automatically
                 this.finish();
             }
