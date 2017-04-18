@@ -15,9 +15,9 @@
             android:icon="@mipmap/ic_menu_slideshow"
             android:title="Sale" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_ven_reg"
             android:icon="@mipmap/ic_menu_manage"
-            android:title="Information" />
+            android:title="Vendor Registration" />
 
     </group>
 

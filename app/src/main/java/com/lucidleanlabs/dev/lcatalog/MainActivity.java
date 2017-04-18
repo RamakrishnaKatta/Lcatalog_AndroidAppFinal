@@ -167,7 +167,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_ven_reg) {
+
+            Intent intent = new Intent(this, VendorRegistrationActivity.class);
+            startActivity(intent);
+
 
         } else if (id == R.id.nav_sign_up) {
 

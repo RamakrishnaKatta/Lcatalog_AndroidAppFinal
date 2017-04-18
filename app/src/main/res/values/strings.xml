@@ -51,6 +51,10 @@
     <string name="_augment_text">AUGMENT</string>
     <string name="title_activity_aboutus">About Us</string>
     <string name="slide3_desc">This feature lets you capture the surrounds after the objects are augmented. Also lets you share between the close ones.</string>
-
-
+    <string name="title_activity_vendor_registration">Vendor Registration</string>
+    <string name="new_vendor_name">Name of your Company</string>
+    <string name="new_vendor_address">Company Address</string>
+    <string name="new_vendor_email">Company Email</string>
+    <string name="new_vendor_mobile">Mobile Number</string>
+    <string name="submit">SUBMIT / REGISTER</string>
 </resources>

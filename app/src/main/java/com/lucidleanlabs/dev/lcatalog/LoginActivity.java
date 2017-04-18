@@ -1,6 +1,5 @@
 package com.lucidleanlabs.dev.lcatalog;
 
-import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,14 +42,14 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    public static final String KEY_EMAIL="email";
-    public static final String KEY_PASSWORD="password";
+    public static final String KEY_EMAIL = "email";
+    public static final String KEY_PASSWORD = "password";
 
-    private static final String LOGIN_URL="http://192.168.0.6:8080/lll/web/user/login";
+    private static final String LOGIN_URL = "http://192.168.0.6:8080/lll/web/user/login";
 
-    private TextView app_name,_returnToLogin,_signupLink;
-    private EditText _emailText,_passwordText;
-    private Button _loginButton,_guestLoginButton;
+    private TextView app_name, _returnToLogin, _signupLink;
+    private EditText _emailText, _passwordText;
+    private Button _loginButton, _guestLoginButton;
 
 
     @Override
@@ -198,7 +197,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Providing Access...");
         progressDialog.show();
 
-        // TODO: Implement your own authentication logic here.
+        // Implement your own authentication logic here.
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -214,8 +213,8 @@ public class LoginActivity extends AppCompatActivity {
     public void login() throws JSONException {
         Log.d(TAG, "Login");
 
-        Log.d(TAG,"KEY_EMAIL--"+KEY_EMAIL);
-        Log.d(TAG,"KEY_PASSWORD--"+KEY_PASSWORD);
+        Log.d(TAG, "KEY_EMAIL--" + KEY_EMAIL);
+        Log.d(TAG, "KEY_PASSWORD--" + KEY_PASSWORD);
 
 
         if (!validate()) {
@@ -232,29 +231,24 @@ public class LoginActivity extends AppCompatActivity {
 
         _emailText = (EditText) findViewById(R.id.input_email);
         final String email = _emailText.getText().toString().trim();
-        Log.d(TAG,"email--"+email);
+        Log.d(TAG, "email--" + email);
 
         _passwordText = (EditText) findViewById(R.id.input_password);
         final String password = _passwordText.getText().toString().trim();
-        Log.d(TAG,"password--"+password);
+        Log.d(TAG, "password--" + password);
 
 
-      //  String email = _emailText.getText().toString();
-       // String password = _passwordText.getText().toString();
-
-        // TODO: Implement your own authentication logic here.
-
-        //Implement you Login Logic here
+        // Implement your own authentication logic here.
 
         final JSONObject request = new JSONObject();
-        request.put("email",email);
-        request.put("password",password);
-        Log.d(TAG,"email--"+email);
-        Log.d(TAG,"password--"+password);
+        request.put("email", email);
+        request.put("password", password);
+        Log.d(TAG, "email--" + email);
+        Log.d(TAG, "password--" + password);
 
-        final JSONObject baseClass=new JSONObject();
-        baseClass.put("request",request);
-        Log.d(TAG,"baseclass--"+baseClass);
+        final JSONObject baseClass = new JSONObject();
+        baseClass.put("request", request);
+        Log.d(TAG, "baseclass--" + baseClass);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, LOGIN_URL, baseClass, new Response.Listener<JSONObject>() {
             @Override
@@ -278,22 +272,23 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             }
-        }){
-            public Map<String,String> getParams(){
-                HashMap<String,String> params =  new HashMap<>();
-                params.put(KEY_EMAIL,email);
-                params.put(KEY_PASSWORD,password);
-                Log.e(TAG,"Hash map...."+String.valueOf(params));
-                Log.e(TAG,"Hash map .. "+params);
+        }) {
+            public Map<String, String> getParams() {
+                HashMap<String, String> params = new HashMap<>();
+                params.put(KEY_EMAIL, email);
+                params.put(KEY_PASSWORD, password);
+                Log.e(TAG, "Hash map...." + String.valueOf(params));
+                Log.e(TAG, "Hash map .. " + params);
                 return params;
             }
-            public Map<String,String> getHeaders() throws AuthFailureError{
-                HashMap<String ,String> headers = new HashMap<>();
+
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
                 return headers;
             }
         };
-        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(60000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(60000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
 
@@ -312,8 +307,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
 
                 // By default we just finish the Activity and log them in automatically
                 this.finish();
@@ -347,20 +340,16 @@ public class LoginActivity extends AppCompatActivity {
         _loginButton.setEnabled(true);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
         finish();
     }
 
 
     public void onLoginFailed() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
-        Toast.makeText(getBaseContext(), "Login failed Please Signup", Toast.LENGTH_LONG).show();
-
+        Toast.makeText(getBaseContext(), "Login failed Please Signup or Try Logging Again", Toast.LENGTH_LONG).show();
         _loginButton.setEnabled(true);
-
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-
         finish();
     }
 

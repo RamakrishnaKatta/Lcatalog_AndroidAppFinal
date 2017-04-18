@@ -14,12 +14,12 @@
         android:paddingTop="30dp">
 
         <ImageView
+            android:id="@+id/icon"
             android:layout_width="150dp"
             android:layout_height="163dp"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/logo"
-            android:id="@+id/icon"/>
+            android:src="@drawable/logo" />
 
         <TextView
             android:id="@+id/application_name"
@@ -104,7 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/mobile_number"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="10" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
@@ -144,7 +145,7 @@
             android:gravity="center"
             android:text="@string/return_to_login"
             android:textSize="16sp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </LinearLayout>
 

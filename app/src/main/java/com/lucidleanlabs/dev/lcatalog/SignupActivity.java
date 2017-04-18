@@ -49,14 +49,13 @@ public class SignupActivity extends AppCompatActivity {
 
     private EditText _nameText, _addressText, _emailText, _mobileText, _passwordText, _reEnterPasswordText;
     private Button _signupButton;
-    private TextView _loginLink, app_name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        app_name = (TextView) findViewById(R.id.application_name);
+        TextView app_name = (TextView) findViewById(R.id.application_name);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         app_name.setTypeface(custom_font);
 
@@ -74,7 +73,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        _loginLink = (TextView) findViewById(R.id.link_login);
+        TextView _loginLink = (TextView) findViewById(R.id.link_login);
         _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // Finish the registration screen and return to the Login activity
@@ -136,9 +135,11 @@ public class SignupActivity extends AppCompatActivity {
 
         JSONObject request = new JSONObject();
         request.put("name",name);
+        Log.d(TAG, "name--" +name);
         request.put("address",address);
         Log.d(TAG, "address--" +address);
         request.put("email", email);
+        Log.d(TAG, "email--" +email);
         request.put("mobileNo",mobile);
         Log.d(TAG, "mobile--"+mobile);
         request.put("password",password);
@@ -195,7 +196,7 @@ public class SignupActivity extends AppCompatActivity {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
+                HashMap<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
                 return headers;
             }

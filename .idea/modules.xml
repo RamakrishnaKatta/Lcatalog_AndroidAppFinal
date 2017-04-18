@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Lcatalog_AndroidApp.iml" filepath="$PROJECT_DIR$/Lcatalog_AndroidApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/aRBaseLib/aRBaseLib.iml" filepath="$PROJECT_DIR$/aRBaseLib/aRBaseLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lcatalog_androidapp.iml" filepath="$PROJECT_DIR$/lcatalog_androidapp.iml" />
     </modules>
   </component>
 </project>

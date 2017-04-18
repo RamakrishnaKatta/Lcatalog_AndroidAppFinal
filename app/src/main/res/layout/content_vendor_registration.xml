@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.lucidleanlabs.dev.lcatalog.VendorRegistrationActivity"
+    tools:showIn="@layout/activity_vendor_registration">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="30dp">
+
+        <!-- Name Label -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/vendor_name_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_margin"
+            android:layout_marginTop="@dimen/custom_margin">
+
+            <EditText
+                android:id="@+id/vendor_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_vendor_name"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Address Label -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/vendor_address_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_margin"
+            android:layout_marginTop="@dimen/custom_margin">
+
+            <EditText
+                android:id="@+id/vendor_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_vendor_address"
+                android:inputType="textPostalAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <!--  Email Label -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/vendor_email_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_margin"
+            android:layout_marginTop="@dimen/custom_margin">
+
+            <EditText
+                android:id="@+id/vendor_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_vendor_email"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <!-- mobile number -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/vendor_mobile_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_margin"
+            android:layout_marginTop="@dimen/custom_margin">
+
+            <EditText
+                android:id="@+id/vendor_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_vendor_mobile"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- mobile number -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/vendor_alt_mobile_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_margin"
+            android:layout_marginTop="@dimen/custom_margin">
+
+            <EditText
+                android:id="@+id/vendor_alt_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Alternative Mobile Number"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Signup Button -->
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_vendor_submit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/custom_margin"
+            android:padding="12dp"
+            android:text="@string/submit" />
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

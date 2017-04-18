@@ -62,7 +62,7 @@ public class ProductPage extends AppCompatActivity {
         augment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(ProductPage.this,AugmentActivity.class);
+                Intent intent = new Intent(ProductPage.this, AugmentActivity.class);
                 startActivity(intent);
             }
         });
@@ -114,17 +114,14 @@ public class ProductPage extends AppCompatActivity {
 
         ll_dots = (LinearLayout) findViewById(R.id.LL_Dots);
 
-
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
             public void onPageSelected(int position) {
                 addBottomDots(position);
-
             }
 
             @Override
@@ -154,7 +151,7 @@ public class ProductPage extends AppCompatActivity {
         }
 
         if (dots.length > 0)
-        dots[currentPage].setTextColor(colorsActive[currentPage]);
+            dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
 
 }
