@@ -1,5 +1,6 @@
 package com.lucidleanlabs.dev.lcatalog;
 
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,10 +20,37 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+
+    public static final String KEY_EMAIL="email";
+    public static final String KEY_PASSWORD="password";
+
+    private static final String LOGIN_URL="http://192.168.0.6:8080/lll/web/user/login";
+
+    private TextView app_name,_returnToLogin,_signupLink;
+    private EditText _emailText,_passwordText;
+    private Button _loginButton,_guestLoginButton;
 
 
     @Override
@@ -30,11 +58,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final TextView app_name = (TextView) findViewById(R.id.application_name);
-        final Button _loginButton = (Button) findViewById(R.id.btn_login);
-        final TextView _returnToLogin = (TextView) findViewById(R.id.return_to_login);
-        final Button _guestLoginButton = (Button) findViewById(R.id.btn_guest);
-        final TextView _signupLink = (TextView) findViewById(R.id.link_signup);
+        app_name = (TextView) findViewById(R.id.application_name);
+        _loginButton = (Button) findViewById(R.id.btn_login);
+        _returnToLogin = (TextView) findViewById(R.id.return_to_login);
+        _guestLoginButton = (Button) findViewById(R.id.btn_guest);
+        _signupLink = (TextView) findViewById(R.id.link_signup);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         app_name.setTypeface(custom_font);
@@ -47,7 +75,11 @@ public class LoginActivity extends AppCompatActivity {
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
+                try {
+                    login();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -179,8 +211,12 @@ public class LoginActivity extends AppCompatActivity {
                 }, 3000);
     }
 
-    public void login() {
+    public void login() throws JSONException {
         Log.d(TAG, "Login");
+
+        Log.d(TAG,"KEY_EMAIL--"+KEY_EMAIL);
+        Log.d(TAG,"KEY_PASSWORD--"+KEY_PASSWORD);
+
 
         if (!validate()) {
             onLoginFailed();
@@ -194,13 +230,72 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        EditText _emailText = (EditText) findViewById(R.id.input_email);
-        EditText _passwordText = (EditText) findViewById(R.id.input_password);
+        _emailText = (EditText) findViewById(R.id.input_email);
+        final String email = _emailText.getText().toString().trim();
+        Log.d(TAG,"email--"+email);
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        _passwordText = (EditText) findViewById(R.id.input_password);
+        final String password = _passwordText.getText().toString().trim();
+        Log.d(TAG,"password--"+password);
+
+
+      //  String email = _emailText.getText().toString();
+       // String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
+
+        //Implement you Login Logic here
+
+        final JSONObject request = new JSONObject();
+        request.put("email",email);
+        request.put("password",password);
+        Log.d(TAG,"email--"+email);
+        Log.d(TAG,"password--"+password);
+
+        final JSONObject baseClass=new JSONObject();
+        baseClass.put("request",request);
+        Log.d(TAG,"baseclass--"+baseClass);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, LOGIN_URL, baseClass, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject baseClass) {
+                Log.e(TAG, "response" + baseClass);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                // As of f605da3 the following should work
+                NetworkResponse response = error.networkResponse;
+                if (error instanceof ServerError && response != null) {
+                    try {
+                        String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                        // Now you can use any deserializer to make sense of data
+                        JSONObject request = new JSONObject(res);
+                    } catch (UnsupportedEncodingException | JSONException e1) {
+                        // Couldn't properly decode data to string
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        }){
+            public Map<String,String> getParams(){
+                HashMap<String,String> params =  new HashMap<>();
+                params.put(KEY_EMAIL,email);
+                params.put(KEY_PASSWORD,password);
+                Log.e(TAG,"Hash map...."+String.valueOf(params));
+                Log.e(TAG,"Hash map .. "+params);
+                return params;
+            }
+            public Map<String,String> getHeaders() throws AuthFailureError{
+                HashMap<String ,String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(60000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
@@ -250,18 +345,23 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginSuccess() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
         _loginButton.setEnabled(true);
-
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
         finish();
     }
 
+
     public void onLoginFailed() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Login failed Please Signup", Toast.LENGTH_LONG).show();
 
         _loginButton.setEnabled(true);
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
+        finish();
     }
 
     public boolean validateGuest() {
