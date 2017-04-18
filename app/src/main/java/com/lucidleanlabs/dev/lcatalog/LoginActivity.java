@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String LOGIN_URL = "http://192.168.0.6:8080/lll/web/user/login";
 
-    private TextView app_name, _returnToLogin, _signupLink;
+    private TextView _signupLink;
     private EditText _emailText, _passwordText;
     private Button _loginButton, _guestLoginButton;
 
@@ -57,9 +57,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        app_name = (TextView) findViewById(R.id.application_name);
+        TextView app_name = (TextView) findViewById(R.id.application_name);
         _loginButton = (Button) findViewById(R.id.btn_login);
-        _returnToLogin = (TextView) findViewById(R.id.return_to_login);
+        TextView _returnToLogin = (TextView) findViewById(R.id.return_to_login);
         _guestLoginButton = (Button) findViewById(R.id.btn_guest);
         _signupLink = (TextView) findViewById(R.id.link_signup);
 
@@ -191,8 +191,7 @@ public class LoginActivity extends AppCompatActivity {
         Button _guestLoginButton = (Button) findViewById(R.id.btn_guest);
         _guestLoginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Providing Access...");
         progressDialog.show();
@@ -215,7 +214,6 @@ public class LoginActivity extends AppCompatActivity {
 
         Log.d(TAG, "KEY_EMAIL--" + KEY_EMAIL);
         Log.d(TAG, "KEY_PASSWORD--" + KEY_PASSWORD);
-
 
         if (!validate()) {
             onLoginFailed();

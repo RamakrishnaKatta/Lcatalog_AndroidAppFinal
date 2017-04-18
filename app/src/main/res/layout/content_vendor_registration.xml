@@ -14,9 +14,9 @@
         android:orientation="vertical"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
-        android:paddingTop="30dp">
+        android:paddingTop="10dp">
 
-        <!-- Name Label -->
+        <!-- Vendor Name Label -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/vendor_name_new"
             android:layout_width="match_parent"
@@ -32,9 +32,9 @@
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Address Label -->
+        <!-- Vendor Address Label -->
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/vendor_address_new"
+            android:id="@+id/vendor_address_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/custom_margin"
@@ -48,10 +48,75 @@
                 android:inputType="textPostalAddress" />
         </android.support.design.widget.TextInputLayout>
 
-
-        <!--  Email Label -->
+        <!-- Vendor Address Label -->
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/vendor_email_new"
+            android:id="@+id/vendor_location_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_margin"
+            android:layout_marginTop="@dimen/custom_margin">
+
+            <EditText
+                android:id="@+id/vendor_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_vendor_location"
+                android:inputType="textPostalAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Vendor Location - State Label -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/vendor_state_detials"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_margin"
+            android:layout_marginTop="@dimen/custom_margin">
+
+            <EditText
+                android:id="@+id/vendor_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_vendor_state"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Vendor Location - Pincode label -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/vendor_pincode_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_margin"
+            android:layout_marginTop="@dimen/custom_margin">
+
+            <EditText
+                android:id="@+id/vendor_pincode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_vendor_pincode"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <!-- Vendor Contact Label -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/vendor_contact_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_margin"
+            android:layout_marginTop="@dimen/custom_margin">
+
+            <EditText
+                android:id="@+id/vendor_contact_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_vendor_contact_person"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <!--  Vendor Email Label -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/vendor_email_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/custom_margin"
@@ -66,9 +131,25 @@
         </android.support.design.widget.TextInputLayout>
 
 
-        <!-- mobile number -->
+        <!-- Vendor models/designs request label -->
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/vendor_mobile_new"
+            android:id="@+id/vendor_modelcount_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/custom_margin"
+            android:layout_marginTop="@dimen/custom_margin">
+
+            <EditText
+                android:id="@+id/vendor_modelcount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_vendor_no_of_models_req"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Vendor mobile number -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/vendor_mobile_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/custom_margin"
@@ -78,27 +159,12 @@
                 android:id="@+id/vendor_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/new_vendor_mobile"
-                android:inputType="number" />
+                android:hint="@string/new_vendor_ph_no"
+                android:inputType="number"
+                android:maxLength="10" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- mobile number -->
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/vendor_alt_mobile_new"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
-            android:layout_marginTop="@dimen/custom_margin">
-
-            <EditText
-                android:id="@+id/vendor_alt_mobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Alternative Mobile Number"
-                android:inputType="number" />
-        </android.support.design.widget.TextInputLayout>
-
-        <!-- Signup Button -->
+        <!-- Vendor Signup/register Button -->
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_vendor_submit"
             android:layout_width="fill_parent"
@@ -106,7 +172,7 @@
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/custom_margin"
             android:padding="12dp"
-            android:text="@string/submit" />
+            android:text="@string/new_vendor_submit" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

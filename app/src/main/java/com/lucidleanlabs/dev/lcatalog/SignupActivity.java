@@ -45,7 +45,7 @@ public class SignupActivity extends AppCompatActivity {
     public static final String KEY_TYPE = "type";
     public static final String KEY_VENDORID = "vendorId";
 
-    private static final String REGISTER_URL = "http://192.168.0.14:8080/lll/web/user/register";
+    private static final String REGISTER_URL = "http://192.168.0.6:8080/lll/web/user/register";
 
     private EditText _nameText, _addressText, _emailText, _mobileText, _passwordText, _reEnterPasswordText;
     private Button _signupButton;
