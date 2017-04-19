@@ -1,152 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:fitsSystemWindows="true">
+    tools:context=".LoginActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:paddingTop="30dp">
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:fitsSystemWindows="true">
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="150dp"
-            android:layout_height="163dp"
-            android:layout_gravity="center_horizontal"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:id="@+id/application_name"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:text="@string/l_catalog"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/lucidlealabs"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:text="@string/powered_lucidleanlabs"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <!--  Email Label -->
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/area_input_email"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
-            android:layout_marginTop="@dimen/custom_margin"
-            android:visibility="visible">
+            android:orientation="vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="30dp">
 
-            <EditText
-                android:id="@+id/input_email"
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="150dp"
+                android:layout_height="163dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/application_name"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="@string/l_catalog"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/lucidlealabs"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="@string/powered_lucidleanlabs"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <!--  Email Label -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/area_input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/custom_margin"
+                android:visibility="visible">
+
+                <EditText
+                    android:id="@+id/input_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
 
 
-        <!--  Password Label -->
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/area_input_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
-            android:layout_marginTop="@dimen/custom_margin"
-            android:visibility="visible">
-
-            <EditText
-                android:id="@+id/input_password"
+            <!--  Password Label -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/area_input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:inputType="textPassword" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/custom_margin"
+                android:visibility="visible">
 
-        <!-- Name Label -->
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/area_input_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
-            android:layout_marginTop="@dimen/custom_margin"
-            android:visibility="gone">
+                <EditText
+                    android:id="@+id/input_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/input_name"
+            <!-- Name Label -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/area_input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/name"
-                android:inputType="textPersonName" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/custom_margin"
+                android:visibility="gone">
 
-        <!-- mobile number -->
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/area_input_mobile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
-            android:layout_marginTop="@dimen/custom_margin"
-            android:visibility="gone">
+                <EditText
+                    android:id="@+id/input_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name"
+                    android:inputType="textPersonName" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/input_mobile"
+            <!-- mobile number -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/area_input_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/mobile_number"
-                android:inputType="number"
-                android:maxLength="10" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/custom_margin"
+                android:visibility="gone">
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
-            android:layout_marginTop="@dimen/custom_margin"
-            android:padding="12dp"
-            android:text="Login" />
+                <EditText
+                    android:id="@+id/input_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/mobile_number"
+                    android:inputType="number"
+                    android:maxLength="10" />
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_guest"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
-            android:layout_marginTop="@dimen/custom_margin"
-            android:padding="12dp"
-            android:text="Instead Login as Guest" />
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/custom_margin"
+                android:padding="12dp"
+                android:text="Login" />
 
-        <TextView
-            android:id="@+id/link_signup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/thumbnail"
-            android:layout_marginTop="@dimen/custom_margin"
-            android:gravity="center"
-            android:text="@string/signup_trigger"
-            android:textSize="16sp" />
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_guest"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/custom_margin"
+                android:padding="12dp"
+                android:text="Instead Login as Guest" />
 
-        <TextView
-            android:id="@+id/return_to_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
-            android:layout_marginTop="@dimen/custom_margin"
-            android:gravity="center"
-            android:text="@string/return_to_login"
-            android:textSize="16sp"
-            android:visibility="gone" />
+            <TextView
+                android:id="@+id/link_signup"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/thumbnail"
+                android:layout_marginTop="@dimen/custom_margin"
+                android:gravity="center"
+                android:text="@string/signup_trigger"
+                android:textSize="16sp" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/return_to_login"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/custom_margin"
+                android:gravity="center"
+                android:text="@string/return_to_login"
+                android:textSize="16sp"
+                android:visibility="gone" />
 
-</ScrollView>
+        </LinearLayout>
+
+    </ScrollView>
+</android.support.design.widget.CoordinatorLayout>

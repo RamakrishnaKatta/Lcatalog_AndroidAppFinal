@@ -37,6 +37,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -45,17 +46,20 @@ public class LoginActivity extends AppCompatActivity {
     public static final String KEY_EMAIL = "email";
     public static final String KEY_PASSWORD = "password";
 
-    private static final String LOGIN_URL = "http://192.168.0.6:8080/lll/web/user/login";
+    private static final String LOGIN_URL = "http://35.154.252.64:8080/lll/web/user/login";
 
     private TextView _signupLink;
     private EditText _emailText, _passwordText;
     private Button _loginButton, _guestLoginButton;
+
+    String response, code, message;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         TextView app_name = (TextView) findViewById(R.id.application_name);
         _loginButton = (Button) findViewById(R.id.btn_login);
@@ -251,7 +255,17 @@ public class LoginActivity extends AppCompatActivity {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, LOGIN_URL, baseClass, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject baseClass) {
-                Log.e(TAG, "response" + baseClass);
+                Log.e(TAG, "response--" + baseClass);
+                try {
+                    response = baseClass.getString("resp");
+                    code = baseClass.getString("code");
+                    message = baseClass.getString("message");
+                    Log.d(TAG, "response--" + response + "code--" + code + "message--" + message);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -294,8 +308,11 @@ public class LoginActivity extends AppCompatActivity {
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
+                        if (Objects.equals(message, "FAILURE")) {
+                            onLoginFailed();
+                        } else {
+                            onLoginSuccess();
+                        }
                         progressDialog.dismiss();
                     }
                 }, 3000);
@@ -335,6 +352,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
+        Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
         _loginButton.setEnabled(true);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -345,7 +363,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginFailed() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
         Toast.makeText(getBaseContext(), "Login failed Please Signup or Try Logging Again", Toast.LENGTH_LONG).show();
-        _loginButton.setEnabled(true);
+        _loginButton.setEnabled(false);
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
