@@ -12,13 +12,13 @@ import com.lucidleanlabs.dev.lcatalog.R;
 import java.util.ArrayList;
 
 
-public class ImagesliderAdapter extends PagerAdapter {
+public class ImageSliderAdapter extends PagerAdapter {
 
     private ArrayList<Integer> Images;
 //    private int[] img ={R.drawable.background,R.drawable.dummy_icon};
     private LayoutInflater inflater;
     private Context context;
-    public ImagesliderAdapter(Context context, ArrayList<Integer> Images){
+    public ImageSliderAdapter(Context context, ArrayList<Integer> Images){
         this.context = context;
         this.Images = Images;
         inflater = LayoutInflater.from(context);

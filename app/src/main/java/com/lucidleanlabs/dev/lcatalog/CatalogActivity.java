@@ -65,13 +65,9 @@ public class CatalogActivity extends AppCompatActivity {
                 fab_grid.setSize(1);
             }
         });
-
-
     }
 
-
     public void gridView() {
-
         RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
         RecyclerView vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);
         RecyclerView grid_recycler = (RecyclerView) findViewById(R.id.grid_recycler);
@@ -87,7 +83,6 @@ public class CatalogActivity extends AppCompatActivity {
             vertical_recycler.setVisibility(View.GONE);
             grid_recycler.setVisibility(View.VISIBLE);
         }
-
     }
 
     public void horizontalRecyclerListView() {
@@ -109,7 +104,6 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     public void verticalRecyclerListView() {
-
         RecyclerView grid_recycler = (RecyclerView) findViewById(R.id.grid_recycler);
         RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
         RecyclerView vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);
@@ -134,7 +128,6 @@ public class CatalogActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finish(); // close this activity and return to preview activity (if there is any)
         }
-
         return super.onOptionsItemSelected(item);
     }
 

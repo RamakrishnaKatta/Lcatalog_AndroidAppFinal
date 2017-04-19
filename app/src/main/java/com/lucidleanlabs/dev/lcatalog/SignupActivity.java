@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
-    private static final String TAG = "SignupActivity";
+    private static final String TAG = "SignUpActivity";
 
     public static final String KEY_USERNAME = "name";
     public static final String KEY_PASSWORD = "password";
@@ -129,9 +129,7 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        //final String reEnterPassword = _reEnterPasswordText.getText().toString().trim();
-
-        // Implement your own signup logic here.
+        // SIGNUP LOGIC !!
 
         JSONObject request = new JSONObject();
         request.put("name",name);
@@ -193,7 +191,6 @@ public class SignupActivity extends AppCompatActivity {
                 return params;
             }
 
-
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
@@ -231,15 +228,13 @@ public class SignupActivity extends AppCompatActivity {
 
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "SignUp failed", Toast.LENGTH_LONG).show();
-
         Button _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
     }
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder =
-                new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+        AlertDialog.Builder builder =  new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
         builder.setTitle("Alert");
         builder.setMessage("Press OK to exit");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -287,7 +282,6 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             _addressText.setError(null);
         }
-
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             _emailText.setError("enter a valid email address");

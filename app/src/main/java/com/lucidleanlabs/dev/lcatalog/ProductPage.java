@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lucidleanlabs.dev.lcatalog.adapters.ImagesliderAdapter;
+import com.lucidleanlabs.dev.lcatalog.adapters.ImageSliderAdapter;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -25,8 +25,8 @@ public class ProductPage extends AppCompatActivity {
 
     private ViewPager viewPager;
     private LinearLayout ll_dots;
-    ImagesliderAdapter imagesliderAdapter;
-    ArrayList<Integer> slider_images = new ArrayList<Integer>();
+    ImageSliderAdapter imagesliderAdapter;
+    ArrayList<Integer> slider_images = new ArrayList<>();
     TextView[] dots;
     int page_position = 0;
     private static final Integer[] Images = {R.drawable.dummy_icon, R.drawable.background};
@@ -49,7 +49,7 @@ public class ProductPage extends AppCompatActivity {
         ImageView productimage = (ImageView) findViewById(R.id.product_image);
         ImageButton share = (ImageButton) findViewById(R.id.share_icon);
         ImageButton augment = (ImageButton) findViewById(R.id.augment_icon);
-        final ImageButton view = (ImageButton) findViewById(R.id.view_icon);
+        ImageButton view = (ImageButton) findViewById(R.id.view_icon);
         TextView title = (TextView) findViewById(R.id.title_text);
         TextView titledisplay = (TextView) findViewById(R.id.title_display);
         TextView description = (TextView) findViewById(R.id.description_text);
@@ -71,7 +71,6 @@ public class ProductPage extends AppCompatActivity {
 
         addBottomDots(0);
 
-
         final Handler handler = new Handler();
         final Runnable update = new Runnable() {
             @Override
@@ -88,10 +87,8 @@ public class ProductPage extends AppCompatActivity {
             @Override
             public void run() {
                 handler.post(update);
-
             }
         }, 2000, 5000);
-
     }
 
     @Override
@@ -100,7 +97,6 @@ public class ProductPage extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finish(); // close this activity and return to preview activity (if there is any)
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -109,7 +105,7 @@ public class ProductPage extends AppCompatActivity {
         for (int i = 0; i < Images.length; i++)
             slider_images.add(Images[i]);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        imagesliderAdapter = new ImagesliderAdapter(ProductPage.this, slider_images);
+        imagesliderAdapter = new ImageSliderAdapter(ProductPage.this, slider_images);
         viewPager.setAdapter(imagesliderAdapter);
 
         ll_dots = (LinearLayout) findViewById(R.id.LL_Dots);
@@ -129,8 +125,6 @@ public class ProductPage extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     private void addBottomDots(int currentPage) {
