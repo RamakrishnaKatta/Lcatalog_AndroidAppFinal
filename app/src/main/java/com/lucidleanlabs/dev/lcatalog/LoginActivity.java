@@ -304,18 +304,17 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        if (Objects.equals(message, "FAILURE")) {
-                            onLoginFailed();
-                        } else {
-                            onLoginSuccess();
-                        }
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+        new android.os.Handler().postDelayed(new Runnable() {
+            public void run() {
+                // On complete call either onLoginSuccess or onLoginFailed
+                if (Objects.equals(message, "FAILURE")) {
+                    onLoginFailed();
+                } else {
+                    onLoginSuccess();
+                }
+                progressDialog.dismiss();
+            }
+        }, 3000);
     }
 
     @Override
@@ -326,6 +325,27 @@ public class LoginActivity extends AppCompatActivity {
                 this.finish();
             }
         }
+    }
+
+    public void onLoginSuccess() {
+        Button _loginButton = (Button) findViewById(R.id.btn_login);
+        Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
+        _loginButton.setEnabled(true);
+        setResult(RESULT_OK, null);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+    public void onLoginFailed() {
+        Button _loginButton = (Button) findViewById(R.id.btn_login);
+        Toast.makeText(getBaseContext(), "Login failed Please Signup or Try Logging Again", Toast.LENGTH_LONG).show();
+        _loginButton.setEnabled(false);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -347,25 +367,6 @@ public class LoginActivity extends AppCompatActivity {
         });
         builder.setNegativeButton("Cancel", null);
         builder.show();
-    }
-
-    public void onLoginSuccess() {
-        Button _loginButton = (Button) findViewById(R.id.btn_login);
-        Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
-        _loginButton.setEnabled(true);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-
-    public void onLoginFailed() {
-        Button _loginButton = (Button) findViewById(R.id.btn_login);
-        Toast.makeText(getBaseContext(), "Login failed Please Signup or Try Logging Again", Toast.LENGTH_LONG).show();
-        _loginButton.setEnabled(false);
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     public boolean validateGuest() {

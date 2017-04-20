@@ -4,25 +4,55 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lucidleanlabs.dev.lcatalog.ProductPage;
 import com.lucidleanlabs.dev.lcatalog.R;
 
+import java.util.ArrayList;
+
 public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHorizontalAdapter.ViewHolder> {
+
+    private static final String TAG = "ListViewHorizontalAdapter";
 
     private Activity activity;
 
-    public ListViewHorizontalAdapter(Activity activity) {
+    private ArrayList<String> item_names;
+    private ArrayList<String> item_descriptions;
+    private ArrayList<String> item_prices;
+    private ArrayList<String> item_discounts;
+    private ArrayList<String> item_vendors;
+
+    public ListViewHorizontalAdapter(Activity activity,
+                                     ArrayList<String> item_names,
+                                     ArrayList<String> item_descriptions,
+                                     ArrayList<String> item_prices,
+                                     ArrayList<String> item_discounts,
+                                     ArrayList<String> item_vendors) {
+
+        this.item_names = item_names;
+        this.item_descriptions = item_descriptions;
+        this.item_prices = item_prices;
+        this.item_discounts = item_discounts;
+        this.item_vendors = item_vendors;
+        Log.e(TAG, "names--" + item_names);
+        Log.e(TAG, "descriptions--" + item_descriptions);
+        Log.e(TAG, "prices--" + item_prices);
+        Log.e(TAG, "discounts--" + item_discounts);
+        Log.e(TAG, "vendors--" + item_vendors);
         this.activity = activity;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+
         LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.item_horizontal_list, viewGroup, false);
 
@@ -34,7 +64,14 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
 
         final Context[] context = new Context[1];
 
-        viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        viewHolder.item_image.setImageResource(R.drawable.dummy_icon);
+        viewHolder.item_name.setText("I am a " +item_names.get(position)+"");
+        viewHolder.item_description.setText(item_descriptions.get(position));
+        viewHolder.item_price.setText("I cost Rs "+item_prices.get(position)+"/-");
+        viewHolder.item_discount.setText("I avail a Discount of "+item_discounts.get(position)+"");
+        viewHolder.item_vendor.setText("I am from "+item_vendors.get(position)+"");
+
+        viewHolder.h_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -50,7 +87,7 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
 
     @Override
     public int getItemCount() {
-        return 10;
+        return item_names.size();
     }
 
     /**
@@ -58,11 +95,19 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
      */
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private LinearLayout linearLayout;
+        private TextView item_name, item_description, item_price, item_discount, item_vendor;
+        private ImageView item_image;
+        private RelativeLayout h_container;
 
         ViewHolder(View view) {
             super(view);
-            linearLayout = (LinearLayout) view.findViewById(R.id.layout);
+            h_container = (RelativeLayout) view.findViewById(R.id.h_container);
+            item_image = (ImageView) view.findViewById(R.id.h_item_image);
+            item_name = (TextView) view.findViewById(R.id.h_item_name);
+            item_description = (TextView) view.findViewById(R.id.h_item_description);
+            item_price = (TextView) view.findViewById(R.id.h_item_price);
+            item_discount = (TextView) view.findViewById(R.id.h_item_discount);
+            item_vendor = (TextView) view.findViewById(R.id.h_item_vendor);
         }
     }
 }

@@ -4,43 +4,73 @@
     android:layout_height="fill_parent"
     android:layout_marginRight="5dp">
 
-    <LinearLayout
-        android:id="@+id/layout"
+    <RelativeLayout
+        android:id="@+id/h_container"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/h_item_image"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
-            android:scaleType="fitCenter"
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/dummy_icon" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/h_item_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_horizontal_margin"
-            android:text="Title" />
+            android:layout_below="@+id/h_item_image"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/app_name"
+            android:textColor="@color/primary_dark"
+            android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/h_item_description"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_horizontal_margin"
-            android:text="Description" />
+            android:layout_below="@+id/h_item_name"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="This is my description."
+            android:textColor="@color/primary_dark" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/h_item_price"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_horizontal_margin"
-            android:text="Price" />
+            android:layout_below="@+id/h_item_description"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="This is my Price"
+            android:textColor="@color/primary_dark" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/h_item_discount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/h_item_price"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Discount Value"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/h_item_vendor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/h_item_discount"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Discount Value"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
 </android.support.v7.widget.CardView>

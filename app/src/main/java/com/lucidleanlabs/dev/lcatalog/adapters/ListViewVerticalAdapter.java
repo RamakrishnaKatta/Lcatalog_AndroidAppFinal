@@ -4,21 +4,37 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lucidleanlabs.dev.lcatalog.ProductPage;
 import com.lucidleanlabs.dev.lcatalog.R;
 
+import java.util.ArrayList;
+
 public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVerticalAdapter.ViewHolder> {
+
+    private static final String TAG = "ListViewVerticalAdapter";
 
     private Activity activity;
 
-    public ListViewVerticalAdapter(Activity activity) {
+    private ArrayList<String> item_names;
+    private ArrayList<String> item_descriptions;
+    private ArrayList<String> item_prices;
+
+    public ListViewVerticalAdapter(Activity activity, ArrayList<String> item_names, ArrayList<String> item_descriptions, ArrayList<String> item_prices) {
+        this.item_names = item_names;
+        this.item_descriptions = item_descriptions;
+        this.item_prices = item_prices;
+        Log.e(TAG, "names--" + item_names);
+        Log.e(TAG, "descriptions--" + item_descriptions);
+        Log.e(TAG, "prices--" + item_prices);
         this.activity = activity;
     }
 
@@ -32,13 +48,16 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ListViewVerticalAdapter.ViewHolder viewHolder, final int position) {
 
         final Context[] context = new Context[1];
 
-        viewHolder.imageView.setImageResource(R.drawable.dummy_icon);
-        viewHolder.container.setOnClickListener(new View.OnClickListener() {
+        viewHolder.item_image.setImageResource(R.drawable.dummy_icon);
+        viewHolder.item_name.setText("I am a " +item_names.get(position)+"");
+        viewHolder.item_description.setText(item_descriptions.get(position));
+        viewHolder.item_price.setText("I cost Rs "+item_prices.get(position)+"/-");
 
+        viewHolder.v_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -53,20 +72,24 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
 
     @Override
     public int getItemCount() {
-        return 10;
+        return item_names.size();
     }
 
     /**
      * View holder to display each RecylerView item
      */
     class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageView;
-        private RelativeLayout container;
+        private TextView item_name, item_description, item_price;
+        private ImageView item_image;
+        private RelativeLayout v_container;
 
         ViewHolder(View view) {
             super(view);
-            imageView = (ImageView) view.findViewById(R.id.image);
-            container = (RelativeLayout) view.findViewById(R.id.container);
+            v_container = (RelativeLayout) view.findViewById(R.id.v_container);
+            item_image = (ImageView) view.findViewById(R.id.v_item_image);
+            item_name = (TextView) view.findViewById(R.id.v_item_name);
+            item_description = (TextView) view.findViewById(R.id.v_item_description);
+            item_price = (TextView) view.findViewById(R.id.v_item_price);
         }
     }
 }

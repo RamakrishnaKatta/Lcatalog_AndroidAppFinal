@@ -33,9 +33,12 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignUpActivity";
+
+    private static final int REQUEST_SIGNUP = 0;
 
     public static final String KEY_USERNAME = "name";
     public static final String KEY_PASSWORD = "password";
@@ -49,6 +52,8 @@ public class SignupActivity extends AppCompatActivity {
 
     private EditText _nameText, _addressText, _emailText, _mobileText, _passwordText, _reEnterPasswordText;
     private Button _signupButton;
+
+    String response, code, message;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -102,19 +107,19 @@ public class SignupActivity extends AppCompatActivity {
 
         _addressText = (EditText) findViewById(R.id.input_address);
         final String address = _addressText.getText().toString().trim();
-        Log.d(TAG, "address--"+address);
+        Log.d(TAG, "address--" + address);
 
         _emailText = (EditText) findViewById(R.id.input_email);
         final String email = _emailText.getText().toString().trim();
-        Log.d(TAG, "email--"+email);
+        Log.d(TAG, "email--" + email);
 
         _mobileText = (EditText) findViewById(R.id.input_mobile);
         final String mobile = _mobileText.getText().toString().trim();
-        Log.d(TAG, "mobile--"+mobile);
+        Log.d(TAG, "mobile--" + mobile);
 
         _passwordText = (EditText) findViewById(R.id.input_password);
         final String password = _passwordText.getText().toString().trim();
-        Log.d(TAG, "password--"+password);
+        Log.d(TAG, "password--" + password);
 
         _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
 
@@ -132,29 +137,39 @@ public class SignupActivity extends AppCompatActivity {
         // SIGNUP LOGIC !!
 
         JSONObject request = new JSONObject();
-        request.put("name",name);
-        Log.d(TAG, "name--" +name);
-        request.put("address",address);
-        Log.d(TAG, "address--" +address);
+        request.put("name", name);
+        Log.d(TAG, "name--" + name);
+        request.put("address", address);
+        Log.d(TAG, "address--" + address);
         request.put("email", email);
-        Log.d(TAG, "email--" +email);
-        request.put("mobileNo",mobile);
-        Log.d(TAG, "mobile--"+mobile);
-        request.put("password",password);
-        Log.d(TAG, "password--"+password);
-        request.put("type","CUSTOMER");
-        request.put("vendorId","100000");
+        Log.d(TAG, "email--" + email);
+        request.put("mobileNo", mobile);
+        Log.d(TAG, "mobile--" + mobile);
+        request.put("password", password);
+        Log.d(TAG, "password--" + password);
+        request.put("type", "CUSTOMER");
+        // This Value should be changed when a user is reggistered under specific customer
+        request.put("vendorId", "100000");
 
-        Log.d(TAG, "request--" +request);
+        Log.d(TAG, "request--" + request);
 
         JSONObject baseClass = new JSONObject();
-        baseClass.put("request",request);
-        Log.d(TAG, "baseclass--" +baseClass);
+        baseClass.put("request", request);
+        Log.d(TAG, "baseclass--" + baseClass);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, baseClass, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject baseClass) {
                 Log.e(TAG, "response--" + baseClass);
+                try {
+                    response = baseClass.getString("resp");
+                    code = baseClass.getString("code");
+                    message = baseClass.getString("message");
+                    Log.d(TAG, "response--" + response + "code--" + code + "message--" + message);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -183,6 +198,8 @@ public class SignupActivity extends AppCompatActivity {
                 params.put(KEY_ADDRESS, address);
                 params.put(KEY_MOBILE_NO, mobile);
                 params.put(KEY_TYPE, "CUSTOMER");
+
+                // This Value should be changed when a user is reggistered under specific customer
                 params.put(KEY_VENDORID, "100000");
 
                 Log.e(TAG, "HashMap--" + String.valueOf(params));
@@ -206,35 +223,50 @@ public class SignupActivity extends AppCompatActivity {
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
+                        if (Objects.equals(message, "FAILURE")) {
+                            onSignupFailed();
+                        } else {
+                            onSignupSuccess();
+                        }
                         progressDialog.dismiss();
                     }
                 }, 3000);
     }
 
-    public void onSignupSuccess() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_SIGNUP) {
+            if (resultCode == RESULT_OK) {
+                // By default we just finish the Activity and log them in automatically
+                this.finish();
+            }
+        }
+    }
 
+    public void onSignupSuccess() {
+        Toast.makeText(getBaseContext(), "SignUp Success", Toast.LENGTH_LONG).show();
         Button _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
         finish();
     }
 
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "SignUp failed", Toast.LENGTH_LONG).show();
         Button _signupButton = (Button) findViewById(R.id.btn_signup);
-        _signupButton.setEnabled(true);
+        _signupButton.setEnabled(false);
+
+        Intent intent = new Intent(this, SignupActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder =  new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
         builder.setTitle("Alert");
         builder.setMessage("Press OK to exit");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -262,12 +294,12 @@ public class SignupActivity extends AppCompatActivity {
         _passwordText = (EditText) findViewById(R.id.input_password);
         _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
 
-        String name = _nameText.getText().toString();
-        String address = _addressText.getText().toString();
-        String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String reEnterPassword = _reEnterPasswordText.getText().toString();
+        String name = _nameText.getText().toString().trim();
+        String address = _addressText.getText().toString().trim();
+        String email = _emailText.getText().toString().trim();
+        String mobile = _mobileText.getText().toString().trim();
+        String password = _passwordText.getText().toString().trim();
+        String reEnterPassword = _reEnterPasswordText.getText().toString().trim();
 
         if (name.isEmpty() || name.length() < 3) {
             _nameText.setError("at least 3 characters");
