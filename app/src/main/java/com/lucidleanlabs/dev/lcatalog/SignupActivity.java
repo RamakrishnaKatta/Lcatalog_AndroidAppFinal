@@ -149,7 +149,7 @@ public class SignupActivity extends AppCompatActivity {
         Log.d(TAG, "password--" + password);
         request.put("type", "CUSTOMER");
         // This Value should be changed when a user is reggistered under specific customer
-        request.put("vendorId", "100000");
+        request.put("vendorId", "600000");
 
         Log.d(TAG, "request--" + request);
 
@@ -199,8 +199,8 @@ public class SignupActivity extends AppCompatActivity {
                 params.put(KEY_MOBILE_NO, mobile);
                 params.put(KEY_TYPE, "CUSTOMER");
 
-                // This Value should be changed when a user is reggistered under specific customer
-                params.put(KEY_VENDORID, "100000");
+                // This Value should be changed when a user is registered under specific customer
+                params.put(KEY_VENDORID, "600000");
 
                 Log.e(TAG, "HashMap--" + String.valueOf(params));
                 Log.e(TAG, "HashMap--" + params);

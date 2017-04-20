@@ -176,17 +176,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_ven_reg) {
-
+            Toast.makeText(this, "We will not disappoint you, Lets get in Touch !!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, VendorRegistrationActivity.class);
             startActivity(intent);
 
-
         } else if (id == R.id.nav_sign_up) {
-
+            Toast.makeText(this, "Thanks for your thought on Creating an Account, Appreciated !!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, SignupActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_logout) {
+            Toast.makeText(this, "Successfully Logged Out", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_about) {
 

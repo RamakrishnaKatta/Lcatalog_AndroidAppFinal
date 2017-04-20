@@ -43,6 +43,7 @@ public class CatalogActivity extends AppCompatActivity {
     private ArrayList<String> item_prices;
     private ArrayList<String> item_discounts;
     private ArrayList<String> item_vendors;
+    private ArrayList<String> item_images;
 
 
     @Override
@@ -67,6 +68,7 @@ public class CatalogActivity extends AppCompatActivity {
         item_prices = new ArrayList<>();
         item_discounts = new ArrayList<>();
         item_vendors = new ArrayList<>();
+        item_images = new ArrayList<>();
 
         fab_vertical_list.setSize(1);
         fab_horizontal_list.setSize(1);
@@ -127,6 +129,7 @@ public class CatalogActivity extends AppCompatActivity {
                     item_prices.clear();
                     item_discounts.clear();
                     item_vendors.clear();
+                    item_images.clear();
 
                     getData();
                 } catch (JSONException e) {
@@ -243,6 +246,7 @@ public class CatalogActivity extends AppCompatActivity {
                 item_prices.add(obj.getString("price"));
                 item_discounts.add(obj.getString("discount"));
                 item_vendors.add(obj.getString("vendorId"));
+                item_images.add(obj.getString("img"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -257,7 +261,7 @@ public class CatalogActivity extends AppCompatActivity {
 
         LinearLayoutManager horizontalManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         horizontal_recycler.setLayoutManager(horizontalManager);
-        ListViewHorizontalAdapter horizontalAdapter = new ListViewHorizontalAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors);
+        ListViewHorizontalAdapter horizontalAdapter = new ListViewHorizontalAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images);
         horizontal_recycler.setAdapter(horizontalAdapter);
 
         if (grid_recycler.getVisibility() == View.VISIBLE || vertical_recycler.getVisibility() == View.VISIBLE) {

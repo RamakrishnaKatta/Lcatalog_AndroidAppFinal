@@ -3,6 +3,9 @@ package com.lucidleanlabs.dev.lcatalog.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import com.lucidleanlabs.dev.lcatalog.ProductPage;
 import com.lucidleanlabs.dev.lcatalog.R;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHorizontalAdapter.ViewHolder> {
@@ -29,65 +33,29 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
     private ArrayList<String> item_prices;
     private ArrayList<String> item_discounts;
     private ArrayList<String> item_vendors;
+    private ArrayList<String> item_images;
 
     public ListViewHorizontalAdapter(Activity activity,
                                      ArrayList<String> item_names,
                                      ArrayList<String> item_descriptions,
                                      ArrayList<String> item_prices,
                                      ArrayList<String> item_discounts,
-                                     ArrayList<String> item_vendors) {
+                                     ArrayList<String> item_vendors,
+                                     ArrayList<String> item_images) {
 
         this.item_names = item_names;
         this.item_descriptions = item_descriptions;
         this.item_prices = item_prices;
         this.item_discounts = item_discounts;
         this.item_vendors = item_vendors;
+        this.item_images = item_images;
         Log.e(TAG, "names--" + item_names);
         Log.e(TAG, "descriptions--" + item_descriptions);
         Log.e(TAG, "prices--" + item_prices);
         Log.e(TAG, "discounts--" + item_discounts);
         Log.e(TAG, "vendors--" + item_vendors);
+        Log.e(TAG, "Images--" + item_images);
         this.activity = activity;
-    }
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_horizontal_list, viewGroup, false);
-
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(ListViewHorizontalAdapter.ViewHolder viewHolder, final int position) {
-
-        final Context[] context = new Context[1];
-
-        viewHolder.item_image.setImageResource(R.drawable.dummy_icon);
-        viewHolder.item_name.setText("I am a " +item_names.get(position)+"");
-        viewHolder.item_description.setText(item_descriptions.get(position));
-        viewHolder.item_price.setText("I cost Rs "+item_prices.get(position)+"/-");
-        viewHolder.item_discount.setText("I avail a Discount of "+item_discounts.get(position)+"");
-        viewHolder.item_vendor.setText("I am from "+item_vendors.get(position)+"");
-
-        viewHolder.h_container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                context[0] = v.getContext();
-
-                Intent intent = new Intent(context[0], ProductPage.class);
-                context[0].startActivity(intent);
-
-                Toast.makeText(activity, "Position clicked: " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return item_names.size();
     }
 
     /**
@@ -108,6 +76,77 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
             item_price = (TextView) view.findViewById(R.id.h_item_price);
             item_discount = (TextView) view.findViewById(R.id.h_item_discount);
             item_vendor = (TextView) view.findViewById(R.id.h_item_vendor);
+        }
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View view = inflater.inflate(R.layout.item_horizontal_list, viewGroup, false);
+
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ListViewHorizontalAdapter.ViewHolder viewHolder, final int position) {
+
+        final Context[] context = new Context[1];
+
+        viewHolder.item_image.setImageResource(R.drawable.dummy_icon);
+        new DownloadImageTask(viewHolder.item_image).execute(item_images.get(position));
+
+        viewHolder.item_name.setText("I am a " + item_names.get(position) + "");
+        viewHolder.item_description.setText(item_descriptions.get(position));
+        viewHolder.item_price.setText("I cost Rs " + item_prices.get(position) + "/-");
+        viewHolder.item_discount.setText("I avail a Discount of " + item_discounts.get(position) + "");
+        viewHolder.item_vendor.setText("I am from " + item_vendors.get(position) + "");
+
+        viewHolder.h_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                context[0] = v.getContext();
+
+                Intent intent = new Intent(context[0], ProductPage.class);
+                context[0].startActivity(intent);
+
+                Toast.makeText(activity, "Position clicked: " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return item_names.size();
+    }
+
+
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = "http://35.154.252.64:8080/lll"+urls[0];
+            Bitmap mIcon = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
         }
     }
 }
