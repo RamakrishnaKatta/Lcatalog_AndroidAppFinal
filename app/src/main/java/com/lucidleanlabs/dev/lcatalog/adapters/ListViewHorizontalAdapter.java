@@ -3,9 +3,7 @@ package com.lucidleanlabs.dev.lcatalog.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,8 +16,8 @@ import android.widget.Toast;
 
 import com.lucidleanlabs.dev.lcatalog.ProductPage;
 import com.lucidleanlabs.dev.lcatalog.R;
+import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHorizontalAdapter.ViewHolder> {
@@ -49,12 +47,14 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
         this.item_discounts = item_discounts;
         this.item_vendors = item_vendors;
         this.item_images = item_images;
-        Log.e(TAG, "names--" + item_names);
-        Log.e(TAG, "descriptions--" + item_descriptions);
-        Log.e(TAG, "prices--" + item_prices);
-        Log.e(TAG, "discounts--" + item_discounts);
-        Log.e(TAG, "vendors--" + item_vendors);
-        Log.e(TAG, "Images--" + item_images);
+
+        Log.e(TAG, "names----" + item_names);
+        Log.e(TAG, "descriptions----" + item_descriptions);
+        Log.e(TAG, "prices----" + item_prices);
+        Log.e(TAG, "discounts----" + item_discounts);
+        Log.e(TAG, "vendors----" + item_vendors);
+        Log.e(TAG, "Images----" + item_images);
+
         this.activity = activity;
     }
 
@@ -110,6 +110,16 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
                 context[0] = v.getContext();
 
                 Intent intent = new Intent(context[0], ProductPage.class);
+                Bundle b = new Bundle();
+
+                b.putString("article_title", item_names.get(position));
+                b.putString("article_description", item_descriptions.get(position));
+                b.putString("article_price", item_prices.get(position));
+                b.putString("article_discount", item_discounts.get(position));
+                b.putString("article_vendor", item_vendors.get(position));
+
+                intent.putExtras(b);
+
                 context[0].startActivity(intent);
 
                 Toast.makeText(activity, "Position clicked: " + position, Toast.LENGTH_SHORT).show();
@@ -124,29 +134,4 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
     }
 
 
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = "http://35.154.252.64:8080/lll"+urls[0];
-            Bitmap mIcon = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
 }

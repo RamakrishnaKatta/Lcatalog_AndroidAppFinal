@@ -10,12 +10,9 @@ import android.widget.ImageView;
 import com.lucidleanlabs.dev.lcatalog.R;
 
 import java.util.ArrayList;
-
-
 public class ImageSliderAdapter extends PagerAdapter {
 
     private ArrayList<Integer> Images;
-//    private int[] img ={R.drawable.background,R.drawable.dummy_icon};
     private LayoutInflater inflater;
     private Context context;
     public ImageSliderAdapter(Context context, ArrayList<Integer> Images){
@@ -38,7 +35,7 @@ public class ImageSliderAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container,int position){
     inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.activity_product_page,container,false);
-        ImageView images= (ImageView)v.findViewById(R.id.product_image);
+        ImageView images= (ImageView)v.findViewById(R.id.article_image_view);
         images.setImageResource(Images.get(position));
         container.addView(v);
         return v;
@@ -48,5 +45,4 @@ public class ImageSliderAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container,int position,Object object){
         container.invalidate();
     }
-
 }

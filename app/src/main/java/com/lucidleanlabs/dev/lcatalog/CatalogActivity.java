@@ -92,6 +92,10 @@ public class CatalogActivity extends AppCompatActivity {
                     item_names.clear();
                     item_descriptions.clear();
                     item_prices.clear();
+                    item_vendors.clear();
+                    item_prices.clear();
+                    item_discounts.clear();
+
                     getData();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -109,6 +113,9 @@ public class CatalogActivity extends AppCompatActivity {
                     item_names.clear();
                     item_descriptions.clear();
                     item_prices.clear();
+                    item_vendors.clear();
+                    item_prices.clear();
+                    item_discounts.clear();
 
                     getData();
                 } catch (JSONException e) {
@@ -127,9 +134,9 @@ public class CatalogActivity extends AppCompatActivity {
                     item_names.clear();
                     item_descriptions.clear();
                     item_prices.clear();
-                    item_discounts.clear();
                     item_vendors.clear();
-                    item_images.clear();
+                    item_prices.clear();
+                    item_discounts.clear();
 
                     getData();
                 } catch (JSONException e) {
@@ -209,18 +216,24 @@ public class CatalogActivity extends AppCompatActivity {
                 item_names.add(obj.getString("name"));
                 item_descriptions.add(obj.getString("description"));
                 item_prices.add(obj.getString("price"));
+                item_discounts.add(obj.getString("discount"));
+                item_vendors.add(obj.getString("vendorId"));
+                item_images.add(obj.getString("img"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        Log.e(TAG, "names--" + item_names);
-        Log.e(TAG, "descriptions--" + item_descriptions);
-        Log.e(TAG, "prices--" + item_prices);
+        Log.e(TAG, "names******" + item_names);
+        Log.e(TAG, "descriptions******" + item_descriptions);
+        Log.e(TAG, "prices******" + item_prices);
+        Log.e(TAG, "discounts******" + item_discounts);
+        Log.e(TAG, "vendors******" + item_vendors);
+        Log.e(TAG,"images******" + item_images);
 
         GridLayoutManager gridManager = new GridLayoutManager(this, 2);
         grid_recycler.setLayoutManager(gridManager);
-        GridViewAdapter gridAdapter = new GridViewAdapter(this, item_names, item_descriptions, item_prices);
+        GridViewAdapter gridAdapter = new GridViewAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images);
         grid_recycler.setAdapter(gridAdapter);
 
         if (horizontal_recycler.getVisibility() == View.VISIBLE || vertical_recycler.getVisibility() == View.VISIBLE) {
@@ -252,12 +265,12 @@ public class CatalogActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        Log.e(TAG, "names--" + item_names);
-        Log.e(TAG, "descriptions--" + item_descriptions);
-        Log.e(TAG, "prices--" + item_prices);
-        Log.e(TAG, "discounts--" + item_discounts);
-        Log.e(TAG, "vendors--" + item_vendors);
-
+        Log.e(TAG, "names******" + item_names);
+        Log.e(TAG, "descriptions******" + item_descriptions);
+        Log.e(TAG, "prices******" + item_prices);
+        Log.e(TAG, "discounts******" + item_discounts);
+        Log.e(TAG, "vendors******" + item_vendors);
+        Log.e(TAG,"images******" + item_images);
 
         LinearLayoutManager horizontalManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         horizontal_recycler.setLayoutManager(horizontalManager);
@@ -285,18 +298,24 @@ public class CatalogActivity extends AppCompatActivity {
                 item_names.add(obj.getString("name"));
                 item_descriptions.add(obj.getString("description"));
                 item_prices.add(obj.getString("price"));
+                item_discounts.add(obj.getString("discount"));
+                item_vendors.add(obj.getString("vendorId"));
+                item_images.add(obj.getString("img"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        Log.e(TAG, "names--" + item_names);
-        Log.e(TAG, "descriptions--" + item_descriptions);
-        Log.e(TAG, "prices--" + item_prices);
+        Log.e(TAG, "names******" + item_names);
+        Log.e(TAG, "descriptions******" + item_descriptions);
+        Log.e(TAG, "prices******" + item_prices);
+        Log.e(TAG,"images******" + item_images);
+        Log.e(TAG, "discounts******" + item_discounts);
+        Log.e(TAG, "vendors******" + item_vendors);
 
         LinearLayoutManager verticalManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         vertical_recycler.setLayoutManager(verticalManager);
-        ListViewVerticalAdapter verticalAdapter = new ListViewVerticalAdapter(this, item_names, item_descriptions, item_prices);
+        ListViewVerticalAdapter verticalAdapter = new ListViewVerticalAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images);
         vertical_recycler.setAdapter(verticalAdapter);
 
         if (grid_recycler.getVisibility() == View.VISIBLE || horizontal_recycler.getVisibility() == View.VISIBLE) {

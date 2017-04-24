@@ -66,4 +66,5 @@
     <string name="new_vendor_state">Which State in India?</string>
     <string name="new_vendor_pincode">What is the States PinCode?</string>
     <string name="new_vendor_location">Which City?</string>
+    <string name="dummy_address">Chandra Layout, Bangalore- 560072</string>
 </resources>
