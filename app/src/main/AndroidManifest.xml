@@ -55,6 +55,8 @@
         <activity
             android:name=".AugmentActivity"
             android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".ScreenshotActivity"
+            android:theme="@style/AppTheme.Dark"/>
         <activity
             android:name=".ar.ARNativeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />

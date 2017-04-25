@@ -247,10 +247,10 @@ public class AugmentActivity extends AppCompatActivity implements Callback, OnCl
                     File folder = null;
                     if (state.contains(Environment.MEDIA_MOUNTED)) {
                         folder = new File(Environment
-                                .getExternalStorageDirectory() + "/L CATALOGUE/Screenshots");
+                                .getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots");
                     } else {
                         folder = new File(Environment
-                                .getExternalStorageDirectory() + "/L CATALOGUE/Screenshots");
+                                .getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots");
                     }
 
                     boolean success = true;
