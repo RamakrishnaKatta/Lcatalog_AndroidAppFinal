@@ -95,6 +95,7 @@ public class CatalogActivity extends AppCompatActivity {
                     item_vendors.clear();
                     item_prices.clear();
                     item_discounts.clear();
+                    item_images.clear();
 
                     getData();
                 } catch (JSONException e) {
@@ -116,6 +117,7 @@ public class CatalogActivity extends AppCompatActivity {
                     item_vendors.clear();
                     item_prices.clear();
                     item_discounts.clear();
+                    item_images.clear();
 
                     getData();
                 } catch (JSONException e) {
@@ -137,6 +139,7 @@ public class CatalogActivity extends AppCompatActivity {
                     item_vendors.clear();
                     item_prices.clear();
                     item_discounts.clear();
+                    item_images.clear();
 
                     getData();
                 } catch (JSONException e) {
@@ -229,7 +232,7 @@ public class CatalogActivity extends AppCompatActivity {
         Log.e(TAG, "prices******" + item_prices);
         Log.e(TAG, "discounts******" + item_discounts);
         Log.e(TAG, "vendors******" + item_vendors);
-        Log.e(TAG,"images******" + item_images);
+        Log.e(TAG, "images******" + item_images);
 
         GridLayoutManager gridManager = new GridLayoutManager(this, 2);
         grid_recycler.setLayoutManager(gridManager);
@@ -270,7 +273,7 @@ public class CatalogActivity extends AppCompatActivity {
         Log.e(TAG, "prices******" + item_prices);
         Log.e(TAG, "discounts******" + item_discounts);
         Log.e(TAG, "vendors******" + item_vendors);
-        Log.e(TAG,"images******" + item_images);
+        Log.e(TAG, "images******" + item_images);
 
         LinearLayoutManager horizontalManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         horizontal_recycler.setLayoutManager(horizontalManager);
@@ -309,7 +312,7 @@ public class CatalogActivity extends AppCompatActivity {
         Log.e(TAG, "names******" + item_names);
         Log.e(TAG, "descriptions******" + item_descriptions);
         Log.e(TAG, "prices******" + item_prices);
-        Log.e(TAG,"images******" + item_images);
+        Log.e(TAG, "images******" + item_images);
         Log.e(TAG, "discounts******" + item_discounts);
         Log.e(TAG, "vendors******" + item_vendors);
 

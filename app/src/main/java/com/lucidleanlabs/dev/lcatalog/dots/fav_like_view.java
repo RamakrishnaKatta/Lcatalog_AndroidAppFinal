@@ -1,4 +1,4 @@
-package com.lucidleanlabs.dev.lcatalog;
+package com.lucidleanlabs.dev.lcatalog.dots;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -19,6 +19,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import com.lucidleanlabs.dev.lcatalog.R;
 
 
 public class fav_like_view extends FrameLayout implements View.OnClickListener {

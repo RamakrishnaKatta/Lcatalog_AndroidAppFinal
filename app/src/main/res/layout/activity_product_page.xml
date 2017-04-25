@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/primary_darker"
-    tools:context="com.lucidleanlabs.dev.lcatalog.ProductPage">
+    tools:context="com.lucidleanlabs.dev.lcatalog.ProductPageActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

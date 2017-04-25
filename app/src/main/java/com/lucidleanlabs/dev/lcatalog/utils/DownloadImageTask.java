@@ -7,10 +7,10 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.InputStream;
-
+import java.net.URL;
 
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-    ImageView bmImage;
+    private ImageView bmImage;
 
     public DownloadImageTask(ImageView bmImage) {
         this.bmImage = bmImage;
@@ -20,9 +20,13 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         String urldisplay = "http://35.154.252.64:8080" + urls[0];
         Bitmap mIcon = null;
         try {
-            InputStream in = new java.net.URL(urldisplay).openStream();
+
+            InputStream in = new URL(urldisplay).openStream();
+
             mIcon = BitmapFactory.decodeStream(in);
+
         } catch (Exception e) {
+
             Log.e("Error", e.getMessage());
             e.printStackTrace();
         }
@@ -30,6 +34,8 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected void onPostExecute(Bitmap result) {
-        bmImage.setImageBitmap(result);
+        if (result != null) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }

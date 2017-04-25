@@ -36,9 +36,9 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ProductPage extends AppCompatActivity {
+public class ProductPageActivity extends AppCompatActivity {
 
-    private static final String TAG = "ProductPage";
+    private static final String TAG = "ProductPageActivity";
     private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/vendor/by?id=";
     private static String VENDOR_URL = null;
 
@@ -51,11 +51,11 @@ public class ProductPage extends AppCompatActivity {
     private static final Integer[] Images = {R.drawable.dummy_icon, R.drawable.background};
 
     private String vendor_name, vendor_address, vendor_image, vendor_id;
-//    private String vendor_image_location;
+    private String vendor_image_location;
 
-    private TextView article_title, article_description, article_price, article_discount, article_width, article_height, article_length, article_vendor_name, article_vendor_location;
-    private ImageView article_image, vendor_logo;
-    private ImageButton article_share, article_augment, article_view;
+    private TextView article_vendor_name;
+    private TextView article_vendor_location;
+    private ImageView vendor_logo;
 
 
     @Override
@@ -71,33 +71,30 @@ public class ProductPage extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        article_image = (ImageView) findViewById(R.id.article_image_view);
+        ImageView article_image = (ImageView) findViewById(R.id.article_image_view);
         vendor_logo = (ImageView) findViewById(R.id.article_vendor_logo);
 
-        article_share = (ImageButton) findViewById(R.id.article_share_icon);
-        article_augment = (ImageButton) findViewById(R.id.article_augment_icon);
-        article_view = (ImageButton) findViewById(R.id.article_view_icon);
+//        ImageButton article_share = (ImageButton) findViewById(R.id.article_share_icon);
+//        ImageButton article_augment = (ImageButton) findViewById(R.id.article_augment_icon);
+//        ImageButton article_view = (ImageButton) findViewById(R.id.article_view_icon);
 
-        article_title = (TextView) findViewById(R.id.article_title_text);
-        article_description = (TextView) findViewById(R.id.article_description_text);
-        article_price = (TextView) findViewById(R.id.article_price_value);
-        article_discount = (TextView) findViewById(R.id.article_price_discount_value);
-        article_width = (TextView) findViewById(R.id.article_width_text);
-        article_height = (TextView) findViewById(R.id.article_height_text);
-        article_length = (TextView) findViewById(R.id.article_length_text);
+        TextView article_title = (TextView) findViewById(R.id.article_title_text);
+        TextView article_description = (TextView) findViewById(R.id.article_description_text);
+        TextView article_price = (TextView) findViewById(R.id.article_price_value);
+        TextView article_discount = (TextView) findViewById(R.id.article_price_discount_value);
+//        TextView article_width = (TextView) findViewById(R.id.article_width_text);
+//        TextView article_height = (TextView) findViewById(R.id.article_height_text);
+//        TextView article_length = (TextView) findViewById(R.id.article_length_text);
         article_vendor_name = (TextView) findViewById(R.id.article_vendor_text);
         article_vendor_location = (TextView) findViewById(R.id.article_vendor_address_text);
 
         Bundle b = getIntent().getExtras();
 
         article_title.setText(b.getCharSequence("article_title"));
+        Log.e(TAG, "names----" + b.getCharSequence("article_title"));
         article_description.setText(b.getCharSequence("article_description"));
         article_price.setText(b.getCharSequence("article_price"));
         article_discount.setText(b.getCharSequence("article_discount"));
-
-//        int article_price_now = (Integer.parseInt("article_price") * Integer.parseInt("article_discount")) / 100;
-//        Log.e(TAG, "Price Now--" + article_price_now);
-
 
         VENDOR_URL = REGISTER_URL + b.getCharSequence("article_vendor");
         Log.e(TAG, "VENDOR_URL--" + VENDOR_URL);
@@ -108,14 +105,6 @@ public class ProductPage extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        article_augment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProductPage.this, AugmentActivity.class);
-                startActivity(intent);
-            }
-        });
 
         init();
 
@@ -175,7 +164,7 @@ public class ProductPage extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(ProductPage.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductPageActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
                 NetworkResponse response = error.networkResponse;
                 if (error instanceof ServerError && response != null) {
                     try {
@@ -207,7 +196,7 @@ public class ProductPage extends AppCompatActivity {
         for (int i = 0; i < Images.length; i++)
             slider_images.add(Images[i]);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        imagesliderAdapter = new ImageSliderAdapter(ProductPage.this, slider_images);
+        imagesliderAdapter = new ImageSliderAdapter(ProductPageActivity.this, slider_images);
         viewPager.setAdapter(imagesliderAdapter);
 
         ll_dots = (LinearLayout) findViewById(R.id.LL_Dots);

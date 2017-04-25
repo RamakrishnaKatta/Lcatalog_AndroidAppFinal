@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.Surface;
@@ -39,9 +40,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class AugmentActivity extends ProductPage implements Callback,
-        OnClickListener {
-
+public class AugmentActivity extends AppCompatActivity implements Callback, OnClickListener {
 
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
@@ -59,20 +58,18 @@ public class AugmentActivity extends ProductPage implements Callback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_augment_view);
 
-
         cameraId = CameraInfo.CAMERA_FACING_BACK;
-        flashCameraButton = (ImageButton) findViewById(R.id.flash);
-        screenshot = (ImageButton) findViewById(R.id.capture_image);
-        surfaceView = (SurfaceView) findViewById(R.id.surfacview);
+        flashCameraButton = (ImageButton) findViewById(R.id.camera_flash);
+        screenshot = (ImageButton) findViewById(R.id.camera_capture);
+        surfaceView = (SurfaceView) findViewById(R.id.surface_view);
         surfaceHolder = surfaceView.getHolder();
         surfaceHolder.addCallback(this);
         screenshot.setOnClickListener(this);
         flashCameraButton.setOnClickListener(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        imageView = (ImageView)findViewById(R.id.camera_image);
+        imageView = (ImageView) findViewById(R.id.camera_view);
 
-        if (!getBaseContext().getPackageManager().hasSystemFeature(
-                PackageManager.FEATURE_CAMERA_FLASH)) {
+        if (!getBaseContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
             flashCameraButton.setVisibility(View.GONE);
         }
     }
@@ -97,10 +94,8 @@ public class AugmentActivity extends ProductPage implements Callback,
             try {
                 setUpCamera(camera);
                 camera.setErrorCallback(new ErrorCallback() {
-
                     @Override
                     public void onError(int error, Camera camera) {
-
                     }
                 });
                 camera.setPreviewDisplay(surfaceHolder);
@@ -133,7 +128,6 @@ public class AugmentActivity extends ProductPage implements Callback,
             case Surface.ROTATION_270:
                 degree = 270;
                 break;
-
             default:
                 break;
         }
@@ -170,7 +164,6 @@ public class AugmentActivity extends ProductPage implements Callback,
 
         flashCameraButton.setVisibility(showFlash ? View.VISIBLE
                 : View.INVISIBLE);
-
     }
 
     private void releaseCamera() {
@@ -192,14 +185,14 @@ public class AugmentActivity extends ProductPage implements Callback,
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                int height) {
-        if (previewRunning){
+        if (previewRunning) {
             camera.stopPreview();
         }
         Camera.Parameters camParams = camera.getParameters();
         Camera.Size size = camParams.getSupportedPreviewSizes().get(0);
-        camParams.setPreviewSize(size.width,size.height);
+        camParams.setPreviewSize(size.width, size.height);
         camera.setParameters(camParams);
-        try{
+        try {
             camera.setPreviewDisplay(holder);
             camera.startPreview();
         } catch (IOException e) {
@@ -218,10 +211,10 @@ public class AugmentActivity extends ProductPage implements Callback,
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.flash:
+            case R.id.camera_flash:
                 flashOnButton();
                 break;
-            case R.id.capture_image:
+            case R.id.camera_capture:
                 takeImage();
                 break;
 
@@ -273,8 +266,7 @@ public class AugmentActivity extends ProductPage implements Callback,
 
                         imageFile.createNewFile();
                     } else {
-                        Toast.makeText(getBaseContext(), "Image Not saved",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), "Image Not saved", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -288,14 +280,11 @@ public class AugmentActivity extends ProductPage implements Callback,
                     fout.close();
                     ContentValues values = new ContentValues();
 
-                    values.put(Images.Media.DATE_TAKEN,
-                            System.currentTimeMillis());
+                    values.put(Images.Media.DATE_TAKEN, System.currentTimeMillis());
                     values.put(Images.Media.MIME_TYPE, "image/jpeg");
-                    values.put(MediaStore.MediaColumns.DATA,
-                            imageFile.getAbsolutePath());
+                    values.put(MediaStore.MediaColumns.DATA, imageFile.getAbsolutePath());
 
-                    AugmentActivity.this.getContentResolver().insert(
-                            Images.Media.EXTERNAL_CONTENT_URI, values);
+                    AugmentActivity.this.getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -304,6 +293,7 @@ public class AugmentActivity extends ProductPage implements Callback,
             }
         });
     }
+
     private void alertCameraDialog() {
         AlertDialog.Builder dialog = createAlert(AugmentActivity.this,
                 "Camera info", "error to open camera");
@@ -332,6 +322,7 @@ public class AugmentActivity extends ProductPage implements Callback,
         dialog.setCancelable(false);
         return dialog;
     }
+
     private void flashOnButton() {
         if (camera != null) {
             try {

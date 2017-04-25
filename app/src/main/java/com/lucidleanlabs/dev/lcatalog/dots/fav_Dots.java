@@ -1,4 +1,4 @@
-package com.lucidleanlabs.dev.lcatalog;
+package com.lucidleanlabs.dev.lcatalog.dots;
 
 import android.animation.ArgbEvaluator;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Property;
 import android.view.View;
+
+import com.lucidleanlabs.dev.lcatalog.utils.Utils;
 
 
 public class fav_Dots extends View {

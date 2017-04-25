@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.lucidleanlabs.dev.lcatalog.ProductPage"
+    tools:context="com.lucidleanlabs.dev.lcatalog.ProductPageActivity"
     tools:showIn="@layout/activity_product_page">
 
     <ScrollView
@@ -56,7 +56,7 @@
                 android:layout_height="50dp"
                 android:background="@android:color/white">
 
-                <com.lucidleanlabs.dev.lcatalog.fav_like_view
+                <com.lucidleanlabs.dev.lcatalog.dots.fav_like_view
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />

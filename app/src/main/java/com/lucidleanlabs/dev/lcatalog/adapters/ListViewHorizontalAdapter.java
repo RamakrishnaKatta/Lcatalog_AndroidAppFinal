@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lucidleanlabs.dev.lcatalog.ProductPage;
+import com.lucidleanlabs.dev.lcatalog.ProductPageActivity;
 import com.lucidleanlabs.dev.lcatalog.R;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 
@@ -109,7 +109,7 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
 
                 context[0] = v.getContext();
 
-                Intent intent = new Intent(context[0], ProductPage.class);
+                Intent intent = new Intent(context[0], ProductPageActivity.class);
                 Bundle b = new Bundle();
 
                 b.putString("article_title", item_names.get(position));

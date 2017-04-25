@@ -39,7 +39,7 @@
             android:name=".SignupActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".ProductPage"
+            android:name=".ProductPageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"

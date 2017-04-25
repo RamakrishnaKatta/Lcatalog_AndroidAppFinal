@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
+import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int MY_PERMISSIONS_REQUEST_CAPTURE_CAMERA = 10;
@@ -175,12 +176,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_gallery) {
 
+        } else if (id == R.id.nav_camera) {
+
+            Toast.makeText(this, "You are now entering the custom camera !!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, AugmentActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_ven_reg) {
+
             Toast.makeText(this, "We will not disappoint you, Lets get in Touch !!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, VendorRegistrationActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_sign_up) {
+
             Toast.makeText(this, "Thanks for your thought on Creating an Account, Appreciated !!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, SignupActivity.class);
             startActivity(intent);
