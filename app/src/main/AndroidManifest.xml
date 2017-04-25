@@ -53,7 +53,7 @@
             android:label="@string/title_activity_catalog"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AugmentActivity"
+            android:name=".CameraActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity android:name=".ScreenshotActivity"
             android:theme="@style/AppTheme.Dark"/>

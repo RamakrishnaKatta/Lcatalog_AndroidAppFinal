@@ -70,20 +70,21 @@
                     app:srcCompat="@mipmap/ic_menu_share" />
 
                 <ImageButton
-                    android:id="@+id/article_view_icon"
+                    android:id="@+id/article_3dview_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
+                    android:visibility="visible"
                     app:srcCompat="@mipmap/ic_3d" />
 
                 <ImageButton
-                    android:id="@+id/article_augment_icon"
+                    android:id="@+id/article_download_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    app:srcCompat="@mipmap/ic_augment" />
+                    app:srcCompat="@mipmap/ic_download" />
 
             </LinearLayout>
 

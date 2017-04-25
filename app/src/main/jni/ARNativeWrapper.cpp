@@ -34,7 +34,7 @@
         JNIEXPORT void JNICALL JNIFUNCTION_DEMO(demoInitialise(JNIEnv * env, jobject object)) {
 
                 const char *model0file = "Data/models/Ferrari_Modena_Spider.obj";
-                const char *model1file = "Data/models/fade01.obj";
+                const char *model1file = "Data/models/chair_wooden.obj";
                 const char *model2file = "Data/models/Porsche_911_GT3.obj";
                 const char *model3file = "Data/models/BookShelf.obj";
 

@@ -40,7 +40,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class AugmentActivity extends AppCompatActivity implements Callback, OnClickListener {
+public class CameraActivity extends AppCompatActivity implements Callback, OnClickListener {
 
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
@@ -56,7 +56,7 @@ public class AugmentActivity extends AppCompatActivity implements Callback, OnCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_augment_view);
+        setContentView(R.layout.activity_camera);
 
         cameraId = CameraInfo.CAMERA_FACING_BACK;
         flashCameraButton = (ImageButton) findViewById(R.id.camera_flash);
@@ -284,7 +284,7 @@ public class AugmentActivity extends AppCompatActivity implements Callback, OnCl
                     values.put(Images.Media.MIME_TYPE, "image/jpeg");
                     values.put(MediaStore.MediaColumns.DATA, imageFile.getAbsolutePath());
 
-                    AugmentActivity.this.getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values);
+                    CameraActivity.this.getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -295,7 +295,7 @@ public class AugmentActivity extends AppCompatActivity implements Callback, OnCl
     }
 
     private void alertCameraDialog() {
-        AlertDialog.Builder dialog = createAlert(AugmentActivity.this,
+        AlertDialog.Builder dialog = createAlert(CameraActivity.this,
                 "Camera info", "error to open camera");
         dialog.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override

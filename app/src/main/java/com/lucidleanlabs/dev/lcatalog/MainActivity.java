@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_camera) {
 
             Toast.makeText(this, "You are now entering the custom camera !!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, AugmentActivity.class);
+            Intent intent = new Intent(this, CameraActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_ven_reg) {

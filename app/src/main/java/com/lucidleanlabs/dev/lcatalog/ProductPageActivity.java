@@ -1,8 +1,8 @@
 package com.lucidleanlabs.dev.lcatalog;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -51,17 +51,18 @@ public class ProductPageActivity extends AppCompatActivity {
     private static final Integer[] Images = {R.drawable.dummy_icon, R.drawable.background};
 
     private String vendor_name, vendor_address, vendor_image, vendor_id;
-    private String vendor_image_location;
 
     private TextView article_vendor_name;
     private TextView article_vendor_location;
-    private ImageView vendor_logo;
-
+    private ImageView vendor_logo, article_image;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_page);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_article);
         setSupportActionBar(toolbar);
@@ -71,12 +72,12 @@ public class ProductPageActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        ImageView article_image = (ImageView) findViewById(R.id.article_image_view);
+        article_image = (ImageView) findViewById(R.id.article_image_view);
         vendor_logo = (ImageView) findViewById(R.id.article_vendor_logo);
 
 //        ImageButton article_share = (ImageButton) findViewById(R.id.article_share_icon);
-//        ImageButton article_augment = (ImageButton) findViewById(R.id.article_augment_icon);
-//        ImageButton article_view = (ImageButton) findViewById(R.id.article_view_icon);
+        ImageButton article_download = (ImageButton) findViewById(R.id.article_download_icon);
+        ImageButton article_3d_view = (ImageButton) findViewById(R.id.article_3dview_icon);
 
         TextView article_title = (TextView) findViewById(R.id.article_title_text);
         TextView article_description = (TextView) findViewById(R.id.article_description_text);
@@ -105,6 +106,13 @@ public class ProductPageActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        article_download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         init();
 
