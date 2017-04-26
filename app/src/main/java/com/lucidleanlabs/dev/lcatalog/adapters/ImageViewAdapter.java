@@ -32,9 +32,7 @@ public class ImageViewAdapter extends RecyclerView.Adapter<ImageViewAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = screenshotActivity.getLayoutInflater();
-        Log.e(TAG, "images available-----" + inflater);
         View view = inflater.inflate(R.layout.gallery_item, viewGroup, false);
-        Log.e(TAG, "images inflating" + view);
         return new ViewHolder(view);
     }
 
@@ -43,11 +41,18 @@ public class ImageViewAdapter extends RecyclerView.Adapter<ImageViewAdapter.View
         Bitmap bitmap = BitmapFactory.decodeFile(f.get(position));
         holder.imageView.setImageBitmap(bitmap);
 
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
-        Log.e(TAG, "sadhajshdkjakdksaj" + f);
+        Log.e(TAG, "Items count of products" + f);
         return f.size();
     }
 
