@@ -289,6 +289,7 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                camera.startPreview();
 
             }
         });

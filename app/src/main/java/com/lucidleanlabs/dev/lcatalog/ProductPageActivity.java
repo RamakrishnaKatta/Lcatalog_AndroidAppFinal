@@ -1,6 +1,10 @@
 package com.lucidleanlabs.dev.lcatalog;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v4.view.ViewPager;
@@ -31,6 +35,10 @@ import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -55,6 +63,7 @@ public class ProductPageActivity extends AppCompatActivity {
     private TextView article_vendor_name;
     private TextView article_vendor_location;
     private ImageView vendor_logo, article_image;
+    String Article_Name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,7 +88,7 @@ public class ProductPageActivity extends AppCompatActivity {
         ImageButton article_download = (ImageButton) findViewById(R.id.article_download_icon);
         ImageButton article_3d_view = (ImageButton) findViewById(R.id.article_3dview_icon);
 
-        TextView article_title = (TextView) findViewById(R.id.article_title_text);
+        final TextView article_title = (TextView) findViewById(R.id.article_title_text);
         TextView article_description = (TextView) findViewById(R.id.article_description_text);
         TextView article_price = (TextView) findViewById(R.id.article_price_value);
         TextView article_discount = (TextView) findViewById(R.id.article_price_discount_value);
@@ -89,9 +98,11 @@ public class ProductPageActivity extends AppCompatActivity {
         article_vendor_name = (TextView) findViewById(R.id.article_vendor_text);
         article_vendor_location = (TextView) findViewById(R.id.article_vendor_address_text);
 
-        Bundle b = getIntent().getExtras();
+        final Bundle b = getIntent().getExtras();
+
 
         article_title.setText(b.getCharSequence("article_title"));
+        Article_Name = (String) b.getCharSequence("article_title");
         Log.e(TAG, "names----" + b.getCharSequence("article_title"));
         article_description.setText(b.getCharSequence("article_description"));
         article_price.setText(b.getCharSequence("article_price"));
@@ -111,7 +122,69 @@ public class ProductPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                try {
+                    download();
+                    Toast.makeText(ProductPageActivity.this,"u clicked on download",Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+
+            /*creation of directory in external storage */
+            private File specific;
+
+            private void download() throws IOException {
+                    String state = Environment.getExternalStorageState();
+                    File folder = null;
+                    if (state.contains(Environment.MEDIA_MOUNTED)){
+                        Log.e(TAG, "Article Name--" + Article_Name);
+                        folder = new File(Environment.getExternalStorageDirectory()+ "/L_CATALOGUE/Models/"+Article_Name);
+//                        folder = new File(Environment.getExternalStorageDirectory()+ "/L_CATALOGUE/Models/"+(String)b.getCharSequence("article_title"));
+                    }else {
+                        folder = new File(Environment.getExternalStorageDirectory()+ "/L_CATALOGUE/Models/"+Article_Name);
+                    }
+                    if (!folder.exists()){
+                        folder.mkdirs();
+                    }
+//                    boolean success  = true;
+//                if (!folder.exists()){
+//                    success = folder.mkdirs();
+//                }
+//                if (success) {
+//                    java.util.Random random = new java.util.Random();
+//                    specific = new File(folder.getAbsolutePath()+ File.separator+random);
+//                    specific.createNewFile();
+//                }
+
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+                FileOutputStream  fileOutputStream = new FileOutputStream(specific);
+                fileOutputStream.write(outputStream.toByteArray());
+                fileOutputStream.close();
+
+                ProductPageActivity.this.getContentResolver();
+//                    if (!folder.exists()){
+//                        folder.mkdirs();
+//                    }
+                    @SuppressLint("SdCardPath")
+                    File Directory  = new File("/sdcard/L_CATALOGUE/Models/");
+                    Directory.mkdirs();
+
+
+
+
+
+            }
+          public File getTempFile(Context context,String s){
+
+              File file = null;
+              try {
+                  String fileName = Uri.parse(s).getLastPathSegment();
+                  file = File.createTempFile(fileName,null,context.getCacheDir());
+              }catch (IOException e1){}
+              return file;
+          }
         });
 
         init();
@@ -136,7 +209,13 @@ public class ProductPageActivity extends AppCompatActivity {
                 handler.post(update);
             }
         }, 2000, 5000);
+
+
+
     }
+
+
+
 
     private void getVendorData() throws JSONException {
 
@@ -200,6 +279,8 @@ public class ProductPageActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    /*Image slider in product page Activity */
     private void init() {
         for (int i = 0; i < Images.length; i++)
             slider_images.add(Images[i]);
@@ -225,6 +306,8 @@ public class ProductPageActivity extends AppCompatActivity {
             }
         });
     }
+
+          /*Image Slider Indicators for the product page Activity*/
 
     private void addBottomDots(int currentPage) {
         dots = new TextView[slider_images.size()];

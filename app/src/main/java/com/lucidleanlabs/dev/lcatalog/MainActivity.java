@@ -75,9 +75,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)||
                     ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)){
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+             /*    Show an explanation to the user *asynchronously* -- don't block
+                 this thread waiting for the user's response! After the user
+                 sees the explanation, try again to request the permission.*/
 
             } else {
 
@@ -88,9 +88,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 ,Manifest.permission.READ_EXTERNAL_STORAGE,
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST);
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
+
+               /*  MY_PERMISSIONS_REQUEST is an
+                 app-defined int constant. The callback method gets the
+                 result of the request.*/
             }
         }
     }
@@ -103,12 +104,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
+                    // tasks you need to do.
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
-                return;
             }
             // other 'case' lines to check for other
             // permissions this app might request

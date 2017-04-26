@@ -60,6 +60,7 @@ public class ScreenshotActivity extends AppCompatActivity {
 
         ImageViewAdapter imageViewAdapter = new ImageViewAdapter(this, f);
         recyclerView.setAdapter(imageViewAdapter);
+
     }
 }
 
