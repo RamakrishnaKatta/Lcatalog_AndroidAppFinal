@@ -44,6 +44,7 @@ public class CatalogActivity extends AppCompatActivity {
     private ArrayList<String> item_discounts;
     private ArrayList<String> item_vendors;
     private ArrayList<String> item_images;
+    private ArrayList<String> item_dimensions;
 
 
     @Override
@@ -69,6 +70,7 @@ public class CatalogActivity extends AppCompatActivity {
         item_discounts = new ArrayList<>();
         item_vendors = new ArrayList<>();
         item_images = new ArrayList<>();
+        item_dimensions = new ArrayList<>();
 
         fab_vertical_list.setSize(1);
         fab_horizontal_list.setSize(1);
@@ -96,6 +98,7 @@ public class CatalogActivity extends AppCompatActivity {
                     item_prices.clear();
                     item_discounts.clear();
                     item_images.clear();
+                    item_dimensions.clear();
 
                     getData();
                 } catch (JSONException e) {
@@ -118,6 +121,7 @@ public class CatalogActivity extends AppCompatActivity {
                     item_prices.clear();
                     item_discounts.clear();
                     item_images.clear();
+                    item_dimensions.clear();
 
                     getData();
                 } catch (JSONException e) {
@@ -140,6 +144,7 @@ public class CatalogActivity extends AppCompatActivity {
                     item_prices.clear();
                     item_discounts.clear();
                     item_images.clear();
+                    item_dimensions.clear();
 
                     getData();
                 } catch (JSONException e) {
@@ -222,6 +227,7 @@ public class CatalogActivity extends AppCompatActivity {
                 item_discounts.add(obj.getString("discount"));
                 item_vendors.add(obj.getString("vendorId"));
                 item_images.add(obj.getString("img"));
+                item_dimensions.add(obj.getString("dimensions"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -233,10 +239,11 @@ public class CatalogActivity extends AppCompatActivity {
         Log.e(TAG, "discounts******" + item_discounts);
         Log.e(TAG, "vendors******" + item_vendors);
         Log.e(TAG, "images******" + item_images);
+        Log.e(TAG, "dimensions******" + item_dimensions);
 
         GridLayoutManager gridManager = new GridLayoutManager(this, 2);
         grid_recycler.setLayoutManager(gridManager);
-        GridViewAdapter gridAdapter = new GridViewAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images);
+        GridViewAdapter gridAdapter = new GridViewAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
         grid_recycler.setAdapter(gridAdapter);
 
         if (horizontal_recycler.getVisibility() == View.VISIBLE || vertical_recycler.getVisibility() == View.VISIBLE) {
@@ -263,6 +270,7 @@ public class CatalogActivity extends AppCompatActivity {
                 item_discounts.add(obj.getString("discount"));
                 item_vendors.add(obj.getString("vendorId"));
                 item_images.add(obj.getString("img"));
+                item_dimensions.add(obj.getString("dimensions"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -274,10 +282,11 @@ public class CatalogActivity extends AppCompatActivity {
         Log.e(TAG, "discounts******" + item_discounts);
         Log.e(TAG, "vendors******" + item_vendors);
         Log.e(TAG, "images******" + item_images);
+        Log.e(TAG, "dimensions******" + item_dimensions);
 
         LinearLayoutManager horizontalManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         horizontal_recycler.setLayoutManager(horizontalManager);
-        ListViewHorizontalAdapter horizontalAdapter = new ListViewHorizontalAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images);
+        ListViewHorizontalAdapter horizontalAdapter = new ListViewHorizontalAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
         horizontal_recycler.setAdapter(horizontalAdapter);
 
         if (grid_recycler.getVisibility() == View.VISIBLE || vertical_recycler.getVisibility() == View.VISIBLE) {
@@ -304,6 +313,7 @@ public class CatalogActivity extends AppCompatActivity {
                 item_discounts.add(obj.getString("discount"));
                 item_vendors.add(obj.getString("vendorId"));
                 item_images.add(obj.getString("img"));
+                item_dimensions.add(obj.getString("dimensions"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -315,10 +325,11 @@ public class CatalogActivity extends AppCompatActivity {
         Log.e(TAG, "images******" + item_images);
         Log.e(TAG, "discounts******" + item_discounts);
         Log.e(TAG, "vendors******" + item_vendors);
+        Log.e(TAG, "dimensions******" + item_dimensions);
 
         LinearLayoutManager verticalManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         vertical_recycler.setLayoutManager(verticalManager);
-        ListViewVerticalAdapter verticalAdapter = new ListViewVerticalAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images);
+        ListViewVerticalAdapter verticalAdapter = new ListViewVerticalAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
         vertical_recycler.setAdapter(verticalAdapter);
 
         if (grid_recycler.getVisibility() == View.VISIBLE || horizontal_recycler.getVisibility() == View.VISIBLE) {

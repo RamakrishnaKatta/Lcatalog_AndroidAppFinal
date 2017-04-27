@@ -32,6 +32,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
     private ArrayList<String> item_discounts;
     private ArrayList<String> item_vendors;
     private ArrayList<String> item_images;
+    private ArrayList<String> item_dimensions;
 
     public GridViewAdapter(Activity activity,
                            ArrayList<String> item_names,
@@ -39,7 +40,8 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
                            ArrayList<String> item_prices,
                            ArrayList<String> item_discounts,
                            ArrayList<String> item_vendors,
-                           ArrayList<String> item_images) {
+                           ArrayList<String> item_images,
+                           ArrayList<String> item_dimensions) {
 
         this.item_names = item_names;
         this.item_descriptions = item_descriptions;
@@ -47,6 +49,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         this.item_discounts = item_discounts;
         this.item_vendors = item_vendors;
         this.item_images = item_images;
+        this.item_dimensions = item_dimensions;
 
         Log.e(TAG, "names----" + item_names);
         Log.e(TAG, "descriptions----" + item_descriptions);
@@ -54,6 +57,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         Log.e(TAG, "discounts----" + item_discounts);
         Log.e(TAG, "vendors----" + item_vendors);
         Log.e(TAG, "Images----" + item_images);
+        Log.e(TAG, "Dimensions----" + item_dimensions);
 
         this.activity = activity;
     }
@@ -69,11 +73,11 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
 
         ViewHolder(View view) {
             super(view);
-            grid_container      = (RelativeLayout) view.findViewById(R.id.grid_container);
-            item_image          = (ImageView) view.findViewById(R.id.grid_item_image);
-            item_name           = (TextView) view.findViewById(R.id.grid_item_name);
-            item_description    = (TextView) view.findViewById(R.id.grid_item_description);
-            item_price          = (TextView) view.findViewById(R.id.grid_item_price);
+            grid_container = (RelativeLayout) view.findViewById(R.id.grid_container);
+            item_image = (ImageView) view.findViewById(R.id.grid_item_image);
+            item_name = (TextView) view.findViewById(R.id.grid_item_name);
+            item_description = (TextView) view.findViewById(R.id.grid_item_description);
+            item_price = (TextView) view.findViewById(R.id.grid_item_price);
         }
     }
 
@@ -94,9 +98,9 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         viewHolder.item_image.setImageResource(R.drawable.dummy_icon);
         new DownloadImageTask(viewHolder.item_image).execute(item_images.get(position));
 
-        viewHolder.item_name.setText("I am a " +item_names.get(position)+"");
+        viewHolder.item_name.setText("I am a " + item_names.get(position) + "");
         viewHolder.item_description.setText(item_descriptions.get(position));
-        viewHolder.item_price.setText("I cost Rs "+item_prices.get(position)+"/-");
+        viewHolder.item_price.setText("I cost Rs " + item_prices.get(position) + "/-");
 
         viewHolder.grid_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +117,8 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
                 b.putString("article_price", item_prices.get(position));
                 b.putString("article_discount", item_discounts.get(position));
                 b.putString("article_vendor", item_vendors.get(position));
+                b.putString("article_dimensions", item_dimensions.get(position));
+                b.putString("article_images", item_images.get(position));
 
                 intent.putExtras(b);
 
@@ -121,7 +127,6 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
                 Toast.makeText(activity, "You clicked on Article: " + position, Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override

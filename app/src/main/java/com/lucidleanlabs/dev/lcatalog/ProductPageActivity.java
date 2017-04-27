@@ -1,8 +1,7 @@
 package com.lucidleanlabs.dev.lcatalog;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.net.Uri;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -35,9 +34,7 @@ import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -56,14 +53,21 @@ public class ProductPageActivity extends AppCompatActivity {
     ArrayList<Integer> slider_images = new ArrayList<>();
     TextView[] dots;
     int page_position = 0;
-    private static final Integer[] Images = {R.drawable.dummy_icon, R.drawable.background};
 
-    private String vendor_name, vendor_address, vendor_image, vendor_id;
+    private String vendor_name;
+    private String vendor_address;
+    private String vendor_image;
+    private String vendor_id;
 
     private TextView article_vendor_name;
     private TextView article_vendor_location;
     private ImageView vendor_logo, article_image;
     String Article_Name;
+
+    String width, length, height;
+    String image1, image2, image3, image4, image5;
+
+    Drawable im1, im2, im3, im4, im5;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,7 +88,7 @@ public class ProductPageActivity extends AppCompatActivity {
         article_image = (ImageView) findViewById(R.id.article_image_view);
         vendor_logo = (ImageView) findViewById(R.id.article_vendor_logo);
 
-//        ImageButton article_share = (ImageButton) findViewById(R.id.article_share_icon);
+        ImageButton article_share = (ImageButton) findViewById(R.id.article_share_icon);
         ImageButton article_download = (ImageButton) findViewById(R.id.article_download_icon);
         ImageButton article_3d_view = (ImageButton) findViewById(R.id.article_3dview_icon);
 
@@ -92,21 +96,69 @@ public class ProductPageActivity extends AppCompatActivity {
         TextView article_description = (TextView) findViewById(R.id.article_description_text);
         TextView article_price = (TextView) findViewById(R.id.article_price_value);
         TextView article_discount = (TextView) findViewById(R.id.article_price_discount_value);
-//        TextView article_width = (TextView) findViewById(R.id.article_width_text);
-//        TextView article_height = (TextView) findViewById(R.id.article_height_text);
-//        TextView article_length = (TextView) findViewById(R.id.article_length_text);
+        TextView article_width = (TextView) findViewById(R.id.article_width_text);
+        TextView article_height = (TextView) findViewById(R.id.article_height_text);
+        TextView article_length = (TextView) findViewById(R.id.article_length_text);
         article_vendor_name = (TextView) findViewById(R.id.article_vendor_text);
         article_vendor_location = (TextView) findViewById(R.id.article_vendor_address_text);
 
         final Bundle b = getIntent().getExtras();
 
-
         article_title.setText(b.getCharSequence("article_title"));
         Article_Name = (String) b.getCharSequence("article_title");
         Log.e(TAG, "names----" + b.getCharSequence("article_title"));
+
         article_description.setText(b.getCharSequence("article_description"));
         article_price.setText(b.getCharSequence("article_price"));
         article_discount.setText(b.getCharSequence("article_discount"));
+
+        String article_dimensions = (String) b.getCharSequence("article_dimensions");
+        System.out.print("Article Dimensions" + article_dimensions);
+
+        try {
+            JSONObject dimension_json = new JSONObject(article_dimensions);
+            width = dimension_json.getString("width");
+            length = dimension_json.getString("length");
+            height = dimension_json.getString("height");
+
+            Log.e(TAG, " width-- " + width + " length-- " + length + " height-- " + height);
+            Log.e(TAG, " dimension_json-- " + dimension_json);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        article_width.setText(width);
+        article_height.setText(height);
+        article_length.setText(length);
+
+        String article_images = (String) b.getCharSequence("article_images");
+
+        try {
+            JSONObject image_json = new JSONObject(article_images);
+
+            image1 = image_json.getString("image1");
+            im1 = new BitmapDrawable(getResources(), String.valueOf(new DownloadImageTask(article_image).execute(image1)));
+            Log.e(TAG, " image1-- " + image1 + "bitmap" + im1);
+
+            image2 = image_json.getString("image2");
+            //im2 = new BitmapDrawable(getResources(), String.valueOf(new DownloadMultiImage().execute(image2)));
+            Log.e(TAG, " image2-- " + image2 + "bitmap" + im2);
+
+            image3 = image_json.getString("image3");
+            //im3 = new BitmapDrawable(getResources(), String.valueOf(new DownloadMultiImage().execute(image3)));
+            Log.e(TAG, " image3-- " + image3 + "bitmap" + im3);
+
+            image4 = image_json.getString("image4");
+            //im4 = new BitmapDrawable(getResources(), String.valueOf(new DownloadMultiImage().execute(image4)));
+            Log.e(TAG, " image4-- " + image4 + "bitmap" + im4);
+
+            image5 = image_json.getString("image5");
+            //im5 = new BitmapDrawable(getResources(), String.valueOf(new DownloadMultiImage().execute(image5)));
+            Log.e(TAG, " image5-- " + image5 + "bitmap" + im5);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         VENDOR_URL = REGISTER_URL + b.getCharSequence("article_vendor");
         Log.e(TAG, "VENDOR_URL--" + VENDOR_URL);
@@ -123,68 +175,12 @@ public class ProductPageActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    download();
-                    Toast.makeText(ProductPageActivity.this,"u clicked on download",Toast.LENGTH_SHORT).show();
+                    addModelFolder();
+                    Toast.makeText(ProductPageActivity.this, "You clicked on download", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-
-
-            /*creation of directory in external storage */
-            private File specific;
-
-            private void download() throws IOException {
-                    String state = Environment.getExternalStorageState();
-                    File folder = null;
-                    if (state.contains(Environment.MEDIA_MOUNTED)){
-                        Log.e(TAG, "Article Name--" + Article_Name);
-                        folder = new File(Environment.getExternalStorageDirectory()+ "/L_CATALOGUE/Models/"+Article_Name);
-//                        folder = new File(Environment.getExternalStorageDirectory()+ "/L_CATALOGUE/Models/"+(String)b.getCharSequence("article_title"));
-                    }else {
-                        folder = new File(Environment.getExternalStorageDirectory()+ "/L_CATALOGUE/Models/"+Article_Name);
-                    }
-                    if (!folder.exists()){
-                        folder.mkdirs();
-                    }
-//                    boolean success  = true;
-//                if (!folder.exists()){
-//                    success = folder.mkdirs();
-//                }
-//                if (success) {
-//                    java.util.Random random = new java.util.Random();
-//                    specific = new File(folder.getAbsolutePath()+ File.separator+random);
-//                    specific.createNewFile();
-//                }
-
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-                FileOutputStream  fileOutputStream = new FileOutputStream(specific);
-                fileOutputStream.write(outputStream.toByteArray());
-                fileOutputStream.close();
-
-                ProductPageActivity.this.getContentResolver();
-//                    if (!folder.exists()){
-//                        folder.mkdirs();
-//                    }
-                    @SuppressLint("SdCardPath")
-                    File Directory  = new File("/sdcard/L_CATALOGUE/Models/");
-                    Directory.mkdirs();
-
-
-
-
-
-            }
-          public File getTempFile(Context context,String s){
-
-              File file = null;
-              try {
-                  String fileName = Uri.parse(s).getLastPathSegment();
-                  file = File.createTempFile(fileName,null,context.getCacheDir());
-              }catch (IOException e1){}
-              return file;
-          }
         });
 
         init();
@@ -209,13 +205,22 @@ public class ProductPageActivity extends AppCompatActivity {
                 handler.post(update);
             }
         }, 2000, 5000);
-
-
-
     }
 
+    /*creation of directory in external storage */
+    private void addModelFolder() throws IOException {
+        String state = Environment.getExternalStorageState();
 
-
+        File folder = null;
+        if (state.contains(Environment.MEDIA_MOUNTED)) {
+            Log.e(TAG, "Article Name--" + Article_Name);
+            folder = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name);
+        }
+        assert folder != null;
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+    }
 
     private void getVendorData() throws JSONException {
 
@@ -236,8 +241,6 @@ public class ProductPageActivity extends AppCompatActivity {
                     Log.e(TAG, "vendor Address--" + vendor_address);
                     vendor_image = resp.getString("logo");
                     Log.e(TAG, "vendor Image--" + vendor_image);
-//                    vendor_image_location = "http://35.154.252.64:8080"+vendor_image;
-//                    Log.e(TAG, "vendor Image--" + vendor_image_location);
 
                     article_vendor_name.setText(vendor_name);
                     article_vendor_location.setText(vendor_address);
@@ -282,6 +285,7 @@ public class ProductPageActivity extends AppCompatActivity {
 
     /*Image slider in product page Activity */
     private void init() {
+        final Integer[] Images = {R.drawable.dummy_icon, R.drawable.background};
         for (int i = 0; i < Images.length; i++)
             slider_images.add(Images[i]);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -307,8 +311,7 @@ public class ProductPageActivity extends AppCompatActivity {
         });
     }
 
-          /*Image Slider Indicators for the product page Activity*/
-
+    /*Image Slider Indicators for the product page Activity*/
     private void addBottomDots(int currentPage) {
         dots = new TextView[slider_images.size()];
 
@@ -328,6 +331,7 @@ public class ProductPageActivity extends AppCompatActivity {
         if (dots.length > 0)
             dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
+
 
 }
 
