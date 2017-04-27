@@ -42,13 +42,14 @@ import java.util.Objects;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    private static final int REQUEST_FORGOT_PASSWORD = 0;
 
     public static final String KEY_EMAIL = "email";
     public static final String KEY_PASSWORD = "password";
 
     private static final String LOGIN_URL = "http://35.154.252.64:8080/lll/web/user/login";
 
-    private TextView _signupLink;
+    private TextView _signupLink,_forgot_password;
     private EditText _emailText, _passwordText;
     private Button _loginButton, _guestLoginButton;
 
@@ -66,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         TextView _returnToLogin = (TextView) findViewById(R.id.return_to_login);
         _guestLoginButton = (Button) findViewById(R.id.btn_guest);
         _signupLink = (TextView) findViewById(R.id.link_signup);
+        _forgot_password = (TextView) findViewById(R.id.link_forgot_password);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         app_name.setTypeface(custom_font);
@@ -110,6 +112,17 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
 //                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
+
+        _forgot_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(getApplicationContext(),ForgotPasswordActivity.class);
+                startActivityForResult(intent,REQUEST_FORGOT_PASSWORD);
+                finish();
+
+
             }
         });
 
