@@ -34,7 +34,7 @@
         JNIEXPORT void JNICALL JNIFUNCTION_DEMO(demoInitialise(JNIEnv * env, jobject object)) {
 
                 const char *model0file = "Data/models/Ferrari_Modena_Spider.obj";
-                const char *model1file = "Data/models/ChairWW1.OBJ";
+                const char *model1file = "Data/models/SOFA.obj";
                 const char *model2file = "Data/models/Porsche_911_GT3.obj";
                 const char *model3file = "Data/models/BookShelf.obj";
 
@@ -64,7 +64,7 @@
                         LOGE("Error loading model from file '%s'.", model1file);
                         exit(-1);
                     }
-                glmScale(models[1].obj, 0.5f);
+                glmScale(models[1].obj, 1.0f);
                     //glmRotate(models[1].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
                 glmCreateArrays(models[1].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE);
                 models[1].visible = false;

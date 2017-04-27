@@ -39,8 +39,9 @@
         <activity
             android:name=".SignupActivity"
             android:theme="@style/AppTheme.Dark" />
-        <activity android:name=".ForgotPasswordActivity"
-            android:theme="@style/AppTheme.Dark"/>
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".ProductPageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -55,11 +56,12 @@
             android:name=".CatalogActivity"
             android:label="@string/title_activity_catalog"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".FullScreenImageViewActivity" />
+        <activity android:name=".GalleryActivity" />
         <activity
             android:name=".CameraActivity"
             android:theme="@style/AppTheme.Dark" />
-        <activity android:name=".ScreenshotActivity"
-            android:theme="@style/AppTheme.Dark"/>
         <activity
             android:name=".ar.ARNativeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
@@ -76,7 +78,7 @@
         <activity
             android:name=".VendorRegistrationActivity"
             android:label="@string/title_activity_vendor_registration"
-            android:theme="@style/AppTheme.Dark"/>
+            android:theme="@style/AppTheme.Dark" />
     </application>
 
 </manifest>

@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
 
         } else if (id == R.id.nav_gallery) {
-            Intent intent = new Intent(this,ScreenshotActivity.class);
+            Intent intent = new Intent(this,GalleryActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_camera) {
