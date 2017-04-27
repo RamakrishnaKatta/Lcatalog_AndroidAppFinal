@@ -39,6 +39,8 @@
         <activity
             android:name=".SignupActivity"
             android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".ForgotPasswordActivity"
+            android:theme="@style/AppTheme.Dark"/>
         <activity
             android:name=".ProductPageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
