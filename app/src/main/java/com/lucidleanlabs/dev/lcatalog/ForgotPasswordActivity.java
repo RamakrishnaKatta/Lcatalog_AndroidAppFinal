@@ -24,17 +24,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private static final String TAG = "ForgotPassword";
     private static final int REQUEST_FORGOT = 0;
 
-
-    // private EditText _Enterpassword, _reenterpassword;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
         TextView app_name = (TextView) findViewById(R.id.application_name);
-
-
         Button _submitButton = (Button) findViewById(R.id.btn_submit);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
@@ -74,6 +69,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     }
 
+    /*the Animation for the Lucid Lean Labs Icon*/
     private void animate() {
 
         final ImageView imageView = (ImageView) findViewById(R.id.icon);
@@ -81,8 +77,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         final Animation animation_2 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.anti_rotate);
 
         imageView.startAnimation(animation_2);
-
-
         animation_2.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -149,6 +143,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 }, 3000);
     }
 
+    /*Validations for the Forgot Password Activity*/
     private boolean validate() {
         boolean valid = true;
         EditText _emailText = (EditText) findViewById(R.id.input_forgot_email);
@@ -179,7 +174,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         } else {
             _reEnterPasswordText.setError(null);
         }
-
         return valid;
     }
 
@@ -223,7 +217,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         finish();
     }
-                /*If Submit failed */
+    
     private void onSubmitfailed() {
         Button _submitbtn = (Button) findViewById(R.id.btn_submit);
         Toast.makeText(getBaseContext(), "Please Enter valid Email Id", Toast.LENGTH_SHORT).show();
@@ -231,5 +225,4 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         _submitbtn.setEnabled(true);
 
     }
-
 }
