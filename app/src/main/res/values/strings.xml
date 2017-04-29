@@ -72,4 +72,6 @@
     <string name="reenter_password">ReenterPassword</string>
     <string name="Welcome_userName">Welcome UserName</string>
     <string name="close">Close</string>
+    <string name="New_password">Enter New Password</string>
+    <string name="ReEnter_new_password">Re Enter New Password</string>
 </resources>

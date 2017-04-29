@@ -124,8 +124,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         progressDialog.show();
 
         EditText _emailText = (EditText) findViewById(R.id.input_forgot_email);
-        EditText _passwordText = (EditText) findViewById(R.id.input_reset_password);
-        EditText _reenterPasswordText = (EditText) findViewById(R.id.input_reEnter_forgot_Password);
+        EditText _passwordText = (EditText) findViewById(R.id.input_New_password);
+        EditText _reenterPasswordText = (EditText) findViewById(R.id.input_reEnter_New_Password);
 
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
@@ -147,8 +147,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private boolean validate() {
         boolean valid = true;
         EditText _emailText = (EditText) findViewById(R.id.input_forgot_email);
-        EditText _passwordText = (EditText) findViewById(R.id.input_reset_password);
-        EditText _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnter_forgot_Password);
+        EditText _passwordText = (EditText) findViewById(R.id.input_New_password);
+        EditText _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnter_New_Password);
 
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
@@ -217,7 +217,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         finish();
     }
-    
+
     private void onSubmitfailed() {
         Button _submitbtn = (Button) findViewById(R.id.btn_submit);
         Toast.makeText(getBaseContext(), "Please Enter valid Email Id", Toast.LENGTH_SHORT).show();
