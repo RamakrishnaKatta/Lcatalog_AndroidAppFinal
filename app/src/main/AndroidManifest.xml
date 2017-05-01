@@ -65,6 +65,7 @@
         <activity
             android:name=".ar.ARNativeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".View3dActivity" />
         <activity
             android:name=".WelcomeActivity"
             android:label="@string/app_name"

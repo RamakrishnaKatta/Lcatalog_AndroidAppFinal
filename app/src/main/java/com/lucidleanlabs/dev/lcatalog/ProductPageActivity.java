@@ -1,5 +1,6 @@
 package com.lucidleanlabs.dev.lcatalog;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -191,6 +192,14 @@ public class ProductPageActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        article_3d_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent _3dintent = new Intent(ProductPageActivity.this, View3dActivity.class);
+                startActivity(_3dintent);
             }
         });
 

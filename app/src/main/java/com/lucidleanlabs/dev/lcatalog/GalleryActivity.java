@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class GalleryActivity extends AppCompatActivity {
 
     // Number of columns of Grid View
-    public static final int NUM_OF_COLUMNS = 3;
+    public static final int NUM_OF_COLUMNS = 2;
 
     // Gridview image padding
     public static final int GRID_PADDING = 8; // in dp
@@ -29,6 +29,11 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery_view);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         gridView = (GridView) findViewById(R.id.image_grid_view);
 

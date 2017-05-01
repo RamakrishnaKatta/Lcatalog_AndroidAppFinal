@@ -149,7 +149,7 @@ public class SignupActivity extends AppCompatActivity {
         Log.d(TAG, "password--" + password);
         request.put("type", "CUSTOMER");
         // This Value should be changed when a user is reggistered under specific customer
-        request.put("vendorId", "600000");
+        request.put("vendorId", "100000");
 
         Log.d(TAG, "request--" + request);
 
@@ -249,7 +249,7 @@ public class SignupActivity extends AppCompatActivity {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

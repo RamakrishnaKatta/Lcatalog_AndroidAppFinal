@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String LOGIN_URL = "http://35.154.252.64:8080/lll/web/user/login";
 
-    private TextView _signupLink,_forgot_password;
+    private TextView _signupLink, _forgot_password;
     private EditText _emailText, _passwordText;
     private Button _loginButton, _guestLoginButton;
 
@@ -60,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
 
         TextView app_name = (TextView) findViewById(R.id.application_name);
         _loginButton = (Button) findViewById(R.id.btn_login);
@@ -104,7 +103,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         _signupLink.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
@@ -118,8 +116,8 @@ public class LoginActivity extends AppCompatActivity {
         _forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(getApplicationContext(),ForgotPasswordActivity.class);
-                startActivityForResult(intent,REQUEST_FORGOT_PASSWORD);
+                Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+                startActivityForResult(intent, REQUEST_FORGOT_PASSWORD);
                 finish();
 
 
@@ -194,7 +192,6 @@ public class LoginActivity extends AppCompatActivity {
         area_mobileText.setVisibility(View.VISIBLE);
         _loginButton.setVisibility(View.GONE);
         _returnToLogin.setVisibility(View.VISIBLE);
-
     }
 
     public void guest_login() {
@@ -363,8 +360,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder =
-                new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
         builder.setTitle("Alert");
         builder.setMessage("Press OK to exit");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
