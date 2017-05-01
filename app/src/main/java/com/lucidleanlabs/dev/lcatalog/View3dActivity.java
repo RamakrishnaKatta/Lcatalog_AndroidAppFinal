@@ -3,9 +3,11 @@ package com.lucidleanlabs.dev.lcatalog;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 
+import com.lucidleanlabs.dev.lcatalog.utils.UnzipUtil;
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.Light;
@@ -28,6 +30,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 
 public class View3dActivity extends AppCompatActivity {
+
 
     // Used to handle pause and resume...
     public static View3dActivity master = null;
@@ -65,6 +68,17 @@ public class View3dActivity extends AppCompatActivity {
         renderer = new MyRenderer();
         mGLView.setRenderer(renderer);
         setContentView(mGLView);
+
+
+
+            /*Extract zip file from 3D view button */
+        String ZipFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Sofa_3_Seater_Black_Grey.zip";
+        String ExtractLocation  =  Environment.getExternalStorageDirectory() + "/L_CATALOGUE/";
+
+        // String ZipFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" + Article_Name + ".rar"
+
+        UnzipUtil unzipUtil = new UnzipUtil(ZipFileLocation, ExtractLocation);
+        unzipUtil.unzip();
 
 //        BackgroundView backgroundView = new BackgroundView(this);
 //        addContentView(backgroundView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));

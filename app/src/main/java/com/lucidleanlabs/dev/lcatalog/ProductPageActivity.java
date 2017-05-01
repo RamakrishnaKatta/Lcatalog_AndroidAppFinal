@@ -200,6 +200,8 @@ public class ProductPageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent _3dintent = new Intent(ProductPageActivity.this, View3dActivity.class);
                 startActivity(_3dintent);
+
+
             }
         });
 
