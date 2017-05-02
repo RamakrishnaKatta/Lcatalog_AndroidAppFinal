@@ -45,6 +45,7 @@ public class CatalogActivity extends AppCompatActivity {
     private ArrayList<String> item_vendors;
     private ArrayList<String> item_images;
     private ArrayList<String> item_dimensions;
+    private ArrayList<String> item_ids;
 
 
     @Override
@@ -71,6 +72,7 @@ public class CatalogActivity extends AppCompatActivity {
         item_vendors = new ArrayList<>();
         item_images = new ArrayList<>();
         item_dimensions = new ArrayList<>();
+        item_ids = new ArrayList<>();
 
         fab_vertical_list.setSize(1);
         fab_horizontal_list.setSize(1);
@@ -99,6 +101,7 @@ public class CatalogActivity extends AppCompatActivity {
                     item_discounts.clear();
                     item_images.clear();
                     item_dimensions.clear();
+                    item_ids.clear();
 
                     getData();
                 } catch (JSONException e) {
@@ -122,6 +125,7 @@ public class CatalogActivity extends AppCompatActivity {
                     item_discounts.clear();
                     item_images.clear();
                     item_dimensions.clear();
+                    item_ids.clear();
 
                     getData();
                 } catch (JSONException e) {
@@ -145,6 +149,7 @@ public class CatalogActivity extends AppCompatActivity {
                     item_discounts.clear();
                     item_images.clear();
                     item_dimensions.clear();
+                    item_ids.clear();
 
                     getData();
                 } catch (JSONException e) {
@@ -221,6 +226,7 @@ public class CatalogActivity extends AppCompatActivity {
             JSONObject obj = null;
             try {
                 obj = g_jsonArray.getJSONObject(i);
+                item_ids.add(obj.getString("id"));
                 item_names.add(obj.getString("name"));
                 item_descriptions.add(obj.getString("description"));
                 item_prices.add(obj.getString("price"));
@@ -233,6 +239,7 @@ public class CatalogActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        Log.e(TAG, "ids******" + item_ids);
         Log.e(TAG, "names******" + item_names);
         Log.e(TAG, "descriptions******" + item_descriptions);
         Log.e(TAG, "prices******" + item_prices);
@@ -243,7 +250,7 @@ public class CatalogActivity extends AppCompatActivity {
 
         GridLayoutManager gridManager = new GridLayoutManager(this, 2);
         grid_recycler.setLayoutManager(gridManager);
-        GridViewAdapter gridAdapter = new GridViewAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
+        GridViewAdapter gridAdapter = new GridViewAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
         grid_recycler.setAdapter(gridAdapter);
 
         if (horizontal_recycler.getVisibility() == View.VISIBLE || vertical_recycler.getVisibility() == View.VISIBLE) {
@@ -264,6 +271,7 @@ public class CatalogActivity extends AppCompatActivity {
             JSONObject obj = null;
             try {
                 obj = h_jsonArray.getJSONObject(i);
+                item_ids.add(obj.getString("id"));
                 item_names.add(obj.getString("name"));
                 item_descriptions.add(obj.getString("description"));
                 item_prices.add(obj.getString("price"));
@@ -276,6 +284,7 @@ public class CatalogActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        Log.e(TAG, "ids******" + item_ids);
         Log.e(TAG, "names******" + item_names);
         Log.e(TAG, "descriptions******" + item_descriptions);
         Log.e(TAG, "prices******" + item_prices);
@@ -307,6 +316,7 @@ public class CatalogActivity extends AppCompatActivity {
             JSONObject obj = null;
             try {
                 obj = v_jsonArray.getJSONObject(i);
+                item_ids.add(obj.getString("id"));
                 item_names.add(obj.getString("name"));
                 item_descriptions.add(obj.getString("description"));
                 item_prices.add(obj.getString("price"));

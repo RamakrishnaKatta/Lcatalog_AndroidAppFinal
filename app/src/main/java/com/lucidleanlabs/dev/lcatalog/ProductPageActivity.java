@@ -32,6 +32,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.lucidleanlabs.dev.lcatalog.adapters.ImageSliderAdapter;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
+import com.lucidleanlabs.dev.lcatalog.utils.UnzipUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +54,8 @@ public class ProductPageActivity extends AppCompatActivity {
 
     private static final String TAG = "ProductPageActivity";
     private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/vendor/by?id=";
-    private static String file_url = "http://35.154.252.64:8080/vendorLogos/1493209322960.rar";
+    private static String file_url = "http://35.154.252.64:8080/models/";
+    private static String extended_url;
 
     private static String VENDOR_URL = null;
 
@@ -72,7 +74,7 @@ public class ProductPageActivity extends AppCompatActivity {
     private TextView article_vendor_name;
     private TextView article_vendor_location;
     private ImageView vendor_logo, article_image;
-    String Article_Name;
+    String Article_Name, Article_Id;
 
     String width, length, height;
     String image1, image2, image3, image4, image5;
@@ -121,6 +123,9 @@ public class ProductPageActivity extends AppCompatActivity {
         article_description.setText(b.getCharSequence("article_description"));
         article_price.setText(b.getCharSequence("article_price"));
         article_discount.setText(b.getCharSequence("article_discount"));
+
+        Article_Id = (String) b.getCharSequence("article_id");
+        System.out.print("Article ID" + Article_Id);
 
         String article_dimensions = (String) b.getCharSequence("article_dimensions");
         System.out.print("Article Dimensions" + article_dimensions);
@@ -186,9 +191,24 @@ public class ProductPageActivity extends AppCompatActivity {
 
                 try {
                     addModelFolder();
-                    new DownloadFileTask().execute(file_url);
+                    extended_url = file_url + Article_Id + ".zip";
+                    Log.e(TAG, "URL ---------- " + extended_url);
+                    new DownloadFileTask().execute(extended_url);
+
+                    Log.e(TAG, "id=======" + b.getCharSequence("article_id"));
+                    Log.e(TAG, "name=======" + b.getCharSequence("article_title"));
+
+                    /*Extract zip file from 3D view button */
+                    String ZipFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" + Article_Id + ".zip";
+                    Log.e(TAG, "ZipFileLocation--" + ZipFileLocation);
+                    String ExtractLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" ;
+                    Log.e(TAG, "ExtractLocation--" + ExtractLocation);
+
+                    UnzipUtil unzipUtil = new UnzipUtil(ZipFileLocation, ExtractLocation);
+                    unzipUtil.unzip();
 
                     Toast.makeText(ProductPageActivity.this, "You clicked on download", Toast.LENGTH_SHORT).show();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -199,9 +219,8 @@ public class ProductPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent _3dintent = new Intent(ProductPageActivity.this, View3dActivity.class);
+
                 startActivity(_3dintent);
-
-
             }
         });
 
@@ -364,16 +383,16 @@ public class ProductPageActivity extends AppCompatActivity {
             int count;
             try {
                 URL url = new URL(f_url[0]);
-                URLConnection conection = url.openConnection();
-                conection.connect();
+                URLConnection connection = url.openConnection();
+                connection.connect();
                 // getting file lengthitem_dimensions.add(obj.getString("dimensions"));
-                int lenghtOfFile = conection.getContentLength();
+                int lengthOfFile = connection.getContentLength();
 
                 // input stream to read file - with 8k buffer
                 InputStream input = new BufferedInputStream(url.openStream(), 8192);
 
                 // Output stream to write file
-                OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" + Article_Name + ".rar");
+                OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" + Article_Id + ".zip");
 
                 byte data[] = new byte[1024];
 
@@ -383,7 +402,7 @@ public class ProductPageActivity extends AppCompatActivity {
                     total += count;
                     // publishing the progress....
                     // After this onProgressUpdate will be called
-                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
+                    publishProgress("" + (int) ((total * 100) / lengthOfFile));
 
                     // writing data to file
                     output.write(data, 0, count);

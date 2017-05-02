@@ -26,6 +26,8 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
 
     private Activity activity;
 
+
+    private ArrayList<String> item_ids;
     private ArrayList<String> item_names;
     private ArrayList<String> item_descriptions;
     private ArrayList<String> item_prices;
@@ -35,6 +37,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
     private ArrayList<String> item_dimensions;
 
     public GridViewAdapter(Activity activity,
+                           ArrayList<String> item_ids,
                            ArrayList<String> item_names,
                            ArrayList<String> item_descriptions,
                            ArrayList<String> item_prices,
@@ -43,6 +46,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
                            ArrayList<String> item_images,
                            ArrayList<String> item_dimensions) {
 
+        this.item_ids = item_ids;
         this.item_names = item_names;
         this.item_descriptions = item_descriptions;
         this.item_prices = item_prices;
@@ -51,6 +55,8 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         this.item_images = item_images;
         this.item_dimensions = item_dimensions;
 
+
+        Log.e(TAG, "ids----" + item_ids);
         Log.e(TAG, "names----" + item_names);
         Log.e(TAG, "descriptions----" + item_descriptions);
         Log.e(TAG, "prices----" + item_prices);
@@ -111,6 +117,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
                 Intent intent = new Intent(context[0], ProductPageActivity.class);
                 Bundle b = new Bundle();
 
+                b.putString("article_id", item_ids.get(position));
                 b.putString("article_title", item_names.get(position));
                 Log.e(TAG, "names----" + b.getCharSequence("article_title"));
                 b.putString("article_description", item_descriptions.get(position));

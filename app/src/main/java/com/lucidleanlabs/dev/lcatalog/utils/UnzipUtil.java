@@ -1,7 +1,6 @@
 package com.lucidleanlabs.dev.lcatalog.utils;
 
 
-import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -12,21 +11,32 @@ import java.util.zip.ZipInputStream;
 
 public class UnzipUtil {
 
+    private static final String TAG = "UnZipActivity";
+
     private String zipFile;
     private String location;
 
     public UnzipUtil(String zipFileLocation, String extractLocation) {
-        this.location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/";
-        this.zipFile = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Sofa_3_Seater_Black_Grey.zip";
 
+        this.zipFile = zipFileLocation;
+        this.location = extractLocation;
         dirChecker("");
-
     }
+
     public void unzip() {
         try {
+
+            Log.e(TAG,"Zip File Location ----------------" + zipFile);
+            Log.e(TAG,"Extraction Location ----------------" + location);
+
             FileInputStream fin = new FileInputStream(zipFile);
             ZipInputStream zin = new ZipInputStream(fin);
+
+            Log.e(TAG,"fin ----------------" + fin);
+            Log.e(TAG,"zin ----------------" + zin);
+
             ZipEntry ze = null;
+
             while ((ze = zin.getNextEntry()) != null) {
                 Log.v("Decompress", "Unzipping " + ze.getName());
 

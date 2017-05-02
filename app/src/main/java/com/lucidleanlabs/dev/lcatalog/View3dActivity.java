@@ -30,6 +30,8 @@ import javax.microedition.khronos.opengles.GL10;
 
 
 public class View3dActivity extends AppCompatActivity {
+    private static final String TAG = "View3dActivity";
+
 
 
     // Used to handle pause and resume...
@@ -68,17 +70,6 @@ public class View3dActivity extends AppCompatActivity {
         renderer = new MyRenderer();
         mGLView.setRenderer(renderer);
         setContentView(mGLView);
-
-
-
-            /*Extract zip file from 3D view button */
-        String ZipFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Sofa_3_Seater_Black_Grey.zip";
-        String ExtractLocation  =  Environment.getExternalStorageDirectory() + "/L_CATALOGUE/";
-
-        // String ZipFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" + Article_Name + ".rar"
-
-        UnzipUtil unzipUtil = new UnzipUtil(ZipFileLocation, ExtractLocation);
-        unzipUtil.unzip();
 
 //        BackgroundView backgroundView = new BackgroundView(this);
 //        addContentView(backgroundView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
