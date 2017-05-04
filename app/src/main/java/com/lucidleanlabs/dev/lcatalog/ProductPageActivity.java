@@ -1,5 +1,6 @@
 package com.lucidleanlabs.dev.lcatalog;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -53,6 +54,7 @@ import java.util.TimerTask;
 public class ProductPageActivity extends AppCompatActivity {
 
     private static final String TAG = "ProductPageActivity";
+
     private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/vendor/by?id=";
     private static String file_url = "http://35.154.252.64:8080/models/";
     private static String extended_url;
@@ -75,6 +77,8 @@ public class ProductPageActivity extends AppCompatActivity {
     private TextView article_vendor_location;
     private ImageView vendor_logo, article_image;
     String Article_Name, Article_Id;
+
+    String ZipFileLocation, ExtractLocation;
 
     String width, length, height;
     String image1, image2, image3, image4, image5;
@@ -153,23 +157,23 @@ public class ProductPageActivity extends AppCompatActivity {
 
             image1 = image_json.getString("image1");
             im1 = new BitmapDrawable(getResources(), String.valueOf(new DownloadImageTask(article_image).execute(image1)));
-            Log.e(TAG, " image1-- " + image1 + "bitmap" + im1);
+            Log.e(TAG, " image1-- " + image1 + "  bitmap" + im1);
 
             image2 = image_json.getString("image2");
-            //im2 = new BitmapDrawable(getResources(), String.valueOf(new DownloadMultiImage().execute(image2)));
-            Log.e(TAG, " image2-- " + image2 + "bitmap" + im2);
+            im2 = new BitmapDrawable(getResources(), String.valueOf(new DownloadImageTask(article_image).execute(image2)));
+            Log.e(TAG, " image2-- " + image2 + "  bitmap" + im2);
 
             image3 = image_json.getString("image3");
-            //im3 = new BitmapDrawable(getResources(), String.valueOf(new DownloadMultiImage().execute(image3)));
-            Log.e(TAG, " image3-- " + image3 + "bitmap" + im3);
+            im3 = new BitmapDrawable(getResources(), String.valueOf(new DownloadImageTask(article_image).execute(image3)));
+            Log.e(TAG, " image3-- " + image3 + "  bitmap" + im3);
 
             image4 = image_json.getString("image4");
-            //im4 = new BitmapDrawable(getResources(), String.valueOf(new DownloadMultiImage().execute(image4)));
-            Log.e(TAG, " image4-- " + image4 + "bitmap" + im4);
+            im4 = new BitmapDrawable(getResources(), String.valueOf(new DownloadImageTask(article_image).execute(image4)));
+            Log.e(TAG, " image4-- " + image4 + "  bitmap" + im4);
 
             image5 = image_json.getString("image5");
-            //im5 = new BitmapDrawable(getResources(), String.valueOf(new DownloadMultiImage().execute(image5)));
-            Log.e(TAG, " image5-- " + image5 + "bitmap" + im5);
+            im5 = new BitmapDrawable(getResources(), String.valueOf(new DownloadImageTask(article_image).execute(image5)));
+            Log.e(TAG, " image5-- " + image5 + "  bitmap" + im5);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -185,9 +189,22 @@ public class ProductPageActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+         /*Extract zip file from 3D view button */
+        ZipFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" + Article_Id + ".zip";
+        Log.e(TAG, "ZipFileLocation--" + ZipFileLocation);
+        ExtractLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/";
+        Log.e(TAG, "ExtractLocation--" + ExtractLocation);
+
         article_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                final ProgressDialog progressDialog = new ProgressDialog(ProductPageActivity.this, R.style.AppTheme_Dark_Dialog);
+                progressDialog.setIndeterminate(true);
+                progressDialog.setMessage("Downloading Article, Just for once....");
+                progressDialog.show();
+
+//                Toast.makeText(ProductPageActivity.this, "You clicked on download", Toast.LENGTH_SHORT).show();
 
                 try {
                     addModelFolder();
@@ -198,16 +215,14 @@ public class ProductPageActivity extends AppCompatActivity {
                     Log.e(TAG, "id=======" + b.getCharSequence("article_id"));
                     Log.e(TAG, "name=======" + b.getCharSequence("article_title"));
 
-                    /*Extract zip file from 3D view button */
-                    String ZipFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" + Article_Id + ".zip";
-                    Log.e(TAG, "ZipFileLocation--" + ZipFileLocation);
-                    String ExtractLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" ;
-                    Log.e(TAG, "ExtractLocation--" + ExtractLocation);
+                    if (ZipFileLocation != null || ExtractLocation != null) {
 
-                    UnzipUtil unzipUtil = new UnzipUtil(ZipFileLocation, ExtractLocation);
-                    unzipUtil.unzip();
+                        new UnzipUtil(ZipFileLocation, ExtractLocation);
+                        progressDialog.dismiss();
 
-                    Toast.makeText(ProductPageActivity.this, "You clicked on download", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ProductPageActivity.this, "Failed to download the Files", Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -218,7 +233,12 @@ public class ProductPageActivity extends AppCompatActivity {
         article_3d_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent _3dintent = new Intent(ProductPageActivity.this, View3dActivity.class);
+
+                Bundle b3 = new Bundle();
+                b3.putString("3ds_location", ExtractLocation);
+                Log.e(TAG, "3ds Location--" + b3.getCharSequence("3ds_location"));
+
+                Intent _3dintent = new Intent(ProductPageActivity.this, View3dActivity.class).putExtras(b3);
 
                 startActivity(_3dintent);
             }
@@ -329,6 +349,7 @@ public class ProductPageActivity extends AppCompatActivity {
         final Integer[] Images = {R.drawable.dummy_icon, R.drawable.background};
         for (int i = 0; i < Images.length; i++)
             slider_images.add(Images[i]);
+
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         imagesliderAdapter = new ImageSliderAdapter(ProductPageActivity.this, slider_images);
         viewPager.setAdapter(imagesliderAdapter);

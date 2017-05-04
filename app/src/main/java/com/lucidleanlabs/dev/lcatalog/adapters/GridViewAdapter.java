@@ -18,6 +18,9 @@ import com.lucidleanlabs.dev.lcatalog.ProductPageActivity;
 import com.lucidleanlabs.dev.lcatalog.R;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHolder> {
@@ -25,7 +28,6 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
     private static final String TAG = "GridViewAdapter";
 
     private Activity activity;
-
 
     private ArrayList<String> item_ids;
     private ArrayList<String> item_names;
@@ -102,10 +104,20 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         final Context[] context = new Context[1];
 
         viewHolder.item_image.setImageResource(R.drawable.dummy_icon);
-        new DownloadImageTask(viewHolder.item_image).execute(item_images.get(position));
 
-        viewHolder.item_name.setText("I am a " + item_names.get(position) + "");
-        viewHolder.item_description.setText(item_descriptions.get(position));
+        String im1 = null;
+        String get_image = item_images.get(position);
+        try {
+            JSONObject images_json = new JSONObject(get_image);
+            im1 = images_json.getString("image1");
+            Log.e(TAG, "image1=====" + im1);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new DownloadImageTask(viewHolder.item_image).execute(im1);
+
+        viewHolder.item_name.setText(item_names.get(position));
+        viewHolder.item_description.setText(item_descriptions.get(position)+ "...");
         viewHolder.item_price.setText("I cost Rs " + item_prices.get(position) + "/-");
 
         viewHolder.grid_container.setOnClickListener(new View.OnClickListener() {

@@ -1,13 +1,17 @@
 package com.lucidleanlabs.dev.lcatalog;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 
-import com.lucidleanlabs.dev.lcatalog.utils.UnzipUtil;
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.Light;
@@ -22,6 +26,9 @@ import com.threed.jpct.World;
 import com.threed.jpct.util.BitmapHelper;
 import com.threed.jpct.util.MemoryHelper;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 
@@ -31,7 +38,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class View3dActivity extends AppCompatActivity {
     private static final String TAG = "View3dActivity";
-
 
 
     // Used to handle pause and resume...
@@ -52,6 +58,8 @@ public class View3dActivity extends AppCompatActivity {
     private int fps = 0;
 
     private Light sun = null;
+    private String _3dslocation;
+    private File _3ds;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -70,6 +78,11 @@ public class View3dActivity extends AppCompatActivity {
         renderer = new MyRenderer();
         mGLView.setRenderer(renderer);
         setContentView(mGLView);
+
+        Bundle b3 = getIntent().getExtras();
+
+        _3dslocation = (String) b3.getCharSequence("3ds_location");
+        Log.e(TAG, "3DS Location ---- " + _3dslocation);
 
 //        BackgroundView backgroundView = new BackgroundView(this);
 //        addContentView(backgroundView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -167,10 +180,16 @@ public class View3dActivity extends AppCompatActivity {
                 sun = new Light(world);
                 sun.setIntensity(350, 350, 350);
 
-                Texture texture = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getResources().getDrawable(R.drawable.flatsofa)), 512, 512));
+                _3ds = new File(_3dslocation);
+
+                Texture texture = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getDrawableForStore(_3ds + "/_2.jpg")), 512, 512));
                 TextureManager.getInstance().addTexture("texture", texture);
 
-                cube = loadModel((float) 0.8);
+                try {
+                    cube = loadModel((float) 2.0);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 cube.setTexture("texture");
                 cube.build();
 
@@ -192,6 +211,39 @@ public class View3dActivity extends AppCompatActivity {
                     master = View3dActivity.this;
                 }
             }
+        }
+
+        public Drawable getDrawableForStore(String localLink) {
+            Bitmap thumbnail = null;
+            try {
+                File filePath = new File(localLink);
+                FileInputStream fi = new FileInputStream(filePath);
+                thumbnail = BitmapFactory.decodeStream(fi);
+            } catch (Exception ex) {
+                Log.e("getThumbnail() on internal storage", ex.getMessage());
+                return null;
+            }
+
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            float scaledDensity = metrics.density;
+            int width = thumbnail.getWidth();
+            int height = thumbnail.getHeight();
+
+            if (scaledDensity < 1) {
+
+                width = (int) (width * scaledDensity);
+                height = (int) (height * scaledDensity);
+            } else {
+                width = (int) (width + width * (scaledDensity - 1));
+                height = (int) (height + height * (scaledDensity - 1));
+            }
+
+            thumbnail = Bitmap.createScaledBitmap(thumbnail, width, height, true);
+            Drawable d = new BitmapDrawable(getResources(), thumbnail);
+
+            return d;
+
         }
 
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -229,8 +281,12 @@ public class View3dActivity extends AppCompatActivity {
             fps++;
         }
 
-        public Object3D loadModel(float scale) {
-            InputStream stream = getResources().openRawResource(R.raw.flatsofa);
+        public Object3D loadModel(float scale) throws IOException {
+            //InputStream stream = getResources().openRawResource(R.raw.flatsofa);
+
+            _3ds = new File(_3dslocation);
+            Log.e(TAG, "File Location" + _3ds);
+            InputStream stream = new FileInputStream(_3ds + "/article_view.3ds");
             Object3D[] model = Loader.load3DS(stream, scale);
             Object3D o3d = new Object3D(0);
             Object3D temp = null;
@@ -243,6 +299,8 @@ public class View3dActivity extends AppCompatActivity {
                 o3d = Object3D.mergeObjects(o3d, temp);
                 o3d.build();
             }
+
+            stream.close();
             return o3d;
         }
     }

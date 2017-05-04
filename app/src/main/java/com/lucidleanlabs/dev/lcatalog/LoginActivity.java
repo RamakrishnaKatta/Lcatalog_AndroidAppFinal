@@ -49,11 +49,15 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String LOGIN_URL = "http://35.154.252.64:8080/lll/web/user/login";
 
-    private TextView _signupLink, _forgot_password;
-    private EditText _emailText, _passwordText;
-    private Button _loginButton, _guestLoginButton;
+    TextView app_name, _signupLink, _forgot_password, _returnToLogin;
+    EditText _emailText, _passwordText, _guestNameText, _GuestPhoneText;
+    Button _loginButton, _guestLoginButton;
 
-    String response, code, message;
+    String code, message;
+    String userName, userEmail, userPhone, userAddress;
+    String guest_name, guest_phone;
+
+    TextInputLayout area_nameText, area_mobileText, area_emailText, area_passwordText;
 
 
     @Override
@@ -61,9 +65,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        TextView app_name = (TextView) findViewById(R.id.application_name);
+        app_name = (TextView) findViewById(R.id.application_name);
         _loginButton = (Button) findViewById(R.id.btn_login);
-        TextView _returnToLogin = (TextView) findViewById(R.id.return_to_login);
+        _returnToLogin = (TextView) findViewById(R.id.return_to_login);
         _guestLoginButton = (Button) findViewById(R.id.btn_guest);
         _signupLink = (TextView) findViewById(R.id.link_signup);
         _forgot_password = (TextView) findViewById(R.id.link_forgot_password);
@@ -119,8 +123,6 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
                 startActivityForResult(intent, REQUEST_FORGOT_PASSWORD);
                 finish();
-
-
             }
         });
 
@@ -179,12 +181,12 @@ public class LoginActivity extends AppCompatActivity {
 
     public void convert_view_guest() {
 
-        TextInputLayout area_nameText = (TextInputLayout) findViewById(R.id.area_input_name);
-        TextInputLayout area_mobileText = (TextInputLayout) findViewById(R.id.area_input_mobile);
-        TextInputLayout area_emailText = (TextInputLayout) findViewById(R.id.area_input_email);
-        TextInputLayout area_passwordText = (TextInputLayout) findViewById(R.id.area_input_password);
-        Button _loginButton = (Button) findViewById(R.id.btn_login);
-        TextView _returnToLogin = (TextView) findViewById(R.id.return_to_login);
+        area_nameText = (TextInputLayout) findViewById(R.id.area_input_name);
+        area_mobileText = (TextInputLayout) findViewById(R.id.area_input_mobile);
+        area_emailText = (TextInputLayout) findViewById(R.id.area_input_email);
+        area_passwordText = (TextInputLayout) findViewById(R.id.area_input_password);
+        _loginButton = (Button) findViewById(R.id.btn_login);
+        _returnToLogin = (TextView) findViewById(R.id.return_to_login);
 
         area_emailText.setVisibility(View.GONE);
         area_passwordText.setVisibility(View.GONE);
@@ -195,15 +197,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void guest_login() {
-        Log.d(TAG, "Guest User Login");
+        Log.e(TAG, "Guest User Login");
 
         if (!validateGuest()) {
             onLoginFailed();
             return;
         }
 
-        Button _guestLoginButton = (Button) findViewById(R.id.btn_guest);
+        _guestLoginButton = (Button) findViewById(R.id.btn_guest);
         _guestLoginButton.setEnabled(false);
+
+        _guestNameText = (EditText) findViewById(R.id.input_name);
+        guest_name = _guestNameText.getText().toString().trim();
+
+        _GuestPhoneText = (EditText) findViewById(R.id.input_mobile);
+        guest_phone = _GuestPhoneText.getText().toString().trim();
+
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
@@ -216,7 +225,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
+                        onGuestLogin();
                         // onLoginFailed();
                         progressDialog.dismiss();
                     }
@@ -224,16 +233,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login() throws JSONException {
-        Log.d(TAG, "Login");
+        Log.e(TAG, "Login");
 
-        Log.d(TAG, "KEY_EMAIL--" + KEY_EMAIL);
-        Log.d(TAG, "KEY_PASSWORD--" + KEY_PASSWORD);
+        Log.e(TAG, "KEY_EMAIL--" + KEY_EMAIL);
+        Log.e(TAG, "KEY_PASSWORD--" + KEY_PASSWORD);
 
         if (!validate()) {
             onLoginFailed();
             return;
         }
-        Button _loginButton = (Button) findViewById(R.id.btn_login);
+        _loginButton = (Button) findViewById(R.id.btn_login);
         _loginButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
@@ -243,39 +252,42 @@ public class LoginActivity extends AppCompatActivity {
 
         _emailText = (EditText) findViewById(R.id.input_email);
         final String email = _emailText.getText().toString().trim();
-        Log.d(TAG, "email--" + email);
+        Log.e(TAG, "Entered email--" + email);
 
         _passwordText = (EditText) findViewById(R.id.input_password);
         final String password = _passwordText.getText().toString().trim();
-        Log.d(TAG, "password--" + password);
-
+        Log.e(TAG, "Entered password--" + password);
 
         // Implement your own authentication logic here.
 
+        final JSONObject login_parameters = new JSONObject();
+        login_parameters.put("email", email);
+        login_parameters.put("password", password);
+        Log.e(TAG, "Request--" + login_parameters);
+
         final JSONObject request = new JSONObject();
-        request.put("email", email);
-        request.put("password", password);
-        Log.d(TAG, "email--" + email);
-        Log.d(TAG, "password--" + password);
+        request.put("request", login_parameters);
+        Log.e(TAG, "Request--" + request);
 
-        final JSONObject baseClass = new JSONObject();
-        baseClass.put("request", request);
-        Log.d(TAG, "baseclass--" + baseClass);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, LOGIN_URL, baseClass, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, LOGIN_URL, request, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject baseClass) {
-                Log.e(TAG, "response--" + baseClass);
+            public void onResponse(JSONObject requestResponse) {
+                Log.e(TAG, "response--" + requestResponse);
                 try {
-                    response = baseClass.getString("resp");
-                    code = baseClass.getString("code");
-                    message = baseClass.getString("message");
-                    Log.d(TAG, "response--" + response + "code--" + code + "message--" + message);
+
+                    JSONObject user_details = requestResponse.getJSONObject("resp");
+                    userName = user_details.getString("name");
+                    userAddress = user_details.getString("address");
+                    userEmail = user_details.getString("email");
+                    userPhone = user_details.getString("mobileNo");
+                    Log.e(TAG, "User Name > " + userName + "\n User Address > " + userAddress + "\n User Email > " + userEmail + "\n User Phone > " + userPhone);
+                    code = requestResponse.getString("code");
+                    message = requestResponse.getString("message");
+                    Log.e(TAG, " code--" + code + " message--" + message);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -343,7 +355,32 @@ public class LoginActivity extends AppCompatActivity {
         _loginButton.setEnabled(true);
         setResult(RESULT_OK, null);
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Bundle user_data = new Bundle();
+        user_data.putString("name", userName);
+        user_data.putString("phone", userPhone);
+        user_data.putString("address", userAddress);
+        user_data.putString("email", userEmail);
+        user_data.putString("guest_name", guest_name);
+        user_data.putString("guest_phone", guest_phone);
+        Log.d(TAG, "User -- " + user_data);
+
+        Intent intent = new Intent(this, MainActivity.class).putExtras(user_data);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onGuestLogin() {
+        Button _loginButton = (Button) findViewById(R.id.btn_login);
+        Toast.makeText(getBaseContext(), "Guest Login Success", Toast.LENGTH_LONG).show();
+        _loginButton.setEnabled(true);
+        setResult(RESULT_OK, null);
+
+        Bundle guest_data = new Bundle();
+        guest_data.putString("guest_name", guest_name);
+        guest_data.putString("guest_phone", guest_phone);
+        Log.d(TAG, "Guest -- " + guest_data);
+
+        Intent intent = new Intent(this, MainActivity.class).putExtras(guest_data);
         startActivity(intent);
         finish();
     }

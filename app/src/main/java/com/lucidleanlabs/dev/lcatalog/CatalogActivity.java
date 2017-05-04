@@ -226,14 +226,15 @@ public class CatalogActivity extends AppCompatActivity {
             JSONObject obj = null;
             try {
                 obj = g_jsonArray.getJSONObject(i);
+
                 item_ids.add(obj.getString("id"));
                 item_names.add(obj.getString("name"));
                 item_descriptions.add(obj.getString("description"));
                 item_prices.add(obj.getString("price"));
                 item_discounts.add(obj.getString("discount"));
                 item_vendors.add(obj.getString("vendorId"));
-                item_images.add(obj.getString("img"));
-                item_dimensions.add(obj.getString("dimensions"));
+                item_images.add(obj.getString("images"));
+                item_dimensions.add(obj.getString("dimension"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -277,7 +278,7 @@ public class CatalogActivity extends AppCompatActivity {
                 item_prices.add(obj.getString("price"));
                 item_discounts.add(obj.getString("discount"));
                 item_vendors.add(obj.getString("vendorId"));
-                item_images.add(obj.getString("img"));
+                item_images.add(obj.getString("images"));
                 item_dimensions.add(obj.getString("dimensions"));
 
             } catch (JSONException e) {
@@ -322,7 +323,7 @@ public class CatalogActivity extends AppCompatActivity {
                 item_prices.add(obj.getString("price"));
                 item_discounts.add(obj.getString("discount"));
                 item_vendors.add(obj.getString("vendorId"));
-                item_images.add(obj.getString("img"));
+                item_images.add(obj.getString("images"));
                 item_dimensions.add(obj.getString("dimensions"));
 
             } catch (JSONException e) {

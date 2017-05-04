@@ -3,6 +3,7 @@ package com.lucidleanlabs.dev.lcatalog;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -14,16 +15,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private static final int MY_PERMISSIONS_REQUEST =10;
+    private static final int MY_PERMISSIONS_REQUEST = 10;
+    private static final String TAG = "MainActivity";
 
     boolean doubleBackToExitPressedOnce = false;
 
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         RequestPermissions();
 
@@ -55,25 +60,65 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        final Bundle user_data = getIntent().getExtras();
+        Log.d(TAG, "Dummy -- " + user_data);
+
+        String name = user_data.getString("name");
+        Log.e(TAG, "name:  " + name);
+
+        String email = user_data.getString("email");
+        Log.e(TAG, "email:  " + email);
+
+        final Bundle guest_data = getIntent().getExtras();
+        Log.d(TAG, "Dummy -- " + user_data);
+
+        String guest_name = guest_data.getString("guest_name");
+        Log.e(TAG, "guest name:  " + guest_name);
+        String guest_phone = guest_data.getString("guest_phone");
+        Log.e(TAG, "guest phone:  " + guest_phone);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+
+        TextView app_name = (TextView) header.findViewById(R.id.application_name);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
+        app_name.setTypeface(custom_font);
+
+        TextView user_name = (TextView) header.findViewById(R.id.user_name);
+        if (name != null) {
+            user_name.setText(name);
+        } else {
+            user_name.setText(guest_name);
+        }
+
+        TextView user_type = (TextView) header.findViewById(R.id.guest_image);
+        TextView user_email = (TextView) header.findViewById(R.id.user_email);
+        if (email != null) {
+            user_email.setText(email);
+            user_type.setText("CUSTOMER");
+        } else {
+            user_email.setText("Phone No: " + guest_phone);
+            user_type.setText("GUEST");
+        }
+
     }
 
     private void RequestPermissions() {
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)
-                +ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)+
-                +ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                + ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) +
+                +ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,Manifest.permission.CAMERA)||
-                    ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)||
-                    ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.CAMERA) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
              /*    Show an explanation to the user *asynchronously* -- don't block
                  this thread waiting for the user's response! After the user
@@ -85,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.CAMERA
-                                ,Manifest.permission.READ_EXTERNAL_STORAGE,
+                                , Manifest.permission.READ_EXTERNAL_STORAGE,
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST);
 
@@ -97,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST: {
                 // If request is cancelled, the result arrays are empty.
@@ -178,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
 
         } else if (id == R.id.nav_gallery) {
-            Intent intent = new Intent(this,GalleryActivity.class);
+            Intent intent = new Intent(this, GalleryActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_camera) {

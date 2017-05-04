@@ -22,8 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/v_item_image"
-            android:paddingTop="20dp"
             android:paddingLeft="20dp"
+            android:paddingTop="20dp"
             android:text="@string/app_name"
             android:textColor="@color/primary_dark"
             android:textStyle="bold" />
@@ -32,8 +32,9 @@
             android:id="@+id/v_item_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/v_item_image"
             android:layout_below="@+id/v_item_name"
+            android:layout_toRightOf="@+id/v_item_image"
+            android:maxLines="2"
             android:paddingLeft="20dp"
             android:text="This is my description."
             android:textColor="@color/primary_dark" />
@@ -42,11 +43,11 @@
             android:id="@+id/v_item_price"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/v_item_image"
             android:layout_below="@+id/v_item_description"
+            android:layout_toRightOf="@+id/v_item_image"
             android:paddingLeft="20dp"
             android:text="This is my Price"
-            android:textColor="@color/primary_dark"/>
+            android:textColor="@color/primary_dark" />
 
     </RelativeLayout>
 

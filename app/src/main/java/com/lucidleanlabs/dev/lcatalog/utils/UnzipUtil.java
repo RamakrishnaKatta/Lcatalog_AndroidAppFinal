@@ -1,6 +1,7 @@
 package com.lucidleanlabs.dev.lcatalog.utils;
 
 
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -18,22 +19,24 @@ public class UnzipUtil {
 
     public UnzipUtil(String zipFileLocation, String extractLocation) {
 
-        this.zipFile = zipFileLocation;
-        this.location = extractLocation;
+        zipFile = zipFileLocation;
+        location = extractLocation;
+        //dirChecker(zipFile);
         dirChecker("");
+        unzip();
     }
 
-    public void unzip() {
+    private void unzip() {
         try {
 
-            Log.e(TAG,"Zip File Location ----------------" + zipFile);
-            Log.e(TAG,"Extraction Location ----------------" + location);
+            Log.e(TAG, "Zip File Location ----------------" + zipFile);
+            Log.e(TAG, "Extraction Location ----------------" + location);
 
             FileInputStream fin = new FileInputStream(zipFile);
             ZipInputStream zin = new ZipInputStream(fin);
 
-            Log.e(TAG,"fin ----------------" + fin);
-            Log.e(TAG,"zin ----------------" + zin);
+            Log.e(TAG, "fin ----------------" + fin);
+            Log.e(TAG, "zin ----------------" + zin);
 
             ZipEntry ze = null;
 
@@ -48,13 +51,6 @@ public class UnzipUtil {
                     for (int i = zin.read(); i != -1; i = zin.read()) {
                         fout.write(i);
                     }
-
-//                    byte[] buffer = new byte[8192];
-//                    int len;
-//                    while ((len = zin.read(buffer)) != -1)
-//                    {
-//                        fout.write(buffer, 0, len);
-//                    }
                     fout.close();
                     zin.closeEntry();
                 }
@@ -66,9 +62,17 @@ public class UnzipUtil {
     }
 
     private void dirChecker(String dir) {
-        File f = new File(location + dir);
-        if (!f.isDirectory()) {
-            f.mkdirs();
+
+        String state = Environment.getExternalStorageState();
+        File folder = null;
+        if (state.contains(Environment.MEDIA_MOUNTED)) {
+
+            folder = new File(location + dir);
+        }
+        assert folder != null;
+        if (!folder.exists()) {
+            boolean wasSuccessful = folder.mkdirs();
+            Log.e(TAG, "Directory is Created --- '" + wasSuccessful + "' Thank You !!");
         }
     }
 }

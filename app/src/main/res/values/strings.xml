@@ -68,7 +68,7 @@
     <string name="new_vendor_pincode">What is the States PinCode?</string>
     <string name="new_vendor_location">Which City?</string>
     <string name="dummy_address">Chandra Layout, Bangalore- 560072</string>
-    <string name="Welcome_userName">Welcome UserName</string>
+    <string name="Logged_userName">UserName</string>
     <string name="close">Close</string>
     <string name="New_password">New Password</string>
     <string name="ReEnter_new_password">Re Enter New Password</string>
