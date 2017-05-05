@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +76,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
      */
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView item_name, item_description, item_price;
+        private TextView item_name, item_description, item_price, item_discount, item_price_new;
         private ImageView item_image;
         private RelativeLayout grid_container;
 
@@ -86,6 +87,8 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
             item_name = (TextView) view.findViewById(R.id.grid_item_name);
             item_description = (TextView) view.findViewById(R.id.grid_item_description);
             item_price = (TextView) view.findViewById(R.id.grid_item_price);
+            item_discount = (TextView) view.findViewById(R.id.grid_item_discount_value);
+            item_price_new = (TextView) view.findViewById(R.id.grid_item_price_new);
         }
     }
 
@@ -110,15 +113,22 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
         try {
             JSONObject images_json = new JSONObject(get_image);
             im1 = images_json.getString("image1");
-            Log.e(TAG, "image1=====" + im1);
+            Log.e(TAG, "image1 >>>>" + im1);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         new DownloadImageTask(viewHolder.item_image).execute(im1);
 
+        Integer x = Integer.parseInt(item_prices.get(position));
+        Integer y = Integer.parseInt(item_discounts.get(position));
+        Integer z = (x * (100 - y)) / 100;
+        String itemNewPrice = Integer.toString(z);
+
         viewHolder.item_name.setText(item_names.get(position));
-        viewHolder.item_description.setText(item_descriptions.get(position)+ "...");
-        viewHolder.item_price.setText("I cost Rs " + item_prices.get(position) + "/-");
+        viewHolder.item_description.setText(item_descriptions.get(position) + "...");
+        viewHolder.item_price.setText("Rs " + (Html.fromHtml("<strike>" + item_prices.get(position) + "</strike>")) + "/-");
+        viewHolder.item_discount.setText("-" + item_discounts.get(position) + "%");
+        viewHolder.item_price_new.setText(itemNewPrice + "/-");
 
         viewHolder.grid_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +141,6 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
 
                 b.putString("article_id", item_ids.get(position));
                 b.putString("article_title", item_names.get(position));
-                Log.e(TAG, "names----" + b.getCharSequence("article_title"));
                 b.putString("article_description", item_descriptions.get(position));
                 b.putString("article_price", item_prices.get(position));
                 b.putString("article_discount", item_discounts.get(position));

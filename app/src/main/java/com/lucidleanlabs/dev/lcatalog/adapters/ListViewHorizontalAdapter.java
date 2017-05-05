@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
 
     private Activity activity;
 
+    private ArrayList<String> item_ids;
     private ArrayList<String> item_names;
     private ArrayList<String> item_descriptions;
     private ArrayList<String> item_prices;
@@ -38,6 +40,7 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
     private ArrayList<String> item_dimensions;
 
     public ListViewHorizontalAdapter(Activity activity,
+                                     ArrayList<String> item_ids,
                                      ArrayList<String> item_names,
                                      ArrayList<String> item_descriptions,
                                      ArrayList<String> item_prices,
@@ -46,6 +49,7 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
                                      ArrayList<String> item_images,
                                      ArrayList<String> item_dimensions) {
 
+        this.item_ids = item_ids;
         this.item_names = item_names;
         this.item_descriptions = item_descriptions;
         this.item_prices = item_prices;
@@ -54,6 +58,7 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
         this.item_images = item_images;
         this.item_dimensions = item_dimensions;
 
+        Log.e(TAG, "ids----" + item_ids);
         Log.e(TAG, "names----" + item_names);
         Log.e(TAG, "descriptions----" + item_descriptions);
         Log.e(TAG, "prices----" + item_prices);
@@ -70,7 +75,7 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
      */
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView item_name, item_description, item_price, item_discount, item_vendor;
+        private TextView item_name, item_description, item_price, item_discount, item_vendor, item_price_new;
         private ImageView item_image;
         private RelativeLayout h_container;
 
@@ -81,8 +86,8 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
             item_name = (TextView) view.findViewById(R.id.h_item_name);
             item_description = (TextView) view.findViewById(R.id.h_item_description);
             item_price = (TextView) view.findViewById(R.id.h_item_price);
-            item_discount = (TextView) view.findViewById(R.id.h_item_discount);
-            item_vendor = (TextView) view.findViewById(R.id.h_item_vendor);
+            item_discount = (TextView) view.findViewById(R.id.h_item_discount_value);
+            item_price_new = (TextView) view.findViewById(R.id.h_item_price_new);
         }
     }
 
@@ -113,11 +118,17 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
         }
         new DownloadImageTask(viewHolder.item_image).execute(im1);
 
-        viewHolder.item_name.setText("I am a " + item_names.get(position) + "");
+        Integer x = Integer.parseInt(item_prices.get(position));
+        Integer y = Integer.parseInt(item_discounts.get(position));
+        Integer z = (x * (100 - y)) / 100;
+        String itemNewPrice = Integer.toString(z);
+
+        viewHolder.item_name.setText(item_names.get(position));
         viewHolder.item_description.setText(item_descriptions.get(position));
-        viewHolder.item_price.setText("I cost Rs " + item_prices.get(position) + "/-");
-        viewHolder.item_discount.setText("I avail a Discount of " + item_discounts.get(position) + "");
-        viewHolder.item_vendor.setText("I am from " + item_vendors.get(position) + "");
+        viewHolder.item_price.setText("ORIGINAL PRICE: Rs " + (Html.fromHtml("<strike>" + item_prices.get(position) + "</strike>")) + "/-");
+        viewHolder.item_discount.setText(" Discount - " + item_discounts.get(position) + "% OFF");
+        viewHolder.item_price_new.setText("AFTER DISCOUNT PRICE: Rs " + itemNewPrice + "/-");
+
 
         viewHolder.h_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +139,7 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
                 Intent intent = new Intent(context[0], ProductPageActivity.class);
                 Bundle b = new Bundle();
 
+                b.putString("article_id", item_ids.get(position));
                 b.putString("article_title", item_names.get(position));
                 b.putString("article_description", item_descriptions.get(position));
                 b.putString("article_price", item_prices.get(position));
@@ -144,7 +156,6 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
             }
         });
     }
-
 
     @Override
     public int getItemCount() {

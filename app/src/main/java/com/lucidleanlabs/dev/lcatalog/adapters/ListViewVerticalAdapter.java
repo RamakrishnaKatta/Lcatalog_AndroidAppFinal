@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
 
     private Activity activity;
 
+    private ArrayList<String> item_ids;
     private ArrayList<String> item_names;
     private ArrayList<String> item_descriptions;
     private ArrayList<String> item_prices;
@@ -38,6 +40,7 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
     private ArrayList<String> item_dimensions;
 
     public ListViewVerticalAdapter(Activity activity,
+                                   ArrayList<String> item_ids,
                                    ArrayList<String> item_names,
                                    ArrayList<String> item_descriptions,
                                    ArrayList<String> item_prices,
@@ -46,6 +49,7 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
                                    ArrayList<String> item_images,
                                    ArrayList<String> item_dimensions) {
 
+        this.item_ids = item_ids;
         this.item_names = item_names;
         this.item_descriptions = item_descriptions;
         this.item_prices = item_prices;
@@ -54,6 +58,7 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
         this.item_images = item_images;
         this.item_dimensions = item_dimensions;
 
+        Log.e(TAG, "ids----" + item_ids);
         Log.e(TAG, "names----" + item_names);
         Log.e(TAG, "descriptions----" + item_descriptions);
         Log.e(TAG, "prices----" + item_prices);
@@ -70,7 +75,7 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
      */
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView item_name, item_description, item_price;
+        private TextView item_name, item_description, item_price, item_discount, item_price_new;
         private ImageView item_image;
         private RelativeLayout v_container;
 
@@ -81,6 +86,8 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
             item_name = (TextView) view.findViewById(R.id.v_item_name);
             item_description = (TextView) view.findViewById(R.id.v_item_description);
             item_price = (TextView) view.findViewById(R.id.v_item_price);
+            item_discount = (TextView) view.findViewById(R.id.v_item_discount_value);
+            item_price_new = (TextView) view.findViewById(R.id.v_item_price_new);
         }
     }
 
@@ -110,9 +117,16 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
         }
         new DownloadImageTask(viewHolder.item_image).execute(im1);
 
-        viewHolder.item_name.setText("I am a " + item_names.get(position) + "");
+        Integer x = Integer.parseInt(item_prices.get(position));
+        Integer y = Integer.parseInt(item_discounts.get(position));
+        Integer z = (x * (100 - y)) / 100;
+        String itemNewPrice = Integer.toString(z);
+
+        viewHolder.item_name.setText(item_names.get(position));
         viewHolder.item_description.setText(item_descriptions.get(position) + "...");
-        viewHolder.item_price.setText("I cost Rs " + item_prices.get(position) + "/-");
+        viewHolder.item_price.setText("Rs " + (Html.fromHtml("<strike>" + item_prices.get(position) + "</strike>")) + "/-");
+        viewHolder.item_discount.setText("-" + item_discounts.get(position) + "%");
+        viewHolder.item_price_new.setText(itemNewPrice + "/-");
 
         viewHolder.v_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +137,7 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
                 Intent intent = new Intent(context[0], ProductPageActivity.class);
                 Bundle b = new Bundle();
 
+                b.putString("article_id", item_ids.get(position));
                 b.putString("article_title", item_names.get(position));
                 b.putString("article_description", item_descriptions.get(position));
                 b.putString("article_price", item_prices.get(position));

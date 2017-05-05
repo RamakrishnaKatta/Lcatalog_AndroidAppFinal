@@ -2,8 +2,6 @@ package com.lucidleanlabs.dev.lcatalog;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -61,13 +59,6 @@ public class ProductPageActivity extends AppCompatActivity {
 
     private static String VENDOR_URL = null;
 
-    private ViewPager viewPager;
-    private LinearLayout ll_dots;
-    ImageSliderAdapter imagesliderAdapter;
-    ArrayList<Integer> slider_images = new ArrayList<>();
-    TextView[] dots;
-    int page_position = 0;
-
     private String vendor_name;
     private String vendor_address;
     private String vendor_image;
@@ -76,14 +67,19 @@ public class ProductPageActivity extends AppCompatActivity {
     private TextView article_vendor_name;
     private TextView article_vendor_location;
     private ImageView vendor_logo, article_image;
+
     String Article_Name, Article_Id;
-
     String ZipFileLocation, ExtractLocation;
-
     String width, length, height;
     String image1, image2, image3, image4, image5;
 
-    Drawable im1, im2, im3, im4, im5;
+    private ViewPager viewPager;
+    private LinearLayout ll_dots;
+    ImageSliderAdapter imagesliderAdapter;
+    ArrayList<String> slider_images = new ArrayList<>();
+    TextView[] dots;
+    int page_position = 0;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,13 +116,24 @@ public class ProductPageActivity extends AppCompatActivity {
 
         final Bundle b = getIntent().getExtras();
 
+        String oldPrice = (String) b.getCharSequence("article_price");
+        String discount = (String) b.getCharSequence("article_discount");
+        TextView article_price_new = (TextView) findViewById(R.id.article_price_value_new);
+
+        Integer x = Integer.parseInt(oldPrice);
+        Integer y = Integer.parseInt(discount);
+        Integer z = (x * (100 - y)) / 100;
+        String newPrice = Integer.toString(z);
+        Log.e(TAG, "newPrice-- " + newPrice);
+
         article_title.setText(b.getCharSequence("article_title"));
         Article_Name = (String) b.getCharSequence("article_title");
         Log.e(TAG, "names----" + b.getCharSequence("article_title"));
 
         article_description.setText(b.getCharSequence("article_description"));
-        article_price.setText(b.getCharSequence("article_price"));
-        article_discount.setText(b.getCharSequence("article_discount"));
+        article_price.setText(Html.fromHtml("<strike>" + (oldPrice) + "</strike>"));
+        article_discount.setText("-" + discount + "% OFF");
+        article_price_new.setText(newPrice);
 
         Article_Id = (String) b.getCharSequence("article_id");
         System.out.print("Article ID" + Article_Id);
@@ -146,34 +153,19 @@ public class ProductPageActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        article_width.setText(width);
-        article_height.setText(height);
-        article_length.setText(length);
+        article_width.setText(width + " in");
+        article_height.setText(height + " in");
+        article_length.setText(length + " in");
 
         String article_images = (String) b.getCharSequence("article_images");
 
         try {
             JSONObject image_json = new JSONObject(article_images);
-
             image1 = image_json.getString("image1");
-            im1 = new BitmapDrawable(getResources(), String.valueOf(new DownloadImageTask(article_image).execute(image1)));
-            Log.e(TAG, " image1-- " + image1 + "  bitmap" + im1);
-
             image2 = image_json.getString("image2");
-            im2 = new BitmapDrawable(getResources(), String.valueOf(new DownloadImageTask(article_image).execute(image2)));
-            Log.e(TAG, " image2-- " + image2 + "  bitmap" + im2);
-
             image3 = image_json.getString("image3");
-            im3 = new BitmapDrawable(getResources(), String.valueOf(new DownloadImageTask(article_image).execute(image3)));
-            Log.e(TAG, " image3-- " + image3 + "  bitmap" + im3);
-
             image4 = image_json.getString("image4");
-            im4 = new BitmapDrawable(getResources(), String.valueOf(new DownloadImageTask(article_image).execute(image4)));
-            Log.e(TAG, " image4-- " + image4 + "  bitmap" + im4);
-
             image5 = image_json.getString("image5");
-            im5 = new BitmapDrawable(getResources(), String.valueOf(new DownloadImageTask(article_image).execute(image5)));
-            Log.e(TAG, " image5-- " + image5 + "  bitmap" + im5);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -346,9 +338,12 @@ public class ProductPageActivity extends AppCompatActivity {
 
     /*Image slider in product page Activity */
     private void init() {
-        final Integer[] Images = {R.drawable.dummy_icon, R.drawable.background};
-        for (int i = 0; i < Images.length; i++)
+
+        final String[] Images = {image1, image2, image3, image4};
+
+        for (int i = 0; i < Images.length; i++) {
             slider_images.add(Images[i]);
+        }
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         imagesliderAdapter = new ImageSliderAdapter(ProductPageActivity.this, slider_images);

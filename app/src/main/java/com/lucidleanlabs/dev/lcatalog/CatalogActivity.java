@@ -279,7 +279,7 @@ public class CatalogActivity extends AppCompatActivity {
                 item_discounts.add(obj.getString("discount"));
                 item_vendors.add(obj.getString("vendorId"));
                 item_images.add(obj.getString("images"));
-                item_dimensions.add(obj.getString("dimensions"));
+                item_dimensions.add(obj.getString("dimension"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -296,7 +296,7 @@ public class CatalogActivity extends AppCompatActivity {
 
         LinearLayoutManager horizontalManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         horizontal_recycler.setLayoutManager(horizontalManager);
-        ListViewHorizontalAdapter horizontalAdapter = new ListViewHorizontalAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
+        ListViewHorizontalAdapter horizontalAdapter = new ListViewHorizontalAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
         horizontal_recycler.setAdapter(horizontalAdapter);
 
         if (grid_recycler.getVisibility() == View.VISIBLE || vertical_recycler.getVisibility() == View.VISIBLE) {
@@ -324,12 +324,13 @@ public class CatalogActivity extends AppCompatActivity {
                 item_discounts.add(obj.getString("discount"));
                 item_vendors.add(obj.getString("vendorId"));
                 item_images.add(obj.getString("images"));
-                item_dimensions.add(obj.getString("dimensions"));
+                item_dimensions.add(obj.getString("dimension"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+        Log.e(TAG, "ids******" + item_ids);
         Log.e(TAG, "names******" + item_names);
         Log.e(TAG, "descriptions******" + item_descriptions);
         Log.e(TAG, "prices******" + item_prices);
@@ -340,7 +341,7 @@ public class CatalogActivity extends AppCompatActivity {
 
         LinearLayoutManager verticalManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         vertical_recycler.setLayoutManager(verticalManager);
-        ListViewVerticalAdapter verticalAdapter = new ListViewVerticalAdapter(this, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
+        ListViewVerticalAdapter verticalAdapter = new ListViewVerticalAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
         vertical_recycler.setAdapter(verticalAdapter);
 
         if (grid_recycler.getVisibility() == View.VISIBLE || horizontal_recycler.getVisibility() == View.VISIBLE) {
