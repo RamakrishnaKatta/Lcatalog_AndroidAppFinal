@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.widget.GridView;
 
 import com.lucidleanlabs.dev.lcatalog.adapters.GridViewImageAdapter;
@@ -65,5 +66,15 @@ public class GalleryActivity extends AppCompatActivity {
         gridView.setHorizontalSpacing((int) padding);
         gridView.setVerticalSpacing((int) padding);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // close this activity and return to preview activity (if there is any)
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

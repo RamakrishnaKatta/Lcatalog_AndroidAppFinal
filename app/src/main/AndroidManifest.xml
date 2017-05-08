@@ -56,7 +56,6 @@
             android:name=".CatalogActivity"
             android:label="@string/title_activity_catalog"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".FullScreenImageViewActivity" />
         <activity android:name=".GalleryActivity" />
         <activity
@@ -69,17 +68,25 @@
         <activity
             android:name=".WelcomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".VendorRegistrationActivity"
+            android:label="@string/title_activity_vendor_registration"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".UserAccountActivity"
+            android:label="@string/title_activity_user_profile"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:theme="@style/AppTheme.Dark">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".VendorRegistrationActivity"
-            android:label="@string/title_activity_vendor_registration"
-            android:theme="@style/AppTheme.Dark" />
     </application>
 
 </manifest>

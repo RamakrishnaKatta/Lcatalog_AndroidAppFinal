@@ -25,23 +25,27 @@ import android.widget.Toast;
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int MY_PERMISSIONS_REQUEST = 10;
     private static final String TAG = "MainActivity";
 
     boolean doubleBackToExitPressedOnce = false;
 
+    String name, email, phone, address, user_log_type;
+
+    TextView user_type, user_email, user_name, app_name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         RequestPermissions();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         findViewById(R.id.btn_play_again).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -67,11 +70,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final Bundle user_data = getIntent().getExtras();
         Log.d(TAG, "Dummy -- " + user_data);
 
-        String name = user_data.getString("name");
+        name = user_data.getString("name");
         Log.e(TAG, "name:  " + name);
 
-        String email = user_data.getString("email");
+        address = user_data.getString("address");
+        Log.e(TAG, "address:  " + address);
+
+        email = user_data.getString("email");
         Log.e(TAG, "email:  " + email);
+
+        phone = user_data.getString("phone");
+        Log.e(TAG, "phone:  " + phone);
 
         final Bundle guest_data = getIntent().getExtras();
         Log.d(TAG, "Dummy -- " + user_data);
@@ -86,19 +95,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         View header = navigationView.getHeaderView(0);
 
-        TextView app_name = (TextView) header.findViewById(R.id.application_name);
+        app_name = (TextView) header.findViewById(R.id.application_name);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         app_name.setTypeface(custom_font);
 
-        TextView user_name = (TextView) header.findViewById(R.id.user_name);
+        user_name = (TextView) header.findViewById(R.id.user_name);
         if (name != null) {
             user_name.setText(name);
         } else {
             user_name.setText(guest_name);
         }
 
-        TextView user_type = (TextView) header.findViewById(R.id.guest_image);
-        TextView user_email = (TextView) header.findViewById(R.id.user_email);
+        user_type = (TextView) header.findViewById(R.id.guest_image);
+        user_email = (TextView) header.findViewById(R.id.user_email);
         if (email != null) {
             user_email.setText(email);
             user_type.setText("CUSTOMER");
@@ -202,7 +211,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -225,6 +233,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_gallery) {
             Intent intent = new Intent(this, GalleryActivity.class);
             startActivity(intent);
+
+        } else if (id == R.id.nav_user_account) {
+
+            Bundle user_details = new Bundle();
+
+            user_log_type = user_type.getText().toString().trim();
+
+            user_details.putString("user_email", email);
+            user_details.putString("user_name", name);
+            user_details.putString("user_address", address);
+            user_details.putString("user_phone", phone);
+            user_details.putString("user_type", user_log_type);
+
+            if (Objects.equals(user_log_type, "CUSTOMER")) {
+
+                Toast.makeText(this, "This is Your Profile !!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, UserAccountActivity.class).putExtras(user_details);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "You are a Guest, You dont possess an Account !! Thanks and try Signing up ", Toast.LENGTH_SHORT).show();
+            }
+
 
         } else if (id == R.id.nav_camera) {
 

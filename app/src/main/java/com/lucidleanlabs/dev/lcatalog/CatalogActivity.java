@@ -213,7 +213,6 @@ public class CatalogActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-
     public void gridView(JSONArray g_jsonArray) {
 
         RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
@@ -350,7 +349,6 @@ public class CatalogActivity extends AppCompatActivity {
             vertical_recycler.setVisibility(View.VISIBLE);
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

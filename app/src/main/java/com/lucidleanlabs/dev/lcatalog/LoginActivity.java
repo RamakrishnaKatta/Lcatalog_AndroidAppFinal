@@ -11,11 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +39,7 @@ import java.util.Objects;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+    private static final int REQUEST_LOGIN = 0;
     private static final int REQUEST_FORGOT_PASSWORD = 0;
 
     public static final String KEY_EMAIL = "email";
@@ -78,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        animate();
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,52 +129,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Return back to Login activity
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
+                startActivityForResult(intent, REQUEST_LOGIN);
                 finish();
 //                overridePendingTransition(R.anim.push_left_out, R.anim.push_left_in);
             }
         });
     }
 
-    public void animate() {
-
-        final ImageView imageView = (ImageView) findViewById(R.id.icon);
-        final Animation animation_1 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.rotate);
-        final Animation animation_2 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.anti_rotate);
-
-        imageView.startAnimation(animation_2);
-
-
-        animation_2.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                imageView.startAnimation(animation_1);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-
-        animation_1.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-
-    }
 
     public void convert_view_guest() {
 
@@ -197,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void guest_login() {
-        Log.e(TAG, "Guest User Login");
+        Log.e(TAG, "Guest Customer Login");
 
         if (!validateGuest()) {
             onLoginFailed();
@@ -233,7 +191,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login() throws JSONException {
-        Log.e(TAG, "Login");
+        Log.e(TAG, "Customer Login");
 
         Log.e(TAG, "KEY_EMAIL--" + KEY_EMAIL);
         Log.e(TAG, "KEY_PASSWORD--" + KEY_PASSWORD);

@@ -28,6 +28,10 @@
     <item android:title="Login Session">
         <menu>
             <item
+                android:id="@+id/nav_user_account"
+                android:icon="@mipmap/ic_menu_user_account"
+                android:title="My Account" />
+            <item
                 android:id="@+id/nav_sign_up"
                 android:icon="@mipmap/ic_menu_share"
                 android:title="Sign Up" />

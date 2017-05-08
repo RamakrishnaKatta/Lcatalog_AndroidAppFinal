@@ -12,7 +12,7 @@ public class AboutUsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_aboutus);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_about_us);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {

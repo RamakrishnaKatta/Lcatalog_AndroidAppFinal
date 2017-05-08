@@ -245,7 +245,7 @@ public class SignupActivity extends AppCompatActivity {
 
     public void onSignupSuccess() {
         Toast.makeText(getBaseContext(), "SignUp Success", Toast.LENGTH_LONG).show();
-        Button _signupButton = (Button) findViewById(R.id.btn_signup);
+        _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
 
@@ -256,7 +256,7 @@ public class SignupActivity extends AppCompatActivity {
 
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "SignUp failed", Toast.LENGTH_LONG).show();
-        Button _signupButton = (Button) findViewById(R.id.btn_signup);
+        _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(false);
 
         Intent intent = new Intent(this, SignupActivity.class);
