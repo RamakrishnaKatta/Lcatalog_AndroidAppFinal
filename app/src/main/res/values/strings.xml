@@ -29,6 +29,7 @@
 
     <string name="switch_view">Switch view</string>
     <string name="title_activity_catalog">Catalog</string>
+    <string name="title_activity_gallery">Gallery</string>
     <string name="start">START</string>
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>

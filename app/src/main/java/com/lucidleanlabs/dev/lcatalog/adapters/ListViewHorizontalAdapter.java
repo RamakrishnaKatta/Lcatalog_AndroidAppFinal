@@ -152,7 +152,7 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
 
                 context[0].startActivity(intent);
 
-                Toast.makeText(activity, "Position clicked: " + position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(activity, "Position clicked: " + position, Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -230,8 +230,9 @@ public class ProductPageActivity extends AppCompatActivity {
                 b3.putString("3ds_location", ExtractLocation);
                 Log.e(TAG, "3ds Location--" + b3.getCharSequence("3ds_location"));
 
-                Intent _3dintent = new Intent(ProductPageActivity.this, View3dActivity.class).putExtras(b3);
+//                Toast.makeText(ProductPageActivity.this, "3D View of the Object has been disabled due to some Testing and Changes happening in the 3D Images", Toast.LENGTH_SHORT).show();
 
+                Intent _3dintent = new Intent(ProductPageActivity.this, View3dActivity.class).putExtras(b3);
                 startActivity(_3dintent);
             }
         });

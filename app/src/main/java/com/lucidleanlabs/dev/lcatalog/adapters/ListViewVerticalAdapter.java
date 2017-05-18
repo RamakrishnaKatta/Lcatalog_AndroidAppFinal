@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lucidleanlabs.dev.lcatalog.ProductPageActivity;
 import com.lucidleanlabs.dev.lcatalog.R;
@@ -149,7 +148,7 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
                 intent.putExtras(b);
 
                 context[0].startActivity(intent);
-                Toast.makeText(activity, "Position: " + position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(activity, "Position: " + position, Toast.LENGTH_SHORT).show();
             }
         });
     }

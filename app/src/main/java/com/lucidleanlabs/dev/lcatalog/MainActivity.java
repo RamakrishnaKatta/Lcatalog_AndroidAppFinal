@@ -1,6 +1,7 @@
 package com.lucidleanlabs.dev.lcatalog;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -13,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     boolean doubleBackToExitPressedOnce = false;
 
+//    public static int notificationCount = 0;
+
     String name, email, phone, address, user_log_type;
 
     TextView user_type, user_email, user_name, app_name;
@@ -46,21 +50,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        findViewById(R.id.btn_play_again).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // We normally won't show the welcome slider again in real app
-                // but this is for testing
-                PrefManager prefManager = new PrefManager(getApplicationContext());
-
-                // make first time launch TRUE
-                prefManager.setFirstTimeLaunch(true);
-
-                startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
-                finish();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -129,9 +118,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
                     ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
-             /*    Show an explanation to the user *asynchronously* -- don't block
-                 this thread waiting for the user's response! After the user
-                 sees the explanation, try again to request the permission.*/
+         /*    Show an explanation to the user *asynchronously* -- don't block this thread waiting for the user's response!
+                After the user sees the explanation, try again to request the permission.*/
 
             } else {
 
@@ -143,9 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST);
 
-               /*  MY_PERMISSIONS_REQUEST is an
-                 app-defined int constant. The callback method gets the
-                 result of the request.*/
+               /*  MY_PERMISSIONS_REQUEST is an app-defined int constant. The callback method gets the result of the request.*/
             }
         }
     }
@@ -157,15 +143,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // tasks you need to do.
+                    // permission was granted, yay! Do the tasks you need to do.
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    // permission denied, boo! Disable the functionality that depends on this permission.
                 }
             }
-            // other 'case' lines to check for other
-            // permissions this app might request
+            // other 'case' lines to check for other permissions this app might request
         }
     }
 
@@ -201,14 +184,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Get the notifications MenuItem and its LayerDrawable (layer-list)
+
+//        MenuItem item = menu.findItem(R.id.action_notifications);
+//        NotificationCountSetClass.setAddToCart(MainActivity.this, item, notificationCount);
+
+        // force the ActionBar to relayout its MenuItems. onCreateOptionsMenu(Menu) will be called again.
+
+        invalidateOptionsMenu();
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
+        // Handle action bar item clicks here. The action bar will automatically handle clicks on the
+        // Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_notifications) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+            builder.setTitle("Watch the welcome Slider, If you missed it");
+            builder.setMessage("To see the welcome slider again, either you can go to Settings -> apps -> welcome slider -> clear data or Press OK ");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    // We normally won't show the welcome slider again in real app but this is for testing
+
+                    PrefManager prefManager = new PrefManager(getApplicationContext());
+
+                    // make first time launch TRUE
+                    prefManager.setFirstTimeLaunch(true);
+
+                    startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
+                    finish();
+                }
+            });
+            builder.setNegativeButton("Cancel", null);
+            builder.show();
+
+//            startActivity(new Intent(this, NotificationsActivity.class));
+
             return true;
         }
         return super.onOptionsItemSelected(item);

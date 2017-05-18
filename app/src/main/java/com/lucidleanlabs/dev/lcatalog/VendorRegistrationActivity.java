@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -329,13 +328,6 @@ public class VendorRegistrationActivity extends AppCompatActivity {
         v_registerButton = (Button) findViewById(R.id.btn_vendor_submit);
         v_registerButton.setEnabled(true);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_vendor_registration, menu);
-        return true;
     }
 
     @Override

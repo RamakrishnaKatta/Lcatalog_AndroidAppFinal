@@ -152,7 +152,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
 
                 context[0].startActivity(intent);
 
-                Toast.makeText(activity, "You clicked on Article: " + position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(activity, "You clicked on Article: " + position, Toast.LENGTH_SHORT).show();
             }
         });
     }

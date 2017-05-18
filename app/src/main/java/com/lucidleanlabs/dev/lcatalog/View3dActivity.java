@@ -2,6 +2,7 @@ package com.lucidleanlabs.dev.lcatalog;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -20,10 +21,7 @@ import com.threed.jpct.Logger;
 import com.threed.jpct.Matrix;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.SimpleVector;
-import com.threed.jpct.Texture;
-import com.threed.jpct.TextureManager;
 import com.threed.jpct.World;
-import com.threed.jpct.util.BitmapHelper;
 import com.threed.jpct.util.MemoryHelper;
 
 import java.io.File;
@@ -63,7 +61,7 @@ public class View3dActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
 
-        Logger.log("onCreate");
+        Logger.log("View3DActivity");
 
         if (master != null) {
             copy(master);
@@ -77,12 +75,23 @@ public class View3dActivity extends AppCompatActivity {
 
         renderer = new MyRenderer();
         mGLView.setRenderer(renderer);
+        mGLView.setBackgroundColor(Color.GREEN);
         setContentView(mGLView);
 
         Bundle b3 = getIntent().getExtras();
 
         _3dslocation = (String) b3.getCharSequence("3ds_location");
         Log.e(TAG, "3DS Location ---- " + _3dslocation);
+
+//        LinearLayout anotherLayout = new LinearLayout(this);
+//        anotherLayout.setBackgroundColor(Color.TRANSPARENT);
+//        LinearLayout.LayoutParams linearLayoutParams =
+//                new LinearLayout.LayoutParams(
+//                        LinearLayout.LayoutParams.FILL_PARENT,
+//                        LinearLayout.LayoutParams.FILL_PARENT);
+//
+//        addContentView(anotherLayout, linearLayoutParams);
+
 
 //        BackgroundView backgroundView = new BackgroundView(this);
 //        addContentView(backgroundView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -182,16 +191,23 @@ public class View3dActivity extends AppCompatActivity {
 
                 _3ds = new File(_3dslocation);
 
-                Texture texture = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getDrawableForStore(_3ds + "/_2.jpg")), 512, 512));
-                TextureManager.getInstance().addTexture("texture", texture);
-
                 try {
                     cube = loadModel((float) 2.0);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                cube.setTexture("texture");
-                cube.build();
+
+//                String TextureLocation = _3ds + "/_1.jpg";
+
+//                if (getDrawableForStore(TextureLocation) != null) {
+//
+//                    Texture texture = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getDrawableForStore(TextureLocation)), 512, 512));
+//                    TextureManager.getInstance().addTexture("texture", texture);
+//                    cube.setTexture("texture");
+//                    cube.build();
+//                } else {
+//                    Toast.makeText(View3dActivity.this, "No Textures Available for this 3D Object ", Toast.LENGTH_SHORT).show();
+//                }
 
                 world.addObject(cube);
 

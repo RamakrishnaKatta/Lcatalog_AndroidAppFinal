@@ -57,7 +57,10 @@
             android:label="@string/title_activity_catalog"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".FullScreenImageViewActivity" />
-        <activity android:name=".GalleryActivity" />
+        <activity
+            android:name=".GalleryActivity"
+            android:label="@string/title_activity_gallery"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CameraActivity"
             android:theme="@style/AppTheme.Dark" />
@@ -69,7 +72,6 @@
             android:name=".WelcomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".VendorRegistrationActivity"
             android:label="@string/title_activity_vendor_registration"
@@ -78,6 +80,8 @@
             android:name=".UserAccountActivity"
             android:label="@string/title_activity_user_profile"
             android:theme="@style/AppTheme.Dark" />
+
+        <activity android:name=".NotificationsActivity" />
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme.Dark">
