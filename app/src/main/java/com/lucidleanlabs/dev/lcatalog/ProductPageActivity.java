@@ -73,8 +73,8 @@ public class ProductPageActivity extends AppCompatActivity {
     String width, length, height;
     String image1, image2, image3, image4, image5;
 
-    private ViewPager viewPager;
-    private LinearLayout ll_dots;
+    private ViewPager ArticleViewPager;
+    private LinearLayout Slider_dots;
     ImageSliderAdapter imagesliderAdapter;
     ArrayList<String> slider_images = new ArrayList<>();
     TextView[] dots;
@@ -250,7 +250,7 @@ public class ProductPageActivity extends AppCompatActivity {
                 } else {
                     page_position = page_position + 1;
                 }
-                viewPager.setCurrentItem(page_position, true);
+                ArticleViewPager.setCurrentItem(page_position, true);
             }
         };
         new Timer().schedule(new TimerTask() {
@@ -336,7 +336,6 @@ public class ProductPageActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     /*Image slider in product page Activity */
     private void init() {
 
@@ -346,13 +345,13 @@ public class ProductPageActivity extends AppCompatActivity {
             slider_images.add(Images[i]);
         }
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        ArticleViewPager = (ViewPager) findViewById(R.id.article_view_pager);
         imagesliderAdapter = new ImageSliderAdapter(ProductPageActivity.this, slider_images);
-        viewPager.setAdapter(imagesliderAdapter);
+        ArticleViewPager.setAdapter(imagesliderAdapter);
 
-        ll_dots = (LinearLayout) findViewById(R.id.LL_Dots);
+        Slider_dots = (LinearLayout) findViewById(R.id.Slider_Dots);
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        ArticleViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
@@ -376,14 +375,14 @@ public class ProductPageActivity extends AppCompatActivity {
         int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
         int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
 
-        ll_dots.removeAllViews();
+        Slider_dots.removeAllViews();
 
         for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml("&#8226;"));
             dots[i].setTextSize(35);
             dots[i].setTextColor(colorsInactive[currentPage]);
-            ll_dots.addView(dots[i]);
+            Slider_dots.addView(dots[i]);
         }
 
         if (dots.length > 0)
