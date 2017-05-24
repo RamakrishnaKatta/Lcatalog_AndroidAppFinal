@@ -74,7 +74,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
     /**
      * View holder to display each RecylerView item
      */
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView item_name, item_description, item_price, item_discount, item_price_new;
         private ImageView item_image;

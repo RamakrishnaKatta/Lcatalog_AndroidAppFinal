@@ -2,7 +2,6 @@ package com.lucidleanlabs.dev.lcatalog;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -12,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.WindowManager;
 
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
@@ -21,7 +21,10 @@ import com.threed.jpct.Logger;
 import com.threed.jpct.Matrix;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.SimpleVector;
+import com.threed.jpct.Texture;
+import com.threed.jpct.TextureManager;
 import com.threed.jpct.World;
+import com.threed.jpct.util.BitmapHelper;
 import com.threed.jpct.util.MemoryHelper;
 
 import java.io.File;
@@ -55,9 +58,11 @@ public class View3dActivity extends AppCompatActivity {
     private Object3D cube = null;
     private int fps = 0;
 
-    private Light sun = null;
-    private String _3dslocation;
-    private File _3ds;
+    private Light sun1 = null;
+    private Light sun2 = null;
+    private Light sun3 = null;
+    String location, _3dslocation, _textureLocation_1, _textureLocation_2;
+    File _3ds_file, _texture_fil_1, _texture_fil_2;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -67,34 +72,21 @@ public class View3dActivity extends AppCompatActivity {
             copy(master);
         }
 
+        Bundle b3 = getIntent().getExtras();
+        location = (String) b3.getCharSequence("3ds_location");
+        Log.e(TAG, "Location ---- " + location);
+
         super.onCreate(savedInstanceState);
         mGLView = new GLSurfaceView(this);
 
         mGLView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
-        mGLView.getHolder().setFormat(PixelFormat.TRANSPARENT);
+        mGLView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
 
         renderer = new MyRenderer();
         mGLView.setRenderer(renderer);
-        mGLView.setBackgroundColor(Color.GREEN);
         setContentView(mGLView);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        Bundle b3 = getIntent().getExtras();
-
-        _3dslocation = (String) b3.getCharSequence("3ds_location");
-        Log.e(TAG, "3DS Location ---- " + _3dslocation);
-
-//        LinearLayout anotherLayout = new LinearLayout(this);
-//        anotherLayout.setBackgroundColor(Color.TRANSPARENT);
-//        LinearLayout.LayoutParams linearLayoutParams =
-//                new LinearLayout.LayoutParams(
-//                        LinearLayout.LayoutParams.FILL_PARENT,
-//                        LinearLayout.LayoutParams.FILL_PARENT);
-//
-//        addContentView(anotherLayout, linearLayoutParams);
-
-
-//        BackgroundView backgroundView = new BackgroundView(this);
-//        addContentView(backgroundView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
     }
 
     @Override
@@ -168,7 +160,7 @@ public class View3dActivity extends AppCompatActivity {
         return true;
     }
 
-    class MyRenderer implements GLSurfaceView.Renderer {
+    private class MyRenderer implements GLSurfaceView.Renderer {
 
         private long time = System.currentTimeMillis();
 
@@ -184,42 +176,95 @@ public class View3dActivity extends AppCompatActivity {
             if (master == null) {
 
                 world = new World();
-                world.setAmbientLight(20, 20, 20);
+                world.setAmbientLight(25, 25, 25);
 
-                sun = new Light(world);
-                sun.setIntensity(350, 350, 350);
+                sun1 = new Light(world);
+                sun1.setIntensity(250, 250, 250);
 
-                _3ds = new File(_3dslocation);
+                sun2 = new Light(world);
+                sun2.setIntensity(250, 250, 250);
 
-                try {
-                    cube = loadModel((float) 2.0);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                sun3 = new Light(world);
+                sun3.setIntensity(250, 250, 250);
+
+
+                _textureLocation_1 = location + "/_1.jpg";
+                _textureLocation_2 = location + "/_2.jpg";
+                _3dslocation = location + "/article_view.3ds";
+
+                _texture_fil_1 = new File(_textureLocation_1);
+                Log.e(TAG, "3DS Object Texture 1 ----" + _texture_fil_1);
+                _texture_fil_2 = new File(_textureLocation_2);
+                Log.e(TAG, "3DS Object Texture 2 ----" + _texture_fil_2);
+                _3ds_file = new File(_3dslocation);
+                Log.e(TAG, "3DS Object File ----" + _3ds_file);
+
+                if (_3ds_file.exists()) {
+
+                    Log.e(TAG, "3DS Object Available ----" + _3ds_file);
+                    try {
+                        cube = loadModel((float) 0.5);
+                        Log.e(TAG, "3DS Object Loaded");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
-//                String TextureLocation = _3ds + "/_1.jpg";
+                if (_texture_fil_1.exists()) {
 
-//                if (getDrawableForStore(TextureLocation) != null) {
-//
-//                    Texture texture = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getDrawableForStore(TextureLocation)), 512, 512));
-//                    TextureManager.getInstance().addTexture("texture", texture);
-//                    cube.setTexture("texture");
-//                    cube.build();
-//                } else {
-//                    Toast.makeText(View3dActivity.this, "No Textures Available for this 3D Object ", Toast.LENGTH_SHORT).show();
-//                }
+                    Log.e(TAG, "Texture 1 Available for this 3DS Object ----" + _texture_fil_1);
+                    Texture texture1 = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getDrawableForStore(_textureLocation_1)), 512, 512));
+                    TextureManager.getInstance().addTexture("texture1", texture1);
+                    cube.calcTextureWrapSpherical();
+                    cube.setTexture("texture1");
 
+                } else {
+//                    Toast.makeText(View3dActivity.this, "No Textures Available for this 3DS Object ", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "No Textures 1 Available for this 3DS Object ----" + _texture_fil_1);
+                }
+
+                if (_texture_fil_2.exists()) {
+
+                    Log.e(TAG, "Texture 2 Available for this 3DS Object ----" + _texture_fil_2);
+                    Texture texture2 = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getDrawableForStore(_textureLocation_2)), 512, 512));
+                    TextureManager.getInstance().addTexture("texture2", texture2);
+                    cube.setTexture("texture2");
+
+                } else {
+//                    Toast.makeText(View3dActivity.this, "No Textures Available for this 3DS Object ", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "No Textures 2 Available for this 3DS Object ----" + _texture_fil_2);
+                }
+
+                cube.build();
                 world.addObject(cube);
 
                 Camera cam = world.getCamera();
                 cam.moveCamera(Camera.CAMERA_MOVEOUT, 50);
                 cam.lookAt(cube.getTransformedCenter());
 
-                SimpleVector sv = new SimpleVector();
-                sv.set(cube.getTransformedCenter());
-                sv.y -= 100;
-                sv.z -= 100;
-                sun.setPosition(sv);
+                SimpleVector sv1 = new SimpleVector();
+                sv1.set(cube.getTransformedCenter());
+                sv1.y -= 100;
+                sv1.z -= 100;
+                Log.e(TAG, "Sun 1 - Vector Value" + sv1);
+                sun1.setPosition(sv1);
+
+                SimpleVector sv2 = new SimpleVector();
+                sv2.set(cube.getTransformedCenter());
+                sv2.x += 100;
+                sv2.y += 100;
+                sv2.z += 100;
+                Log.e(TAG, "Sun 2 - Vector Value" + sv2);
+                sun2.setPosition(sv2);
+
+                SimpleVector sv3 = new SimpleVector();
+                sv3.set(cube.getTransformedCenter());
+                sv3.x -= 100;
+                sv3.y += 100;
+                sv3.z -= 100;
+                Log.e(TAG, "Sun 2 - Vector Value" + sv3);
+                sun2.setPosition(sv3);
+
                 MemoryHelper.compact();
 
                 if (master == null) {
@@ -300,12 +345,14 @@ public class View3dActivity extends AppCompatActivity {
         public Object3D loadModel(float scale) throws IOException {
             //InputStream stream = getResources().openRawResource(R.raw.flatsofa);
 
-            _3ds = new File(_3dslocation);
-            Log.e(TAG, "File Location" + _3ds);
-            InputStream stream = new FileInputStream(_3ds + "/article_view.3ds");
+            InputStream stream = new FileInputStream(_3ds_file);
+            Log.e(TAG, "3DS Object Retrieved ----" + _3ds_file);
+            Log.e(TAG, "Check the Stream ----" + stream);
+
             Object3D[] model = Loader.load3DS(stream, scale);
             Object3D o3d = new Object3D(0);
             Object3D temp = null;
+
             for (int i = 0; i < model.length; i++) {
                 temp = model[i];
                 temp.setCenter(SimpleVector.ORIGIN);
@@ -320,5 +367,4 @@ public class View3dActivity extends AppCompatActivity {
             return o3d;
         }
     }
-
 }

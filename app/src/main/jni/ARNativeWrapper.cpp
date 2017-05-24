@@ -29,14 +29,15 @@
 
         static float lightAmbient[4] = {0.1f, 0.1f, 0.1f, 1.0f};
         static float lightDiffuse[4] = {1.0f, 1.0f, 1.0f, 1.0f};
-        static float lightPosition[4] = {0.0f, 0.0f, 1.0f, 0.0f};
+        static float lightPosition[4] = {1.0f, 1.0f, 1.0f, 0.0f};
+
 
         JNIEXPORT void JNICALL JNIFUNCTION_DEMO(demoInitialise(JNIEnv * env, jobject object)) {
 
-            const char *model0file = "Data/models/Ferrari_Modena_Spider.obj";
-            const char *model1file = "Data/models/bedsofa_1.obj";
-            const char *model2file = "Data/models/Porsche_911_GT3.obj";
-            const char *model3file = "Data/models/BookShelf.obj";
+            const char *model0file = "Data/models/hd_teakbed.obj";
+            const char *model1file = "Data/models/bedsofa.obj";
+            const char *model2file = "Data/models/dinning_table.obj";
+            const char *model3file = "Data/models/fgfg.obj";
 
             models[0].patternID = arwAddMarker("single;Data/kanji.patt;80");
 

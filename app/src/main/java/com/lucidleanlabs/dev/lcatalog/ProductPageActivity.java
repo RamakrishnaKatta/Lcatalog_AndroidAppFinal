@@ -339,7 +339,7 @@ public class ProductPageActivity extends AppCompatActivity {
     /*Image slider in product page Activity */
     private void init() {
 
-        final String[] Images = {image1, image2, image3, image4};
+        final String[] Images = {image1, image2, image3, image4, image5};
 
         for (int i = 0; i < Images.length; i++) {
             slider_images.add(Images[i]);
@@ -349,7 +349,7 @@ public class ProductPageActivity extends AppCompatActivity {
         imagesliderAdapter = new ImageSliderAdapter(ProductPageActivity.this, slider_images);
         ArticleViewPager.setAdapter(imagesliderAdapter);
 
-        Slider_dots = (LinearLayout) findViewById(R.id.Slider_Dots);
+        Slider_dots = (LinearLayout) findViewById(R.id.article_slider_dots);
 
         ArticleViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

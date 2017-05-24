@@ -183,8 +183,7 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width,
-                               int height) {
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         if (previewRunning) {
             camera.stopPreview();
         }

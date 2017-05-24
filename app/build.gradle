@@ -9,8 +9,8 @@ model {
             applicationId = "com.lucidleanlabs.dev.lcatalog"
             minSdkVersion.apiLevel = 19
             targetSdkVersion.apiLevel = 25
-            versionCode = 1
-            versionName = "1.0"
+            versionCode = 3
+            versionName = "3.0"
 
             buildConfigFields.with {
                 //Defines fields in the generated Java BuildConfig class, in this case, for
