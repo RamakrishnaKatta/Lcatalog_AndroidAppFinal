@@ -143,5 +143,6 @@
         "user/customer to get the feel of the furniture, without placing the furniture at the"
         "required place physically."
     </string>
+    <string name="activity_product_page">Product Page</string>
 
 </resources>

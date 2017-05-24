@@ -45,6 +45,7 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".ProductPageActivity"
+            android:label="@string/activity_product_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
@@ -57,6 +58,7 @@
             android:name=".CatalogActivity"
             android:label="@string/title_activity_catalog"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".FullScreenImageViewActivity" />
         <activity
             android:name=".GalleryActivity"
@@ -80,7 +82,7 @@
         <activity
             android:name=".UserAccountActivity"
             android:label="@string/title_activity_user_profile"
-            android:theme="@style/AppTheme.Dark" />
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".NotificationsActivity" />
         <activity
