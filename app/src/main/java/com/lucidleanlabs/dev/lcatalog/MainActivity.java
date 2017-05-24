@@ -1,6 +1,7 @@
 package com.lucidleanlabs.dev.lcatalog;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,22 +17,61 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.lucidleanlabs.dev.lcatalog.adapters.MainListViewAdapter;
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/article/all";
+
     private static final int MY_PERMISSIONS_REQUEST = 10;
     private static final String TAG = "MainActivity";
+
+    ArrayList<String> item_names;
+    ArrayList<String> image_one;
+    ArrayList<String> image_two;
+    ArrayList<String> image_three;
+    ArrayList<String> image_four;
+
+    ArrayList<String> image_share;
+
+    ArrayList<String> Click_readmore;
+
+
+    ImageView imageView1, imageView2, imageView3, imageView4;
+    ImageButton share_icon, click_more;
+
+
 
     boolean doubleBackToExitPressedOnce = false;
 
@@ -45,6 +85,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        item_names = new ArrayList<>();
+        image_one = new ArrayList<>();
+        image_two = new ArrayList<>();
+        image_three = new ArrayList<>();
+        image_four = new ArrayList<>();
+        Click_readmore = new ArrayList<>();
+        image_share = new ArrayList<>();
+
+        try {
+            getData();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         RequestPermissions();
 
@@ -104,8 +159,85 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             user_email.setText("Phone No: " + guest_phone);
             user_type.setText("GUEST");
         }
+    }
+
+    private void getData() throws JSONException {
+        final ProgressDialog loading = ProgressDialog.show(this, "loading", "please wait", false, false);
+
+        final JSONObject baseclass = new JSONObject();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, REGISTER_URL, baseclass, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.e(TAG, "response--" + response);
+                try {
+                    JSONArray resp = response.getJSONArray("resp");
+                    loading.dismiss();
+                    mainRecyclerView(resp);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                NetworkResponse response = error.networkResponse;
+                if (error instanceof ServerError && response != null) {
+                    try {
+                        String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                        JSONObject request = new JSONObject(res);
+
+                        Log.e(TAG, "request--" + request);
+
+                    } catch (UnsupportedEncodingException | JSONException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void mainRecyclerView(JSONArray m_jsonArray) {
+        RecyclerView main_recycler = (RecyclerView)findViewById(R.id.main_recycler);
+        main_recycler.setHasFixedSize(true);
+
+        for (int i = 0; i< m_jsonArray.length();i++){
+            JSONObject obj = null;
+            try{
+                obj = m_jsonArray.getJSONObject(i);
+
+                item_names.add(obj.getString("name"));
+                JSONObject images = obj.getJSONObject("images");
+                image_one.add(images.getString("image1"));
+                image_two.add(images.getString("image2"));
+                image_three.add(images.getString("image3"));
+                image_four.add(images.getString("image4"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Log.e(TAG,"names*****"+item_names);
+        Log.e(TAG,"image1*****"+image_one);
+        Log.e(TAG,"image2*****"+image_two);
+        Log.e(TAG,"image3*****"+image_three);
+        Log.e(TAG,"image4*****"+image_four);
+
+
+        LinearLayoutManager layoutManager =  new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        main_recycler.setLayoutManager(layoutManager);
+        MainListViewAdapter adapter = new MainListViewAdapter(this,item_names,image_one,image_two,image_three,image_four,image_share,click_more);
+        main_recycler.setAdapter(adapter);
+
+
+
 
     }
+
+                 /*Permissions Required for the app and granted*/
 
     private void RequestPermissions() {
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)
