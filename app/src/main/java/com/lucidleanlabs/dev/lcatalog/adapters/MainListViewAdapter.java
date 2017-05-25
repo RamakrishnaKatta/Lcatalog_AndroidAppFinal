@@ -87,7 +87,6 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
         viewHolder.item_image3.setImageResource(R.drawable.dummy_icon);
         viewHolder.item_image4.setImageResource(R.drawable.dummy_icon);
 
-
         String im1 = null, im2 = null, im3 = null, im4 = null;
         String get_image = item_images.get(position);
         try {
@@ -108,33 +107,10 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
         new DownloadImageTask(viewHolder.item_image2).execute(im2);
         new DownloadImageTask(viewHolder.item_image3).execute(im3);
         new DownloadImageTask(viewHolder.item_image4).execute(im4);
-
-        viewHolder.main_container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                context[0] = v.getContext();
-
-                Intent intent = new Intent(context[0], ProductPageActivity.class);
-                Bundle b = new Bundle();
-
-                b.putString("article_id", item_ids.get(position));
-                b.putString("article_title", item_names.get(position));
-                b.putString("article_images", item_images.get(position));
-
-                intent.putExtras(b);
-
-                context[0].startActivity(intent);
-
-//                Toast.makeText(activity, "You clicked on Article: " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
         return item_names.size();
     }
-
-
 }

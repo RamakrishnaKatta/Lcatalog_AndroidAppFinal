@@ -400,7 +400,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(this, VendorRegistrationActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_sign_up) {
+        } else if (id == R.id.nav_user_notify) {
+
+            Toast.makeText(this, "here are all your notifications, Check out !!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, NotifyActivity.class);
+            startActivity(intent);
+
+        }else if (id == R.id.nav_sign_up) {
 
             Toast.makeText(this, "Thanks for your thought on Creating an Account, Appreciated !!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, SignupActivity.class);

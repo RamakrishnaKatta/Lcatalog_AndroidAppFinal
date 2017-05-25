@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "303946076444",
+    "firebase_url": "https://lcatalogandroidapp-343e7.firebaseio.com",
+    "project_id": "lcatalogandroidapp-343e7",
+    "storage_bucket": "lcatalogandroidapp-343e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303946076444:android:b67a8ef0c359f4e2",
+        "android_client_info": {
+          "package_name": "com.lucidleanlabs.dev.lcatalog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303946076444-487lhc8s38ldlq4sgq7h391da1n305vb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lucidleanlabs.dev.lcatalog",
+            "certificate_hash": "04404a1ec82a62ffe40e03ac1e282acf747106b8"
+          }
+        },
+        {
+          "client_id": "303946076444-0cooc0o4545d6qdbah8sqrs7bnfjcl76.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9rIrYQmWtnbetmCQpOEs3p0COcPmeZqE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303946076444-0cooc0o4545d6qdbah8sqrs7bnfjcl76.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
