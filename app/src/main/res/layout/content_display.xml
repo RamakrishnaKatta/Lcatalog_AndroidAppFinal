@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="3dp"
-    android:background="@color/white_overlay">
+    android:layout_margin="1dp"
+    android:padding="1dp">
 
     <LinearLayout
         android:id="@+id/main_container"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/background_curves"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:background="@color/white_overlay"
+        android:gravity="left"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
             android:orientation="horizontal"
             android:padding="2dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_curves"
+                android:gravity="center"
+                android:padding="3dp">
 
                 <ImageView
                     android:id="@+id/main_image1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:layout_marginRight="3dp"
-                    android:background="@color/pattern_dark"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
                     android:cropToPadding="true"
-                    android:padding="1dp"
-                    android:scaleType="centerCrop"
+                    android:padding="3dp"
                     android:src="@drawable/livingroom" />
 
             </LinearLayout>
@@ -45,17 +42,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_curves"
+                android:gravity="center"
+                android:padding="3dp">
 
                 <ImageView
                     android:id="@+id/main_image2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:background="@color/pattern_dark"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
                     android:cropToPadding="true"
-                    android:padding="1dp"
-                    android:scaleType="centerCrop"
+                    android:padding="3dp"
                     android:src="@drawable/livingroom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_curves"
+                android:gravity="center"
+                android:padding="3dp">
+
+                <ImageView
+                    android:id="@+id/main_image3"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:cropToPadding="true"
+                    android:padding="3dp"
+                    android:src="@drawable/livingroom" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -67,65 +85,108 @@
             android:padding="2dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:background="@drawable/background_curves"
+                android:gravity="center"
+                android:padding="3dp">
 
                 <ImageView
-                    android:id="@+id/main_image3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:background="@color/pattern_dark"
+                    android:id="@+id/main_image4"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
                     android:cropToPadding="true"
-                    android:padding="1dp"
-                    android:scaleType="fitCenter"
+                    android:padding="3dp"
                     android:src="@drawable/livingroom" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/main_image4"
+                <TextView
+                    android:id="@+id/main_item_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="I am the Name of the Article"
+                    android:textColor="@color/primary_darker"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:background="@color/pattern_dark"
-                    android:cropToPadding="true"
-                    android:padding="1dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/livingroom" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/main_item_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="Rs 60000/-"
+                        android:textColor="@color/red"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/main_item_discount_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/black"
+                        android:gravity="end"
+                        android:padding="3dp"
+                        android:text=" -60% "
+                        android:textAlignment="center"
+                        android:textColor="@color/red"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/main_item_price_new"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="800/-"
+                        android:textColor="@color/primary_darker"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/read_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:src="@mipmap/ic_more" />
+
+                    <TextView
+                        android:id="@+id/txt_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="More Info..."
+                        android:textColor="@color/primary_darker"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/main_share_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                app:srcCompat="@mipmap/ic_share" />
-
-            <ImageButton
-                android:id="@+id/read_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:padding="5dp"
-                android:src="@mipmap/ic_more" />
-
-        </LinearLayout>
-
     </LinearLayout>
+
 
 </android.support.v7.widget.CardView>

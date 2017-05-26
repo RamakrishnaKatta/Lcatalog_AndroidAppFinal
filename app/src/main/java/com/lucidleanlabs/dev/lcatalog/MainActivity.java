@@ -63,9 +63,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     TextView user_type, user_email, user_name, app_name;
 
+    private ArrayList<String> item_ids;
     private ArrayList<String> item_names;
     private ArrayList<String> item_images;
-    private ArrayList<String> item_ids;
+    private ArrayList<String> item_prices;
+    private ArrayList<String> item_discounts;
 
 
     @Override
@@ -131,10 +133,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             user_email.setText("Phone No: " + guest_phone);
             user_type.setText("GUEST");
         }
-
+        item_ids = new ArrayList<>();
         item_names = new ArrayList<>();
         item_images = new ArrayList<>();
-        item_ids = new ArrayList<>();
+        item_prices = new ArrayList<>();
+        item_discounts = new ArrayList<>();
 
         try {
             getData();
@@ -200,6 +203,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 item_ids.add(obj.getString("id"));
                 item_images.add(obj.getString("images"));
                 item_names.add(obj.getString("name"));
+                item_prices.add(obj.getString("price"));
+                item_discounts.add(obj.getString("discount"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -208,10 +213,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Log.e(TAG, "ids******" + item_ids);
             Log.e(TAG, "images******" + item_images);
             Log.e(TAG, "names******" + item_names);
+            Log.e(TAG, "prices******" + item_prices);
+            Log.e(TAG, "discounts******" + item_discounts);
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             main_recycler.setLayoutManager(linearLayoutManager);
-            MainListViewAdapter gridAdapter = new MainListViewAdapter(this, item_ids, item_names, item_images);
+            MainListViewAdapter gridAdapter = new MainListViewAdapter(this, item_ids, item_names, item_images, item_prices, item_discounts);
             main_recycler.setAdapter(gridAdapter);
         }
     }
