@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String LOGIN_URL = "http://35.154.252.64:8080/lll/web/user/login";
 
-    TextView app_name, _signupLink, _forgot_password, _returnToLogin;
+    TextView app_name, _signupLink, _forgot_password, _returnToLogin, powered;
     EditText _emailText, _passwordText, _guestNameText, _GuestPhoneText;
     Button _loginButton, _guestLoginButton;
 
@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         app_name = (TextView) findViewById(R.id.application_name);
+        powered = (TextView) findViewById(R.id.lucidleanlabs);
         _loginButton = (Button) findViewById(R.id.btn_login);
         _returnToLogin = (TextView) findViewById(R.id.return_to_login);
         _guestLoginButton = (Button) findViewById(R.id.btn_guest);
@@ -71,7 +72,13 @@ public class LoginActivity extends AppCompatActivity {
         _forgot_password = (TextView) findViewById(R.id.link_forgot_password);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
+        Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
+
         app_name.setTypeface(custom_font);
+        powered.setTypeface(custom_font2);
+        _returnToLogin.setTypeface(custom_font2);
+        _signupLink.setTypeface(custom_font2);
+        _forgot_password.setTypeface(custom_font2);
 
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);

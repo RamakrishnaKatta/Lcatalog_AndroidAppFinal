@@ -34,6 +34,10 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".UserTypeActivity"
+            android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.Dark" />
@@ -82,7 +86,16 @@
             android:name=".UserAccountActivity"
             android:label="@string/title_activity_user_profile"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NotificationsActivity" />
+        <activity
+            android:name=".NotifyActivity"
+            android:label="@string/title_activity_notify"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".NotificationsActivity"
+            android:label="@string/NotificationsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme.Dark">
@@ -92,21 +105,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".NotifyActivity"
-            android:label="@string/title_activity_notify"
-            android:theme="@style/AppTheme.NoActionBar" />
+
 
         <service
             android:name=".Notify"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".NotifyService">
+
+        <service
+            android:name=".NotifyService"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

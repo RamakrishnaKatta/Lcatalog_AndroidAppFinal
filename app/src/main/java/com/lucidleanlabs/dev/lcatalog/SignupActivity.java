@@ -50,6 +50,8 @@ public class SignupActivity extends AppCompatActivity {
 
     private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/user/register";
 
+
+    private TextView app_name, powered, _loginLink;
     private EditText _nameText, _addressText, _emailText, _mobileText, _passwordText, _reEnterPasswordText;
     private Button _signupButton;
 
@@ -60,9 +62,13 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        TextView app_name = (TextView) findViewById(R.id.application_name);
+
+        powered = (TextView) findViewById(R.id.lucidleanlabs);
+        app_name = (TextView) findViewById(R.id.application_name);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
+        Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
         app_name.setTypeface(custom_font);
+        powered.setTypeface(custom_font2);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -78,7 +84,8 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        TextView _loginLink = (TextView) findViewById(R.id.link_login);
+        _loginLink = (TextView) findViewById(R.id.link_login);
+        _loginLink.setTypeface(custom_font2);
         _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // Finish the registration screen and return to the Login activity

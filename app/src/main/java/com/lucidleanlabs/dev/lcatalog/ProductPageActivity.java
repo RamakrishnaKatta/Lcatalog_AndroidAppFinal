@@ -291,7 +291,7 @@ public class ProductPageActivity extends AppCompatActivity {
                     Log.e(TAG, "vendor ID--" + vendor_id);
                     vendor_name = resp.getString("name");
                     Log.e(TAG, "vendor Name--" + vendor_name);
-                    vendor_address = resp.getString("location");
+                    vendor_address = resp.getString("code");
                     Log.e(TAG, "vendor Address--" + vendor_address);
                     vendor_image = resp.getString("logo");
                     Log.e(TAG, "vendor Image--" + vendor_image);

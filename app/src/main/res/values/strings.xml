@@ -145,5 +145,6 @@
     </string>
     <string name="activity_product_page">Product Page</string>
     <string name="title_activity_notify">NotifyActivity</string>
+    <string name="NotificationsActivity">User Notifications</string>
 
 </resources>

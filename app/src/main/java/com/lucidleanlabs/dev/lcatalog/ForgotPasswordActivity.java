@@ -2,9 +2,11 @@ package com.lucidleanlabs.dev.lcatalog;
 
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -39,7 +41,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private static final String PASSWORD_UPDATE_URL = "http://35.154.252.64:8080/lll/web/user/update_password";
 
-    private TextView _login_forgot_Link, _signup_forgot_link, app_name;
+    private TextView _login_forgot_Link, _signup_forgot_link, app_name, powered;
     private Button _submitButton;
     private EditText _emailText, _passwordText, _reenterPasswordText;
     private String email, password, ReEnterPass;
@@ -52,6 +54,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
         app_name = (TextView) findViewById(R.id.application_name);
+        powered = (TextView) findViewById(R.id.lucidleanlabs);
         _submitButton = (Button) findViewById(R.id.btn_submit);
 
         if (getSupportActionBar() != null) {
@@ -60,7 +63,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         }
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
+        Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
+
         app_name.setTypeface(custom_font);
+        powered.setTypeface(custom_font2);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -77,6 +83,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         });
 
         _login_forgot_Link = (TextView) findViewById(R.id.link_forgot_login);
+        _login_forgot_Link.setTypeface(custom_font2);
         _login_forgot_Link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +96,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         });
 
         _signup_forgot_link = (TextView) findViewById(R.id.link_forgot_signup);
+        _signup_forgot_link.setTypeface(custom_font2);
         _signup_forgot_link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,6 +188,26 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         }, 2000);
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
+        builder.setTitle("Alert");
+        builder.setMessage("Press OK to exit from this app");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                System.exit(0);
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
     }
 
     /*Validations for the Forgot Password Activity*/

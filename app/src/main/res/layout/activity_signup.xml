@@ -8,9 +8,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:paddingTop="30dp">
 
 
@@ -20,29 +22,37 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:contentDescription="Company_Icon"
                 android:src="@drawable/logo" />
 
-            <TextView
-                android:id="@+id/application_name"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:text="@string/l_catalog"
-                android:textSize="30sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/application_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/l_catalog"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lucidleanlabs"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/powered_lucidleanlabs"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/lucidlealabs"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:text="@string/powered_lucidleanlabs"
-            android:textSize="12sp"
-            android:textStyle="bold" />
 
 
         <!-- Name Label -->
@@ -66,7 +76,6 @@
             android:id="@+id/area_input_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
             android:layout_marginTop="@dimen/custom_margin">
 
             <EditText
@@ -83,7 +92,6 @@
             android:id="@+id/area_input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
             android:layout_marginTop="@dimen/custom_margin"
             android:visibility="visible">
 
@@ -101,7 +109,6 @@
             android:id="@+id/area_input_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
             android:layout_marginTop="@dimen/custom_margin"
             android:visibility="visible">
 
@@ -109,9 +116,9 @@
                 android:id="@+id/input_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="10"
                 android:hint="@string/mobile_number"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="10" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
@@ -119,7 +126,6 @@
             android:id="@+id/area_input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
             android:layout_marginTop="@dimen/custom_margin"
             android:visibility="visible">
 
@@ -136,7 +142,6 @@
             android:id="@+id/area_input_reEnterPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/custom_margin"
             android:layout_marginTop="@dimen/custom_margin"
             android:visibility="visible">
 
@@ -151,9 +156,8 @@
         <!-- Signup Button -->
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_signup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
             android:layout_marginTop="@dimen/custom_margin"
             android:padding="12dp"
             android:text="@string/create_account" />
@@ -165,7 +169,7 @@
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:gravity="center"
             android:text="@string/login_trigger"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 
