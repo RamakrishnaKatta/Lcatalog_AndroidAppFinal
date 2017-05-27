@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,10 +12,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
+
+import java.io.File;
 
 public class GuestActivity extends AppCompatActivity {
 
@@ -25,8 +29,12 @@ public class GuestActivity extends AppCompatActivity {
     EditText _guestNameText, _GuestPhoneText;
     Button _guestLoginButton;
     EditText _nameText, _mobileText;
+    ImageButton get_details;
 
     String guest_name, guest_phone;
+
+    File file_guest;
+    String[] text_from_guest_file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,10 @@ public class GuestActivity extends AppCompatActivity {
         app_name = (TextView) findViewById(R.id.application_name);
         powered = (TextView) findViewById(R.id.lucidleanlabs);
         _guestLoginButton = (Button) findViewById(R.id.btn_guest);
+        get_details = (ImageButton) findViewById(R.id.btn_get_data);
+
+        String guest_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/guest.txt";
+        file_guest = new File(guest_text_file_location);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
@@ -57,12 +69,33 @@ public class GuestActivity extends AppCompatActivity {
             }
         });
 
+        get_details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setData();
+            }
+        });
+
         _guestLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 guest_login();
             }
         });
+    }
+
+    private void setData() {
+        if (!file_guest.exists()) {
+            Toast.makeText(getBaseContext(), "No Saved Details Yet", Toast.LENGTH_LONG).show();
+        } else {
+            text_from_guest_file = UserCheckUtil.readFromFile("guest").split(" ### ");
+
+            _guestNameText = (EditText) findViewById(R.id.input_name);
+            _guestNameText.setText(text_from_guest_file[0].trim());
+
+            _GuestPhoneText = (EditText) findViewById(R.id.input_mobile);
+            _GuestPhoneText.setText(text_from_guest_file[1].trim());
+        }
     }
 
     @Override

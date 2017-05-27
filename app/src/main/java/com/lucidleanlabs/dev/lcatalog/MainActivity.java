@@ -63,19 +63,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    public static int notificationCount = 0;
 
     String name, email, phone, address, user_log_type;
-    String file_user_email, file_user_password, file_guest_name, file_guest_phone;
     String guest_name, guest_phone;
-
     TextView user_type, user_email, user_name, app_name;
 
-    File file1, file2;
 
     private ArrayList<String> item_ids;
     private ArrayList<String> item_names;
     private ArrayList<String> item_images;
     private ArrayList<String> item_prices;
     private ArrayList<String> item_discounts;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,13 +88,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        String guest_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/guest.txt";
-        String customer_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/customer.txt";
-
-        file1 = new File(guest_text_file_location);
-        file2 = new File(customer_text_file_location);
-
-        if (!file2.exists() && !file2.exists()) {
             final Bundle user_data = getIntent().getExtras();
             Log.d(TAG, "Dummy -- " + user_data);
 
@@ -122,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             guest_phone = guest_data.getString("guest_phone");
             Log.e(TAG, "guest phone:  " + guest_phone);
-        }
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -133,28 +122,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         app_name.setTypeface(custom_font);
 
-        String[] text_from_file = UserCheckUtil.readFromFile("guest").split(" ### ");
-
-
         user_name = (TextView) header.findViewById(R.id.user_name);
+
         if (name != null) {
             user_name.setText(name);
-        } else if (file1.exists() || file2.exists()) {
-            file_guest_name = text_from_file[0].trim();
-            user_name.setText(file_guest_name);
         } else {
             user_name.setText(guest_name);
         }
 
         user_type = (TextView) header.findViewById(R.id.guest_image);
+
         user_email = (TextView) header.findViewById(R.id.user_email);
         if (email != null) {
             user_email.setText(email);
             user_type.setText("CUSTOMER");
-        } else if (file1.exists() || file2.exists()) {
-            file_guest_phone = text_from_file[1].trim();
-            user_email.setText("Phone No: " + file_guest_phone);
-            user_type.setText("GUEST");
         } else {
             user_email.setText("Phone No: " + guest_phone);
             user_type.setText("GUEST");
@@ -440,7 +421,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(this, NotificationsActivity.class);
             startActivity(intent);
 
-        }else if (id == R.id.nav_sign_up) {
+        } else if (id == R.id.nav_sign_up) {
 
             Toast.makeText(this, "Thanks for your thought on Creating an Account, Appreciated !!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, SignupActivity.class);

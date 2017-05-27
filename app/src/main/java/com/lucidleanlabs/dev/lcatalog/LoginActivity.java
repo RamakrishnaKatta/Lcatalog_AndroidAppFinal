@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,10 +49,14 @@ public class LoginActivity extends AppCompatActivity {
     TextView app_name, _forgot_password, powered;
     EditText _emailText, _passwordText;
     Button _loginButton;
+    ImageButton get_details;
 
     String code, message;
     String userName, userEmail, userPhone, userAddress;
     String email, password;
+
+    File file_customer;
+    String[] text_from_customer_file;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,10 @@ public class LoginActivity extends AppCompatActivity {
         powered = (TextView) findViewById(R.id.lucidleanlabs);
         _loginButton = (Button) findViewById(R.id.btn_login);
         _forgot_password = (TextView) findViewById(R.id.link_forgot_password);
+        get_details = (ImageButton) findViewById(R.id.btn_get_data);
+
+        String customer_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/customer.txt";
+        file_customer = new File(customer_text_file_location);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
@@ -75,10 +86,16 @@ public class LoginActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(LoginActivity.this, UserTypeActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        get_details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setData();
             }
         });
 
@@ -102,7 +119,20 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
+    private void setData() {
+        if (!file_customer.exists()) {
+            Toast.makeText(getBaseContext(), "No Saved Details Yet", Toast.LENGTH_LONG).show();
+        } else {
+            text_from_customer_file = UserCheckUtil.readFromFile("customer").split(" ### ");
+
+            _emailText = (EditText) findViewById(R.id.input_email);
+            _emailText.setText(text_from_customer_file[0].trim());
+
+            _passwordText = (EditText) findViewById(R.id.input_password);
+            _passwordText.setText(text_from_customer_file[1].trim());
+        }
     }
 
     public void login() throws JSONException {
@@ -132,6 +162,11 @@ public class LoginActivity extends AppCompatActivity {
         Log.e(TAG, "Entered password--" + password);
 
         // Implement your own authentication logic here.
+
+        final String Credentials = email + "  ###  " + password;
+        UserCheckUtil.writeToFile(Credentials, "customer");
+        String text_file_date = UserCheckUtil.readFromFile("customer");
+        Log.d(TAG, "User Details-- " + text_file_date);
 
         final JSONObject login_parameters = new JSONObject();
         login_parameters.put("email", email);
@@ -225,12 +260,6 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginSuccess() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
         Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
-
-        final String Credentials = email + "###" + password;
-        UserCheckUtil.writeToFile(Credentials, "customer");
-        String text_file_date = UserCheckUtil.readFromFile("customer");
-        Log.d(TAG, "User Details-- " + text_file_date);
-
         _loginButton.setEnabled(true);
         setResult(RESULT_OK, null);
 
