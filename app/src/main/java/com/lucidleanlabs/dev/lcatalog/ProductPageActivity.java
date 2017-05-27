@@ -46,6 +46,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -80,6 +81,8 @@ public class ProductPageActivity extends AppCompatActivity {
     TextView[] dots;
     int page_position = 0;
 
+    private boolean zip_downloaded;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,7 +104,7 @@ public class ProductPageActivity extends AppCompatActivity {
         vendor_logo = (ImageView) findViewById(R.id.article_vendor_logo);
 
         ImageButton article_share = (ImageButton) findViewById(R.id.article_share_icon);
-        ImageButton article_download = (ImageButton) findViewById(R.id.article_download_icon);
+        final ImageButton article_download = (ImageButton) findViewById(R.id.article_download_icon);
         ImageButton article_3d_view = (ImageButton) findViewById(R.id.article_3dview_icon);
 
         final TextView article_title = (TextView) findViewById(R.id.article_title_text);
@@ -191,34 +194,45 @@ public class ProductPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+//                Toast.makeText(ProductPageActivity.this, "You clicked on download", Toast.LENGTH_SHORT).show();
                 final ProgressDialog progressDialog = new ProgressDialog(ProductPageActivity.this, R.style.AppTheme_Dark_Dialog);
                 progressDialog.setIndeterminate(true);
                 progressDialog.setMessage("Downloading Article, Just for once....");
+                progressDialog.setTitle("Object Downloading");
                 progressDialog.show();
 
-//                Toast.makeText(ProductPageActivity.this, "You clicked on download", Toast.LENGTH_SHORT).show();
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                try {
 
-                try {
-                    addModelFolder();
-                    extended_url = file_url + Article_Id + ".zip";
-                    Log.e(TAG, "URL ---------- " + extended_url);
-                    new DownloadFileTask().execute(extended_url);
+                                    addModelFolder();
+                                    extended_url = file_url + Article_Id + ".zip";
+                                    Log.e(TAG, "URL ---------- " + extended_url);
+                                    new DownloadFileTask().execute(extended_url);
 
-                    Log.e(TAG, "id=======" + b.getCharSequence("article_id"));
-                    Log.e(TAG, "name=======" + b.getCharSequence("article_title"));
+                                    Log.e(TAG, "id=======" + b.getCharSequence("article_id"));
+                                    Log.e(TAG, "name=======" + b.getCharSequence("article_title"));
 
-                    if (ZipFileLocation != null || ExtractLocation != null) {
+                                    File zip_file = new File(ZipFileLocation);
+                                    if (zip_file.exists()) {
+                                        new UnzipUtil(ZipFileLocation, ExtractLocation);
+                                    } else {
+                                        Toast.makeText(ProductPageActivity.this, "Failed to download the Files", Toast.LENGTH_SHORT).show();
+                                    }
 
-                        new UnzipUtil(ZipFileLocation, ExtractLocation);
-                        progressDialog.dismiss();
+                                    article_download.setEnabled(false);
+                                    zip_downloaded = true;
+                                    progressDialog.dismiss();
 
-                    } else {
-                        Toast.makeText(ProductPageActivity.this, "Failed to download the Files", Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                                } catch (IOException e) {
+                                    article_download.setEnabled(true);
+                                    zip_downloaded = false;
+                                    Log.e(TAG, "Zip Not Downloaded ---------- " + zip_downloaded);
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, 3000);
             }
         });
 
@@ -231,9 +245,12 @@ public class ProductPageActivity extends AppCompatActivity {
                 Log.e(TAG, "3ds Location--" + b3.getCharSequence("3ds_location"));
 
 //                Toast.makeText(ProductPageActivity.this, "3D View of the Object has been disabled due to some Testing and Changes happening in the 3D Images", Toast.LENGTH_SHORT).show();
-
-                Intent _3dintent = new Intent(ProductPageActivity.this, View3dActivity.class).putExtras(b3);
-                startActivity(_3dintent);
+                if (zip_downloaded == true) {
+                    Intent _3dintent = new Intent(ProductPageActivity.this, View3dActivity.class).putExtras(b3);
+                    startActivity(_3dintent);
+                } else {
+                    Toast.makeText(ProductPageActivity.this, "Can't provide the 3d View, unless the Object is Downloaded, \n Please Click the download button beside", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -272,7 +289,8 @@ public class ProductPageActivity extends AppCompatActivity {
         }
         assert folder != null;
         if (!folder.exists()) {
-            folder.mkdirs();
+            boolean wasSuccessful = folder.mkdirs();
+            Log.e(TAG, "Model Directory is Created --- '" + wasSuccessful + "' Thank You !!");
         }
     }
 
@@ -341,9 +359,7 @@ public class ProductPageActivity extends AppCompatActivity {
 
         final String[] Images = {image1, image2, image3, image4, image5};
 
-        for (int i = 0; i < Images.length; i++) {
-            slider_images.add(Images[i]);
-        }
+        Collections.addAll(slider_images, Images);
 
         ArticleViewPager = (ViewPager) findViewById(R.id.article_view_pager);
         imagesliderAdapter = new ImageSliderAdapter(ProductPageActivity.this, slider_images);

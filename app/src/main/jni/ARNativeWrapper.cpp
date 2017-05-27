@@ -35,9 +35,9 @@
         JNIEXPORT void JNICALL JNIFUNCTION_DEMO(demoInitialise(JNIEnv * env, jobject object)) {
 
             const char *model0file = "Data/models/hd_teakbed.obj";
-            const char *model1file = "Data/models/bedsofa.obj";
+            const char *model1file = "Data/models/parasona.obj";
             const char *model2file = "Data/models/dinning_table.obj";
-            const char *model3file = "Data/models/fgfg.obj";
+            const char *model3file = "Data/models/bedsofa.obj";
 
             models[0].patternID = arwAddMarker("single;Data/kanji.patt;80");
 

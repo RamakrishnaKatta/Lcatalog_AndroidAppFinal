@@ -34,7 +34,6 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".UserTypeActivity"
             android:theme="@style/AppTheme.Dark" />
@@ -46,6 +45,9 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".ForgotPasswordActivity"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".GuestActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name=".ProductPageActivity"
@@ -90,12 +92,10 @@
             android:name=".NotifyActivity"
             android:label="@string/title_activity_notify"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".NotificationsActivity"
             android:label="@string/NotificationsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme.Dark">
@@ -105,7 +105,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <service
             android:name=".Notify"

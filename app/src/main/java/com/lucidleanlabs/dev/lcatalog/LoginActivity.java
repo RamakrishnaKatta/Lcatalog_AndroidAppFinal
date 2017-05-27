@@ -1,12 +1,10 @@
 package com.lucidleanlabs.dev.lcatalog;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,21 +41,15 @@ public class LoginActivity extends AppCompatActivity {
     private static final int REQUEST_LOGIN = 0;
     private static final int REQUEST_FORGOT_PASSWORD = 0;
 
-    public static final String KEY_EMAIL = "email";
-    public static final String KEY_PASSWORD = "password";
-
     private static final String LOGIN_URL = "http://35.154.252.64:8080/lll/web/user/login";
 
-    TextView app_name, _signupLink, _forgot_password, _returnToLogin, powered;
-    EditText _emailText, _passwordText, _guestNameText, _GuestPhoneText;
-    Button _loginButton, _guestLoginButton;
+    TextView app_name, _forgot_password,  powered;
+    EditText _emailText, _passwordText;
+    Button _loginButton;
 
     String code, message;
     String userName, userEmail, userPhone, userAddress;
-    String guest_name, guest_phone;
-
-    TextInputLayout area_nameText, area_mobileText, area_emailText, area_passwordText;
-
+    String email, password;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,9 +59,6 @@ public class LoginActivity extends AppCompatActivity {
         app_name = (TextView) findViewById(R.id.application_name);
         powered = (TextView) findViewById(R.id.lucidleanlabs);
         _loginButton = (Button) findViewById(R.id.btn_login);
-        _returnToLogin = (TextView) findViewById(R.id.return_to_login);
-        _guestLoginButton = (Button) findViewById(R.id.btn_guest);
-        _signupLink = (TextView) findViewById(R.id.link_signup);
         _forgot_password = (TextView) findViewById(R.id.link_forgot_password);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
@@ -76,48 +66,20 @@ public class LoginActivity extends AppCompatActivity {
 
         app_name.setTypeface(custom_font);
         powered.setTypeface(custom_font2);
-        _returnToLogin.setTypeface(custom_font2);
-        _signupLink.setTypeface(custom_font2);
         _forgot_password.setTypeface(custom_font2);
 
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     login();
+//                    overridePendingTransition(R.anim.push_left_out, R.anim.push_left_in);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-        });
-
-        _guestLoginButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                convert_view_guest();
-
-                _guestLoginButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v1) {
-                        guest_login();
-                    }
-                });
-            }
-        });
-
-        _signupLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
-                finish();
-//                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
 
@@ -130,78 +92,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        _returnToLogin.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // Return back to Login activity
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivityForResult(intent, REQUEST_LOGIN);
-                finish();
-//                overridePendingTransition(R.anim.push_left_out, R.anim.push_left_in);
-            }
-        });
-    }
-
-
-    public void convert_view_guest() {
-
-        area_nameText = (TextInputLayout) findViewById(R.id.area_input_name);
-        area_mobileText = (TextInputLayout) findViewById(R.id.area_input_mobile);
-        area_emailText = (TextInputLayout) findViewById(R.id.area_input_email);
-        area_passwordText = (TextInputLayout) findViewById(R.id.area_input_password);
-        _loginButton = (Button) findViewById(R.id.btn_login);
-        _returnToLogin = (TextView) findViewById(R.id.return_to_login);
-
-        area_emailText.setVisibility(View.GONE);
-        area_passwordText.setVisibility(View.GONE);
-        area_nameText.setVisibility(View.VISIBLE);
-        area_mobileText.setVisibility(View.VISIBLE);
-        _loginButton.setVisibility(View.GONE);
-        _returnToLogin.setVisibility(View.VISIBLE);
-    }
-
-    public void guest_login() {
-        Log.e(TAG, "Guest Customer Login");
-
-        if (!validateGuest()) {
-            onLoginFailed();
-            return;
-        }
-
-        _guestLoginButton = (Button) findViewById(R.id.btn_guest);
-        _guestLoginButton.setEnabled(false);
-
-        _guestNameText = (EditText) findViewById(R.id.input_name);
-        guest_name = _guestNameText.getText().toString().trim();
-
-        _GuestPhoneText = (EditText) findViewById(R.id.input_mobile);
-        guest_phone = _GuestPhoneText.getText().toString().trim();
-
-
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Providing Access...");
-        progressDialog.show();
-
-        // Implement your own authentication logic here.
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onGuestLogin();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
     }
 
     public void login() throws JSONException {
         Log.e(TAG, "Customer Login");
 
-        Log.e(TAG, "KEY_EMAIL--" + KEY_EMAIL);
-        Log.e(TAG, "KEY_PASSWORD--" + KEY_PASSWORD);
+        Log.e(TAG, "KEY_EMAIL--" + "email");
+        Log.e(TAG, "KEY_PASSWORD--" + "password");
 
         if (!validate()) {
             onLoginFailed();
@@ -216,11 +113,11 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.show();
 
         _emailText = (EditText) findViewById(R.id.input_email);
-        final String email = _emailText.getText().toString().trim();
+        email = _emailText.getText().toString().trim();
         Log.e(TAG, "Entered email--" + email);
 
         _passwordText = (EditText) findViewById(R.id.input_password);
-        final String password = _passwordText.getText().toString().trim();
+        password = _passwordText.getText().toString().trim();
         Log.e(TAG, "Entered password--" + password);
 
         // Implement your own authentication logic here.
@@ -274,8 +171,8 @@ public class LoginActivity extends AppCompatActivity {
         }) {
             public Map<String, String> getParams() {
                 HashMap<String, String> params = new HashMap<>();
-                params.put(KEY_EMAIL, email);
-                params.put(KEY_PASSWORD, password);
+                params.put("email", email);
+                params.put("password", password);
                 Log.e(TAG, "Hash map...." + String.valueOf(params));
                 Log.e(TAG, "Hash map .. " + params);
                 return params;
@@ -317,6 +214,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginSuccess() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
         Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
+
+        final String Credentials = email + "###" + password;
+        UserCheckUtil.writeToFile(Credentials, this);
+
         _loginButton.setEnabled(true);
         setResult(RESULT_OK, null);
 
@@ -325,8 +226,6 @@ public class LoginActivity extends AppCompatActivity {
         user_data.putString("phone", userPhone);
         user_data.putString("address", userAddress);
         user_data.putString("email", userEmail);
-        user_data.putString("guest_name", guest_name);
-        user_data.putString("guest_phone", guest_phone);
         Log.d(TAG, "User -- " + user_data);
 
         Intent intent = new Intent(this, MainActivity.class).putExtras(user_data);
@@ -334,76 +233,18 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    public void onGuestLogin() {
-        Button _loginButton = (Button) findViewById(R.id.btn_login);
-        Toast.makeText(getBaseContext(), "Guest Login Success", Toast.LENGTH_LONG).show();
-        _loginButton.setEnabled(true);
-        setResult(RESULT_OK, null);
-
-        Bundle guest_data = new Bundle();
-        guest_data.putString("guest_name", guest_name);
-        guest_data.putString("guest_phone", guest_phone);
-        Log.d(TAG, "Guest -- " + guest_data);
-
-        Intent intent = new Intent(this, MainActivity.class).putExtras(guest_data);
-        startActivity(intent);
-        finish();
-    }
-
-
     public void onLoginFailed() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
         Toast.makeText(getBaseContext(), "Login failed Please Signup or Try Logging Again", Toast.LENGTH_LONG).show();
         _loginButton.setEnabled(false);
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
         finish();
     }
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
-        builder.setTitle("Alert");
-        builder.setMessage("Press OK to exit");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                System.exit(0);
-            }
-        });
-        builder.setNegativeButton("Cancel", null);
-        builder.show();
-    }
-
-    public boolean validateGuest() {
-        boolean validGuest = true;
-
-        EditText _nameText = (EditText) findViewById(R.id.input_name);
-        EditText _mobileText = (EditText) findViewById(R.id.input_mobile);
-
-        String name = _nameText.getText().toString();
-        String mobile = _mobileText.getText().toString();
-
-        if (name.isEmpty() || name.length() < 3) {
-            _nameText.setError("at least 3 characters");
-            validGuest = false;
-        } else {
-            _nameText.setError(null);
-        }
-
-        if (mobile.isEmpty() || mobile.length() != 10) {
-            _mobileText.setError("Enter Valid Mobile Number");
-            validGuest = false;
-        } else {
-            _mobileText.setError(null);
-        }
-
-        return validGuest;
+        super.onBackPressed();
+        startActivity(new Intent(this, UserTypeActivity.class));
+        finish();
     }
 
     public boolean validate() {

@@ -73,7 +73,7 @@ public class UserTypeActivity extends AppCompatActivity {
         _shopper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserTypeActivity.this, LoginActivity.class);
+                Intent intent = new Intent(UserTypeActivity.this, GuestActivity.class);
                 startActivity(intent);
                 finish();
             }
