@@ -410,7 +410,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_user_notify) {
 
             Toast.makeText(this, "here are all your notifications, Check out !!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, NotifyActivity.class);
+            Intent intent = new Intent(this, NotificationsActivity.class);
             startActivity(intent);
 
         }else if (id == R.id.nav_sign_up) {
