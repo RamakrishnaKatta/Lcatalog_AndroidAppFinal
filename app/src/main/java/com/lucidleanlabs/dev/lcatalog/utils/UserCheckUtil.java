@@ -1,56 +1,69 @@
 package com.lucidleanlabs.dev.lcatalog.utils;
 
-import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-
 
 public class UserCheckUtil {
 
     private static final String TAG = "UserCheckUtil";
 
-    public static void writeToFile(String data, Context context) {
+    public static void writeToFile(String data, String user_type) {
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("credentials.txt", Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
+            Log.e(TAG + "-writeToFile", "Storage State: " + isExternalStorageReadOnly() + "Storage State(ExternalStorageAvailability): " + isExternalStorageAvailable());
+            String text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/" + user_type + ".txt";
+            FileOutputStream fileOutputStream = new FileOutputStream(text_file_location);
+            fileOutputStream.write(data.getBytes());
+            fileOutputStream.close();
         } catch (IOException e) {
             Log.e(TAG + "-Exception", "File write failed: " + e.toString());
         }
     }
 
-    public static String readFromFile(Context context) {
+    public static String readFromFile(String user_type) {
 
         String ret = "";
+        String text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/" + user_type + ".txt";
 
         try {
-            InputStream inputStream = context.openFileInput("credentials.txt");
+            Log.e(TAG + "-readFromFile", "Storage State(ReadOnlyState): " + !isExternalStorageReadOnly() + " Storage State(ExternalStorageAvailability): " + isExternalStorageAvailable());
+            FileInputStream fileInputStream = new FileInputStream(text_file_location);
+            DataInputStream dataInputStream = new DataInputStream(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
+            String strLine;
 
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                ret = stringBuilder.toString();
+            while ((strLine = bufferedReader.readLine()) != null) {
+                ret = ret + strLine;
             }
+            dataInputStream.close();
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e(TAG + "-login activity", "File not found: " + e.toString());
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            e.printStackTrace();
         }
-
         return ret;
+    }
+
+    private static boolean isExternalStorageReadOnly() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isExternalStorageAvailable() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
+            return true;
+        }
+        return false;
     }
 }

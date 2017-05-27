@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
+
+import java.io.File;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -120,7 +123,18 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(WelcomeActivity.this, UserTypeActivity.class));
+
+        String guest_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/guest.txt";
+        String customer_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/customer.txt";
+
+        File file1 = new File(guest_text_file_location);
+        File file2 = new File(customer_text_file_location);
+
+        if (file1.exists() || file2.exists()) {
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+        } else {
+            startActivity(new Intent(WelcomeActivity.this, UserTypeActivity.class));
+        }
         finish();
     }
 

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
 
 public class GuestActivity extends AppCompatActivity {
 
@@ -42,6 +45,17 @@ public class GuestActivity extends AppCompatActivity {
 
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_guest);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(GuestActivity.this, UserTypeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         _guestLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +113,6 @@ public class GuestActivity extends AppCompatActivity {
         Button _guestLoginButton = (Button) findViewById(R.id.btn_guest);
         Toast.makeText(getBaseContext(), "Login failed Please Signup or Try Logging Again", Toast.LENGTH_LONG).show();
         _guestLoginButton.setEnabled(false);
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
         finish();
     }
 
@@ -112,6 +124,11 @@ public class GuestActivity extends AppCompatActivity {
         user_data.putString("guest_name", guest_name);
         user_data.putString("guest_phone", guest_phone);
         Log.d(TAG, "User -- " + user_data);
+
+        final String Credentials = guest_name + "  ###  " + guest_phone;
+        UserCheckUtil.writeToFile(Credentials, "guest");
+        String text_file_date = UserCheckUtil.readFromFile("guest");
+        Log.d(TAG, "User Details-- " + text_file_date);
 
         Intent intent = new Intent(this, MainActivity.class).putExtras(user_data);
         startActivity(intent);

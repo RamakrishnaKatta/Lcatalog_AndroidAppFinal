@@ -81,7 +81,8 @@ public class ProductPageActivity extends AppCompatActivity {
     TextView[] dots;
     int page_position = 0;
 
-    private boolean zip_downloaded;
+    private boolean zip_downloaded = true;
+    File zip_file;
 
 
     @Override
@@ -105,7 +106,7 @@ public class ProductPageActivity extends AppCompatActivity {
 
         ImageButton article_share = (ImageButton) findViewById(R.id.article_share_icon);
         final ImageButton article_download = (ImageButton) findViewById(R.id.article_download_icon);
-        ImageButton article_3d_view = (ImageButton) findViewById(R.id.article_3dview_icon);
+        final ImageButton article_3d_view = (ImageButton) findViewById(R.id.article_3dview_icon);
 
         final TextView article_title = (TextView) findViewById(R.id.article_title_text);
         TextView article_description = (TextView) findViewById(R.id.article_description_text);
@@ -184,11 +185,20 @@ public class ProductPageActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        Log.e(TAG, "id=======" + b.getCharSequence("article_id"));
+        Log.e(TAG, "name=======" + b.getCharSequence("article_title"));
+
          /*Extract zip file from 3D view button */
         ZipFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" + Article_Id + ".zip";
         Log.e(TAG, "ZipFileLocation--" + ZipFileLocation);
         ExtractLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/";
         Log.e(TAG, "ExtractLocation--" + ExtractLocation);
+
+        zip_file = new File(ZipFileLocation);
+        article_3d_view.setEnabled(false);
+        if (zip_file.exists()) {
+            article_3d_view.setEnabled(true);
+        }
 
         article_download.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,16 +215,11 @@ public class ProductPageActivity extends AppCompatActivity {
                         new Runnable() {
                             public void run() {
                                 try {
-
                                     addModelFolder();
                                     extended_url = file_url + Article_Id + ".zip";
                                     Log.e(TAG, "URL ---------- " + extended_url);
                                     new DownloadFileTask().execute(extended_url);
 
-                                    Log.e(TAG, "id=======" + b.getCharSequence("article_id"));
-                                    Log.e(TAG, "name=======" + b.getCharSequence("article_title"));
-
-                                    File zip_file = new File(ZipFileLocation);
                                     if (zip_file.exists()) {
                                         new UnzipUtil(ZipFileLocation, ExtractLocation);
                                     } else {
@@ -224,6 +229,8 @@ public class ProductPageActivity extends AppCompatActivity {
                                     article_download.setEnabled(false);
                                     zip_downloaded = true;
                                     progressDialog.dismiss();
+                                    Log.e(TAG, "Zip Downloaded ---------- " + zip_downloaded);
+                                    article_3d_view.setEnabled(true);
 
                                 } catch (IOException e) {
                                     article_download.setEnabled(true);
@@ -244,7 +251,6 @@ public class ProductPageActivity extends AppCompatActivity {
                 b3.putString("3ds_location", ExtractLocation);
                 Log.e(TAG, "3ds Location--" + b3.getCharSequence("3ds_location"));
 
-//                Toast.makeText(ProductPageActivity.this, "3D View of the Object has been disabled due to some Testing and Changes happening in the 3D Images", Toast.LENGTH_SHORT).show();
                 if (zip_downloaded == true) {
                     Intent _3dintent = new Intent(ProductPageActivity.this, View3dActivity.class).putExtras(b3);
                     startActivity(_3dintent);
@@ -417,7 +423,7 @@ public class ProductPageActivity extends AppCompatActivity {
                 URL url = new URL(f_url[0]);
                 URLConnection connection = url.openConnection();
                 connection.connect();
-                // getting file lengthitem_dimensions.add(obj.getString("dimensions"));
+                // getting file length item_dimensions.add(obj.getString("dimensions"));
                 int lengthOfFile = connection.getContentLength();
 
                 // input stream to read file - with 8k buffer
@@ -434,7 +440,7 @@ public class ProductPageActivity extends AppCompatActivity {
                     total += count;
                     // publishing the progress....
                     // After this onProgressUpdate will be called
-                    publishProgress("" + (int) ((total * 100) / lengthOfFile));
+                    publishProgress("-----" + (int) ((total * 100) / lengthOfFile));
 
                     // writing data to file
                     output.write(data, 0, count);
@@ -448,7 +454,7 @@ public class ProductPageActivity extends AppCompatActivity {
                 input.close();
 
             } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
+                Log.e(TAG + "--Error: ", e.getMessage());
             }
             return null;
         }

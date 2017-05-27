@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lucidleanlabs.dev.lcatalog.GuestActivity">
+    tools:context=".GuestActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -79,14 +80,24 @@
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_guest"
-                android:layout_width="250dp"
+                android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="@dimen/custom_margin"
                 android:padding="10dp"
-                android:text="Instead Login as Guest" />
+                android:text="Login as Guest" />
 
         </LinearLayout>
+
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_guest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:backgroundTint="@color/primary_darker"
+        app:fabSize="mini"
+        app:srcCompat="@mipmap/ic_back" />
 
 
 </android.support.design.widget.CoordinatorLayout>

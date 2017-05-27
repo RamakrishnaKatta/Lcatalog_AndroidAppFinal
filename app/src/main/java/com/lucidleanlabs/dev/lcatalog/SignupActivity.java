@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -49,7 +50,7 @@ public class SignupActivity extends AppCompatActivity {
     private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/user/register";
 
 
-    private TextView app_name, powered, _loginLink;
+    private TextView app_name, powered;
     private EditText _nameText, _addressText, _emailText, _mobileText, _passwordText, _reEnterPasswordText;
     private Button _signupButton;
 
@@ -70,6 +71,17 @@ public class SignupActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_signup);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(SignupActivity.this, UserTypeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,17 +94,6 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        _loginLink = (TextView) findViewById(R.id.link_login);
-        _loginLink.setTypeface(custom_font2);
-        _loginLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { // Finish the registration screen and return to the Login activity
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-            }
-        });
     }
 
     public void signup() throws JSONException {
@@ -263,10 +264,6 @@ public class SignupActivity extends AppCompatActivity {
         Toast.makeText(getBaseContext(), "SignUp failed", Toast.LENGTH_LONG).show();
         _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(false);
-
-        Intent intent = new Intent(this, SignupActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -39,11 +40,13 @@ import com.android.volley.toolbox.Volley;
 import com.lucidleanlabs.dev.lcatalog.adapters.MainListViewAdapter;
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
+import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -60,8 +63,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    public static int notificationCount = 0;
 
     String name, email, phone, address, user_log_type;
+    String file_user_email, file_user_password, file_guest_name, file_guest_phone;
+    String guest_name, guest_phone;
 
     TextView user_type, user_email, user_name, app_name;
+
+    File file1, file2;
 
     private ArrayList<String> item_ids;
     private ArrayList<String> item_names;
@@ -85,28 +92,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        final Bundle user_data = getIntent().getExtras();
-        Log.d(TAG, "Dummy -- " + user_data);
+        String guest_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/guest.txt";
+        String customer_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/customer.txt";
 
-        name = user_data.getString("name");
-        Log.e(TAG, "name:  " + name);
+        file1 = new File(guest_text_file_location);
+        file2 = new File(customer_text_file_location);
 
-        address = user_data.getString("address");
-        Log.e(TAG, "address:  " + address);
+        if (!file2.exists() && !file2.exists()) {
+            final Bundle user_data = getIntent().getExtras();
+            Log.d(TAG, "Dummy -- " + user_data);
 
-        email = user_data.getString("email");
-        Log.e(TAG, "email:  " + email);
+            name = user_data.getString("name");
+            Log.e(TAG, "name:  " + name);
 
-        phone = user_data.getString("phone");
-        Log.e(TAG, "phone:  " + phone);
+            address = user_data.getString("address");
+            Log.e(TAG, "address:  " + address);
 
-        final Bundle guest_data = getIntent().getExtras();
-        Log.d(TAG, "Dummy -- " + user_data);
+            email = user_data.getString("email");
+            Log.e(TAG, "email:  " + email);
 
-        String guest_name = guest_data.getString("guest_name");
-        Log.e(TAG, "guest name:  " + guest_name);
-        String guest_phone = guest_data.getString("guest_phone");
-        Log.e(TAG, "guest phone:  " + guest_phone);
+            phone = user_data.getString("phone");
+            Log.e(TAG, "phone:  " + phone);
+
+            final Bundle guest_data = getIntent().getExtras();
+            Log.d(TAG, "Dummy -- " + guest_data);
+
+            guest_name = guest_data.getString("guest_name");
+            Log.e(TAG, "guest name:  " + guest_name);
+
+            guest_phone = guest_data.getString("guest_phone");
+            Log.e(TAG, "guest phone:  " + guest_phone);
+        }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -117,9 +133,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         app_name.setTypeface(custom_font);
 
+        String[] text_from_file = UserCheckUtil.readFromFile("guest").split(" ### ");
+
+
         user_name = (TextView) header.findViewById(R.id.user_name);
         if (name != null) {
             user_name.setText(name);
+        } else if (file1.exists() || file2.exists()) {
+            file_guest_name = text_from_file[0].trim();
+            user_name.setText(file_guest_name);
         } else {
             user_name.setText(guest_name);
         }
@@ -129,10 +151,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (email != null) {
             user_email.setText(email);
             user_type.setText("CUSTOMER");
+        } else if (file1.exists() || file2.exists()) {
+            file_guest_phone = text_from_file[1].trim();
+            user_email.setText("Phone No: " + file_guest_phone);
+            user_type.setText("GUEST");
         } else {
             user_email.setText("Phone No: " + guest_phone);
             user_type.setText("GUEST");
         }
+
         item_ids = new ArrayList<>();
         item_names = new ArrayList<>();
         item_images = new ArrayList<>();

@@ -2,14 +2,12 @@ package com.lucidleanlabs.dev.lcatalog;
 
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -41,7 +39,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private static final String PASSWORD_UPDATE_URL = "http://35.154.252.64:8080/lll/web/user/update_password";
 
-    private TextView _login_forgot_Link, _signup_forgot_link, app_name, powered;
+    private TextView app_name, powered;
     private Button _submitButton;
     private EditText _emailText, _passwordText, _reenterPasswordText;
     private String email, password, ReEnterPass;
@@ -70,6 +68,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_forgot_password);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         _submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,31 +87,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-        });
-
-        _login_forgot_Link = (TextView) findViewById(R.id.link_forgot_login);
-        _login_forgot_Link.setTypeface(custom_font2);
-        _login_forgot_Link.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Finish the registration screen and return to the Login activity
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-            }
-        });
-
-        _signup_forgot_link = (TextView) findViewById(R.id.link_forgot_signup);
-        _signup_forgot_link.setTypeface(custom_font2);
-        _signup_forgot_link.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
     }
@@ -131,7 +114,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         email = _emailText.getText().toString().trim();
         password = _passwordText.getText().toString().trim();
         ReEnterPass = _reenterPasswordText.getText().toString().trim();
-
 
         final JSONObject password_update_parameters = new JSONObject();
         password_update_parameters.put("email", email);
@@ -192,26 +174,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
-        builder.setTitle("Alert");
-        builder.setMessage("Press OK to exit from this app");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                System.exit(0);
-            }
-        });
-        builder.setNegativeButton("Cancel", null);
-        builder.show();
+        super.onBackPressed();
+        startActivity(new Intent(this, UserTypeActivity.class));
+        finish();
     }
 
     /*Validations for the Forgot Password Activity*/
-
     private boolean validate() {
         boolean valid = true;
         _emailText = (EditText) findViewById(R.id.input_forgot_email);
@@ -254,16 +222,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 this.finish();
             }
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle arrow click here
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void onSubmitSuccess() {

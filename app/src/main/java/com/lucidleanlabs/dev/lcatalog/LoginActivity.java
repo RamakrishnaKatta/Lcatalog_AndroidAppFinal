@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String LOGIN_URL = "http://35.154.252.64:8080/lll/web/user/login";
 
-    TextView app_name, _forgot_password,  powered;
+    TextView app_name, _forgot_password, powered;
     EditText _emailText, _passwordText;
     Button _loginButton;
 
@@ -70,6 +70,17 @@ public class LoginActivity extends AppCompatActivity {
 
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_login);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(LoginActivity.this, UserTypeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,7 +227,9 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
 
         final String Credentials = email + "###" + password;
-        UserCheckUtil.writeToFile(Credentials, this);
+        UserCheckUtil.writeToFile(Credentials, "customer");
+        String text_file_date = UserCheckUtil.readFromFile("customer");
+        Log.d(TAG, "User Details-- " + text_file_date);
 
         _loginButton.setEnabled(true);
         setResult(RESULT_OK, null);
