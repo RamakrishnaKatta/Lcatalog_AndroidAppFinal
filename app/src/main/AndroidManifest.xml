@@ -107,7 +107,7 @@
         </activity>
 
         <service
-            android:name=".Notify"
+            android:name=".NotifyIDService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -116,7 +116,7 @@
         </service>
 
         <service
-            android:name=".NotifyService"
+            android:name=".NotifyMessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

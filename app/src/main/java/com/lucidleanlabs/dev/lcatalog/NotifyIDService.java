@@ -6,9 +6,9 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
 
-public class Notify extends FirebaseInstanceIdService {
+public class NotifyIDService extends FirebaseInstanceIdService {
 
-    private static final String TAG = "Notify";
+    private static final String TAG = "NotifyIDService";
     String refreshedToken;
 
     public void onTokenRefresh() {
