@@ -14,10 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lucidleanlabs.dev.lcatalog.MainActivity;
-import com.lucidleanlabs.dev.lcatalog.NotificationsActivity;
-import com.lucidleanlabs.dev.lcatalog.ProductPageActivity;
+import com.lucidleanlabs.dev.lcatalog.NotifyActivity;
 import com.lucidleanlabs.dev.lcatalog.R;
+import com.lucidleanlabs.dev.lcatalog.utils.DownloadimageTastFromLocal;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -25,25 +26,30 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private static final String TAG = "NotificationAdapter";
 
     private Activity activity;
-    private ArrayList<String> notify_title;
-    private ArrayList<String> notify_message;
-    private ArrayList<String> notify_image;
 
-    public NotificationAdapter(NotificationsActivity activity,
-                               ArrayList<String> notify_title,
-                               ArrayList<String> notify_message,
-                               ArrayList<String> notify_image) {
+    private ArrayList<String> notification_ids;
+    private ArrayList<String> notification_messages;
+    private ArrayList<String> notification_images;
+    private ArrayList<String> notification_titles;
 
-        this.notify_title = notify_title;
-        this.notify_message = notify_message;
-        this.notify_image = notify_image;
+    public NotificationAdapter(NotifyActivity activity,
+                               ArrayList<String> notification_ids,
+                               ArrayList<String> notification_messages,
+                               ArrayList<String> notification_images,
+                               ArrayList<String> notification_titles) {
 
-        Log.e(TAG, "title" + notify_title);
-        Log.e(TAG, "message" + notify_message);
-        Log.e(TAG, "image" + notify_image);
+        this.notification_ids = notification_ids;
+        this.notification_messages = notification_messages;
+        this.notification_images = notification_images;
+        this.notification_titles = notification_titles;
+
+
+        Log.e(TAG, "ids" + notification_ids);
+        Log.e(TAG, "messages" + notification_messages);
+        Log.e(TAG, "images" + notification_images);
+        Log.e(TAG, "titles" + notification_titles);
 
         this.activity = activity;
-
     }
 
     /**
@@ -79,23 +85,30 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         final Context[] context = new Context[1];
         holder.imageView.setImageResource(R.drawable.dummy_icon);
-        holder.title.setText("Notifications");
-        holder.message.setText("hi hello welcome to the Immersions software labs");
+
+
+        String get_image = notification_images.get(position);
+        String new_image = get_image.replace("\\", File.separator);
+
+        new DownloadimageTastFromLocal(holder.imageView).execute(new_image);
+
+        holder.title.setText(notification_titles.get(position));
+        holder.message.setText(notification_messages.get(position));
+
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 context[0] = v.getContext();
                 Intent intent = new Intent(context[0], MainActivity.class);
                 context[0].startActivity(intent);
-                Toast.makeText(activity, "position" + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Notification" + position, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-
     @Override
     public int getItemCount() {
-        return 10;
+        return notification_ids.size();
     }
 
 

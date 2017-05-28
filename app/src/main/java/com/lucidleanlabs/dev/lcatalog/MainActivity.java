@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -40,13 +39,11 @@ import com.android.volley.toolbox.Volley;
 import com.lucidleanlabs.dev.lcatalog.adapters.MainListViewAdapter;
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
-import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -88,29 +85,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-            final Bundle user_data = getIntent().getExtras();
-            Log.d(TAG, "Dummy -- " + user_data);
+        final Bundle user_data = getIntent().getExtras();
+        Log.d(TAG, "Dummy -- " + user_data);
 
-            name = user_data.getString("name");
-            Log.e(TAG, "name:  " + name);
+        name = user_data.getString("name");
+        Log.e(TAG, "name:  " + name);
 
-            address = user_data.getString("address");
-            Log.e(TAG, "address:  " + address);
+        address = user_data.getString("address");
+        Log.e(TAG, "address:  " + address);
 
-            email = user_data.getString("email");
-            Log.e(TAG, "email:  " + email);
+        email = user_data.getString("email");
+        Log.e(TAG, "email:  " + email);
 
-            phone = user_data.getString("phone");
-            Log.e(TAG, "phone:  " + phone);
+        phone = user_data.getString("phone");
+        Log.e(TAG, "phone:  " + phone);
 
-            final Bundle guest_data = getIntent().getExtras();
-            Log.d(TAG, "Dummy -- " + guest_data);
+        final Bundle guest_data = getIntent().getExtras();
+        Log.d(TAG, "Dummy -- " + guest_data);
 
-            guest_name = guest_data.getString("guest_name");
-            Log.e(TAG, "guest name:  " + guest_name);
+        guest_name = guest_data.getString("guest_name");
+        Log.e(TAG, "guest name:  " + guest_name);
 
-            guest_phone = guest_data.getString("guest_phone");
-            Log.e(TAG, "guest phone:  " + guest_phone);
+        guest_phone = guest_data.getString("guest_phone");
+        Log.e(TAG, "guest phone:  " + guest_phone);
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -298,6 +295,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void run() {
                 doubleBackToExitPressedOnce = false;
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                System.exit(0);
             }
         }, 2000);
     }
@@ -332,6 +334,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_notifications) {
+            startActivity(new Intent(MainActivity.this, NotifyActivity.class));
+            finish();
+            return true;
+
+        } else if (id == R.id.action_replay_info) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
             builder.setTitle("Watch the welcome Slider, If you missed it");
@@ -354,9 +361,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             builder.setNegativeButton("Cancel", null);
             builder.show();
 
-//            startActivity(new Intent(this, NotificationsActivity.class));
 
             return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -418,7 +425,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_user_notify) {
 
             Toast.makeText(this, "here are all your notifications, Check out !!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, NotificationsActivity.class);
+            Intent intent = new Intent(this, NotifyActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_sign_up) {

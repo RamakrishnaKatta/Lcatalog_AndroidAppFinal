@@ -94,10 +94,6 @@
             android:label="@string/title_activity_notify"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".NotificationsActivity"
-            android:label="@string/NotificationsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme.Dark">
             <intent-filter>
