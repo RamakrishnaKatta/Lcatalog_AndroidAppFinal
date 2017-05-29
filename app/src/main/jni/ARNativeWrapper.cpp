@@ -34,10 +34,10 @@
 
         JNIEXPORT void JNICALL JNIFUNCTION_DEMO(demoInitialise(JNIEnv * env, jobject object)) {
 
-            const char *model0file = "Data/models/hd_teakbed.obj";
-            const char *model1file = "Data/models/parasona.obj";
-            const char *model2file = "Data/models/dinning_table.obj";
-            const char *model3file = "Data/models/bedsofa.obj";
+            const char *model0file = "Data/models/bed.obj";
+            const char *model1file = "Data/models/dressing_table.obj";
+            const char *model2file = "Data/models/dinning.obj";
+            const char *model3file = "Data/models/outdoorsofa.obj";
 
             models[0].patternID = arwAddMarker("single;Data/kanji.patt;80");
 
@@ -97,7 +97,7 @@
                       LOGE("Error loading model from file '%s'.", model3file);
                       exit(-1);
                     }
-            glmScale(models[3].obj, 1.0f);
+            glmScale(models[3].obj, 0.035f);
                 //glmRotate(models[3].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[3].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
             models[3].visible = false;

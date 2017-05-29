@@ -1,0 +1,12 @@
+# Exported from 3D Builder
+
+newmtl Material1_rad
+Kd 1.000000 1.000000 1.000000
+map_Kd outdoorsofa/Material1_rad.jpg
+
+newmtl M_0132_LightGray
+Kd 0.662745 0.662745 0.662745
+
+newmtl _2
+Kd 1.000000 1.000000 1.000000
+map_Kd outdoorsofa/_2.jpg

@@ -17,7 +17,7 @@ public class DownloadimageTastFromLocal extends AsyncTask<String, Void, Bitmap> 
     }
 
     protected Bitmap doInBackground(String... urls) {
-        String urldisplay = "http://192.168.0.7:8080" + urls[0];
+        String urldisplay = "http://192.168.0.10:8080" + urls[0];
         Log.e("DownloadimageTastFromLocal", "Image Location" + urldisplay);
         Bitmap mIcon = null;
         try {

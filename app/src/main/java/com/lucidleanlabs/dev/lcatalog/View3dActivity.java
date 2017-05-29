@@ -61,7 +61,7 @@ public class View3dActivity extends AppCompatActivity {
     private Light sun1 = null;
     private Light sun2 = null;
     private Light sun3 = null;
-    String location, _3dslocation, _textureLocation_1, _textureLocation_2;
+    String position, location, _3dslocation, _textureLocation_1, _textureLocation_2;
     File _3ds_file, _texture_fil_1, _texture_fil_2;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +75,9 @@ public class View3dActivity extends AppCompatActivity {
         Bundle b3 = getIntent().getExtras();
         location = (String) b3.getCharSequence("3ds_location");
         Log.e(TAG, "Location ---- " + location);
+
+        position = (String) b3.getCharSequence("article_position");
+        Log.e(TAG, "Position ---- " + position);
 
         super.onCreate(savedInstanceState);
         mGLView = new GLSurfaceView(this);
@@ -104,6 +107,11 @@ public class View3dActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     private void copy(Object src) {
@@ -187,10 +195,9 @@ public class View3dActivity extends AppCompatActivity {
                 sun3 = new Light(world);
                 sun3.setIntensity(250, 250, 250);
 
-
-                _textureLocation_1 = location + "/_1.jpg";
-                _textureLocation_2 = location + "/_2.jpg";
-                _3dslocation = location + "/article_view.3ds";
+                _textureLocation_1 = location + "/" + position + "_1.jpg";
+                _textureLocation_2 = location + "/" + position + "_2.jpg";
+                _3dslocation = location + "/article_view_" + position + ".3ds";
 
                 _texture_fil_1 = new File(_textureLocation_1);
                 Log.e(TAG, "3DS Object Texture 1 ----" + _texture_fil_1);
@@ -223,17 +230,17 @@ public class View3dActivity extends AppCompatActivity {
                     Log.e(TAG, "No Textures 1 Available for this 3DS Object ----" + _texture_fil_1);
                 }
 
-                if (_texture_fil_2.exists()) {
-
-                    Log.e(TAG, "Texture 2 Available for this 3DS Object ----" + _texture_fil_2);
-                    Texture texture2 = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getDrawableForStore(_textureLocation_2)), 512, 512));
-                    TextureManager.getInstance().addTexture("texture2", texture2);
-                    cube.setTexture("texture2");
-
-                } else {
-//                    Toast.makeText(View3dActivity.this, "No Textures Available for this 3DS Object ", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "No Textures 2 Available for this 3DS Object ----" + _texture_fil_2);
-                }
+//                if (_texture_fil_2.exists()) {
+//
+//                    Log.e(TAG, "Texture 2 Available for this 3DS Object ----" + _texture_fil_2);
+//                    Texture texture2 = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getDrawableForStore(_textureLocation_2)), 512, 512));
+//                    TextureManager.getInstance().addTexture("texture2", texture2);
+//                    cube.setTexture("texture2");
+//
+//                } else {
+////                    Toast.makeText(View3dActivity.this, "No Textures Available for this 3DS Object ", Toast.LENGTH_SHORT).show();
+//                    Log.e(TAG, "No Textures 2 Available for this 3DS Object ----" + _texture_fil_2);
+//                }
 
                 cube.build();
                 world.addObject(cube);
@@ -274,8 +281,10 @@ public class View3dActivity extends AppCompatActivity {
             }
         }
 
+
         public Drawable getDrawableForStore(String localLink) {
             Bitmap thumbnail = null;
+            Drawable d = null;
             try {
                 File filePath = new File(localLink);
                 FileInputStream fi = new FileInputStream(filePath);
@@ -301,7 +310,7 @@ public class View3dActivity extends AppCompatActivity {
             }
 
             thumbnail = Bitmap.createScaledBitmap(thumbnail, width, height, true);
-            Drawable d = new BitmapDrawable(getResources(), thumbnail);
+            d = new BitmapDrawable(getResources(), thumbnail);
 
             return d;
 
@@ -319,6 +328,8 @@ public class View3dActivity extends AppCompatActivity {
         }
 
         public void onDrawFrame(GL10 gl) {
+
+
             if (touchTurn != 0) {
                 cube.rotateY(touchTurn);
                 touchTurn = 0;
@@ -347,7 +358,6 @@ public class View3dActivity extends AppCompatActivity {
 
             InputStream stream = new FileInputStream(_3ds_file);
             Log.e(TAG, "3DS Object Retrieved ----" + _3ds_file);
-            Log.e(TAG, "Check the Stream ----" + stream);
 
             Object3D[] model = Loader.load3DS(stream, scale);
             Object3D o3d = new Object3D(0);

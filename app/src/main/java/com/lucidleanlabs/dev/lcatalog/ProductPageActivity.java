@@ -2,7 +2,6 @@ package com.lucidleanlabs.dev.lcatalog;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -31,20 +30,15 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.lucidleanlabs.dev.lcatalog.adapters.ImageSliderAdapter;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
+import com.lucidleanlabs.dev.lcatalog.utils.DownloadManager;
 import com.lucidleanlabs.dev.lcatalog.utils.UnzipUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Timer;
@@ -70,8 +64,10 @@ public class ProductPageActivity extends AppCompatActivity {
     private ImageView vendor_logo, article_image;
 
     String Article_Name, Article_Id;
-    String ZipFileLocation, ExtractLocation;
+    String ZipFileLocation, ExtractLocation, Object3DFileLocation;
     String width, length, height;
+    String article_position;
+
     String image1, image2, image3, image4, image5;
 
     private ViewPager ArticleViewPager;
@@ -82,7 +78,7 @@ public class ProductPageActivity extends AppCompatActivity {
     int page_position = 0;
 
     private boolean zip_downloaded = true;
-    File zip_file;
+    File zip_file, object_3d_file;
 
 
     @Override
@@ -122,6 +118,7 @@ public class ProductPageActivity extends AppCompatActivity {
 
         String oldPrice = (String) b.getCharSequence("article_price");
         String discount = (String) b.getCharSequence("article_discount");
+        article_position = (String) b.getCharSequence("article_position");
         TextView article_price_new = (TextView) findViewById(R.id.article_price_value_new);
 
         Integer x = Integer.parseInt(oldPrice);
@@ -193,11 +190,19 @@ public class ProductPageActivity extends AppCompatActivity {
         Log.e(TAG, "ZipFileLocation--" + ZipFileLocation);
         ExtractLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/";
         Log.e(TAG, "ExtractLocation--" + ExtractLocation);
+        Object3DFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/article_view_" + article_position + ".3ds";
+        Log.e(TAG, "Object3DFileLocation--" + Object3DFileLocation);
 
         zip_file = new File(ZipFileLocation);
+        object_3d_file = new File(Object3DFileLocation);
+
+        zip_downloaded = false;
+
         article_3d_view.setEnabled(false);
-        if (zip_file.exists()) {
+        if (object_3d_file.exists()) {
             article_3d_view.setEnabled(true);
+            article_download.setEnabled(false);
+            zip_downloaded = true;
         }
 
         article_download.setOnClickListener(new View.OnClickListener() {
@@ -218,7 +223,8 @@ public class ProductPageActivity extends AppCompatActivity {
                                     addModelFolder();
                                     extended_url = file_url + Article_Id + ".zip";
                                     Log.e(TAG, "URL ---------- " + extended_url);
-                                    new DownloadFileTask().execute(extended_url);
+//                                    new DownloadFileTask().execute(extended_url);
+                                    new DownloadManager(extended_url, Article_Name, Article_Id);
 
                                     if (zip_file.exists()) {
                                         new UnzipUtil(ZipFileLocation, ExtractLocation);
@@ -226,14 +232,15 @@ public class ProductPageActivity extends AppCompatActivity {
                                         Toast.makeText(ProductPageActivity.this, "Failed to download the Files", Toast.LENGTH_SHORT).show();
                                     }
 
-                                    article_download.setEnabled(false);
                                     zip_downloaded = true;
                                     progressDialog.dismiss();
                                     Log.e(TAG, "Zip Downloaded ---------- " + zip_downloaded);
+                                    article_download.setEnabled(false);
                                     article_3d_view.setEnabled(true);
 
                                 } catch (IOException e) {
                                     article_download.setEnabled(true);
+                                    article_3d_view.setEnabled(false);
                                     zip_downloaded = false;
                                     Log.e(TAG, "Zip Not Downloaded ---------- " + zip_downloaded);
                                     e.printStackTrace();
@@ -249,7 +256,9 @@ public class ProductPageActivity extends AppCompatActivity {
 
                 Bundle b3 = new Bundle();
                 b3.putString("3ds_location", ExtractLocation);
+                b3.putString("article_position", article_position);
                 Log.e(TAG, "3ds Location--" + b3.getCharSequence("3ds_location"));
+                Log.e(TAG, "article_position--" + b3.getCharSequence("article_position"));
 
                 if (zip_downloaded == true) {
                     Intent _3dintent = new Intent(ProductPageActivity.this, View3dActivity.class).putExtras(b3);
@@ -411,53 +420,13 @@ public class ProductPageActivity extends AppCompatActivity {
             dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
 
-    private class DownloadFileTask extends AsyncTask<String, String, String> {
 
-        /**
-         * Downloading file in background thread
-         */
-        @Override
-        protected String doInBackground(String... f_url) {
-            int count;
-            try {
-                URL url = new URL(f_url[0]);
-                URLConnection connection = url.openConnection();
-                connection.connect();
-                // getting file length item_dimensions.add(obj.getString("dimensions"));
-                int lengthOfFile = connection.getContentLength();
-
-                // input stream to read file - with 8k buffer
-                InputStream input = new BufferedInputStream(url.openStream(), 8192);
-
-                // Output stream to write file
-                OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" + Article_Id + ".zip");
-
-                byte data[] = new byte[1024];
-
-                long total = 0;
-
-                while ((count = input.read(data)) != -1) {
-                    total += count;
-                    // publishing the progress....
-                    // After this onProgressUpdate will be called
-                    publishProgress("-----" + (int) ((total * 100) / lengthOfFile));
-
-                    // writing data to file
-                    output.write(data, 0, count);
-                }
-
-                // flushing output
-                output.flush();
-
-                // closing streams
-                output.close();
-                input.close();
-
-            } catch (Exception e) {
-                Log.e(TAG + "--Error: ", e.getMessage());
-            }
-            return null;
-        }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, CatalogActivity.class));
+        finish();
     }
+
 }
 

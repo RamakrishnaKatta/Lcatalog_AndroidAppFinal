@@ -33,7 +33,7 @@ import java.util.ArrayList;
 
 public class NotifyActivity extends AppCompatActivity {
 
-    private static final String REGISTER_URL = "http://192.168.0.7:8080/lll/app/notify/get_all";
+    private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/app/notify/get_all";
     private static final String TAG = "NotifyActivity";
 
     ArrayList<String> notification_titles;

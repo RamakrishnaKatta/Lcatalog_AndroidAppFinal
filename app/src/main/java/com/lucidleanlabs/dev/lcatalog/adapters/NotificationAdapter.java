@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.lucidleanlabs.dev.lcatalog.MainActivity;
 import com.lucidleanlabs.dev.lcatalog.NotifyActivity;
 import com.lucidleanlabs.dev.lcatalog.R;
-import com.lucidleanlabs.dev.lcatalog.utils.DownloadimageTastFromLocal;
+import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -90,20 +90,20 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         String get_image = notification_images.get(position);
         String new_image = get_image.replace("\\", File.separator);
 
-        new DownloadimageTastFromLocal(holder.imageView).execute(new_image);
+        new DownloadImageTask(holder.imageView).execute(new_image);
 
         holder.title.setText(notification_titles.get(position));
         holder.message.setText(notification_messages.get(position));
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context[0] = v.getContext();
-                Intent intent = new Intent(context[0], MainActivity.class);
-                context[0].startActivity(intent);
-                Toast.makeText(activity, "Notification" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        holder.container.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                context[0] = v.getContext();
+//                Intent intent = new Intent(context[0], MainActivity.class);
+//                context[0].startActivity(intent);
+//                Toast.makeText(activity, "Notification" + position, Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override

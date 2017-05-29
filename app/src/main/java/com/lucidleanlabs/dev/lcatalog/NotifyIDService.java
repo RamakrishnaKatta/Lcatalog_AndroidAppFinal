@@ -25,7 +25,7 @@ public class NotifyIDService extends FirebaseInstanceIdService {
 
     private static final String TAG = "NotifyIDService";
     String refreshedToken;
-    private static final String REGISTER_URL = "http://192.168.0.7:8080/lll/app/notify/device?tokenid=";
+    private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/app/notify/device?tokenid=";
     private static String TOKEN_REG_URL = null;
 
     String token_id, token_value, reg_code, reg_message;

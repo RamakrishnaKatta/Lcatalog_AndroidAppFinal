@@ -15,13 +15,11 @@ public class ARNativeActivity extends ARActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_arnative);
     }
 
     public void onStop() {
         ARNativeRenderer.demoShutdown();
-
         super.onStop();
     }
 

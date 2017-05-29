@@ -147,6 +147,7 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
                 b.putString("article_vendor", item_vendors.get(position));
                 b.putString("article_dimensions", item_dimensions.get(position));
                 b.putString("article_images", item_images.get(position));
+                b.putString("article_position", String.valueOf(position));
 
                 intent.putExtras(b);
 
