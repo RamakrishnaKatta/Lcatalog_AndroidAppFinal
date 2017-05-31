@@ -1,18 +1,15 @@
 package com.lucidleanlabs.dev.lcatalog;
 
-import android.*;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Display;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -21,6 +18,7 @@ import android.widget.TextView;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
+import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 
 public class UserTypeActivity extends AppCompatActivity {
 
@@ -31,6 +29,8 @@ public class UserTypeActivity extends AppCompatActivity {
     TextView app_name, welcome_aboard, who_are_you, powered;
     //    TextView customer, new_customer, shopper;
     Button _customer, _newCustomer, _shopper;
+
+    private PrefManager prefManager1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,17 +93,21 @@ public class UserTypeActivity extends AppCompatActivity {
             }
         });
 
+        prefManager1 = new PrefManager(this);
+        Log.e(TAG, "" + prefManager1.isFirstTimeLaunchScreen1());
+        if (prefManager1.isFirstTimeLaunchScreen1()) {
+            ShowcaseView();
+        }
 
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        ShowcaseView();
     }
 
     private void ShowcaseView() {
+        prefManager1.setFirstTimeLaunchScreen1(false);
+        Log.e(TAG, "" + prefManager1.isFirstTimeLaunch());
 
-
-        final Display display = getWindowManager().getDefaultDisplay();
         final TapTargetSequence sequence = new TapTargetSequence(this).targets(
                 TapTarget.forView(findViewById(R.id.btn_customer), "Login", "Click here if you visited before")
                         .cancelable(false)
@@ -117,7 +121,8 @@ public class UserTypeActivity extends AppCompatActivity {
                         .id(2)
         ).listener(new TapTargetSequence.Listener() {
             @Override
-            public void onSequenceFinish() {  }
+            public void onSequenceFinish() {
+            }
 
             @Override
             public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
@@ -140,6 +145,7 @@ public class UserTypeActivity extends AppCompatActivity {
                         super.onTargetClick(view);
                     }
                 });
+
     }
 
     @Override
