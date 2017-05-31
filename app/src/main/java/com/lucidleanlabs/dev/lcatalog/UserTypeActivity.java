@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -28,7 +28,7 @@ public class UserTypeActivity extends AppCompatActivity {
 
     TextView app_name, welcome_aboard, who_are_you, powered;
     //    TextView customer, new_customer, shopper;
-    Button _customer, _newCustomer, _shopper;
+    ImageButton _customer, _newCustomer, _shopper;
 
     private PrefManager prefManager1;
 
@@ -63,7 +63,7 @@ public class UserTypeActivity extends AppCompatActivity {
 //        shopper = (TextView) findViewById(R.id.txt_shopper);
 //        shopper.setTypeface(custom_font2);
 
-        _customer = (Button) findViewById(R.id.btn_customer);
+        _customer = (ImageButton) findViewById(R.id.btn_customer);
         _customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +73,7 @@ public class UserTypeActivity extends AppCompatActivity {
             }
         });
 
-        _newCustomer = (Button) findViewById(R.id.btn_new_customer);
+        _newCustomer = (ImageButton) findViewById(R.id.btn_new_customer);
         _newCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +83,7 @@ public class UserTypeActivity extends AppCompatActivity {
             }
         });
 
-        _shopper = (Button) findViewById(R.id.btn_shopper);
+        _shopper = (ImageButton) findViewById(R.id.btn_shopper);
         _shopper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

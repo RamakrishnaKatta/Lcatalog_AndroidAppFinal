@@ -92,28 +92,41 @@
                     android:id="@+id/layout1"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="3dp"
+                    android:gravity="bottom"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatButton
+                    <ImageButton
                         android:id="@+id/btn_customer"
+                        style="@style/AppTheme.Dark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="Click me ! \n (LOGIN)"
-                        android:textStyle="bold|italic"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true" />
+                        android:background="@color/transparent"
+                        android:scaleType="center"
+                        android:src="@mipmap/ic_l" />
+
+                    <TextView
+                        android:id="@+id/txt_customer_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/btn_customer"
+                        android:text="OGIN"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txt_customer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/btn_customer"
-                        android:gravity="center"
+                        android:layout_toRightOf="@+id/txt_customer_text"
                         android:padding="10dp"
-                        android:text="If you are a customer already..."
+                        android:text="   If you are a customer already..."
                         android:textColor="@color/white"
                         android:textStyle="italic" />
 
@@ -124,23 +137,36 @@
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_margin="3dp"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatButton
+                    <ImageButton
                         android:id="@+id/btn_new_customer"
+                        style="@style/AppTheme.Dark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:padding="10dp"
-                        android:text="Click me !\n(SIGNUP)"
-                        android:textStyle="bold|italic" />
+                        android:background="@color/transparent"
+                        android:scaleType="center"
+                        android:src="@mipmap/ic_s" />
+
+                    <TextView
+                        android:id="@+id/txt_new_customer_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/btn_new_customer"
+                        android:text="IGNUP"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txt_new_customer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/btn_new_customer"
+                        android:layout_toRightOf="@+id/txt_new_customer_text"
                         android:padding="10dp"
                         android:text="If you want to become a customer..."
                         android:textColor="@color/white"
@@ -153,25 +179,38 @@
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_margin="3dp"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatButton
+                    <ImageButton
                         android:id="@+id/btn_shopper"
+                        style="@style/AppTheme.Dark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:padding="10dp"
-                        android:text="Click me !\n(Guest)"
-                        android:textStyle="bold|italic" />
+                        android:background="@color/transparent"
+                        android:scaleType="center"
+                        android:src="@mipmap/ic_g" />
+
+                    <TextView
+                        android:id="@+id/txt_shopper_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/btn_shopper"
+                        android:text="UEST"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txt_shopper"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/btn_shopper"
-                        android:padding="12dp"
-                        android:text="If you are a oneTime Shopper..."
+                        android:layout_toRightOf="@+id/txt_shopper_text"
+                        android:padding="10dp"
+                        android:text="  If you are a oneTime Shopper..."
                         android:textColor="@color/white"
                         android:textStyle="italic" />
 
