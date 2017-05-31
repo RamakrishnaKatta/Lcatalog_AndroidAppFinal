@@ -19,11 +19,14 @@ import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
+import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
 
 import java.io.File;
 
 public class GuestActivity extends AppCompatActivity {
+
+    private PrefManager prefManager2;
 
     private static final String TAG = "GuestActivity";
     private static final int REQUEST_GUEST_LOGIN = 0;
@@ -87,10 +90,17 @@ public class GuestActivity extends AppCompatActivity {
             }
         });
 
-        showcaseview();
+        prefManager2 = new PrefManager(this);
+        Log.e(TAG, "" + prefManager2.isFirstTimeLaunchScreen2());
+        if (prefManager2.isFirstTimeLaunchScreen2()) {
+            ShowcaseView();
+        }
     }
 
-    private void showcaseview() {
+    private void ShowcaseView() {
+        prefManager2.setFirstTimeLaunchScreen2(false);
+        Log.e(TAG, "" + prefManager2.isFirstTimeLaunchScreen2());
+
         final Display display = getWindowManager().getDefaultDisplay();
         TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btn_get_data), "Click here to autofill your recent credentials ")
                         .cancelable(false)

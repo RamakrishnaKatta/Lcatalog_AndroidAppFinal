@@ -52,6 +52,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private PrefManager prefManager3;
     private static final String TAG = "MainActivity";
 
     private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/article/all";
@@ -149,11 +150,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
-
-        ShowcaseView();
+        prefManager3 = new PrefManager(this);
+        Log.e(TAG, "" + prefManager3.isFirstTimeLaunchScreen3());
+        if (prefManager3.isFirstTimeLaunchScreen3()) {
+            ShowcaseView();
+        }
     }
 
     private void ShowcaseView() {
+        prefManager3.setFirstTimeLaunchScreen3(false);
+        Log.e(TAG, "" + prefManager3.isFirstTimeLaunchScreen3());
+
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.main);
         final Display display = getWindowManager().getDefaultDisplay();

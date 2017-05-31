@@ -106,7 +106,7 @@ public class UserTypeActivity extends AppCompatActivity {
 
     private void ShowcaseView() {
         prefManager1.setFirstTimeLaunchScreen1(false);
-        Log.e(TAG, "" + prefManager1.isFirstTimeLaunch());
+        Log.e(TAG, "" + prefManager1.isFirstTimeLaunchScreen1());
 
         final TapTargetSequence sequence = new TapTargetSequence(this).targets(
                 TapTarget.forView(findViewById(R.id.btn_customer), "Login", "Click here if you visited before")

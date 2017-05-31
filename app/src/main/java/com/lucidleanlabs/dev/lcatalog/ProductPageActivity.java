@@ -55,7 +55,7 @@ import java.util.TimerTask;
 
 public class ProductPageActivity extends AppCompatActivity {
 
-    private PrefManager prefManager;
+    private PrefManager prefManager4;
 
 
     private static final String TAG = "ProductPageActivity";
@@ -305,12 +305,19 @@ public class ProductPageActivity extends AppCompatActivity {
         }, 2000, 5000);
 
 
-        ShowcaseView();
+        prefManager4 = new PrefManager(this);
+        Log.e(TAG, "" + prefManager4.isFirstTimeLaunchScreen4());
+        if (prefManager4.isFirstTimeLaunchScreen4()) {
+            ShowcaseView();
+        }
 
     }
 
     /*showcaseview for the product page Activity*/
     private void ShowcaseView() {
+        prefManager4.setFirstTimeLaunchScreen4(false);
+        Log.e(TAG, "" + prefManager4.isFirstTimeLaunchScreen4());
+
         final Display display = getWindowManager().getDefaultDisplay();
         final TapTargetSequence sequence = new TapTargetSequence(this)
                 .targets(
