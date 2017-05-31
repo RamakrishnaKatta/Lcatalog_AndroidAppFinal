@@ -2,15 +2,20 @@ package com.lucidleanlabs.dev.lcatalog;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -28,9 +33,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.lucidleanlabs.dev.lcatalog.adapters.ImageSliderAdapter;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadManager;
+import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 import com.lucidleanlabs.dev.lcatalog.utils.UnzipUtil;
 
 import org.json.JSONException;
@@ -45,6 +54,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class ProductPageActivity extends AppCompatActivity {
+
+    private PrefManager prefManager;
+
 
     private static final String TAG = "ProductPageActivity";
 
@@ -291,6 +303,54 @@ public class ProductPageActivity extends AppCompatActivity {
                 handler.post(update);
             }
         }, 2000, 5000);
+
+
+        ShowcaseView();
+
+    }
+
+    /*showcaseview for the product page Activity*/
+    private void ShowcaseView() {
+        final Display display = getWindowManager().getDefaultDisplay();
+        final TapTargetSequence sequence = new TapTargetSequence(this)
+                .targets(
+                        // This tap target will target the back button, we just need to pass its containing toolbar
+                        TapTarget.forView(findViewById(R.id.article_fav_icon),"Like","click here if u  like it ")
+                                .cancelable(false)
+                                .targetRadius(30)
+                                .outerCircleColor(R.color.primary_darker)
+                                .id(1),
+                        TapTarget.forView(findViewById(R.id.article_share_icon), "Share", "you can share the screen")
+                                .cancelable(false)
+                                .targetRadius(30)
+                                .outerCircleColor(R.color.primary_darker)
+                                .id(2),
+                        TapTarget.forView(findViewById(R.id.article_3dview_icon), "3d", "you can see the object in 3d View")
+                                .cancelable(false)
+                                .targetRadius(30)
+                                .outerCircleColor(R.color.primary_darker)
+                                .id(3),
+                        TapTarget.forView(findViewById(R.id.article_download_icon), "Download", "click Here for downloading the object")
+                                .cancelable(false)
+                                .targetRadius(30)
+                                .outerCircleColor(R.color.primary_darker)
+                                .id(4)
+
+                ).listener(new TapTargetSequence.Listener() {
+                    @Override
+                    public void onSequenceFinish() {
+                    }
+
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                    }
+
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                    }
+                });
+        sequence.start();
+
     }
 
     /*creation of directory in external storage */

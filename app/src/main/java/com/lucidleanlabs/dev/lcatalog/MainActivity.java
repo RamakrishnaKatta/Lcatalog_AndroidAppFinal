@@ -4,10 +4,12 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +35,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.lucidleanlabs.dev.lcatalog.adapters.MainListViewAdapter;
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
@@ -143,6 +149,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
+
+        ShowcaseView();
+    }
+
+    private void ShowcaseView() {
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.main);
+        final Display display = getWindowManager().getDefaultDisplay();
+
+        final TapTargetSequence sequence = new TapTargetSequence(this).targets(
+                TapTarget.forToolbarMenuItem(toolbar, R.id.action_notifications, "Notifications", "All the notifications can be displayed Here")
+                        .transparentTarget(true)
+                        .outerCircleColor(R.color.primary_dark)
+                        .targetRadius(25)
+                        .tintTarget(true)
+                        .id(1),
+                TapTarget.forToolbarMenuItem(toolbar, R.id.action_replay_info, "welcome", "If u miss the welcome screen u can see here ")
+                        .transparentTarget(true)
+                        .id(2)
+                        .targetRadius(25)
+                        .tintTarget(true)
+                        .outerCircleColor(R.color.primary_dark)
+
+        ).listener(new TapTargetSequence.Listener() {
+            @Override
+            public void onSequenceFinish() {
+
+            }
+
+            @Override
+            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+
+            }
+
+            @Override
+            public void onSequenceCanceled(TapTarget lastTarget) {
+
+            }
+        });
+        sequence.start();
+
     }
 
     private void getData() throws JSONException {

@@ -99,10 +99,11 @@
                         android:id="@+id/btn_customer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:padding="10dp"
                         android:text="Click me ! \n (LOGIN)"
-                        android:textStyle="bold|italic" />
+                        android:textStyle="bold|italic"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
 
                     <TextView
                         android:id="@+id/txt_customer"

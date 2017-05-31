@@ -9,11 +9,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:paddingBottom="3dp"
         android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:paddingRight="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,11 +65,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:id="@+id/fav_layout"
+                    android:layout_height="wrap_content">
 
                 <com.lucidleanlabs.dev.lcatalog.dots.fav_like_view
                     android:id="@+id/article_fav_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/fav_icon"
+                    app:srcCompat="@mipmap/ic_fav_off"/>
+                </RelativeLayout>
+
 
                 <ImageButton
                     android:id="@+id/article_share_icon"

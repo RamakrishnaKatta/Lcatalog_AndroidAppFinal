@@ -5,15 +5,22 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 
 public class UserTypeActivity extends AppCompatActivity {
 
@@ -89,6 +96,50 @@ public class UserTypeActivity extends AppCompatActivity {
 
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        ShowcaseView();
+    }
+
+    private void ShowcaseView() {
+
+
+        final Display display = getWindowManager().getDefaultDisplay();
+        final TapTargetSequence sequence = new TapTargetSequence(this).targets(
+                TapTarget.forView(findViewById(R.id.btn_customer), "Login", "Click here if you visited before")
+                        .cancelable(false)
+                        .tintTarget(false)
+                        .textColor(R.color.white)
+                        .id(1),
+                TapTarget.forView(findViewById(R.id.btn_shopper), "Guest", "Click here if you are Guest visitor")
+                        .cancelable(false)
+                        .tintTarget(false)
+                        .textColor(R.color.white)
+                        .id(2)
+        ).listener(new TapTargetSequence.Listener() {
+            @Override
+            public void onSequenceFinish() {  }
+
+            @Override
+            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+
+            }
+
+            @Override
+            public void onSequenceCanceled(TapTarget lastTarget) {
+
+            }
+        });
+        sequence.start();
+        TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btn_new_customer), "Click here If you are new  ")
+                        .cancelable(false).tintTarget(false)
+                        .textColor(R.color.white)
+                , new TapTargetView.Listener() {
+
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+                    }
+                });
     }
 
     @Override

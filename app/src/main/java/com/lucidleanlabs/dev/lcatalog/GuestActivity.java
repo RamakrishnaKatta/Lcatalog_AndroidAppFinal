@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -16,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
 
 import java.io.File;
@@ -40,6 +43,7 @@ public class GuestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest);
+
 
         app_name = (TextView) findViewById(R.id.application_name);
         powered = (TextView) findViewById(R.id.lucidleanlabs);
@@ -82,6 +86,24 @@ public class GuestActivity extends AppCompatActivity {
                 guest_login();
             }
         });
+
+        showcaseview();
+    }
+
+    private void showcaseview() {
+        final Display display = getWindowManager().getDefaultDisplay();
+        TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btn_get_data), "Click here to autofill your recent credentials ")
+                        .cancelable(false)
+                        .targetRadius(30)
+                        .tintTarget(false)
+                        .textColor(R.color.white)
+                , new TapTargetView.Listener() {
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+                    }
+                });
+
     }
 
     private void setData() {

@@ -8,7 +8,7 @@
             android:title="Catalog" />
         <item
             android:id="@+id/nav_augment"
-            android:icon="@mipmap/ic_heart_off"
+            android:icon="@mipmap/ic_fav_off"
             android:title="Augment" />
         <item
             android:id="@+id/nav_camera"
