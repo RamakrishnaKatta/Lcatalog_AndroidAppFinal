@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -14,11 +15,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
+
+import java.io.File;
 
 public class UserTypeActivity extends AppCompatActivity {
 
@@ -38,6 +42,7 @@ public class UserTypeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_type);
 
         RequestPermissions();
+        CreateFolderStructure();
 
         Typeface custom_font1 = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
@@ -102,6 +107,42 @@ public class UserTypeActivity extends AppCompatActivity {
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+    }
+
+    private void CreateFolderStructure() {
+        String root_Path = Environment.getExternalStorageDirectory().toString() + "//L_CATALOGUE";
+        String models_Path = Environment.getExternalStorageDirectory().toString() + "//L_CATALOGUE/Models";
+        String screenshots_Path = Environment.getExternalStorageDirectory().toString() + "//L_CATALOGUE/Screenshots";
+
+        File Root_Folder, Models_Folder, Screenshots_Folder;
+
+        if (Environment.getExternalStorageState().contains(Environment.MEDIA_MOUNTED)) {
+            Root_Folder = new File(root_Path);
+            Models_Folder = new File(models_Path);
+            Screenshots_Folder = new File(screenshots_Path);
+        } else {
+            Root_Folder = new File(root_Path);
+            Models_Folder = new File(models_Path);
+            Screenshots_Folder = new File(screenshots_Path);
+        }
+
+        if (Root_Folder.exists()) {
+            Toast.makeText(getBaseContext(), "Welcome Back !!", Toast.LENGTH_SHORT).show();
+        } else {
+            boolean success = true;
+            if (!Root_Folder.exists()) {
+                success = Root_Folder.mkdirs();
+            }
+            if (!Models_Folder.exists()) {
+                success = Models_Folder.mkdirs();
+            }
+            if (!Screenshots_Folder.exists()) {
+                success = Screenshots_Folder.mkdirs();
+            }
+            if (success) {
+                Toast.makeText(getBaseContext(), "Get Set Go !!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void ShowcaseView() {
