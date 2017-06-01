@@ -2,14 +2,10 @@ package com.lucidleanlabs.dev.lcatalog;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.StrictMode;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -35,7 +31,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.getkeepsafe.taptargetview.TapTargetView;
 import com.lucidleanlabs.dev.lcatalog.adapters.ImageSliderAdapter;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadManager;
@@ -273,8 +268,9 @@ public class ProductPageActivity extends AppCompatActivity {
                 Log.e(TAG, "article_position--" + b3.getCharSequence("article_position"));
 
                 if (zip_downloaded == true) {
-                    Intent _3dintent = new Intent(ProductPageActivity.this, View3dActivity.class).putExtras(b3);
+                    Intent _3dintent = new Intent(ProductPageActivity.this, Article3dViewActivity.class).putExtras(b3);
                     startActivity(_3dintent);
+
                 } else {
                     Toast.makeText(ProductPageActivity.this, "Can't provide the 3d View, unless the Object is Downloaded, \n Please Click the download button beside", Toast.LENGTH_SHORT).show();
                 }
@@ -322,7 +318,7 @@ public class ProductPageActivity extends AppCompatActivity {
         final TapTargetSequence sequence = new TapTargetSequence(this)
                 .targets(
                         // This tap target will target the back button, we just need to pass its containing toolbar
-                        TapTarget.forView(findViewById(R.id.article_fav_icon),"Like","click here if u  like it ")
+                        TapTarget.forView(findViewById(R.id.article_fav_icon), "Like", "click here if u  like it ")
                                 .cancelable(false)
                                 .targetRadius(30)
                                 .outerCircleColor(R.color.primary_darker)

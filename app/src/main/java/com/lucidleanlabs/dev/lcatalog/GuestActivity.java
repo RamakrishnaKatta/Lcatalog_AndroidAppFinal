@@ -80,6 +80,7 @@ public class GuestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setData();
+                _guestLoginButton.setEnabled(true);
             }
         });
 
@@ -177,8 +178,7 @@ public class GuestActivity extends AppCompatActivity {
     public void onLoginFailed() {
         Button _guestLoginButton = (Button) findViewById(R.id.btn_guest);
         Toast.makeText(getBaseContext(), "Login failed Please Signup or Try Logging Again", Toast.LENGTH_LONG).show();
-        _guestLoginButton.setEnabled(false);
-        finish();
+        _guestLoginButton.setEnabled(true);
     }
 
     public void onLoginSuccess() {

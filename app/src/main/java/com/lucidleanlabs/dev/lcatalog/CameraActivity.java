@@ -239,17 +239,12 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
                     // rotate Image
                     Matrix rotateMatrix = new Matrix();
                     rotateMatrix.postRotate(rotation);
-                    rotatedBitmap = Bitmap.createBitmap(loadedImage, 0, 0,
-                            loadedImage.getWidth(), loadedImage.getHeight(),
-                            rotateMatrix, false);
-                    String state = Environment.getExternalStorageState();
-                    File folder = null;
-                    if (state.contains(Environment.MEDIA_MOUNTED)) {
-                        folder = new File(Environment
-                                .getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots");
+                    rotatedBitmap = Bitmap.createBitmap(loadedImage, 0, 0,loadedImage.getWidth(), loadedImage.getHeight(), rotateMatrix, false);
+                    File folder;
+                    if (Environment.getExternalStorageState().contains(Environment.MEDIA_MOUNTED)) {
+                        folder = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots");
                     } else {
-                        folder = new File(Environment
-                                .getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots");
+                        folder = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots");
                     }
 
                     boolean success = true;
@@ -258,10 +253,7 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
                     }
                     if (success) {
                         java.util.Date date = new java.util.Date();
-                        imageFile = new File(folder.getAbsolutePath()
-                                + File.separator
-                                + new Timestamp(date.getTime()).toString()
-                                + "Image.jpg");
+                        imageFile = new File(folder.getAbsolutePath() + File.separator + new Timestamp(date.getTime()).toString() + "Image.jpg");
 
                         imageFile.createNewFile();
                     } else {

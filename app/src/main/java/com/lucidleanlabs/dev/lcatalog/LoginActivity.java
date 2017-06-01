@@ -133,6 +133,8 @@ public class LoginActivity extends AppCompatActivity {
             _passwordText = (EditText) findViewById(R.id.input_password);
             _passwordText.setText(text_from_customer_file[1].trim());
         }
+
+        _loginButton.setEnabled(true);
     }
 
     public void login() throws JSONException {
@@ -278,8 +280,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginFailed() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
         Toast.makeText(getBaseContext(), "Login failed Please Signup or Try Logging Again", Toast.LENGTH_LONG).show();
-        _loginButton.setEnabled(false);
-        finish();
+        _loginButton.setEnabled(true);
     }
 
     @Override

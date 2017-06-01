@@ -35,7 +35,7 @@
                     android:layout_height="80dp"
                     android:cropToPadding="true"
                     android:padding="3dp"
-                    android:src="@drawable/livingroom" />
+                    android:src="@drawable/dummy_icon" />
 
             </LinearLayout>
 
@@ -54,7 +54,7 @@
                     android:layout_height="80dp"
                     android:cropToPadding="true"
                     android:padding="3dp"
-                    android:src="@drawable/livingroom" />
+                    android:src="@drawable/dummy_icon" />
             </LinearLayout>
 
             <LinearLayout
@@ -72,7 +72,7 @@
                     android:layout_height="80dp"
                     android:cropToPadding="true"
                     android:padding="3dp"
-                    android:src="@drawable/livingroom" />
+                    android:src="@drawable/dummy_icon" />
 
             </LinearLayout>
 
@@ -97,7 +97,7 @@
                     android:layout_height="80dp"
                     android:cropToPadding="true"
                     android:padding="3dp"
-                    android:src="@drawable/livingroom" />
+                    android:src="@drawable/dummy_icon" />
             </LinearLayout>
 
             <LinearLayout

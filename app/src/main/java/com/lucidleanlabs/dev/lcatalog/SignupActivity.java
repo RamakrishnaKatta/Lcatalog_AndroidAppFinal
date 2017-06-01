@@ -250,7 +250,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupSuccess() {
-        Toast.makeText(getBaseContext(), "SignUp Success", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "SignUp Success, Welcome", Toast.LENGTH_LONG).show();
         _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
@@ -261,9 +261,9 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "SignUp failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "SignUp failed, Please Try Again", Toast.LENGTH_LONG).show();
         _signupButton = (Button) findViewById(R.id.btn_signup);
-        _signupButton.setEnabled(false);
+        _signupButton.setEnabled(true);
     }
 
     @Override
