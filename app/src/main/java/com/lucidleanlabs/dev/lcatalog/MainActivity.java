@@ -1,22 +1,20 @@
 package com.lucidleanlabs.dev.lcatalog;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
@@ -26,36 +24,21 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.getkeepsafe.taptargetview.TapTargetView;
-import com.lucidleanlabs.dev.lcatalog.adapters.MainListViewAdapter;
+import com.lucidleanlabs.dev.lcatalog.adapters.MainPageAdapter;
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Objects;
+
+import static com.lucidleanlabs.dev.lcatalog.R.color.primary_darker;
+import static com.lucidleanlabs.dev.lcatalog.R.drawable.background;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private PrefManager prefManager3;
     private static final String TAG = "MainActivity";
-
-    private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/article/all";
 
     boolean doubleBackToExitPressedOnce = false;
 
@@ -66,12 +49,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView user_type, user_email, user_name, app_name;
 
 
-    private ArrayList<String> item_ids;
-    private ArrayList<String> item_names;
-    private ArrayList<String> item_images;
-    private ArrayList<String> item_prices;
-    private ArrayList<String> item_discounts;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +56,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("INTRODUCTION"));
+        tabLayout.addTab(tabLayout.newTab().setText("OVERVIEW"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final MainPageAdapter adapter = new MainPageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -109,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         guest_phone = guest_data.getString("guest_phone");
         Log.e(TAG, "guest phone:  " + guest_phone);
 
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -138,18 +140,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             user_type.setText("GUEST");
         }
 
-        item_ids = new ArrayList<>();
-        item_names = new ArrayList<>();
-        item_images = new ArrayList<>();
-        item_prices = new ArrayList<>();
-        item_discounts = new ArrayList<>();
-
-//        try {
-//            getData();
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
         prefManager3 = new PrefManager(this);
         Log.e(TAG, "" + prefManager3.isFirstTimeLaunchScreen3());
         if (prefManager3.isFirstTimeLaunchScreen3()) {
@@ -198,83 +188,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         sequence.start();
 
     }
-
-    private void getData() throws JSONException {
-
-        final ProgressDialog loading = ProgressDialog.show(this, "Please wait...", "Fetching data...", false, false);
-
-        final JSONObject baseclass = new JSONObject();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, REGISTER_URL, baseclass, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.e(TAG, "response--" + response);
-
-                try {
-                    JSONArray resp = response.getJSONArray("resp");
-                    loading.dismiss();
-                    mainRecyclerView(resp);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                NetworkResponse response = error.networkResponse;
-                if (error instanceof ServerError && response != null) {
-                    try {
-                        String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                        // Now you can use any deserializer to make sense of data
-                        JSONObject request = new JSONObject(res);
-                        Log.e(TAG, "request--" + request);
-                    } catch (UnsupportedEncodingException | JSONException e1) {
-                        // Couldn't properly decode data to string
-                        e1.printStackTrace();
-                    }
-                }
-            }
-        });
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonObjectRequest);
-    }
-
-    private void mainRecyclerView(JSONArray m_jsonArray) {
-
-        RecyclerView main_recycler = (RecyclerView) findViewById(R.id.main_recycler);
-        main_recycler.setHasFixedSize(true);
-
-        for (int i = 0; i < m_jsonArray.length(); i++) {
-            JSONObject obj = null;
-            try {
-                obj = m_jsonArray.getJSONObject(i);
-
-                item_ids.add(obj.getString("id"));
-                item_images.add(obj.getString("images"));
-                item_names.add(obj.getString("name"));
-                item_prices.add(obj.getString("price"));
-                item_discounts.add(obj.getString("discount"));
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Log.e(TAG, "ids******" + item_ids);
-            Log.e(TAG, "images******" + item_images);
-            Log.e(TAG, "names******" + item_names);
-            Log.e(TAG, "prices******" + item_prices);
-            Log.e(TAG, "discounts******" + item_discounts);
-
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-            main_recycler.setLayoutManager(linearLayoutManager);
-            MainListViewAdapter gridAdapter = new MainListViewAdapter(this, item_ids, item_names, item_images, item_prices, item_discounts);
-            main_recycler.setAdapter(gridAdapter);
-        }
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -336,7 +249,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_notifications) {
             startActivity(new Intent(MainActivity.this, NotifyActivity.class));
-            finish();
             return true;
 
         } else if (id == R.id.action_replay_info) {
@@ -361,10 +273,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
             builder.setNegativeButton("Cancel", null);
             builder.show();
-
-
             return true;
-
         }
         return super.onOptionsItemSelected(item);
     }

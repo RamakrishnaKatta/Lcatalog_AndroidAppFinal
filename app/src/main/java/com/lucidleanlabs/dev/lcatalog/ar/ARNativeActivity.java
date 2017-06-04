@@ -43,15 +43,17 @@ public class ARNativeActivity extends ARActivity {
         String mPath;
         File imageFile;
         Bitmap bitmap;
+
         try {
             // image naming and path  to include sd card  appending name you choose for file
             mPath = Environment.getExternalStorageDirectory().toString() + "//L_CATALOGUE/Screenshots";
 
             // create bitmap screen capture
-            View v1 = getWindow().getDecorView().getRootView();
-            v1.setDrawingCacheEnabled(true);
-            bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-            v1.setDrawingCacheEnabled(false);
+            View rootView = getWindow().getDecorView().getRootView();
+            rootView.setDrawingCacheEnabled(true);
+            bitmap = Bitmap.createBitmap(rootView.getDrawingCache());
+            rootView.setDrawingCacheEnabled(false);
+
             if (Environment.getExternalStorageState().contains(Environment.MEDIA_MOUNTED)) {
                 imageFile = new File(mPath);
             } else {
