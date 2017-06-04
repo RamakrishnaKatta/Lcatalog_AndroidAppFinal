@@ -17,7 +17,9 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_alignParentTop="true"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+
+        </FrameLayout>
 
     </RelativeLayout>
 
@@ -26,8 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="15dp"
         app:backgroundTint="@color/accent_dark"
-        android:layout_margin="30dp"
         app:fabSize="mini"
         app:srcCompat="@mipmap/ic_camera" />
 
@@ -35,20 +38,22 @@
         android:id="@+id/fab_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="60dp"
         app:backgroundTint="@color/accent_dark"
         app:fabSize="mini"
-        app:layout_anchor="@id/fab_screenshot"
         app:srcCompat="@mipmap/ic_flash" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_flash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="105dp"
         app:backgroundTint="@color/accent_dark"
         app:fabSize="mini"
-        app:layout_anchor="@id/fab_camera"
         app:srcCompat="@mipmap/ic_screenshot" />
 
 </android.support.design.widget.CoordinatorLayout>

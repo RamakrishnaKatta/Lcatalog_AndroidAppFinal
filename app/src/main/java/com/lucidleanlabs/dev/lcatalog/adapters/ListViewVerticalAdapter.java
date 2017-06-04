@@ -158,5 +158,4 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
     public int getItemCount() {
         return item_names.size();
     }
-
 }

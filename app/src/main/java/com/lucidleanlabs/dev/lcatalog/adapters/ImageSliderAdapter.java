@@ -73,5 +73,4 @@ public class ImageSliderAdapter extends PagerAdapter {
         }
         return mIcon;
     }
-
 }

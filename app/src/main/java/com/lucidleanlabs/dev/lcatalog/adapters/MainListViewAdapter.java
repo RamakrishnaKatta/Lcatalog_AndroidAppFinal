@@ -1,6 +1,5 @@
 package com.lucidleanlabs.dev.lcatalog.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -12,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lucidleanlabs.dev.lcatalog.MainActivity;
+import com.lucidleanlabs.dev.lcatalog.OverviewActivity;
 import com.lucidleanlabs.dev.lcatalog.R;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 
@@ -26,7 +25,7 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
 
     private static final String TAG = "MainListViewAdapter";
 
-    private Activity activity;
+    private OverviewActivity activity;
 
     private ArrayList<String> item_ids;
     private ArrayList<String> item_names;
@@ -34,7 +33,7 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
     private ArrayList<String> item_prices;
     private ArrayList<String> item_discounts;
 
-    public MainListViewAdapter(MainActivity activity,
+    public MainListViewAdapter(OverviewActivity activity,
                                ArrayList<String> item_ids,
                                ArrayList<String> item_names,
                                ArrayList<String> item_images,
@@ -83,7 +82,7 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        LayoutInflater inflater = activity.getLayoutInflater();
+        LayoutInflater inflater = activity.getLayoutInflater(null);
         View view = inflater.inflate(R.layout.content_display, viewGroup, false);
 
         return new ViewHolder(view);

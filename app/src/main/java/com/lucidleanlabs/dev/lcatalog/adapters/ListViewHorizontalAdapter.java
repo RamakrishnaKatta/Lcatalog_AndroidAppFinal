@@ -162,6 +162,4 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
     public int getItemCount() {
         return item_names.size();
     }
-
-
 }

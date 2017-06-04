@@ -101,6 +101,14 @@
             android:label="@string/title_activity_notify"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".Article3dViewActivity"
+            android:label="@string/title_activity_article3d_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".OverviewActivity"
+            android:label="@string/title_overview_activity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme.Dark">
             <intent-filter>
@@ -127,10 +135,7 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".Article3dViewActivity"
-            android:label="@string/title_activity_article3d_view"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".IntroductionActivity"></activity>
     </application>
 
 </manifest>
