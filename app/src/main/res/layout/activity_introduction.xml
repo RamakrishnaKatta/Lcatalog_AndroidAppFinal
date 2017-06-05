@@ -12,11 +12,11 @@
 
         <ImageView
             android:id="@+id/imageView_illustration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_centerInParent="true"
-            android:src="@drawable/illustration"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"
+            android:src="@drawable/illustration" />
 
     </RelativeLayout>
 

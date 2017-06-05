@@ -29,8 +29,7 @@ public class MyGLSurfaceView extends GLSurfaceView
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
+    public boolean onTouchEvent(MotionEvent event){
         if (event != null)
         {
             float x = event.getX();

@@ -2,7 +2,6 @@ package com.lucidleanlabs.dev.lcatalog;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,9 +31,6 @@ import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 
 import java.util.Objects;
 
-import static com.lucidleanlabs.dev.lcatalog.R.color.primary_darker;
-import static com.lucidleanlabs.dev.lcatalog.R.drawable.background;
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private PrefManager prefManager3;
@@ -58,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("INTRODUCTION"));
+        tabLayout.addTab(tabLayout.newTab().setText("ILLUSTRATION"));
         tabLayout.addTab(tabLayout.newTab().setText("OVERVIEW"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -172,17 +168,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ).listener(new TapTargetSequence.Listener() {
             @Override
             public void onSequenceFinish() {
-
             }
 
             @Override
             public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-
             }
 
             @Override
             public void onSequenceCanceled(TapTarget lastTarget) {
-
             }
         });
         sequence.start();
@@ -353,7 +346,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             Intent intent = new Intent(this, AboutUsActivity.class);
             startActivity(intent);
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

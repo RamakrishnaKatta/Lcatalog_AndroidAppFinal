@@ -8,7 +8,7 @@
             android:title="Catalog" />
         <item
             android:id="@+id/nav_augment"
-            android:icon="@mipmap/ic_fav_off"
+            android:icon="@mipmap/ic_augment"
             android:title="Augment" />
         <item
             android:id="@+id/nav_camera"
@@ -20,7 +20,7 @@
             android:title="Gallery" />
         <item
             android:id="@+id/nav_ven_reg"
-            android:icon="@mipmap/ic_menu_manage"
+            android:icon="@mipmap/ic_register"
             android:title="Vendor Registration" />
         <item
             android:id="@+id/nav_user_notify"
