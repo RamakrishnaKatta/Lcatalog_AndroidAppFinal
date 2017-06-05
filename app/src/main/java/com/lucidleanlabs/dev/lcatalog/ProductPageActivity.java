@@ -486,8 +486,17 @@ public class ProductPageActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        Intent intent = new Intent(this,CatalogActivity.class);
+        setResult(RESULT_CANCELED);
         super.onBackPressed();
-        startActivity(new Intent(this, CatalogActivity.class));
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("activity", "SplashScreen");
+
+        startActivity(intent);
+
+       // startActivity(new Intent(this, CatalogActivity.class));
         finish();
     }
 
