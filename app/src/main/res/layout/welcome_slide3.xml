@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/welcome_layout_3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_darker">
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:orientation="vertical"
         android:weightSum="2">
 
@@ -26,7 +30,7 @@
                 android:src="@drawable/ic_capture" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txt_welcome_31"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/thumbnail"
@@ -46,7 +50,7 @@
             android:paddingRight="50dp">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/txt_welcome_32"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/thumbnail"
@@ -65,6 +69,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/txt_welcome_33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="30dp"

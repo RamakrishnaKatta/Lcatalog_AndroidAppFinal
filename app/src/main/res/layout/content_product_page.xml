@@ -65,21 +65,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal">
+
                 <RelativeLayout
-                    android:layout_width="wrap_content"
                     android:id="@+id/fav_layout"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                <com.lucidleanlabs.dev.lcatalog.dots.fav_like_view
-                    android:id="@+id/article_fav_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:id="@+id/fav_icon"
-                    app:srcCompat="@mipmap/ic_fav_off"/>
+                    <com.lucidleanlabs.dev.lcatalog.dots.fav_like_view
+                        android:id="@+id/article_fav_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageButton
+                        android:id="@+id/fav_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:srcCompat="@mipmap/ic_fav_off" />
                 </RelativeLayout>
 
 

@@ -145,6 +145,8 @@ public class UserTypeActivity extends AppCompatActivity {
         }
     }
 
+
+    /*Showcaseview for the Signup, Login, Guest*/
     private void ShowcaseView() {
         prefManager1.setFirstTimeLaunchScreen1(false);
         Log.e(TAG, "" + prefManager1.isFirstTimeLaunchScreen1());
@@ -152,13 +154,13 @@ public class UserTypeActivity extends AppCompatActivity {
         final TapTargetSequence sequence = new TapTargetSequence(this).targets(
                 TapTarget.forView(findViewById(R.id.btn_customer), "Login", "Click here if you visited before")
                         .cancelable(false)
+
                         .tintTarget(false)
                         .textColor(R.color.white)
                         .id(1),
                 TapTarget.forView(findViewById(R.id.btn_shopper), "Guest", "Click here if you are Guest visitor")
                         .cancelable(false)
                         .tintTarget(false)
-                        .textColor(R.color.white)
                         .id(2)
         ).listener(new TapTargetSequence.Listener() {
             @Override
@@ -176,8 +178,9 @@ public class UserTypeActivity extends AppCompatActivity {
             }
         });
         sequence.start();
-        TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btn_new_customer), "Click here If you are new  ")
-                        .cancelable(false).tintTarget(false)
+        TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btn_new_customer), "Click here If you are new   ")
+                        .cancelable(false)
+                        .tintTarget(false)
                         .textColor(R.color.white)
                 , new TapTargetView.Listener() {
 

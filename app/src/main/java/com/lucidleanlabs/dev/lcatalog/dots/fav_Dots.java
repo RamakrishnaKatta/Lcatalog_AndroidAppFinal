@@ -1,9 +1,11 @@
 package com.lucidleanlabs.dev.lcatalog.dots;
 
 import android.animation.ArgbEvaluator;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Property;
@@ -62,6 +64,7 @@ public class fav_Dots extends View {
         init();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public fav_Dots(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();

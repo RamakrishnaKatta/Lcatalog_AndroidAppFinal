@@ -79,9 +79,7 @@ public class CatalogActivity extends AppCompatActivity {
         fab_grid.setSize(0);
 
         try {
-
             getData();
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -159,6 +157,8 @@ public class CatalogActivity extends AppCompatActivity {
         });
     }
 
+    /*Json for the Articles in different views*/
+
     public void getData() throws JSONException {
 
         final ProgressDialog loading = ProgressDialog.show(this, "Please wait...", "Fetching data...", false, false);
@@ -213,6 +213,7 @@ public class CatalogActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+    /*Adapter class for GridViewAdapter*/
     public void gridView(JSONArray g_jsonArray) {
 
         RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
@@ -260,6 +261,7 @@ public class CatalogActivity extends AppCompatActivity {
         }
     }
 
+    /*Adapter class for ListViewHorizotalAdapter*/
     public void horizontalRecyclerListView(JSONArray h_jsonArray) {
         RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
         RecyclerView vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);
@@ -305,6 +307,7 @@ public class CatalogActivity extends AppCompatActivity {
         }
     }
 
+    /*Adapter class for ListViewVerticalAdapter*/
     public void verticalRecyclerListView(JSONArray v_jsonArray) {
         RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
         RecyclerView vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);

@@ -36,8 +36,8 @@
 
     <string name="play_again_desc"><![CDATA[To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data]]></string>
     <string name="play_again">play_again</string>
-    <string name="_3d_description">This feature lets you rotate you object in and around, to get a clear picture what you are exactly buying</string>
-    <string name="_3d_text">360 Deg Object Rotation</string>
+    <string name="_3d_description">This feature lets you rotate the object in and around, to get a clear picture what you are exactly buying</string>
+    <string name="_3d_text">360&#xb0; Object Rotation</string>
     <string name="_augment_desc">Augment will let you see the object chosen by you augmented into the real world.</string>
     <string name="_augment_text">AUGMENT</string>
     <string name="title_activity_aboutus">About Us</string>

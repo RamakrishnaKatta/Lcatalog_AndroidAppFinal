@@ -3,6 +3,7 @@ package com.lucidleanlabs.dev.lcatalog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -16,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
@@ -27,6 +29,9 @@ public class WelcomeActivity extends AppCompatActivity {
     private int[] layouts;
     private Button btnSkip, btnNext;
     private PrefManager prefManager;
+
+    private TextView welcome_11, welcome_13, welcome_21, welcome_31, welcome_32, welcome_41;
+    private TextView welcome_14, welcome_22, welcome_33, welcome_42;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,7 @@ public class WelcomeActivity extends AppCompatActivity {
         MyViewPagerAdapter myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+
 
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,12 +151,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
-
         }
 
         @Override
         public void onPageScrollStateChanged(int arg0) {
-
         }
     };
 
@@ -179,8 +183,63 @@ public class WelcomeActivity extends AppCompatActivity {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View view = layoutInflater.inflate(layouts[position], container, false);
-            container.addView(view);
 
+            Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
+            Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
+
+            // Titles
+            welcome_11 = (TextView) view.findViewById(R.id.txt_welcome_11);
+            if (welcome_11 != null) {
+                welcome_11.setTypeface(custom_font);
+            }
+
+            welcome_13 = (TextView) view.findViewById(R.id.txt_welcome_13);
+            if (welcome_13 != null) {
+                welcome_13.setTypeface(custom_font);
+            }
+
+            welcome_21 = (TextView) view.findViewById(R.id.txt_welcome_21);
+            if (welcome_21 != null) {
+                welcome_21.setTypeface(custom_font);
+            }
+
+            welcome_31 = (TextView) view.findViewById(R.id.txt_welcome_31);
+            if (welcome_31 != null) {
+                welcome_31.setTypeface(custom_font);
+            }
+
+            welcome_32 = (TextView) view.findViewById(R.id.txt_welcome_32);
+            if (welcome_32 != null) {
+                welcome_32.setTypeface(custom_font);
+            }
+
+            welcome_41 = (TextView) view.findViewById(R.id.txt_welcome_41);
+            if (welcome_41 != null) {
+                welcome_41.setTypeface(custom_font);
+            }
+
+            //SubTitles
+            welcome_42 = (TextView) view.findViewById(R.id.txt_welcome_42);
+            if (welcome_42 != null) {
+                welcome_42.setTypeface(custom_font2);
+            }
+
+            welcome_33 = (TextView) view.findViewById(R.id.txt_welcome_33);
+            if (welcome_33 != null) {
+                welcome_33.setTypeface(custom_font2);
+            }
+
+            welcome_22 = (TextView) view.findViewById(R.id.txt_welcome_22);
+            if (welcome_22 != null) {
+                welcome_22.setTypeface(custom_font2);
+            }
+
+            welcome_14 = (TextView) view.findViewById(R.id.txt_welcome_14);
+            if (welcome_14 != null) {
+                welcome_14.setTypeface(custom_font2);
+            }
+
+            container.addView(view);
             return view;
         }
 
@@ -193,7 +252,6 @@ public class WelcomeActivity extends AppCompatActivity {
         public boolean isViewFromObject(View view, Object obj) {
             return view == obj;
         }
-
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {

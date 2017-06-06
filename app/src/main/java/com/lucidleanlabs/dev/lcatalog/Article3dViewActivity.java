@@ -109,4 +109,6 @@ public class Article3dViewActivity extends AppCompatActivity {
         }
     }
 
+
+
 }

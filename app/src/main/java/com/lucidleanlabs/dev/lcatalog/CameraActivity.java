@@ -239,7 +239,7 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
                     // rotate Image
                     Matrix rotateMatrix = new Matrix();
                     rotateMatrix.postRotate(rotation);
-                    rotatedBitmap = Bitmap.createBitmap(loadedImage, 0, 0,loadedImage.getWidth(), loadedImage.getHeight(), rotateMatrix, false);
+                    rotatedBitmap = Bitmap.createBitmap(loadedImage, 0, 0, loadedImage.getWidth(), loadedImage.getHeight(), rotateMatrix, false);
                     File folder;
                     if (Environment.getExternalStorageState().contains(Environment.MEDIA_MOUNTED)) {
                         folder = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots");

@@ -329,22 +329,22 @@ public class ProductPageActivity extends AppCompatActivity {
         final TapTargetSequence sequence = new TapTargetSequence(this)
                 .targets(
                         // This tap target will target the back button, we just need to pass its containing toolbar
-                        TapTarget.forView(findViewById(R.id.article_fav_icon), "Like", "click here if u  like it ")
+                        TapTarget.forView(findViewById(R.id.article_fav_icon), "Like", "Click here if u  like the product ")
                                 .cancelable(false)
                                 .targetRadius(30)
                                 .outerCircleColor(R.color.primary_darker)
                                 .id(1),
-                        TapTarget.forView(findViewById(R.id.article_share_icon), "Share", "you can share the screen")
+                        TapTarget.forView(findViewById(R.id.article_share_icon), "Share", "You can share the screen")
                                 .cancelable(false)
                                 .targetRadius(30)
                                 .outerCircleColor(R.color.primary_darker)
                                 .id(2),
-                        TapTarget.forView(findViewById(R.id.article_3dview_icon), "3d", "you can see the object in 3d View")
+                        TapTarget.forView(findViewById(R.id.article_3dview_icon), "3d", "You can see the object in 3d View")
                                 .cancelable(false)
                                 .targetRadius(30)
                                 .outerCircleColor(R.color.primary_darker)
                                 .id(3),
-                        TapTarget.forView(findViewById(R.id.article_download_icon), "Download", "click Here for downloading the object")
+                        TapTarget.forView(findViewById(R.id.article_download_icon), "Download", "Click Here for downloading the object")
                                 .cancelable(false)
                                 .targetRadius(30)
                                 .outerCircleColor(R.color.primary_darker)
