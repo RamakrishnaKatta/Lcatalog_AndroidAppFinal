@@ -23,7 +23,6 @@ public class Article3dViewActivity extends AppCompatActivity {
     private MyGLSurfaceView mGLView;
     private MyGLRenderer mRenderer;
     private SeekBar scaleBar;
-
     String position, name;
 
     @Override
@@ -35,7 +34,6 @@ public class Article3dViewActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_3dView);
         setSupportActionBar(toolbar);
 
@@ -99,16 +97,21 @@ public class Article3dViewActivity extends AppCompatActivity {
                 }
 
                 public void onStartTrackingTouch(SeekBar seekBar) {
-
                 }
 
                 public void onStopTrackingTouch(SeekBar seekBar) {
-
                 }
             });
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 }

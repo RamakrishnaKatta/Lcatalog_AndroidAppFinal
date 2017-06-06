@@ -38,7 +38,6 @@ public class OverviewActivity extends Fragment {
     private ArrayList<String> item_images;
     private ArrayList<String> item_prices;
     private ArrayList<String> item_discounts;
-
     RecyclerView main_recycler;
 
     @Override
@@ -130,4 +129,14 @@ public class OverviewActivity extends Fragment {
             main_recycler.setAdapter(gridAdapter);
         }
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
 }

@@ -204,7 +204,6 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
         camera.stopPreview();
         camera.release();
         camera = null;
-
     }
 
     @Override
@@ -235,7 +234,6 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
                     Bitmap rotatedBitmap = null;
                     loadedImage = BitmapFactory.decodeByteArray(data, 0,
                             data.length);
-
                     // rotate Image
                     Matrix rotateMatrix = new Matrix();
                     rotateMatrix.postRotate(rotation);
@@ -246,7 +244,6 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
                     } else {
                         folder = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots");
                     }
-
                     boolean success = true;
                     if (!folder.exists()) {
                         success = folder.mkdirs();
@@ -254,13 +251,11 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
                     if (success) {
                         java.util.Date date = new java.util.Date();
                         imageFile = new File(folder.getAbsolutePath() + File.separator + new Timestamp(date.getTime()).toString() + "Image.jpg");
-
                         imageFile.createNewFile();
                     } else {
                         Toast.makeText(getBaseContext(), "Image Not saved", Toast.LENGTH_SHORT).show();
                         return;
                     }
-
                     ByteArrayOutputStream ostream = new ByteArrayOutputStream();
 
                     // save image into gallery
@@ -281,7 +276,6 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
                     e.printStackTrace();
                 }
                 camera.startPreview();
-
             }
         });
     }
@@ -296,12 +290,10 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
 
             }
         });
-
         dialog.show();
     }
 
     private Builder createAlert(Context context, String title, String message) {
-
         AlertDialog.Builder dialog = new AlertDialog.Builder(
                 new ContextThemeWrapper(context,
                         android.R.style.Theme_Holo_Light_Dialog));
@@ -328,4 +320,15 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
             }
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
 }

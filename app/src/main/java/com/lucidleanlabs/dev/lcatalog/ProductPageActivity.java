@@ -252,7 +252,7 @@ public class ProductPageActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
-                        }, 3000);
+                        }, 15000);
             }
         });
 
@@ -506,6 +506,16 @@ public class ProductPageActivity extends AppCompatActivity {
         intent.putExtra("activity", "SplashScreen");
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
 }

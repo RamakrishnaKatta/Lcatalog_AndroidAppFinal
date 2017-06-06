@@ -114,7 +114,6 @@ public class NotifyActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-
     private void NotificationView(JSONArray resp) {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.Notification_recycler);
         recyclerView.setHasFixedSize(true);
@@ -128,7 +127,6 @@ public class NotifyActivity extends AppCompatActivity {
                 notification_messages.add(obj.getString("msg"));
                 notification_images.add(obj.getString("path"));
                 notification_titles.add(obj.getString("title"));
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -152,5 +150,15 @@ public class NotifyActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }

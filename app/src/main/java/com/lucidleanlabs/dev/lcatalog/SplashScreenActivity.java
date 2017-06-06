@@ -93,4 +93,13 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
             }
         });
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 }

@@ -1,6 +1,5 @@
 package com.lucidleanlabs.dev.lcatalog;
 
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -43,7 +42,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Button _submitButton;
     private EditText _emailText, _passwordText, _reenterPasswordText;
     private String email, password, ReEnterPass;
-
     String code, message;
 
     @Override
@@ -229,7 +227,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         _submitButton.setEnabled(false);
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-
         finish();
     }
 
@@ -237,6 +234,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         Button _submitbtn = (Button) findViewById(R.id.btn_submit);
         Toast.makeText(getBaseContext(), "Please Enter valid Email Id", Toast.LENGTH_SHORT).show();
         _submitbtn.setEnabled(true);
-
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
 }

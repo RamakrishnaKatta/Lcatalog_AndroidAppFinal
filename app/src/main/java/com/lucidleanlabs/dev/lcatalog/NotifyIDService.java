@@ -39,8 +39,6 @@ public class NotifyIDService extends FirebaseInstanceIdService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
@@ -97,4 +95,5 @@ public class NotifyIDService extends FirebaseInstanceIdService {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
     }
+
 }

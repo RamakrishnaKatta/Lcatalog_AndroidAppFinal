@@ -69,7 +69,6 @@ public class GalleryActivity extends AppCompatActivity {
         gridView.setPadding((int) padding, (int) padding, (int) padding, (int) padding);
         gridView.setHorizontalSpacing((int) padding);
         gridView.setVerticalSpacing((int) padding);
-
     }
 
     @Override
@@ -81,4 +80,15 @@ public class GalleryActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
 }

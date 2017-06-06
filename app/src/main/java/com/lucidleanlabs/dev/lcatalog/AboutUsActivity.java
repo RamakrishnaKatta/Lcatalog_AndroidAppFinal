@@ -3,9 +3,11 @@ package com.lucidleanlabs.dev.lcatalog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class AboutUsActivity extends AppCompatActivity {
+    public static final String TAG = "AboutUsActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +21,17 @@ public class AboutUsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     @Override

@@ -29,4 +29,15 @@ public class FullScreenImageViewActivity extends Activity {
         // displaying selected image first
         viewPager.setCurrentItem(position);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
 }

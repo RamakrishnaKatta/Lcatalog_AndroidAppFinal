@@ -232,4 +232,14 @@ public class GuestActivity extends AppCompatActivity {
 
         return validGuest;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 }

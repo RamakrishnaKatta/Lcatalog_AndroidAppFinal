@@ -259,4 +259,13 @@ public class WelcomeActivity extends AppCompatActivity {
             container.removeView(view);
         }
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 }
