@@ -227,6 +227,7 @@ public class Parser3ds {
         for (int i = 0; i < materials.size(); i++) {
             if (materials.get(i)[0].equals(name) && materials.get(i)[1] != null) {
                 int rID = mActivityContext.getResources().getIdentifier(materials.get(i)[1].toLowerCase(), "drawable", mActivityContext.getPackageName());
+                Log.e("Parse3D", "------" + materials.get(i)[1].toLowerCase());
                 if (rID != 0) {
                     models.get(models.size() - 1).setTextureHandle(TextureHelper.loadTexture(mActivityContext, rID));
                     models.get(models.size() - 1).setHasTexture();

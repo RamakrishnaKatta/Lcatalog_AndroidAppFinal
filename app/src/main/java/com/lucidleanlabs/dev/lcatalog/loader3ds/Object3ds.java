@@ -122,7 +122,7 @@ public class Object3ds {
     }
 
     /**
-     * After all input data is recieved, we need to prepare the model for the draw function.
+     * After all input data is received, we need to prepare the model for the draw function.
      */
     public void prepareModel() {
         //Since many models have different scale amplitudes, we calculate a uniform scale factor for the model
@@ -133,10 +133,7 @@ public class Object3ds {
         setupBuffers();
     }
 
-    /**
-     * This function is rewritten in Java from the tutorial on <a href="http://spacesimulator.net/tutorials/OpenGL_lighting_tutorial.html">this site.</a>
-     * for computing surface normals
-     */
+
     private void calculateNormals() {
         int i;
         float[] l_vect1 = new float[3];

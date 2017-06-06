@@ -197,7 +197,7 @@ public class ProductPageActivity extends AppCompatActivity {
         Log.e(TAG, "ZipFileLocation--" + ZipFileLocation);
         ExtractLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/";
         Log.e(TAG, "ExtractLocation--" + ExtractLocation);
-        Object3DFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/article_view_" + article_position + ".3ds";
+        Object3DFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/article_view.3ds";
         Log.e(TAG, "Object3DFileLocation--" + Object3DFileLocation);
 
         zip_file = new File(ZipFileLocation);
@@ -215,8 +215,7 @@ public class ProductPageActivity extends AppCompatActivity {
         article_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                Toast.makeText(ProductPageActivity.this, "You clicked on download", Toast.LENGTH_SHORT).show();
+                //                Toast.makeText(ProductPageActivity.this, "You clicked on download", Toast.LENGTH_SHORT).show();
                 final ProgressDialog progressDialog = new ProgressDialog(ProductPageActivity.this, R.style.AppTheme_Dark_Dialog);
                 progressDialog.setIndeterminate(true);
                 progressDialog.setMessage("Downloading Article, Just for once....");
@@ -262,10 +261,10 @@ public class ProductPageActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Bundle b3 = new Bundle();
-                b3.putString("3ds_location", ExtractLocation);
+                b3.putString("article_name", Article_Name);
                 b3.putString("article_position", article_position);
-                Log.e(TAG, "3ds Location--" + b3.getCharSequence("3ds_location"));
-                Log.e(TAG, "article_position--" + b3.getCharSequence("article_position"));
+                Log.e(TAG, "Article Name--" + b3.getCharSequence("article_name"));
+                Log.e(TAG, "article position--" + b3.getCharSequence("article_position"));
 
                 if (zip_downloaded == true) {
                     Intent _3dintent = new Intent(ProductPageActivity.this, Article3dViewActivity.class).putExtras(b3);

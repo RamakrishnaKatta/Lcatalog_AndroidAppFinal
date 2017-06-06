@@ -24,7 +24,7 @@ public class Article3dViewActivity extends AppCompatActivity {
     private MyGLRenderer mRenderer;
     private SeekBar scaleBar;
 
-    String position, location;
+    String position, name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,8 @@ public class Article3dViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Bundle b3 = getIntent().getExtras();
-        location = (String) b3.getCharSequence("3ds_location");
-        Log.e(TAG, "Location ---- " + location);
+        name = (String) b3.getCharSequence("article_name");
+        Log.e(TAG, "Name ---- " + name);
 
         position = (String) b3.getCharSequence("article_position");
         Log.e(TAG, "Position ---- " + position);
@@ -75,7 +75,7 @@ public class Article3dViewActivity extends AppCompatActivity {
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
             // Set the renderer for the GLSurfaceView
-            mRenderer = new MyGLRenderer(this, position);
+            mRenderer = new MyGLRenderer(this, position, name);
             mGLView.setRenderer(mRenderer, displayMetrics.density);
 
         } else {
@@ -99,11 +99,11 @@ public class Article3dViewActivity extends AppCompatActivity {
                 }
 
                 public void onStartTrackingTouch(SeekBar seekBar) {
-                    // TODO Auto-generated method stub
+
                 }
 
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    // TODO Auto-generated method stub
+
                 }
             });
         }
