@@ -16,27 +16,32 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:src="@drawable/logo" />
 
         <TextView
             android:id="@+id/txt_welcome_11"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="L Catalog"
+            android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="30sp"
+            android:textSize="40sp"
             android:textStyle="bold" />
 
 
         <TextView
             android:id="@+id/txt_welcome_12"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="Powered by"
             android:textAlignment="center"
             android:textColor="@android:color/white"
@@ -44,29 +49,26 @@
 
         <TextView
             android:id="@+id/txt_welcome_13"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="Immersion Software Labs"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_welcome_14"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="...the next big immersive experience"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="12sp"
-            android:textStyle="italic"
-            android:typeface="serif"/>
+            android:textSize="20sp" />
 
     </LinearLayout>
 

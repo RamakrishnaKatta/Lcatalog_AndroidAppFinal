@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     String name, email, phone, address, user_log_type;
     String guest_name, guest_phone;
-    TextView user_type, user_email, user_name, app_name;
+    TextView user_type, user_email, user_name, app_name, powered;
 
 
     @Override
@@ -114,8 +114,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View header = navigationView.getHeaderView(0);
 
         app_name = (TextView) header.findViewById(R.id.application_name);
+        powered = (TextView) header.findViewById(R.id.lucidleanlabs);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
+        Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
         app_name.setTypeface(custom_font);
+        powered.setTypeface(custom_font2);
 
         user_name = (TextView) header.findViewById(R.id.user_name);
 

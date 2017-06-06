@@ -15,10 +15,29 @@
 
         <ImageView
             android:id="@+id/splash_icon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/application_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/l_catalog"
+            android:textSize="30sp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/lucidleanlabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/powered_lucidleanlabs"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

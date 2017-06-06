@@ -17,7 +17,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
@@ -56,7 +55,11 @@ public class WelcomeActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
+        btnSkip.setTextSize(20);
+        btnSkip.setTypeface(btnSkip.getTypeface(), Typeface.BOLD_ITALIC);
         btnNext = (Button) findViewById(R.id.btn_next);
+        btnNext.setTextSize(20);
+        btnNext.setTypeface(btnNext.getTypeface(), Typeface.BOLD_ITALIC);
 
 
         // layouts of all welcome sliders
@@ -259,6 +262,7 @@ public class WelcomeActivity extends AppCompatActivity {
             container.removeView(view);
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();

@@ -317,7 +317,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="3dp"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="3">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -441,6 +442,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp"
+                            android:gravity="right"
                             android:text="      NAME :"
                             android:textColor="@color/white"
                             android:textSize="12sp"
@@ -448,9 +450,8 @@
 
                         <TextView
                             android:id="@+id/article_vendor_text"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLength="200"
                             android:padding="5dp"
                             android:text="CMR"
                             android:textColor="@color/white"
@@ -475,7 +476,7 @@
 
                         <TextView
                             android:id="@+id/article_vendor_address_text"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="3dp"
                             android:text="@string/dummy_address"
