@@ -36,7 +36,6 @@ import com.lucidleanlabs.dev.lcatalog.adapters.ImageSliderAdapter;
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadManager;
-import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 import com.lucidleanlabs.dev.lcatalog.utils.UnzipUtil;
 
@@ -72,6 +71,7 @@ public class ProductPageActivity extends AppCompatActivity {
     private TextView article_vendor_name;
     private TextView article_vendor_location;
     private ImageView vendor_logo, article_image;
+    private LinearLayout note;
 
     String Article_Name, Article_Id;
     String ZipFileLocation, ExtractLocation, Object3DFileLocation;
@@ -89,7 +89,6 @@ public class ProductPageActivity extends AppCompatActivity {
 
     private boolean zip_downloaded = true;
     File zip_file, object_3d_file;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -145,8 +144,8 @@ public class ProductPageActivity extends AppCompatActivity {
 
         article_description.setText(b.getCharSequence("article_description"));
         article_price.setText(Html.fromHtml("<strike>" + (oldPrice) + "</strike>"));
-        article_price.setPaintFlags(article_price.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
-        article_discount.setText( discount + "% OFF");
+        article_price.setPaintFlags(article_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        article_discount.setText(discount + "% OFF");
         article_price_new.setText(newPrice);
 
         Article_Id = (String) b.getCharSequence("article_id");
@@ -206,6 +205,9 @@ public class ProductPageActivity extends AppCompatActivity {
         Object3DFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/article_view.3ds";
         Log.e(TAG, "Object3DFileLocation--" + Object3DFileLocation);
 
+        note = (LinearLayout) findViewById(R.id.download_note);
+
+
         zip_file = new File(ZipFileLocation);
         object_3d_file = new File(Object3DFileLocation);
 
@@ -214,7 +216,8 @@ public class ProductPageActivity extends AppCompatActivity {
         article_3d_view.setEnabled(false);
         if (object_3d_file.exists()) {
             article_3d_view.setEnabled(true);
-            article_download.setEnabled(false);
+            article_download.setVisibility(View.GONE);
+            note.setVisibility(View.GONE);
             zip_downloaded = true;
         }
 
@@ -235,7 +238,6 @@ public class ProductPageActivity extends AppCompatActivity {
                                     addModelFolder();
                                     extended_url = file_url + Article_Id + ".zip";
                                     Log.e(TAG, "URL ---------- " + extended_url);
-//                                    new DownloadFileTask().execute(extended_url);
                                     new DownloadManager(extended_url, Article_Name, Article_Id);
 
                                     if (zip_file.exists()) {
@@ -245,20 +247,22 @@ public class ProductPageActivity extends AppCompatActivity {
                                     }
 
                                     zip_downloaded = true;
-                                    progressDialog.dismiss();
                                     Log.e(TAG, "Zip Downloaded ---------- " + zip_downloaded);
-                                    article_download.setEnabled(false);
+                                    progressDialog.dismiss();
+                                    article_download.setVisibility(View.GONE);
                                     article_3d_view.setEnabled(true);
+                                    note.setVisibility(View.GONE);
 
                                 } catch (IOException e) {
-                                    article_download.setEnabled(true);
+                                    article_download.setVisibility(View.VISIBLE);
                                     article_3d_view.setEnabled(false);
                                     zip_downloaded = false;
                                     Log.e(TAG, "Zip Not Downloaded ---------- " + zip_downloaded);
                                     e.printStackTrace();
+                                    note.setVisibility(View.VISIBLE);
                                 }
                             }
-                        }, 15000);
+                        }, 6000);
             }
         });
 
@@ -266,19 +270,20 @@ public class ProductPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Bundle b3 = new Bundle();
-                b3.putString("article_name", Article_Name);
-                b3.putString("article_position", article_position);
-                Log.e(TAG, "Article Name--" + b3.getCharSequence("article_name"));
-                Log.e(TAG, "article position--" + b3.getCharSequence("article_position"));
-
                 if (zip_downloaded == true) {
+
+                    Bundle b3 = new Bundle();
+                    b3.putString("article_name", Article_Name);
+                    b3.putString("article_position", article_position);
+                    Log.e(TAG, "Article Name--" + b3.getCharSequence("article_name"));
+                    Log.e(TAG, "article position--" + b3.getCharSequence("article_position"));
                     Intent _3dintent = new Intent(ProductPageActivity.this, Article3dViewActivity.class).putExtras(b3);
                     startActivity(_3dintent);
 
-                } else {
-                    Toast.makeText(ProductPageActivity.this, "Can't provide the 3d View, unless the Object is Downloaded, \n Please Click the download button beside", Toast.LENGTH_SHORT).show();
                 }
+//              else {
+//                    Toast.makeText(ProductPageActivity.this, "Can't provide the 3d View, unless the Object is Downloaded, \n Please Click the download button beside", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
@@ -293,12 +298,12 @@ public class ProductPageActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
+
         article_augment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProductPageActivity.this, ARNativeActivity.class);
                 startActivity(intent);
-
             }
         });
 
@@ -331,57 +336,55 @@ public class ProductPageActivity extends AppCompatActivity {
         if (prefManager4.isFirstTimeLaunchScreen4()) {
             ShowcaseView();
         }
-
     }
 
-    /*showcaseview for the product page Activity*/
+    // show case view for the product page Activity
     private void ShowcaseView() {
         prefManager4.setFirstTimeLaunchScreen4(false);
         Log.e(TAG, "" + prefManager4.isFirstTimeLaunchScreen4());
 
         final Display display = getWindowManager().getDefaultDisplay();
-        final TapTargetSequence sequence = new TapTargetSequence(this)
-                .targets(
-                        // This tap target will target the back button, we just need to pass its containing toolbar
-                        TapTarget.forView(findViewById(R.id.article_fav_icon), "Like", "Click here if u  like the product ")
-                                .cancelable(false)
-                                .targetRadius(30)
-                                .outerCircleColor(R.color.primary_darker)
-                                .id(1),
-                        TapTarget.forView(findViewById(R.id.article_share_icon), "Share", "You can share the screen")
-                                .cancelable(false)
-                                .targetRadius(30)
-                                .outerCircleColor(R.color.primary_darker)
-                                .id(2),
-                        TapTarget.forView(findViewById(R.id.article_augment_icon), "Augmnet", "You can Augment the Object")
-                                .cancelable(false)
-                                .targetRadius(30)
-                                .outerCircleColor(R.color.primary_darker)
-                                .id(3),
-                        TapTarget.forView(findViewById(R.id.article_3dview_icon), "3d", "You can see the object in 3d View")
-                                .cancelable(false)
-                                .targetRadius(30)
-                                .outerCircleColor(R.color.primary_darker)
-                                .id(4),
-                        TapTarget.forView(findViewById(R.id.article_download_icon), "Download", "Click Here for downloading the object")
-                                .targetRadius(30)
-                                .outerCircleColor(R.color.primary_darker)
-                                .id(5)
+        final TapTargetSequence sequence = new TapTargetSequence(this).targets(
+                // This tap target will target the back button, we just need to pass its containing toolbar
+                TapTarget.forView(findViewById(R.id.article_fav_icon), "Like", "Click here if u  like the product ")
+                        .cancelable(false)
+                        .targetRadius(30)
+                        .outerCircleColor(R.color.primary_darker)
+                        .id(1),
+                TapTarget.forView(findViewById(R.id.article_share_icon), "Share", "You can share the screen")
+                        .cancelable(false)
+                        .targetRadius(30)
+                        .outerCircleColor(R.color.primary_darker)
+                        .id(2),
+                TapTarget.forView(findViewById(R.id.article_augment_icon), "Augmnet", "You can Augment the Object")
+                        .cancelable(false)
+                        .targetRadius(30)
+                        .outerCircleColor(R.color.primary_darker)
+                        .id(3),
+                TapTarget.forView(findViewById(R.id.article_3dview_icon), "3d", "You can see the object in 3d View")
+                        .cancelable(false)
+                        .targetRadius(30)
+                        .outerCircleColor(R.color.primary_darker)
+                        .id(4),
+                TapTarget.forView(findViewById(R.id.article_download_icon), "Download", "Click Here for downloading the object")
+                        .targetRadius(30)
+                        .outerCircleColor(R.color.primary_darker)
+                        .id(5)
 
 
-                ).listener(new TapTargetSequence.Listener() {
-                    @Override
-                    public void onSequenceFinish() {
-                    }
+        ).listener(new TapTargetSequence.Listener() {
+            @Override
+            public void onSequenceFinish() {
+            }
 
-                    @Override
-                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-                    }
+            @Override
+            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+            }
 
-                    @Override
-                    public void onSequenceCanceled(TapTarget lastTarget) {
-                    }
-                });
+            @Override
+            public void onSequenceCanceled(TapTarget lastTarget) {
+            }
+        });
         sequence.start();
 
     }
@@ -512,7 +515,6 @@ public class ProductPageActivity extends AppCompatActivity {
         if (dots.length > 0)
             dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
-
 
     @Override
     public void onBackPressed() {

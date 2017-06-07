@@ -12,39 +12,35 @@ import java.net.URLConnection;
 
 public class DownloadManager {
 
-    String DOWNLOAD_URL;
-    String Article_Name, Article_ID;
+    private String DOWNLOAD_URL;
+    private String Article_Name, Article_ID;
 
     public DownloadManager(String url, String article_name, String article_id) {
 
         DOWNLOAD_URL = url;
         Article_Name = article_name;
         Article_ID = article_id;
-        Download();
-
+        try {
+            Download();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void Download() {
-        try {
-            URL u = new URL(DOWNLOAD_URL);
-            URLConnection conn = u.openConnection();
-            int contentLength = conn.getContentLength();
+    private void Download() throws FileNotFoundException, IOException {
+        URL u = new URL(DOWNLOAD_URL);
+        URLConnection conn = u.openConnection();
+        int contentLength = conn.getContentLength();
 
-            DataInputStream stream = new DataInputStream(u.openStream());
+        DataInputStream stream = new DataInputStream(u.openStream());
 
-            byte[] buffer = new byte[contentLength];
-            stream.readFully(buffer);
-            stream.close();
+        byte[] buffer = new byte[contentLength];
+        stream.readFully(buffer);
+        stream.close();
 
-            DataOutputStream fos = new DataOutputStream(new FileOutputStream(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" + Article_ID + ".zip"));
-            fos.write(buffer);
-            fos.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            return; // swallow a 404
-        } catch (IOException e) {
-            return; // swallow a 404
-        }
-
+        DataOutputStream file_out = new DataOutputStream(new FileOutputStream(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" + Article_ID + ".zip"));
+        file_out.write(buffer);
+        file_out.flush();
+        file_out.close();
     }
 }

@@ -118,7 +118,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Article3dViewActivity"
-            android:label="@string/title_activity_article3d_view"
+            android:label="@string/title_activity_article_3dView"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

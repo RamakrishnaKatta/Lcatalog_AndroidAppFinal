@@ -147,7 +147,7 @@
     <string name="title_activity_notify">Notifications</string>
     <string name="scale">Scale</string>
     <string name="title_activity_article_3dView">3DView</string>
-    <string name="title_activity_article3d_view">Article3dViewActivity</string>
     <string name="title_overview_activity">Overview</string>
+    <string name="note_download">NOTE : Please click the download button before you click the 3d view, as it is already been disabled until you download</string>
 
 </resources>

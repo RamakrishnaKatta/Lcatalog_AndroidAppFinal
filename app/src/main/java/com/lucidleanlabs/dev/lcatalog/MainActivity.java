@@ -150,29 +150,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
     private boolean checkInternetConnection() {
         // get Connectivity Manager object to check connection
         ConnectivityManager connec =
-                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+                (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
 
         // Check for network connections
-        if ( connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTING ) {
+        if (connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTED ||
+                connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTING) {
 
             // if connected with internet
             return true;
 
         } else if (
                 connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
+                        connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED) {
 
             Toast.makeText(this, " Internet Not Available  ", Toast.LENGTH_LONG).show();
             return false;
         }
         return false;
     }
-
 
 
     /*showcaseview for the Minactivity(Notifications and Welcome screen*/
@@ -385,6 +383,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     @Override
     public void onResume() {
         super.onResume();

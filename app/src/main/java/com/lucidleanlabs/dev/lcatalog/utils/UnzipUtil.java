@@ -4,6 +4,7 @@ package com.lucidleanlabs.dev.lcatalog.utils;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -49,17 +50,25 @@ public class UnzipUtil {
                     dirChecker(zip_entry.getName());
                 } else {
                     FileOutputStream file_out = new FileOutputStream(location + dir_location);
-
-                    for (int i = zip_in.read(); i != -1; i = zip_in.read()) {
-                        file_out.write(i);
+                    BufferedOutputStream buf_out = new BufferedOutputStream(file_out);
+                    byte[] buffer = new byte[1024];
+                    int read = 0;
+//                    for (int i = zip_in.read(); i != -1; i = zip_in.read()) {
+//                        file_out.write(i);
+//                    }
+                    while ((read = zip_in.read(buffer)) != -1) {
+                        buf_out.write(buffer, 0, read);
                     }
-                    file_out.close();
                     zip_in.closeEntry();
+                    buf_out.close();
+                    file_out.close();
                 }
             }
             zip_in.close();
+            Log.e(TAG + " :unzip-Decompress", "unzip Successful");
         } catch (Exception e) {
-            Log.e(TAG + " :unzip-Decompress", "unzip", e);
+            Log.e(TAG + " :unzip-Decompress", "unzip Failed", e);
+            e.printStackTrace();
         }
     }
 
@@ -75,8 +84,8 @@ public class UnzipUtil {
         if (!folder.exists()) {
             boolean wasSuccessful = folder.mkdirs();
             Log.e(TAG + " -dirChecker", "Directory is Created --- '" + wasSuccessful + "' Thank You !!");
-        }else {
-            Log.e(TAG + " -dirChecker", "Directory already exists" );
+        } else {
+            Log.e(TAG + " -dirChecker", "Directory already exists");
         }
     }
 }
