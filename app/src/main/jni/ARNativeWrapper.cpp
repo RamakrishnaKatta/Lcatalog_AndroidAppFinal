@@ -34,17 +34,17 @@
 
         JNIEXPORT void JNICALL JNIFUNCTION_DEMO(demoInitialise(JNIEnv * env, jobject object)) {
 
-            const char *model0file = "Data/models/bedsofa.obj";
-            const char *model1file = "Data/models/dressing_table.obj";
-            const char *model2file = "Data/models/outdoorsofa.obj";
-            const char *model3file = "Data/models/wardrobe.obj";
-            const char *model4file = "Data/models/study_table.obj";
-            const char *model5file = "Data/models/parasona.obj";
-            const char *model6file = "Data/models/dinning.obj";
-            const char *model7file = "Data/models/teakbed.obj";
+            const char *model0file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/bedsofa.obj";
+            const char *model1file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/dressing_table.obj";
+            const char *model2file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/outdoorsofa.obj";
+            const char *model3file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wardrobe.obj";
+            const char *model4file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/study_table.obj";
+            const char *model5file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/parasona.obj";
+            const char *model6file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/dinning.obj";
+            const char *model7file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/teakbed.obj";
 
             //Mapping to pattern 0
-            models[0].patternID = arwAddMarker("single;Data/patterns/one.patt;80");
+            models[0].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/one.patt;80");
 
             arwSetMarkerOptionBool(models[0].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[0].patternID, ARW_MARKER_OPTION_FILTERED, true);
@@ -60,11 +60,11 @@
             models[0].visible = false;
 
             //Mapping to pattern 1
-            models[1].patternID = arwAddMarker("single;Data/patterns/two.patt;80");
+            models[1].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/two.patt;80");
             arwSetMarkerOptionBool(models[1].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[1].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
-            models[1].obj = glmReadOBJ2(model1file, 0, 0); // context 0, don't read textures yet.
+            models[1].obj = glmReadOBJ2(model1file, 0, 0); // context 1, don't read textures yet.
                 if (!models[1].obj) {
                     LOGE("Error loading model from file '%s'.", model1file);
                     exit(-1);
@@ -75,11 +75,11 @@
             models[1].visible = false;
 
             //Mapping to pattern 2
-            models[2].patternID = arwAddMarker("single;Data/patterns/three.patt;80");
+            models[2].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/three.patt;80");
             arwSetMarkerOptionBool(models[2].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[2].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
-            models[2].obj = glmReadOBJ2(model2file, 0, 0); // context 0, don't read textures yet.
+            models[2].obj = glmReadOBJ2(model2file, 0, 0); // context 2, don't read textures yet.
                     if (!models[2].obj) {
                       LOGE("Error loading model from file '%s'.", model2file);
                       exit(-1);
@@ -90,11 +90,11 @@
             models[2].visible = false;
 
             //Mapping to pattern 3
-            models[3].patternID = arwAddMarker("single;Data/patterns/four.patt;80");
+            models[3].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/four.patt;80");
             arwSetMarkerOptionBool(models[3].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[3].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
-            models[3].obj = glmReadOBJ2(model3file, 0, 0); // context 0, don't read textures yet.
+            models[3].obj = glmReadOBJ2(model3file, 0, 0); // context 3, don't read textures yet.
                     if (!models[3].obj) {
                       LOGE("Error loading model from file '%s'.", model3file);
                       exit(-1);
@@ -105,13 +105,13 @@
             models[3].visible = false;
 
              //Mapping to pattern 4
-            models[4].patternID = arwAddMarker("single;Data/patterns/five.patt;80");
+            models[4].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/five.patt;80");
             arwSetMarkerOptionBool(models[4].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[4].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
-            models[4].obj = glmReadOBJ2(model4file, 0, 0); // context 0, don't read textures yet.
+            models[4].obj = glmReadOBJ2(model4file, 0, 0); // context 4, don't read textures yet.
                     if (!models[4].obj) {
-                      LOGE("Error loading model from file '%s'.", model3file);
+                      LOGE("Error loading model from file '%s'.", model4file);
                       exit(-1);
                     }
             glmScale(models[4].obj, 10.0f);
@@ -120,13 +120,13 @@
                         models[4].visible = false;
 
             //Mapping to pattern 5
-            models[5].patternID = arwAddMarker("single;Data/patterns/six.patt;80");
+            models[5].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/six.patt;80");
             arwSetMarkerOptionBool(models[5].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[5].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
-            models[5].obj = glmReadOBJ2(model5file, 0, 0); // context 0, don't read textures yet.
+            models[5].obj = glmReadOBJ2(model5file, 0, 0); // context 5, don't read textures yet.
                    if (!models[5].obj) {
-                     LOGE("Error loading model from file '%s'.", model3file);
+                     LOGE("Error loading model from file '%s'.", model5file);
                      exit(-1);
                    }
             glmScale(models[5].obj, 20.0f);
@@ -135,13 +135,13 @@
                        models[5].visible = false;
 
             //Mapping to pattern 6
-            models[6].patternID = arwAddMarker("single;Data/patterns/seven.patt;80");
+            models[6].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/seven.patt;80");
             arwSetMarkerOptionBool(models[6].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[6].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
-            models[6].obj = glmReadOBJ2(model6file, 0, 0); // context 0, don't read textures yet.
+            models[6].obj = glmReadOBJ2(model6file, 0, 0); // context 6, don't read textures yet.
                   if (!models[6].obj) {
-                    LOGE("Error loading model from file '%s'.", model3file);
+                    LOGE("Error loading model from file '%s'.", model6file);
                     exit(-1);
                   }
             glmScale(models[6].obj, 10.0f);
@@ -150,13 +150,13 @@
                       models[6].visible = false;
 
             //Mapping to pattern 7
-            models[7].patternID = arwAddMarker("single;Data/patterns/eight.patt;80");
+            models[7].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/eight.patt;80");
             arwSetMarkerOptionBool(models[7].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[7].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
-            models[7].obj = glmReadOBJ2(model7file, 0, 0); // context 0, don't read textures yet.
+            models[7].obj = glmReadOBJ2(model7file, 0, 0); // context 7, don't read textures yet.
                 if (!models[7].obj) {
-                  LOGE("Error loading model from file '%s'.", model3file);
+                  LOGE("Error loading model from file '%s'.", model7file);
                   exit(-1);
                 }
             glmScale(models[7].obj, 10.0f);

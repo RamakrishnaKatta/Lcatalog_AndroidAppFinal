@@ -14,11 +14,14 @@ import android.widget.Toast;
 import com.lucidleanlabs.dev.lcatalog.R;
 
 import org.artoolkit.ar.base.ARActivity;
+import org.artoolkit.ar.base.assets.AssetHelper;
 import org.artoolkit.ar.base.rendering.ARRenderer;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Timestamp;
+
+import static com.lucidleanlabs.dev.lcatalog.ar.ARNativeApplication.getInstance;
 
 public class ARNativeActivity extends ARActivity {
 
@@ -28,6 +31,8 @@ public class ARNativeActivity extends ARActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arnative);
+        initializeInstance();
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_screenshot);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -108,5 +113,16 @@ public class ARNativeActivity extends ARActivity {
     protected FrameLayout supplyFrameLayout() {
         return (FrameLayout) this.findViewById(R.id.arFrameLayout);
 
+    }
+
+    // Here we do one-off initialisation which should apply to all activities
+    // in the application.
+    protected void initializeInstance() {
+
+        // Unpack assets to cache directory so native library can read them.
+        // N.B.: If contents of assets folder changes, be sure to increment the
+        // versionCode integer in the AndroidManifest.xml file.
+        AssetHelper assetHelper = new AssetHelper(getAssets());
+        assetHelper.cacheAssetFolder(getInstance(), "Data");
     }
 }

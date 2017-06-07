@@ -113,17 +113,20 @@ public class UserTypeActivity extends AppCompatActivity {
         String root_Path = Environment.getExternalStorageDirectory().toString() + "//L_CATALOGUE";
         String models_Path = Environment.getExternalStorageDirectory().toString() + "//L_CATALOGUE/Models";
         String screenshots_Path = Environment.getExternalStorageDirectory().toString() + "//L_CATALOGUE/Screenshots";
+        String cache_Path = Environment.getExternalStorageDirectory().toString() + "//L_CATALOGUE/cache";
 
-        File Root_Folder, Models_Folder, Screenshots_Folder;
+        File Root_Folder, Models_Folder, Screenshots_Folder, Cache_Folder;
 
         if (Environment.getExternalStorageState().contains(Environment.MEDIA_MOUNTED)) {
             Root_Folder = new File(root_Path);
             Models_Folder = new File(models_Path);
             Screenshots_Folder = new File(screenshots_Path);
+            Cache_Folder = new File(cache_Path);
         } else {
             Root_Folder = new File(root_Path);
             Models_Folder = new File(models_Path);
             Screenshots_Folder = new File(screenshots_Path);
+            Cache_Folder = new File(cache_Path);
         }
 
         if (Root_Folder.exists()) {
@@ -138,6 +141,9 @@ public class UserTypeActivity extends AppCompatActivity {
             }
             if (!Screenshots_Folder.exists()) {
                 success = Screenshots_Folder.mkdirs();
+            }
+            if (!Cache_Folder.exists()) {
+                success = Cache_Folder.mkdirs();
             }
             if (success) {
                 Toast.makeText(getBaseContext(), "Get Set Go !!", Toast.LENGTH_SHORT).show();
