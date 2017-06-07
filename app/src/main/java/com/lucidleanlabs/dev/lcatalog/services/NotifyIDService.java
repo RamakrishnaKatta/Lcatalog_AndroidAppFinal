@@ -1,4 +1,4 @@
-package com.lucidleanlabs.dev.lcatalog;
+package com.lucidleanlabs.dev.lcatalog.services;
 
 import android.util.Log;
 import android.widget.Toast;

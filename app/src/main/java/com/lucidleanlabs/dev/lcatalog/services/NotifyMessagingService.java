@@ -1,4 +1,4 @@
-package com.lucidleanlabs.dev.lcatalog;
+package com.lucidleanlabs.dev.lcatalog.services;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,6 +11,8 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.lucidleanlabs.dev.lcatalog.MainActivity;
+import com.lucidleanlabs.dev.lcatalog.R;
 
 public class NotifyMessagingService extends FirebaseMessagingService {
     public static final String TAG = "NotifyMessagingService";
