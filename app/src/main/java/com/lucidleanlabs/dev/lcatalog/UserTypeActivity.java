@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -35,6 +36,7 @@ public class UserTypeActivity extends AppCompatActivity {
     ImageButton _customer, _newCustomer, _shopper;
 
     private PrefManager prefManager1;
+    private boolean success = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +60,6 @@ public class UserTypeActivity extends AppCompatActivity {
 
         powered = (TextView) findViewById(R.id.lucidleanlabs);
         powered.setTypeface(custom_font2);
-
-//        customer = (TextView) findViewById(R.id.txt_customer);
-//        customer.setTypeface(custom_font2);
-//
-//        new_customer = (TextView) findViewById(R.id.txt_new_customer);
-//        new_customer.setTypeface(custom_font2);
-//
-//        shopper = (TextView) findViewById(R.id.txt_shopper);
-//        shopper.setTypeface(custom_font2);
 
         _customer = (ImageButton) findViewById(R.id.btn_customer);
         _customer.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +100,27 @@ public class UserTypeActivity extends AppCompatActivity {
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        checkInternetConnection();
+    }
+
+    private boolean checkInternetConnection() {
+        // get Connectivity Manager object to check connection
+        ConnectivityManager connec = (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+
+        // Check for network connections
+        if (connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTED ||
+                connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTING) {
+
+            // if connected with internet
+            return true;
+        } else if (
+                connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                        connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED) {
+
+            Toast.makeText(this, " Internet Not Available  ", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return false;
     }
 
     private void CreateFolderStructure() {
@@ -132,7 +146,7 @@ public class UserTypeActivity extends AppCompatActivity {
         if (Root_Folder.exists()) {
             Toast.makeText(getBaseContext(), "Welcome Back !!", Toast.LENGTH_SHORT).show();
         } else {
-            boolean success = true;
+
             if (!Root_Folder.exists()) {
                 success = Root_Folder.mkdirs();
             }

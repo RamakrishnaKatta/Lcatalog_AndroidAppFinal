@@ -2,6 +2,7 @@ package com.lucidleanlabs.dev.lcatalog;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -32,8 +33,10 @@ import com.android.volley.toolbox.Volley;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.lucidleanlabs.dev.lcatalog.adapters.ImageSliderAdapter;
+import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadManager;
+import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 import com.lucidleanlabs.dev.lcatalog.utils.UnzipUtil;
 
@@ -93,6 +96,7 @@ public class ProductPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_page);
 
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -107,9 +111,10 @@ public class ProductPageActivity extends AppCompatActivity {
         article_image = (ImageView) findViewById(R.id.article_image_view);
         vendor_logo = (ImageView) findViewById(R.id.article_vendor_logo);
 
-        ImageButton article_share = (ImageButton) findViewById(R.id.article_share_icon);
+        final ImageButton article_share = (ImageButton) findViewById(R.id.article_share_icon);
         final ImageButton article_download = (ImageButton) findViewById(R.id.article_download_icon);
         final ImageButton article_3d_view = (ImageButton) findViewById(R.id.article_3dview_icon);
+        final ImageButton article_augment = (ImageButton) findViewById(R.id.article_augment_icon);
 
         final TextView article_title = (TextView) findViewById(R.id.article_title_text);
         TextView article_description = (TextView) findViewById(R.id.article_description_text);
@@ -140,7 +145,8 @@ public class ProductPageActivity extends AppCompatActivity {
 
         article_description.setText(b.getCharSequence("article_description"));
         article_price.setText(Html.fromHtml("<strike>" + (oldPrice) + "</strike>"));
-        article_discount.setText("-" + discount + "% OFF");
+        article_price.setPaintFlags(article_price.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+        article_discount.setText( discount + "% OFF");
         article_price_new.setText(newPrice);
 
         Article_Id = (String) b.getCharSequence("article_id");
@@ -287,6 +293,14 @@ public class ProductPageActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
+        article_augment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductPageActivity.this, ARNativeActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
         init();
 
@@ -339,16 +353,21 @@ public class ProductPageActivity extends AppCompatActivity {
                                 .targetRadius(30)
                                 .outerCircleColor(R.color.primary_darker)
                                 .id(2),
-                        TapTarget.forView(findViewById(R.id.article_3dview_icon), "3d", "You can see the object in 3d View")
+                        TapTarget.forView(findViewById(R.id.article_augment_icon), "Augmnet", "You can Augment the Object")
                                 .cancelable(false)
                                 .targetRadius(30)
                                 .outerCircleColor(R.color.primary_darker)
                                 .id(3),
-                        TapTarget.forView(findViewById(R.id.article_download_icon), "Download", "Click Here for downloading the object")
+                        TapTarget.forView(findViewById(R.id.article_3dview_icon), "3d", "You can see the object in 3d View")
                                 .cancelable(false)
                                 .targetRadius(30)
                                 .outerCircleColor(R.color.primary_darker)
-                                .id(4)
+                                .id(4),
+                        TapTarget.forView(findViewById(R.id.article_download_icon), "Download", "Click Here for downloading the object")
+                                .targetRadius(30)
+                                .outerCircleColor(R.color.primary_darker)
+                                .id(5)
+
 
                 ).listener(new TapTargetSequence.Listener() {
                     @Override

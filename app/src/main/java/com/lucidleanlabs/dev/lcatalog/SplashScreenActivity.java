@@ -1,8 +1,10 @@
 package com.lucidleanlabs.dev.lcatalog;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -11,6 +13,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 
 public class SplashScreenActivity extends AppCompatActivity implements Animation.AnimationListener {
 
@@ -50,6 +54,28 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
     public void onBackPressed() {
         this.finish();
         super.onBackPressed();
+    }
+    private void InternetMessage(){
+
+        final View v = this.getWindow().getDecorView().findViewById(android.R.id.content);
+        final Snackbar snackBar = Snackbar.make(v, "Check Your Internet connection.", Snackbar.LENGTH_INDEFINITE);
+        snackBar.setActionTextColor(Color.parseColor("#FF7373"));
+        snackBar.setAction("RETRY", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackBar.dismiss();
+                if (NetworkConnectivity.checkInternetConnection(SplashScreenActivity.this)) {
+
+                } else {
+
+                    InternetMessage();
+                    // CustomMessage.getInstance().CustomMessage(this,"Check Your Internet connection.");
+                }
+
+
+            }
+        });
+        snackBar.show();
     }
 
     @Override

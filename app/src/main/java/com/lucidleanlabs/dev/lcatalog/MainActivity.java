@@ -3,6 +3,7 @@ package com.lucidleanlabs.dev.lcatalog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -144,7 +145,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (prefManager3.isFirstTimeLaunchScreen3()) {
             ShowcaseView();
         }
+
+        checkInternetConnection();
     }
+
+
+
+    private boolean checkInternetConnection() {
+        // get Connectivity Manager object to check connection
+        ConnectivityManager connec =
+                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+
+        // Check for network connections
+        if ( connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTED ||
+                connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTING ) {
+
+            // if connected with internet
+            return true;
+
+        } else if (
+                connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                        connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
+
+            Toast.makeText(this, " Internet Not Available  ", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return false;
+    }
+
+
 
     /*showcaseview for the Minactivity(Notifications and Welcome screen*/
     private void ShowcaseView() {

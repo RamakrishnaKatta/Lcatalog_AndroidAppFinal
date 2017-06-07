@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText _emailText, _passwordText;
     Button _loginButton;
     ImageButton get_details;
+    CoordinatorLayout mainLayout;
 
     String code, message;
     String userName, userEmail, userPhone, userAddress;
@@ -68,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         _loginButton = (Button) findViewById(R.id.btn_login);
         _forgot_password = (TextView) findViewById(R.id.link_forgot_password);
         get_details = (ImageButton) findViewById(R.id.btn_get_data);
+        mainLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
         String customer_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/customer.txt";
         file_customer = new File(customer_text_file_location);
@@ -261,7 +265,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
+
         Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
+//        Snackbar.make(mainLayout,"Login Success",Snackbar.LENGTH_INDEFINITE).show();
         _loginButton.setEnabled(true);
         setResult(RESULT_OK, null);
 
