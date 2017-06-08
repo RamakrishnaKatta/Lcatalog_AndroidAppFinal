@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class UserTypeActivity extends AppCompatActivity {
 
@@ -35,6 +37,7 @@ public class UserTypeActivity extends AppCompatActivity {
     TextView app_name, welcome_aboard, who_are_you, powered;
     //    TextView customer, new_customer, shopper;
     ImageButton _customer, _newCustomer, _shopper;
+    ImageView delete_cache;
 
     private PrefManager prefManager1;
     private boolean success = true;
@@ -45,7 +48,6 @@ public class UserTypeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_type);
 
         RequestPermissions();
-        CreateFolderStructure();
 
         Typeface custom_font1 = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
@@ -61,6 +63,25 @@ public class UserTypeActivity extends AppCompatActivity {
 
         powered = (TextView) findViewById(R.id.lucidleanlabs);
         powered.setTypeface(custom_font2);
+
+        delete_cache = (ImageView) findViewById(R.id.icon);
+        delete_cache.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean delete = false;
+                File dir_models = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/cache/Data/models");
+                if (dir_models.isDirectory()) {
+                    String[] children = dir_models.list();
+                    Log.e(TAG, "" + Arrays.toString(children));
+                    for (int i = 0; i < children.length; i++) {
+                        delete = new File(dir_models, children[i]).delete();
+                    }
+                }
+                if (delete) {
+                    Toast.makeText(getBaseContext(), "Just for Debugging", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         _customer = (ImageButton) findViewById(R.id.btn_customer);
         _customer.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +122,10 @@ public class UserTypeActivity extends AppCompatActivity {
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        if (!isExternalStorageReadOnly() && isExternalStorageAvailable()) {
+            Log.e(TAG, "Enter this loop of Folder Creation");
+            CreateFolderStructure();
+        }
         checkInternetConnection();
     }
 
@@ -167,7 +192,6 @@ public class UserTypeActivity extends AppCompatActivity {
         }
     }
 
-
     /*Showcaseview for the Signup, Login, Guest*/
     private void ShowcaseView() {
         prefManager1.setFirstTimeLaunchScreen1(false);
@@ -211,7 +235,6 @@ public class UserTypeActivity extends AppCompatActivity {
                         super.onTargetClick(view);
                     }
                 });
-
     }
 
     @Override
@@ -289,6 +312,22 @@ public class UserTypeActivity extends AppCompatActivity {
             }
             // other 'case' lines to check for other permissions this app might request
         }
+    }
+
+    private static boolean isExternalStorageReadOnly() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isExternalStorageAvailable() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
+            return true;
+        }
+        return false;
     }
 
     @Override
