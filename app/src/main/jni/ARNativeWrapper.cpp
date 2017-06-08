@@ -41,9 +41,9 @@
             const char *model4file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/study_table.obj";
             const char *model5file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/parasona.obj";
             const char *model6file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/dinning.obj";
-            const char *model7file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/teakbed.obj";
+            const char *model7file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/TEAKBED.obj";
 
-            //Mapping to pattern 0
+            //Mapping to pattern 0 - bedsofa.obj
             models[0].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/one.patt;80");
 
             arwSetMarkerOptionBool(models[0].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
@@ -54,12 +54,12 @@
                     LOGE("Error loading model from file '%s'.", model0file);
                     exit(-1);
                 }
-            glmScale(models[0].obj, 10.0f);
+            glmScale(models[0].obj, 15.0f);
                 //glmRotate(models[0].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[0].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE);
             models[0].visible = false;
 
-            //Mapping to pattern 1
+            //Mapping to pattern 1 - dressing_table.obj
             models[1].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/two.patt;80");
             arwSetMarkerOptionBool(models[1].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[1].patternID, ARW_MARKER_OPTION_FILTERED, true);
@@ -69,12 +69,12 @@
                     LOGE("Error loading model from file '%s'.", model1file);
                     exit(-1);
                 }
-            glmScale(models[1].obj, 10.0f);
+            glmScale(models[1].obj, 15.0f);
                 //glmRotate(models[1].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[1].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE);
             models[1].visible = false;
 
-            //Mapping to pattern 2
+            //Mapping to pattern 2 - outdoorsofa.obj
             models[2].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/three.patt;80");
             arwSetMarkerOptionBool(models[2].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[2].patternID, ARW_MARKER_OPTION_FILTERED, true);
@@ -84,12 +84,12 @@
                       LOGE("Error loading model from file '%s'.", model2file);
                       exit(-1);
                     }
-            glmScale(models[2].obj, 7.0f);
+            glmScale(models[2].obj, 15.0f);
                 //glmRotate(models[2].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[2].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
             models[2].visible = false;
 
-            //Mapping to pattern 3
+            //Mapping to pattern 3 - wardrobe.obj
             models[3].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/four.patt;80");
             arwSetMarkerOptionBool(models[3].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[3].patternID, ARW_MARKER_OPTION_FILTERED, true);
@@ -99,12 +99,12 @@
                       LOGE("Error loading model from file '%s'.", model3file);
                       exit(-1);
                     }
-            glmScale(models[3].obj, 10.0f);
+            glmScale(models[3].obj, 15.0f);
                 //glmRotate(models[3].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[3].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
             models[3].visible = false;
 
-             //Mapping to pattern 4
+             //Mapping to pattern 4 - study_table.obj
             models[4].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/five.patt;80");
             arwSetMarkerOptionBool(models[4].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[4].patternID, ARW_MARKER_OPTION_FILTERED, true);
@@ -114,12 +114,12 @@
                       LOGE("Error loading model from file '%s'.", model4file);
                       exit(-1);
                     }
-            glmScale(models[4].obj, 10.0f);
+            glmScale(models[4].obj, 15.0f);
                 //glmRotate(models[4].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[4].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
                         models[4].visible = false;
 
-            //Mapping to pattern 5
+            //Mapping to pattern 5 - parasona.obj
             models[5].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/six.patt;80");
             arwSetMarkerOptionBool(models[5].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[5].patternID, ARW_MARKER_OPTION_FILTERED, true);
@@ -129,12 +129,12 @@
                      LOGE("Error loading model from file '%s'.", model5file);
                      exit(-1);
                    }
-            glmScale(models[5].obj, 20.0f);
+            glmScale(models[5].obj, 15.0f);
                //glmRotate(models[5].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[5].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
                        models[5].visible = false;
 
-            //Mapping to pattern 6
+            //Mapping to pattern 6 - dinning.obj
             models[6].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/seven.patt;80");
             arwSetMarkerOptionBool(models[6].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[6].patternID, ARW_MARKER_OPTION_FILTERED, true);
@@ -144,12 +144,12 @@
                     LOGE("Error loading model from file '%s'.", model6file);
                     exit(-1);
                   }
-            glmScale(models[6].obj, 10.0f);
+            glmScale(models[6].obj, 15.0f);
               //glmRotate(models[6].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[6].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
                       models[6].visible = false;
 
-            //Mapping to pattern 7
+            //Mapping to pattern 7 - teakbed.obj
             models[7].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/eight.patt;80");
             arwSetMarkerOptionBool(models[7].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[7].patternID, ARW_MARKER_OPTION_FILTERED, true);
@@ -159,7 +159,7 @@
                   LOGE("Error loading model from file '%s'.", model7file);
                   exit(-1);
                 }
-            glmScale(models[7].obj, 10.0f);
+            glmScale(models[7].obj, 15.0f);
             //glmRotate(models[7].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[7].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
                     models[7].visible = false;
