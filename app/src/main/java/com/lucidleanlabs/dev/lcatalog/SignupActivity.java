@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -54,6 +56,8 @@ public class SignupActivity extends AppCompatActivity {
     private EditText _nameText, _addressText, _emailText, _mobileText, _passwordText, _reEnterPasswordText;
     private Button _signupButton;
 
+    CoordinatorLayout SignupLayout;
+
     String response, code, message;
 
     @Override
@@ -64,6 +68,8 @@ public class SignupActivity extends AppCompatActivity {
 
         powered = (TextView) findViewById(R.id.lucidleanlabs);
         app_name = (TextView) findViewById(R.id.application_name);
+        SignupLayout = (CoordinatorLayout) findViewById(R.id.SignupLayout);
+
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
         app_name.setTypeface(custom_font);
@@ -250,7 +256,8 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupSuccess() {
-        Toast.makeText(getBaseContext(), "SignUp Success, Welcome", Toast.LENGTH_LONG).show();
+        Snackbar.make(SignupLayout, "SignUp Success, Welcome", Snackbar.LENGTH_LONG).show();
+        //   Toast.makeText(getBaseContext(), "SignUp Success, Welcome", Toast.LENGTH_LONG).show();
         _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
@@ -261,7 +268,9 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "SignUp failed, Please Try Again", Toast.LENGTH_LONG).show();
+        Snackbar.make(SignupLayout, "SignUp failed, Please Try Again", Snackbar.LENGTH_LONG).show();
+
+        //  Toast.makeText(getBaseContext(), "SignUp failed, Please Try Again", Toast.LENGTH_LONG).show();
         _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
     }

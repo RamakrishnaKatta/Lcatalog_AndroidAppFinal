@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
@@ -38,7 +40,7 @@ public class GuestActivity extends AppCompatActivity {
     ImageButton get_details;
 
     String guest_name, guest_phone;
-
+    CoordinatorLayout GuestLayout;
     File file_guest;
     String[] text_from_guest_file;
 
@@ -52,6 +54,8 @@ public class GuestActivity extends AppCompatActivity {
         powered = (TextView) findViewById(R.id.lucidleanlabs);
         _guestLoginButton = (Button) findViewById(R.id.btn_guest);
         get_details = (ImageButton) findViewById(R.id.btn_get_data);
+
+        GuestLayout = (CoordinatorLayout) findViewById(R.id.GuestLayout);
 
         String guest_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/guest.txt";
         file_guest = new File(guest_text_file_location);
@@ -177,13 +181,16 @@ public class GuestActivity extends AppCompatActivity {
 
     public void onLoginFailed() {
         Button _guestLoginButton = (Button) findViewById(R.id.btn_guest);
-        Toast.makeText(getBaseContext(), "Login failed Please Signup or Try Logging Again", Toast.LENGTH_LONG).show();
+        Snackbar.make(GuestLayout, "Login failed Please Signup or Try Logging Again", Snackbar.LENGTH_LONG).show();
+
+        //Toast.makeText(getBaseContext(), "Login failed Please Signup or Try Logging Again", Toast.LENGTH_LONG).show();
         _guestLoginButton.setEnabled(true);
     }
 
     public void onLoginSuccess() {
         _guestLoginButton = (Button) findViewById(R.id.btn_guest);
-        Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
+        Snackbar.make(GuestLayout, "Login Success", Snackbar.LENGTH_LONG).show();
+        // Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
 
         Bundle user_data = new Bundle();
         user_data.putString("guest_name", guest_name);
