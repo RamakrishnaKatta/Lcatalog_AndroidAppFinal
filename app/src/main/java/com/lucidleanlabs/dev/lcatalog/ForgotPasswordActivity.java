@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -232,7 +233,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private void onSubmitFailed() {
         Button _submitbtn = (Button) findViewById(R.id.btn_submit);
-        Toast.makeText(getBaseContext(), "Please Enter valid Email Id", Toast.LENGTH_SHORT).show();
+        CustomMessage.getInstance().CustomMessage(ForgotPasswordActivity.this, "Please Enter valid Email Id");
+
         _submitbtn.setEnabled(true);
     }
 

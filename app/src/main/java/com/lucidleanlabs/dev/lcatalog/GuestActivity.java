@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
@@ -17,10 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
+import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
 
@@ -40,7 +39,6 @@ public class GuestActivity extends AppCompatActivity {
     ImageButton get_details;
 
     String guest_name, guest_phone;
-    CoordinatorLayout GuestLayout;
     File file_guest;
     String[] text_from_guest_file;
 
@@ -55,7 +53,6 @@ public class GuestActivity extends AppCompatActivity {
         _guestLoginButton = (Button) findViewById(R.id.btn_guest);
         get_details = (ImageButton) findViewById(R.id.btn_get_data);
 
-        GuestLayout = (CoordinatorLayout) findViewById(R.id.GuestLayout);
 
         String guest_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/guest.txt";
         file_guest = new File(guest_text_file_location);
@@ -123,7 +120,8 @@ public class GuestActivity extends AppCompatActivity {
 
     private void setData() {
         if (!file_guest.exists()) {
-            Toast.makeText(getBaseContext(), "No Saved Details Yet", Toast.LENGTH_LONG).show();
+            CustomMessage.getInstance().CustomMessage(GuestActivity.this, "No Saved Details Yet");
+
         } else {
             text_from_guest_file = UserCheckUtil.readFromFile("guest").split(" ### ");
 
@@ -181,16 +179,14 @@ public class GuestActivity extends AppCompatActivity {
 
     public void onLoginFailed() {
         Button _guestLoginButton = (Button) findViewById(R.id.btn_guest);
-        Snackbar.make(GuestLayout, "Login failed Please Signup or Try Logging Again", Snackbar.LENGTH_LONG).show();
 
-        //Toast.makeText(getBaseContext(), "Login failed Please Signup or Try Logging Again", Toast.LENGTH_LONG).show();
+        CustomMessage.getInstance().CustomMessage(GuestActivity.this, "Login failed Please Signup or Try Logging Again");
         _guestLoginButton.setEnabled(true);
     }
 
     public void onLoginSuccess() {
         _guestLoginButton = (Button) findViewById(R.id.btn_guest);
-        Snackbar.make(GuestLayout, "Login Success", Snackbar.LENGTH_LONG).show();
-        // Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
+        CustomMessage.getInstance().CustomMessage(GuestActivity.this, "Login Success");
 
         Bundle user_data = new Bundle();
         user_data.putString("guest_name", guest_name);

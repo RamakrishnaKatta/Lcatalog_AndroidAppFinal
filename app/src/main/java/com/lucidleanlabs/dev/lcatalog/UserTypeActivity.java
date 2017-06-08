@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
+import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 
 import java.io.File;
@@ -144,7 +145,7 @@ public class UserTypeActivity extends AppCompatActivity {
         }
 
         if (Root_Folder.exists()) {
-            Toast.makeText(getBaseContext(), "Welcome Back !!", Toast.LENGTH_SHORT).show();
+            CustomMessage.getInstance().CustomMessage(UserTypeActivity.this, "Welcome Back !!");
         } else {
 
             if (!Root_Folder.exists()) {
@@ -160,7 +161,8 @@ public class UserTypeActivity extends AppCompatActivity {
                 success = Cache_Folder.mkdirs();
             }
             if (success) {
-                Toast.makeText(getBaseContext(), "Get Set Go !!", Toast.LENGTH_SHORT).show();
+                CustomMessage.getInstance().CustomMessage(UserTypeActivity.this, "Get Set Go !!");
+
             }
         }
     }

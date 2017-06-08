@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.lucidleanlabs.dev.lcatalog.loader3ds.MyGLRenderer;
 import com.lucidleanlabs.dev.lcatalog.loader3ds.MyGLSurfaceView;
+import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
 
 public class Article3dViewActivity extends AppCompatActivity {
 
@@ -81,6 +82,7 @@ public class Article3dViewActivity extends AppCompatActivity {
         } else {
             // Show error message, if the device is not OpenGL ES 2.0 compatible
             Toast.makeText(this, "OpenGL ES 2.0 is not supported on this device", Toast.LENGTH_LONG).show();
+
             return;
         }
 

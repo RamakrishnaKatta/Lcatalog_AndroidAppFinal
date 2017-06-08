@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -256,8 +256,8 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupSuccess() {
-        Snackbar.make(SignupLayout, "SignUp Success, Welcome", Snackbar.LENGTH_LONG).show();
-        //   Toast.makeText(getBaseContext(), "SignUp Success, Welcome", Toast.LENGTH_LONG).show();
+        CustomMessage.getInstance().CustomMessage(SignupActivity.this, "SignUp Success, Welcome");
+
         _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
@@ -268,9 +268,8 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Snackbar.make(SignupLayout, "SignUp failed, Please Try Again", Snackbar.LENGTH_LONG).show();
+        CustomMessage.getInstance().CustomMessage(SignupActivity.this, "SignUp failed, Please Try Again");
 
-        //  Toast.makeText(getBaseContext(), "SignUp failed, Please Try Again", Toast.LENGTH_LONG).show();
         _signupButton = (Button) findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
     }

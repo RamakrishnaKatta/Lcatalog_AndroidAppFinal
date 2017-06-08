@@ -33,6 +33,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -253,7 +255,9 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
                         imageFile = new File(folder.getAbsolutePath() + File.separator + new Timestamp(date.getTime()).toString() + "Image.jpg");
                         imageFile.createNewFile();
                     } else {
-                        Toast.makeText(getBaseContext(), "Image Not saved", Toast.LENGTH_SHORT).show();
+                        CustomMessage.getInstance().CustomMessage(CameraActivity.this, "Image Not Saved");
+
+                        // Toast.makeText(getBaseContext(), "Image Not saved", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     ByteArrayOutputStream ostream = new ByteArrayOutputStream();

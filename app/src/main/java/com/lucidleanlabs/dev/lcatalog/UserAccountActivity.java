@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
+
 import java.util.Objects;
 
 import static android.R.id.message;
@@ -122,17 +124,18 @@ public class UserAccountActivity extends AppCompatActivity {
     }
 
     public void updateSuccess() {
+        CustomMessage.getInstance().CustomMessage(UserAccountActivity.this, "Update Success");
 
-        Toast.makeText(getBaseContext(), "Update Success", Toast.LENGTH_LONG).show();
+        // Toast.makeText(getBaseContext(), "Update Success", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, UserAccountActivity.class);
         startActivity(intent);
         finish();
     }
 
     public void UpdateFailed() {
+        CustomMessage.getInstance().CustomMessage(UserAccountActivity.this, "Update failed");
 
-
-        Toast.makeText(getBaseContext(), "Update failed", Toast.LENGTH_LONG).show();
+        // Toast.makeText(getBaseContext(), "Update failed", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, UserAccountActivity.class);
         startActivity(intent);
         finish();

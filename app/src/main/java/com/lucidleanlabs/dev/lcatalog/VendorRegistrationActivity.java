@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -310,7 +311,6 @@ public class VendorRegistrationActivity extends AppCompatActivity {
     }
 
     public void onVendorRegistrationSuccess() {
-
         v_registerButton = (Button) findViewById(R.id.btn_vendor_submit);
         v_registerButton.setEnabled(true);
         setResult(RESULT_OK, null);
@@ -318,16 +318,14 @@ public class VendorRegistrationActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
-
     }
 
     public void onVendorRegistrationFailed() {
 
-        Toast.makeText(getBaseContext(), "Vendor Registration failed", Toast.LENGTH_LONG).show();
+        CustomMessage.getInstance().CustomMessage(VendorRegistrationActivity.this, "Vendor Registration Failed");
 
         v_registerButton = (Button) findViewById(R.id.btn_vendor_submit);
         v_registerButton.setEnabled(true);
-
     }
 
     @Override

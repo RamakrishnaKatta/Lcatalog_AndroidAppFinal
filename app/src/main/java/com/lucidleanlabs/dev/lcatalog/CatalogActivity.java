@@ -360,6 +360,7 @@ public class CatalogActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onResume() {
         super.onResume();

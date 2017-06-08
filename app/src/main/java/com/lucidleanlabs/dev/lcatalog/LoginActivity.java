@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
 import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
 
 import org.json.JSONException;
@@ -127,7 +127,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setData() {
         if (!file_customer.exists()) {
-            Toast.makeText(getBaseContext(), "No Saved Details Yet", Toast.LENGTH_LONG).show();
+            CustomMessage.getInstance().CustomMessage(LoginActivity.this, "No Saved Details Yet");
+
         } else {
             text_from_customer_file = UserCheckUtil.readFromFile("customer").split(" ### ");
 
@@ -266,8 +267,8 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginSuccess() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
 
-        // Toast.makeText(getBaseContext(), "Login Success", Toast.LENGTH_LONG).show();
-        Snackbar.make(LoginLayout, "Login Success", Snackbar.LENGTH_LONG).show();
+        CustomMessage.getInstance().CustomMessage(LoginActivity.this, "Login Success");
+
         _loginButton.setEnabled(true);
         setResult(RESULT_OK, null);
 
@@ -285,9 +286,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginFailed() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
-        Snackbar.make(LoginLayout, "Login failed Please Signup or Try Logging Again", Snackbar.LENGTH_LONG).show();
+        CustomMessage.getInstance().CustomMessage(LoginActivity.this, "Login failed Please Signup or Try Logging Again");
 
-        //Toast.makeText(getBaseContext(), "Login failed Please Signup or Try Logging Again", Toast.LENGTH_LONG).show();
         _loginButton.setEnabled(true);
     }
 
