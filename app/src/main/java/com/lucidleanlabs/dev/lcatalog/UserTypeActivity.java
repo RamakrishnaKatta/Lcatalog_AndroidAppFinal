@@ -68,17 +68,52 @@ public class UserTypeActivity extends AppCompatActivity {
         delete_cache.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean delete = false;
+
+                boolean delete_models = false;
+                boolean delete_patterns = false;
+                boolean delete_data = false;
+
                 File dir_models = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/cache/Data/models");
+                File dir_patterns = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/cache/Data/patterns");
+                File dir_data = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/cache/Data");
+
                 if (dir_models.isDirectory()) {
-                    String[] children = dir_models.list();
-                    Log.e(TAG, "" + Arrays.toString(children));
-                    for (int i = 0; i < children.length; i++) {
-                        delete = new File(dir_models, children[i]).delete();
+                    String[] children_models = dir_models.list();
+
+                    Log.e(TAG, "" + Arrays.toString(children_models));
+
+                    for (int i = 0; i < children_models.length; i++) {
+                        delete_models = new File(dir_models, children_models[i]).delete();
                     }
+                    Log.e(TAG, "Files inside Models Folder deleted : " + delete_models);
                 }
-                if (delete) {
-                    Toast.makeText(getBaseContext(), "Just for Debugging", Toast.LENGTH_SHORT).show();
+
+                if (dir_patterns.isDirectory()) {
+                    String[] children_patterns = dir_patterns.list();
+
+                    Log.e(TAG, "" + Arrays.toString(children_patterns));
+
+                    for (int i = 0; i < children_patterns.length; i++) {
+                        delete_patterns = new File(dir_patterns, children_patterns[i]).delete();
+                    }
+                    Log.e(TAG, "Files inside Patterns Folder deleted : " + delete_patterns);
+                }
+
+                if (dir_data.isDirectory()) {
+                    String[] children_data = dir_data.list();
+
+                    Log.e(TAG, "" + Arrays.toString(children_data));
+
+                    for (int i = 0; i < children_data.length; i++) {
+                        delete_data = new File(dir_data, children_data[i]).delete();
+                    }
+                    Log.e(TAG, "Files inside Data Folder deleted : " + delete_data);
+                }
+
+                if (delete_models || delete_patterns || delete_data) {
+                    Toast.makeText(getBaseContext(), "Debugging: Cache Files Removed", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "Debugging: Cache doesn't exist", Toast.LENGTH_SHORT).show();
                 }
             }
         });
