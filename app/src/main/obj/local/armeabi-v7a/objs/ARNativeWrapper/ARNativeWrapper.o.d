@@ -5,6 +5,7 @@
   jni/../../../../../../android/../include\AR/ar.h \
   C:/Android/sdk/ndk-bundle/build//../sources/cxx-stl/llvm-libc++/include\stdio.h \
   C:/Android/sdk/ndk-bundle/build//../sources/cxx-stl/llvm-libc++/include\stdlib.h \
+  C:/Android/sdk/ndk-bundle/build//../sources/cxx-stl/llvm-libc++/include\string.h \
   jni/../../../../../../android/../include\AR/arConfig.h \
   jni/../../../../../../android/../include\AR/matrix.h \
   C:/Android/sdk/ndk-bundle/build//../sources/cxx-stl/llvm-libc++/include\math.h \
@@ -30,6 +31,8 @@ jni/../../../../../../android/../include\AR/ar.h:
 C:/Android/sdk/ndk-bundle/build//../sources/cxx-stl/llvm-libc++/include\stdio.h:
 
 C:/Android/sdk/ndk-bundle/build//../sources/cxx-stl/llvm-libc++/include\stdlib.h:
+
+C:/Android/sdk/ndk-bundle/build//../sources/cxx-stl/llvm-libc++/include\string.h:
 
 jni/../../../../../../android/../include\AR/arConfig.h:
 

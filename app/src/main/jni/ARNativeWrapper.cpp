@@ -24,7 +24,7 @@
             GLMmodel *obj;
         } ARModel;
 
-        #define NUM_MODELS 8
+        #define NUM_MODELS 9
         static ARModel models[NUM_MODELS] = {0};
 
         static float lightAmbient[4] = {0.1f, 0.1f, 0.1f, 1.0f};
@@ -42,6 +42,7 @@
             const char *model5file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/parasona.obj";
             const char *model6file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/dinning.obj";
             const char *model7file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/TEAKBED.obj";
+            const char *model8file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wallpaint.obj";
 
             //Mapping to pattern 0 - bedsofa.obj
             models[0].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/one.patt;80");
@@ -163,6 +164,21 @@
             //glmRotate(models[7].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[7].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
                     models[7].visible = false;
+
+            //Mapping to pattern 8 - wallpaint.obj
+            models[8].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/A_4x4.patt;80");
+            arwSetMarkerOptionBool(models[8].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
+            arwSetMarkerOptionBool(models[8].patternID, ARW_MARKER_OPTION_FILTERED, true);
+
+            models[8].obj = glmReadOBJ2(model8file, 0, 0); // context 8, don't read textures yet.
+                if (!models[8].obj) {
+                  LOGE("Error loading model from file '%s'.", model8file);
+                  exit(-1);
+                }
+            glmScale(models[8].obj, 15.0f);
+            //glmRotate(models[8].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
+            glmCreateArrays(models[8].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
+                    models[8].visible = false;
         }
 
     JNIEXPORT void JNICALL JNIFUNCTION_DEMO(demoShutdown(JNIEnv * env, jobject object)) {}

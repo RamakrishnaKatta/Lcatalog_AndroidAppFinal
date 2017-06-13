@@ -33,7 +33,6 @@ public class ARNativeActivity extends ARActivity {
         setContentView(R.layout.activity_arnative);
         initializeInstance();
 
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_screenshot);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
