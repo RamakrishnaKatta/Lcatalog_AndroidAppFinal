@@ -149,8 +149,8 @@ public class UserTypeActivity extends AppCompatActivity {
         });
 
         prefManager1 = new PrefManager(this);
-        Log.e(TAG, "" + prefManager1.isFirstTimeLaunchScreen1());
-        if (prefManager1.isFirstTimeLaunchScreen1()) {
+        Log.e(TAG, "" + prefManager1.UserTypeActivityScreenLaunch());
+        if (prefManager1.UserTypeActivityScreenLaunch()) {
             ShowcaseView();
         }
 
@@ -229,37 +229,32 @@ public class UserTypeActivity extends AppCompatActivity {
 
     /*Showcaseview for the Signup, Login, Guest*/
     private void ShowcaseView() {
-        prefManager1.setFirstTimeLaunchScreen1(false);
-        Log.e(TAG, "" + prefManager1.isFirstTimeLaunchScreen1());
+        prefManager1.setUserTypeActivityScreenLaunch(false);
+        Log.e(TAG, "" + prefManager1.UserTypeActivityScreenLaunch());
 
         final TapTargetSequence sequence = new TapTargetSequence(this).targets(
-                TapTarget.forView(findViewById(R.id.btn_customer), "Login", "Click here if you visited before")
+                TapTarget.forView(findViewById(R.id.btn_customer), "Click here if you visited before")
                         .cancelable(false)
-
                         .tintTarget(false)
+                        .transparentTarget(true)
                         .textColor(R.color.white)
                         .id(1),
-                TapTarget.forView(findViewById(R.id.btn_shopper), "Guest", "Click here if you are Guest visitor")
+                TapTarget.forView(findViewById(R.id.btn_shopper), "Click here if you are Guest visitor")
                         .cancelable(false)
                         .tintTarget(false)
+                        .transparentTarget(true)
+                        .textColor(R.color.white)
                         .id(2)
         ).listener(new TapTargetSequence.Listener() {
             @Override
-            public void onSequenceFinish() {
-            }
-
+            public void onSequenceFinish() { }
             @Override
-            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-
-            }
-
+            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) { }
             @Override
-            public void onSequenceCanceled(TapTarget lastTarget) {
-
-            }
+            public void onSequenceCanceled(TapTarget lastTarget) { }
         });
         sequence.start();
-        TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btn_new_customer), "Click here If you are new   ")
+        TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btn_new_customer), "Click here if you are new.. ")
                         .cancelable(false)
                         .tintTarget(false)
                         .textColor(R.color.white)

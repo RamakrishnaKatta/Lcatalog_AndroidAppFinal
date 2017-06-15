@@ -5,22 +5,24 @@ import android.content.SharedPreferences;
 
 
 public class PrefManager {
-    private SharedPreferences pref, pref1,pref2,pref3,pref4;
-    private SharedPreferences.Editor editor, editor1,editor2,editor3,editor4;
+    private SharedPreferences pref, pref1, pref2, pref3, pref4, pref5;
+    private SharedPreferences.Editor editor, editor1, editor2, editor3, editor4, editor5;
 
     // Shared preferences file name
     private static final String PREF_NAME_1 = " L_Catalog_welcome_Screen ";
-    private static final String PREF_NAME_2 = " L_Catalog_Screen_1";
-    private static final String PREF_NAME_3 = "L_Catalog_Screen_2";
-    private static final String PREF_NAME_4 = "L_Catalog_Screen_3";
-    private static final String PREF_NAME_5 = "L_Catalog_Screen_4";
+    private static final String PREF_NAME_2 = " L_Catalog_UserTypeActivityScreen ";
+    private static final String PREF_NAME_6 = " L_Catalog_LoginActivityScreen";
+    private static final String PREF_NAME_3 = " L_Catalog_GuestActivityScreen ";
+    private static final String PREF_NAME_4 = " L_Catalog_MainActivityScreen ";
+    private static final String PREF_NAME_5 = " L_Catalog_ProductPageActivityScreen ";
 
 
-    private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
-    private static final String IS_FIRST_TIME_LAUNCH_SCREEN1 = "IsFirstTimeLaunchScreen1";
-    private static final String IS_FIRST_TIME_LAUNCH_SCREEN2 = "IsFirstTimeLaunchScreen2";
-    private static final String IS_FIRST_TIME_LAUNCH_SCREEN3 = "IsFirstTimeLaunchScreen3";
-    private static final String IS_FIRST_TIME_LAUNCH_SCREEN4 = "IsFirstTimeLaunchScreen4";
+    private static final String WELCOMEACTIVITY_SCREEN_LAUNCH = "WelcomeActivityScreenLaunch";
+    private static final String USERTYPEACTIVITY_LAUNCH_SCREEN = "UserTypeActivityLaunchScreen";
+    private static final String GUESTACTIVITY_LAUNCH_SCREEN = "GuestActivityLaunchScreen";
+    private static final String MAINACTIVITY_LAUNCH_SCREEN = "MainActivityLaunchScreen";
+    private static final String PRODUCTPAGEACTIVITY_LAUNCH_SCREEN = "ProductPageActivityLaunchScreen";
+    private static final String LOGINACTIVITY_LAUNCH_SCREEN = "LoginActivityLaunchScreen";
 
 
     public PrefManager(Context context) {
@@ -31,56 +33,80 @@ public class PrefManager {
         pref1 = context.getSharedPreferences(PREF_NAME_2, PRIVATE_MODE);
         editor1 = pref1.edit();
 
-        pref2 = context.getSharedPreferences(PREF_NAME_3,PRIVATE_MODE);
+        pref2 = context.getSharedPreferences(PREF_NAME_3, PRIVATE_MODE);
         editor2 = pref2.edit();
-        pref3 = context.getSharedPreferences(PREF_NAME_4,PRIVATE_MODE);
+        pref3 = context.getSharedPreferences(PREF_NAME_4, PRIVATE_MODE);
         editor3 = pref3.edit();
-        pref4 = context.getSharedPreferences(PREF_NAME_5,PRIVATE_MODE);
+        pref4 = context.getSharedPreferences(PREF_NAME_5, PRIVATE_MODE);
         editor4 = pref4.edit();
+
+        pref5 = context.getSharedPreferences(PREF_NAME_6, PRIVATE_MODE);
+        editor5 = pref5.edit();
     }
 
-    public void setFirstTimeLaunch(boolean isFirstTime) {
-        editor.putBoolean(IS_FIRST_TIME_LAUNCH, isFirstTime);
+    /*welcomeScreen Pref*/
+    public void SetWelcomeActivityScreenLaunch(boolean WelcomeScreen) {
+        editor.putBoolean(WELCOMEACTIVITY_SCREEN_LAUNCH, WelcomeScreen);
         editor.commit();
     }
 
-    public boolean isFirstTimeLaunch() {
-        return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
+    public boolean WelcomeActivityScreenLaunch() {
+        return pref.getBoolean(WELCOMEACTIVITY_SCREEN_LAUNCH, true);
     }
 
-    public void setFirstTimeLaunchScreen1(boolean isFirstTimeScreen1) {
-        editor1.putBoolean(IS_FIRST_TIME_LAUNCH_SCREEN1, isFirstTimeScreen1);
+
+    /*UserTypeActivity Screen Pref*/
+    public void setUserTypeActivityScreenLaunch(boolean UserTypeActivityScreen) {
+        editor1.putBoolean(USERTYPEACTIVITY_LAUNCH_SCREEN, UserTypeActivityScreen);
         editor1.commit();
     }
 
-    public boolean isFirstTimeLaunchScreen1() {
-        return pref1.getBoolean(IS_FIRST_TIME_LAUNCH_SCREEN1, true);
+    public boolean UserTypeActivityScreenLaunch() {
+        return pref1.getBoolean(USERTYPEACTIVITY_LAUNCH_SCREEN, true);
     }
-    public void setFirstTimeLaunchScreen2(boolean isFirstTimeScreen2) {
-        editor2.putBoolean(IS_FIRST_TIME_LAUNCH_SCREEN2, isFirstTimeScreen2);
+
+
+    /*GuestActivity Screen pref*/
+    public void setGuestActivityScreenLaunch(boolean GuestActivityScreen) {
+        editor2.putBoolean(GUESTACTIVITY_LAUNCH_SCREEN, GuestActivityScreen);
         editor2.commit();
     }
 
-    public boolean isFirstTimeLaunchScreen2() {
-        return pref2.getBoolean(IS_FIRST_TIME_LAUNCH_SCREEN2, true);
+    public boolean GuestActivityScreenLaunch() {
+        return pref2.getBoolean(GUESTACTIVITY_LAUNCH_SCREEN, true);
     }
 
 
-    public void setFirstTimeLaunchScreen3(boolean isFirstTimeScreen3) {
-        editor3.putBoolean(IS_FIRST_TIME_LAUNCH_SCREEN3, isFirstTimeScreen3);
+    /*MainActivity Screen  Pref*/
+    public void SetMainActivityScreenLaunch(boolean MainActivityScreen) {
+        editor3.putBoolean(MAINACTIVITY_LAUNCH_SCREEN, MainActivityScreen);
         editor3.commit();
     }
 
-    public boolean isFirstTimeLaunchScreen3() {
-        return pref3.getBoolean(IS_FIRST_TIME_LAUNCH_SCREEN3, true);
+    public boolean MainActivityScreenLaunch() {
+        return pref3.getBoolean(MAINACTIVITY_LAUNCH_SCREEN, true);
     }
-    public void setFirstTimeLaunchScreen4(boolean isFirstTimeScreen4) {
-        editor4.putBoolean(IS_FIRST_TIME_LAUNCH_SCREEN4, isFirstTimeScreen4);
+
+
+    /*ProductPageActivity Screen Pref*/
+    public void setProductPageActivityScreenLaunch(boolean ProductPageActivityScreen) {
+        editor4.putBoolean(PRODUCTPAGEACTIVITY_LAUNCH_SCREEN, ProductPageActivityScreen);
         editor4.commit();
     }
 
-    public boolean isFirstTimeLaunchScreen4() {
-        return pref4.getBoolean(IS_FIRST_TIME_LAUNCH_SCREEN4, true);
+    public boolean ProductPageActivityScreenLaunch() {
+        return pref4.getBoolean(PRODUCTPAGEACTIVITY_LAUNCH_SCREEN, true);
+    }
+
+
+    /*LoginActivity Screen Pref*/
+    public void SetLoginActivityScreenLaunch(boolean LoginActivityScreen) {
+        editor5.putBoolean(LOGINACTIVITY_LAUNCH_SCREEN, LoginActivityScreen);
+        editor5.commit();
+    }
+
+    public boolean LoginActivityScreenLaunch() {
+        return pref5.getBoolean(LOGINACTIVITY_LAUNCH_SCREEN, true);
     }
 
 }

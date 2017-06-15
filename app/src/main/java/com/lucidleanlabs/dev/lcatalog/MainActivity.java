@@ -141,8 +141,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         prefManager3 = new PrefManager(this);
-        Log.e(TAG, "" + prefManager3.isFirstTimeLaunchScreen3());
-        if (prefManager3.isFirstTimeLaunchScreen3()) {
+        Log.e(TAG, "" + prefManager3.MainActivityScreenLaunch());
+        if (prefManager3.MainActivityScreenLaunch()) {
             ShowcaseView();
         }
 
@@ -173,10 +173,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    /*showcaseview for the Minactivity(Notifications and Welcome screen*/
+    /*showcaseview for the MainActivity(Notifications and Welcome screen*/
     private void ShowcaseView() {
-        prefManager3.setFirstTimeLaunchScreen3(false);
-        Log.e(TAG, "" + prefManager3.isFirstTimeLaunchScreen3());
+        prefManager3.SetMainActivityScreenLaunch(false);
+        Log.e(TAG, "" + prefManager3.MainActivityScreenLaunch());
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.main);
@@ -187,28 +187,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .transparentTarget(true)
                         .outerCircleColor(R.color.primary_dark)
                         .targetRadius(25)
+                        .textColor(R.color.white)
                         .tintTarget(true)
                         .id(1),
-                TapTarget.forToolbarMenuItem(toolbar, R.id.action_replay_info, "welcome", "If u miss the welcome screen u can see here ")
+                TapTarget.forToolbarMenuItem(toolbar, R.id.action_replay_info, "welcome", "If u miss the welcome screen you can see here ")
                         .transparentTarget(true)
-                        .id(2)
+                        .textColor(R.color.white)
                         .targetRadius(25)
                         .tintTarget(true)
                         .outerCircleColor(R.color.primary_dark)
+                        .id(2))
+                .listener(new TapTargetSequence.Listener() {
+                    @Override
+                    public void onSequenceFinish() { }
 
-        ).listener(new TapTargetSequence.Listener() {
-            @Override
-            public void onSequenceFinish() {
-            }
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {  }
 
-            @Override
-            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-            }
-
-            @Override
-            public void onSequenceCanceled(TapTarget lastTarget) {
-            }
-        });
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {  }
+                });
         sequence.start();
 
     }
@@ -289,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     PrefManager prefManager = new PrefManager(getApplicationContext());
 
                     // make first time launch TRUE
-                    prefManager.setFirstTimeLaunch(true);
+                    prefManager.SetWelcomeActivityScreenLaunch(true);
 
                     startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
                     finish();

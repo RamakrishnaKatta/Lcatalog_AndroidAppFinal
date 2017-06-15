@@ -3,10 +3,12 @@ package com.lucidleanlabs.dev.lcatalog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.StrictMode;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +34,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.lucidleanlabs.dev.lcatalog.adapters.CatalogAdapter;
 import com.lucidleanlabs.dev.lcatalog.adapters.ImageSliderAdapter;
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
@@ -52,49 +55,61 @@ import java.util.TimerTask;
 
 public class ProductPageActivity extends AppCompatActivity {
 
-    private PrefManager prefManager4;
-
-
     private static final String TAG = "ProductPageActivity";
 
     private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/vendor/by?id=";
-    private static String file_url = "http://35.154.252.64:8080/models/";
-    private static String extended_url;
+    private static String FILE_URL = "http://35.154.252.64:8080/models/";
+    private static String EXTENDED_URL;
+
+
+    LinearLayout note;
+    ImageView vendor_logo, article_image;
+    ImageButton article_share, article_download, article_3d_view, article_augment;
+    TextView article_title, article_description, article_price, article_discount, article_width, article_height, article_length, article_price_new;
+    TextView article_vendor_name, article_vendor_location;
 
     private static String VENDOR_URL = null;
 
-    private String vendor_name;
-    private String vendor_address;
-    private String vendor_image;
-    private String vendor_id;
-
-    private TextView article_vendor_name;
-    private TextView article_vendor_location;
-    private ImageView vendor_logo, article_image;
-    private LinearLayout note;
-
-    String Article_Name, Article_Id;
-    String ZipFileLocation, ExtractLocation, Object3DFileLocation;
-    String width, length, height;
-    String article_position;
-
+    String article_images;
+    // article_images is split in to five parts and assigned to each string
     String image1, image2, image3, image4, image5;
 
-    private ViewPager ArticleViewPager;
-    private LinearLayout Slider_dots;
-    ImageSliderAdapter imagesliderAdapter;
-    ArrayList<String> slider_images = new ArrayList<>();
-    TextView[] dots;
-    int page_position = 0;
+    String oldPrice, discount;
+    // calculate the new price using the old price and discount and assign ti newPrice
+    String newPrice;
 
-    private boolean zip_downloaded = true;
-    File zip_file, object_3d_file;
+    String dimensions;
+    //Split the dimensions into three parts and assign to width, height and length
+    String width, length, height;
+
+    String position, name, id, description;
+
+    String vendor_name, vendor_address, vendor_image, vendor_id;
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_page);
 
+        article_image = (ImageView) findViewById(R.id.article_image_view);
+        vendor_logo = (ImageView) findViewById(R.id.article_vendor_logo);
+        article_share = (ImageButton) findViewById(R.id.article_share_icon);
+        article_download = (ImageButton) findViewById(R.id.article_download_icon);
+        article_3d_view = (ImageButton) findViewById(R.id.article_3dview_icon);
+        article_augment = (ImageButton) findViewById(R.id.article_augment_icon);
+        article_title = (TextView) findViewById(R.id.article_title_text);
+        article_description = (TextView) findViewById(R.id.article_description_text);
+        article_price = (TextView) findViewById(R.id.article_price_value);
+        article_discount = (TextView) findViewById(R.id.article_price_discount_value);
+        article_width = (TextView) findViewById(R.id.article_width_text);
+        article_height = (TextView) findViewById(R.id.article_height_text);
+        article_length = (TextView) findViewById(R.id.article_length_text);
+        article_vendor_name = (TextView) findViewById(R.id.article_vendor_text);
+        article_vendor_location = (TextView) findViewById(R.id.article_vendor_address_text);
+        article_price_new = (TextView) findViewById(R.id.article_price_value_new);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -107,79 +122,26 @@ public class ProductPageActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        article_image = (ImageView) findViewById(R.id.article_image_view);
-        vendor_logo = (ImageView) findViewById(R.id.article_vendor_logo);
-
-        final ImageButton article_share = (ImageButton) findViewById(R.id.article_share_icon);
-        final ImageButton article_download = (ImageButton) findViewById(R.id.article_download_icon);
-        final ImageButton article_3d_view = (ImageButton) findViewById(R.id.article_3dview_icon);
-        final ImageButton article_augment = (ImageButton) findViewById(R.id.article_augment_icon);
-
-        final TextView article_title = (TextView) findViewById(R.id.article_title_text);
-        TextView article_description = (TextView) findViewById(R.id.article_description_text);
-        TextView article_price = (TextView) findViewById(R.id.article_price_value);
-        TextView article_discount = (TextView) findViewById(R.id.article_price_discount_value);
-        TextView article_width = (TextView) findViewById(R.id.article_width_text);
-        TextView article_height = (TextView) findViewById(R.id.article_height_text);
-        TextView article_length = (TextView) findViewById(R.id.article_length_text);
-        article_vendor_name = (TextView) findViewById(R.id.article_vendor_text);
-        article_vendor_location = (TextView) findViewById(R.id.article_vendor_address_text);
-
         final Bundle b = getIntent().getExtras();
 
-        String oldPrice = (String) b.getCharSequence("article_price");
-        String discount = (String) b.getCharSequence("article_discount");
-        article_position = (String) b.getCharSequence("article_position");
-        TextView article_price_new = (TextView) findViewById(R.id.article_price_value_new);
+        name = (String) b.getCharSequence("article_title");
+        description = (String) b.getCharSequence("article_description");
+        position = (String) b.getCharSequence("article_position");
+        id = (String) b.getCharSequence("article_id");
 
+        oldPrice = (String) b.getCharSequence("article_price");
+        discount = (String) b.getCharSequence("article_discount");
         Integer x = Integer.parseInt(oldPrice);
         Integer y = Integer.parseInt(discount);
         Integer z = (x * (100 - y)) / 100;
-        String newPrice = Integer.toString(z);
-        Log.e(TAG, "newPrice-- " + newPrice);
+        newPrice = Integer.toString(z);
 
-        article_title.setText(b.getCharSequence("article_title"));
-        Article_Name = (String) b.getCharSequence("article_title");
-        Log.e(TAG, "names----" + b.getCharSequence("article_title"));
-
-        article_description.setText(b.getCharSequence("article_description"));
-        article_price.setText(Html.fromHtml("<strike>" + (oldPrice) + "</strike>"));
-        article_price.setPaintFlags(article_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        article_discount.setText(discount + "% OFF");
-        article_price_new.setText(newPrice);
-
-        Article_Id = (String) b.getCharSequence("article_id");
-        System.out.print("Article ID" + Article_Id);
-
-        String article_dimensions = (String) b.getCharSequence("article_dimensions");
-        System.out.print("Article Dimensions" + article_dimensions);
-
+        dimensions = (String) b.getCharSequence("article_dimensions");
         try {
-            JSONObject dimension_json = new JSONObject(article_dimensions);
+            JSONObject dimension_json = new JSONObject(dimensions);
             width = dimension_json.getString("width");
             length = dimension_json.getString("length");
             height = dimension_json.getString("height");
-
-            Log.e(TAG, " width-- " + width + " length-- " + length + " height-- " + height);
-            Log.e(TAG, " dimension_json-- " + dimension_json);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        article_width.setText(width + " in");
-        article_height.setText(height + " in");
-        article_length.setText(length + " in");
-
-        String article_images = (String) b.getCharSequence("article_images");
-
-        try {
-            JSONObject image_json = new JSONObject(article_images);
-            image1 = image_json.getString("image1");
-            image2 = image_json.getString("image2");
-            image3 = image_json.getString("image3");
-            image4 = image_json.getString("image4");
-            image5 = image_json.getString("image5");
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -194,215 +156,42 @@ public class ProductPageActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Log.e(TAG, "id=======" + b.getCharSequence("article_id"));
-        Log.e(TAG, "name=======" + b.getCharSequence("article_title"));
+        article_images = (String) b.getCharSequence("article_images");
 
-         /*Extract zip file from 3D view button */
-        ZipFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/" + Article_Id + ".zip";
-        Log.e(TAG, "ZipFileLocation--" + ZipFileLocation);
-        ExtractLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/";
-        Log.e(TAG, "ExtractLocation--" + ExtractLocation);
-        Object3DFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name + "/article_view.3ds";
-        Log.e(TAG, "Object3DFileLocation--" + Object3DFileLocation);
+        // All this Data should be sent to fragments in the form of bundle !!
 
-        note = (LinearLayout) findViewById(R.id.download_note);
+        Log.e(TAG, "Article Name----" + name);
+        Log.e(TAG, "Article Description----" + description);
+        Log.e(TAG, "Article NewPrice----" + newPrice);
+        Log.e(TAG, "Article Dimensions----" + dimensions);
+        Log.e(TAG, "Article Width----" + width);
+        Log.e(TAG, "Article Height----" + height);
+        Log.e(TAG, "Article Length----" + length);
+        Log.e(TAG, "Article Position----" + position);
+        Log.e(TAG, "Article Images----" + article_images);
 
 
-        zip_file = new File(ZipFileLocation);
-        object_3d_file = new File(Object3DFileLocation);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.product_tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("IMAGES"));
+        tabLayout.addTab(tabLayout.newTab().setText("OVERVIEW"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        zip_downloaded = false;
-
-        article_3d_view.setEnabled(false);
-        if (object_3d_file.exists()) {
-            article_3d_view.setEnabled(true);
-            article_download.setVisibility(View.GONE);
-            note.setVisibility(View.GONE);
-            zip_downloaded = true;
-        }
-
-        article_download.setOnClickListener(new View.OnClickListener() {
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.product_pager);
+        final CatalogAdapter adapter = new CatalogAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),
+                name, description, oldPrice, discount, newPrice, dimensions, width, height, length, position, id, article_images);
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-                //                Toast.makeText(ProductPageActivity.this, "You clicked on download", Toast.LENGTH_SHORT).show();
-                final ProgressDialog progressDialog = new ProgressDialog(ProductPageActivity.this, R.style.AppTheme_Dark_Dialog);
-                progressDialog.setIndeterminate(true);
-                progressDialog.setMessage("Downloading Article, Just for once....");
-                progressDialog.setTitle("Object Downloading");
-                progressDialog.show();
+            public void onTabSelected(TabLayout.Tab tab) {          }
 
-                new android.os.Handler().postDelayed(
-                        new Runnable() {
-                            public void run() {
-                                try {
-                                    addModelFolder();
-                                    extended_url = file_url + Article_Id + ".zip";
-                                    Log.e(TAG, "URL ---------- " + extended_url);
-                                    new DownloadManager(extended_url, Article_Name, Article_Id);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {         }
 
-                                    if (zip_file.exists()) {
-                                        new UnzipUtil(ZipFileLocation, ExtractLocation);
-                                    } else {
-                                        Toast.makeText(ProductPageActivity.this, "Failed to download the Files", Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    zip_downloaded = true;
-                                    Log.e(TAG, "Zip Downloaded ---------- " + zip_downloaded);
-                                    progressDialog.dismiss();
-                                    article_download.setVisibility(View.GONE);
-                                    article_3d_view.setEnabled(true);
-                                    note.setVisibility(View.GONE);
-
-                                } catch (IOException e) {
-                                    article_download.setVisibility(View.VISIBLE);
-                                    article_3d_view.setEnabled(false);
-                                    zip_downloaded = false;
-                                    Log.e(TAG, "Zip Not Downloaded ---------- " + zip_downloaded);
-                                    e.printStackTrace();
-                                    note.setVisibility(View.VISIBLE);
-                                }
-                            }
-                        }, 6000);
-            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {         }
         });
 
-        article_3d_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (zip_downloaded == true) {
-
-                    Bundle b3 = new Bundle();
-                    b3.putString("article_name", Article_Name);
-                    b3.putString("article_position", article_position);
-                    Log.e(TAG, "Article Name--" + b3.getCharSequence("article_name"));
-                    Log.e(TAG, "article position--" + b3.getCharSequence("article_position"));
-                    Intent _3dintent = new Intent(ProductPageActivity.this, Article3dViewActivity.class).putExtras(b3);
-                    startActivity(_3dintent);
-
-                }
-//              else {
-//                    Toast.makeText(ProductPageActivity.this, "Can't provide the 3d View, unless the Object is Downloaded, \n Please Click the download button beside", Toast.LENGTH_SHORT).show();
-//                }
-            }
-        });
-
-
-        article_share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "L_CATALOGUE");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "If you want to know more details Click here to visit http://lucidleanlabs.com/ ");
-                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-            }
-        });
-
-        article_augment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProductPageActivity.this, ARNativeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        init();
-
-        addBottomDots(0);
-
-        final Handler handler = new Handler();
-        final Runnable update = new Runnable() {
-            @Override
-            public void run() {
-                if (page_position == slider_images.size()) {
-                    page_position = 0;
-                } else {
-                    page_position = page_position + 1;
-                }
-                ArticleViewPager.setCurrentItem(page_position, true);
-            }
-        };
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(update);
-            }
-        }, 2000, 5000);
-
-
-        prefManager4 = new PrefManager(this);
-        Log.e(TAG, "" + prefManager4.isFirstTimeLaunchScreen4());
-        if (prefManager4.isFirstTimeLaunchScreen4()) {
-            ShowcaseView();
-        }
-    }
-
-    // show case view for the product page Activity
-    private void ShowcaseView() {
-        prefManager4.setFirstTimeLaunchScreen4(false);
-        Log.e(TAG, "" + prefManager4.isFirstTimeLaunchScreen4());
-
-        final Display display = getWindowManager().getDefaultDisplay();
-        final TapTargetSequence sequence = new TapTargetSequence(this).targets(
-                // This tap target will target the back button, we just need to pass its containing toolbar
-                TapTarget.forView(findViewById(R.id.article_fav_icon), "Like", "Click here if u  like the product ")
-                        .cancelable(false)
-                        .targetRadius(30)
-                        .outerCircleColor(R.color.primary_darker)
-                        .id(1),
-                TapTarget.forView(findViewById(R.id.article_share_icon), "Share", "You can share the screen")
-                        .cancelable(false)
-                        .targetRadius(30)
-                        .outerCircleColor(R.color.primary_darker)
-                        .id(2),
-                TapTarget.forView(findViewById(R.id.article_augment_icon), "Augmnet", "You can Augment the Object")
-                        .cancelable(false)
-                        .targetRadius(30)
-                        .outerCircleColor(R.color.primary_darker)
-                        .id(3),
-                TapTarget.forView(findViewById(R.id.article_3dview_icon), "3d", "You can see the object in 3d View")
-                        .cancelable(false)
-                        .targetRadius(30)
-                        .outerCircleColor(R.color.primary_darker)
-                        .id(4),
-                TapTarget.forView(findViewById(R.id.article_download_icon), "Download", "Click Here for downloading the object")
-                        .targetRadius(30)
-                        .outerCircleColor(R.color.primary_darker)
-                        .id(5)
-
-
-        ).listener(new TapTargetSequence.Listener() {
-            @Override
-            public void onSequenceFinish() {
-            }
-
-            @Override
-            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-            }
-
-            @Override
-            public void onSequenceCanceled(TapTarget lastTarget) {
-            }
-        });
-        sequence.start();
-
-    }
-
-    /*creation of directory in external storage */
-    private void addModelFolder() throws IOException {
-        String state = Environment.getExternalStorageState();
-
-        File folder = null;
-        if (state.contains(Environment.MEDIA_MOUNTED)) {
-            Log.e(TAG, "Article Name--" + Article_Name);
-            folder = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + Article_Name);
-        }
-        assert folder != null;
-        if (!folder.exists()) {
-            boolean wasSuccessful = folder.mkdirs();
-            Log.e(TAG, "Model Directory is Created --- '" + wasSuccessful + "' Thank You !!");
-        }
     }
 
     private void getVendorData() throws JSONException {
@@ -417,17 +206,18 @@ public class ProductPageActivity extends AppCompatActivity {
                 try {
                     JSONObject resp = response.getJSONObject("resp");
                     vendor_id = resp.getString("id");
-                    Log.e(TAG, "vendor ID--" + vendor_id);
                     vendor_name = resp.getString("name");
-                    Log.e(TAG, "vendor Name--" + vendor_name);
                     vendor_address = resp.getString("code");
-                    Log.e(TAG, "vendor Address--" + vendor_address);
                     vendor_image = resp.getString("logo");
+
+                    Log.e(TAG, "vendor ID--" + vendor_id);
+                    Log.e(TAG, "vendor Name--" + vendor_name);
+                    Log.e(TAG, "vendor Address--" + vendor_address);
                     Log.e(TAG, "vendor Image--" + vendor_image);
 
-                    article_vendor_name.setText(vendor_name);
-                    article_vendor_location.setText(vendor_address);
-                    new DownloadImageTask(vendor_logo).execute(vendor_image);
+//                    article_vendor_name.setText(vendor_name);
+//                    article_vendor_location.setText(vendor_address);
+//                    new DownloadImageTask(vendor_logo).execute(vendor_image);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -465,57 +255,6 @@ public class ProductPageActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*Image slider in product page Activity */
-    private void init() {
-
-        final String[] Images = {image1, image2, image3, image4, image5};
-
-        Collections.addAll(slider_images, Images);
-
-        ArticleViewPager = (ViewPager) findViewById(R.id.article_view_pager);
-        imagesliderAdapter = new ImageSliderAdapter(ProductPageActivity.this, slider_images);
-        ArticleViewPager.setAdapter(imagesliderAdapter);
-
-        Slider_dots = (LinearLayout) findViewById(R.id.article_slider_dots);
-
-        ArticleViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                addBottomDots(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-    }
-
-    /*Image Slider Indicators for the product page Activity*/
-    private void addBottomDots(int currentPage) {
-        dots = new TextView[slider_images.size()];
-
-        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
-        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
-
-        Slider_dots.removeAllViews();
-
-        for (int i = 0; i < dots.length; i++) {
-            dots[i] = new TextView(this);
-            dots[i].setText(Html.fromHtml("&#8226;"));
-            dots[i].setTextSize(35);
-            dots[i].setTextColor(colorsInactive[currentPage]);
-            Slider_dots.addView(dots[i]);
-        }
-
-        if (dots.length > 0)
-            dots[currentPage].setTextColor(colorsActive[currentPage]);
-    }
-
     @Override
     public void onBackPressed() {
         setResult(RESULT_CANCELED);
@@ -538,6 +277,4 @@ public class ProductPageActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
     }
-
 }
-

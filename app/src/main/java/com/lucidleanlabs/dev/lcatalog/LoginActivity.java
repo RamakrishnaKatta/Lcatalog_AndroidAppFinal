@@ -9,6 +9,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -28,7 +29,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
+import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
 
 import org.json.JSONException;
@@ -41,6 +45,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
+    private PrefManager prefManager5;
+
+
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private static final int REQUEST_LOGIN = 0;
@@ -123,6 +130,28 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+        prefManager5 = new PrefManager(this);
+        Log.e(TAG, "" + prefManager5.LoginActivityScreenLaunch());
+        if (prefManager5.LoginActivityScreenLaunch()) {
+            showcaseview();
+        }
+    }
+
+    private void showcaseview() {
+        prefManager5.SetLoginActivityScreenLaunch(false);
+        Log.e(TAG, "" + prefManager5.LoginActivityScreenLaunch());
+
+        final Display display = getWindowManager().getDefaultDisplay();
+        TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btn_get_data), "Click here to autofill your recent Details ")
+                        .cancelable(false)
+                        .tintTarget(false)
+                        .textColor(R.color.white)
+                , new TapTargetView.Listener() {
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);
+                    }
+                });
     }
 
     private void setData() {

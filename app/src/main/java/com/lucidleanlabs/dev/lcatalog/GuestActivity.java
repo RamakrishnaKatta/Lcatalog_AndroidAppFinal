@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -93,20 +92,19 @@ public class GuestActivity extends AppCompatActivity {
         });
 
         prefManager2 = new PrefManager(this);
-        Log.e(TAG, "" + prefManager2.isFirstTimeLaunchScreen2());
-        if (prefManager2.isFirstTimeLaunchScreen2()) {
+        Log.e(TAG, "" + prefManager2.GuestActivityScreenLaunch());
+        if (prefManager2.GuestActivityScreenLaunch()) {
             ShowcaseView();
         }
     }
 
     private void ShowcaseView() {
-        prefManager2.setFirstTimeLaunchScreen2(false);
-        Log.e(TAG, "" + prefManager2.isFirstTimeLaunchScreen2());
+        prefManager2.setGuestActivityScreenLaunch(false);
+        Log.e(TAG, "" + prefManager2.GuestActivityScreenLaunch());
 
         final Display display = getWindowManager().getDefaultDisplay();
         TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btn_get_data), "Click here to autofill your recent credentials ")
                         .cancelable(false)
-                        .targetRadius(30)
                         .tintTarget(false)
                         .textColor(R.color.white)
                 , new TapTargetView.Listener() {
