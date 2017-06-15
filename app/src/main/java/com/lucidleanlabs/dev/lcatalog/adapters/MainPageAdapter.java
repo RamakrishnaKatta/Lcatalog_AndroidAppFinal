@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.lucidleanlabs.dev.lcatalog.IntroductionActivity;
-import com.lucidleanlabs.dev.lcatalog.OverviewActivity;
+import com.lucidleanlabs.dev.lcatalog.Fragment_Illustration;
+import com.lucidleanlabs.dev.lcatalog.Fragment_Overview;
 
 public class MainPageAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
@@ -21,10 +21,10 @@ public class MainPageAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                IntroductionActivity tab1 = new IntroductionActivity();
+                Fragment_Illustration tab1 = new Fragment_Illustration();
                 return tab1;
             case 1:
-                OverviewActivity tab2 = new OverviewActivity();
+                Fragment_Overview tab2 = new Fragment_Overview();
                 return tab2;
             default:
                 return null;

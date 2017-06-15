@@ -202,7 +202,7 @@ public class LoginActivity extends AppCompatActivity {
         final String Credentials = email + "  ###  " + password;
         UserCheckUtil.writeToFile(Credentials, "customer");
         String text_file_date = UserCheckUtil.readFromFile("customer");
-        Log.d(TAG, "User Details-- " + text_file_date);
+        Log.e(TAG, "User Details-- " + text_file_date);
 
         final JSONObject login_parameters = new JSONObject();
         login_parameters.put("email", email);
@@ -306,7 +306,7 @@ public class LoginActivity extends AppCompatActivity {
         user_data.putString("phone", userPhone);
         user_data.putString("address", userAddress);
         user_data.putString("email", userEmail);
-        Log.d(TAG, "User -- " + user_data);
+        Log.e(TAG, "User -- " + user_data);
 
         Intent intent = new Intent(this, MainActivity.class).putExtras(user_data);
         startActivity(intent);

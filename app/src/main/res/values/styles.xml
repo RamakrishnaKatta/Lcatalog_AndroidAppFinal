@@ -46,7 +46,12 @@
 
     <style name="menu_labels_style">
         <item name="android:background">#FFFFFF</item>
-        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:textColor">@color/primary_darker</item>
+    </style>
+
+    <style name="NavigationViewStyle">
+        <item name="android:textSize">13sp</item> <!-- menu item text size-->
+        <item name="android:listPreferredItemHeightSmall">35dp</item><!-- menu item height-->
     </style>
 
 </resources>

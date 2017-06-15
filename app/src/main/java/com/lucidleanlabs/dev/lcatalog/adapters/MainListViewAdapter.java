@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lucidleanlabs.dev.lcatalog.OverviewActivity;
+import com.lucidleanlabs.dev.lcatalog.Fragment_Overview;
 import com.lucidleanlabs.dev.lcatalog.R;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 
@@ -25,7 +25,7 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
 
     private static final String TAG = "MainListViewAdapter";
 
-    private OverviewActivity activity;
+    private Fragment_Overview activity;
 
     private ArrayList<String> item_ids;
     private ArrayList<String> item_names;
@@ -33,7 +33,7 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
     private ArrayList<String> item_prices;
     private ArrayList<String> item_discounts;
 
-    public MainListViewAdapter(OverviewActivity activity,
+    public MainListViewAdapter(Fragment_Overview activity,
                                ArrayList<String> item_ids,
                                ArrayList<String> item_names,
                                ArrayList<String> item_images,

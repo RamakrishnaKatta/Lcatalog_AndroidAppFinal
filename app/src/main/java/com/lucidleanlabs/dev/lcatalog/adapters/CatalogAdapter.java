@@ -4,13 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 
-import com.lucidleanlabs.dev.lcatalog.IntroductionActivity;
-import com.lucidleanlabs.dev.lcatalog.OverviewActivity;
 import com.lucidleanlabs.dev.lcatalog.ProductDetails;
-import com.lucidleanlabs.dev.lcatalog.ProductPageActivity;
 import com.lucidleanlabs.dev.lcatalog.Product_new;
 
 public class CatalogAdapter extends FragmentStatePagerAdapter {

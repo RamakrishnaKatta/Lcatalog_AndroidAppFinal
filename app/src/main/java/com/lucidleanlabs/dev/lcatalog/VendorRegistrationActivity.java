@@ -81,53 +81,53 @@ public class VendorRegistrationActivity extends AppCompatActivity {
     }
 
     private void vendorRegister() throws JSONException {
-        Log.d(TAG, "Signup");
+        Log.e(TAG, "Signup");
 
-        Log.d(TAG, "KEY_V_COMPANYNAME--" + KEY_V_COMPANYNAME);
-        Log.d(TAG, "KEY_V_CONTACTPERSONNAME--" + KEY_V_CONTACTPERSONNAME);
-        Log.d(TAG, "KEY_V_TOTALMODELS--" + KEY_V_TOTALMODELS);
-        Log.d(TAG, "KEY_V_EMAIL--" + KEY_V_EMAIL);
-        Log.d(TAG, "KEY_V_ADDRESS--" + KEY_V_ADDRESS);
-        Log.d(TAG, "KEY_V_LOCATION--" + KEY_V_LOCATION);
-        Log.d(TAG, "KEY_V_STATE--" + KEY_V_STATE);
-        Log.d(TAG, "KEY_V_PIN--" + KEY_V_PIN);
-        Log.d(TAG, "KEY_V_MOBILENO--" + KEY_V_MOBILENO);
+        Log.e(TAG, "KEY_V_COMPANYNAME--" + KEY_V_COMPANYNAME);
+        Log.e(TAG, "KEY_V_CONTACTPERSONNAME--" + KEY_V_CONTACTPERSONNAME);
+        Log.e(TAG, "KEY_V_TOTALMODELS--" + KEY_V_TOTALMODELS);
+        Log.e(TAG, "KEY_V_EMAIL--" + KEY_V_EMAIL);
+        Log.e(TAG, "KEY_V_ADDRESS--" + KEY_V_ADDRESS);
+        Log.e(TAG, "KEY_V_LOCATION--" + KEY_V_LOCATION);
+        Log.e(TAG, "KEY_V_STATE--" + KEY_V_STATE);
+        Log.e(TAG, "KEY_V_PIN--" + KEY_V_PIN);
+        Log.e(TAG, "KEY_V_MOBILENO--" + KEY_V_MOBILENO);
 
         v_companyName = (EditText) findViewById(R.id.vendor_name);
         final String companyName = v_companyName.getText().toString().trim();
-        Log.d(TAG, "Company Name--" + companyName);
+        Log.e(TAG, "Company Name--" + companyName);
 
         v_companyContactPerson = (EditText) findViewById(R.id.vendor_contact_name);
         final String companyContactName = v_companyContactPerson.getText().toString().trim();
-        Log.d(TAG, "Company ContactName--" + companyContactName);
+        Log.e(TAG, "Company ContactName--" + companyContactName);
 
         v_companyAddress = (EditText) findViewById(R.id.vendor_address);
         final String companyAddress = v_companyAddress.getText().toString().trim();
-        Log.d(TAG, "Company Address--" + companyAddress);
+        Log.e(TAG, "Company Address--" + companyAddress);
 
         v_companyLocation = (EditText) findViewById(R.id.vendor_location);
         final String companyLocation = v_companyLocation.getText().toString().trim();
-        Log.d(TAG, "Company Location--" + companyLocation);
+        Log.e(TAG, "Company Location--" + companyLocation);
 
         v_companyState = (EditText) findViewById(R.id.vendor_state);
         final String companyState = v_companyState.getText().toString().trim();
-        Log.d(TAG, "Company State--" + companyState);
+        Log.e(TAG, "Company State--" + companyState);
 
         v_companyPin = (EditText) findViewById(R.id.vendor_pincode);
         final String companyPin = v_companyPin.getText().toString().trim();
-        Log.d(TAG, "company PinCode--" + companyPin);
+        Log.e(TAG, "company PinCode--" + companyPin);
 
         v_companyEmail = (EditText) findViewById(R.id.vendor_email);
         final String companyEmail = v_companyEmail.getText().toString().trim();
-        Log.d(TAG, "Company Email--" + companyEmail);
+        Log.e(TAG, "Company Email--" + companyEmail);
 
         v_companyMobileNo = (EditText) findViewById(R.id.vendor_mobile);
         final String companyMobileNo = v_companyMobileNo.getText().toString().trim();
-        Log.d(TAG, "company Mobile No--" + companyMobileNo);
+        Log.e(TAG, "company Mobile No--" + companyMobileNo);
 
         v_totalModels = (EditText) findViewById(R.id.vendor_modelcount);
         final String companyModelCount = v_totalModels.getText().toString().trim();
-        Log.d(TAG, "Company Model Count--" + companyModelCount);
+        Log.e(TAG, "Company Model Count--" + companyModelCount);
 
         if (!validate()) {
             onVendorRegistrationFailed();
@@ -150,11 +150,11 @@ public class VendorRegistrationActivity extends AppCompatActivity {
         vendor_request.put(KEY_V_EMAIL, companyEmail);
         vendor_request.put(KEY_V_MOBILENO, companyMobileNo);
         vendor_request.put(KEY_V_TOTALMODELS, companyModelCount);
-        Log.d(TAG, "vendor_request--" + vendor_request);
+        Log.e(TAG, "vendor_request--" + vendor_request);
 
         final JSONObject baseClass = new JSONObject();
         baseClass.put("request", vendor_request);
-        Log.d(TAG, "baseclass--" + baseClass);
+        Log.e(TAG, "baseclass--" + baseClass);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, baseClass, new Response.Listener<JSONObject>() {
 

@@ -15,6 +15,7 @@ import com.lucidleanlabs.dev.lcatalog.R;
 
 import org.artoolkit.ar.base.ARActivity;
 import org.artoolkit.ar.base.assets.AssetHelper;
+import org.artoolkit.ar.base.camera.CaptureCameraPreview;
 import org.artoolkit.ar.base.rendering.ARRenderer;
 
 import java.io.File;
@@ -37,7 +38,7 @@ public class ARNativeActivity extends ARActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Screen Shot", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                Snackbar.make(view, "Ready to take a Screenshot", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 takeScreenshot();
             }
         });

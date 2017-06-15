@@ -189,12 +189,12 @@ public class GuestActivity extends AppCompatActivity {
         Bundle user_data = new Bundle();
         user_data.putString("guest_name", guest_name);
         user_data.putString("guest_phone", guest_phone);
-        Log.d(TAG, "User -- " + user_data);
+        Log.e(TAG, "User -- " + user_data);
 
         final String Credentials = guest_name + "  ###  " + guest_phone;
         UserCheckUtil.writeToFile(Credentials, "guest");
         String text_file_date = UserCheckUtil.readFromFile("guest");
-        Log.d(TAG, "User Details-- " + text_file_date);
+        Log.e(TAG, "User Details-- " + text_file_date);
 
         Intent intent = new Intent(this, MainActivity.class).putExtras(user_data);
         startActivity(intent);

@@ -91,7 +91,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void submit() throws JSONException {
-        Log.d(TAG, "Password Update Request");
+        Log.e(TAG, "Password Update Request");
 
         if (!validate()) {
             onSubmitFailed();

@@ -109,7 +109,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
          */
 
         File f = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + model_name + "/" + "article_view.3ds");
-        Log.d(TAG, "User -- " + f);
+        Log.e(TAG, "User -- " + f);
         InputStream stream = null;
         try {
             stream = new FileInputStream(f);

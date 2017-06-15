@@ -27,9 +27,9 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-public class OverviewActivity extends Fragment {
+public class Fragment_Overview extends Fragment {
 
-    private static final String TAG = "OverviewActivity";
+    private static final String TAG = "Fragment_Overview";
 
     private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/article/all";
 

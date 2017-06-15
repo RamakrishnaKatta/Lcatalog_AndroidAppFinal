@@ -248,11 +248,6 @@ public class CatalogActivity extends AppCompatActivity {
         Log.e(TAG, "images******" + item_images);
         Log.e(TAG, "dimensions******" + item_dimensions);
 
-        Bundle bundle = new Bundle();
-        bundle.putString(String.valueOf(item_names),"name");
-        Product_new product_new = new Product_new();
-        product_new.setArguments(bundle);
-
         GridLayoutManager gridManager = new GridLayoutManager(this, 2);
         grid_recycler.setLayoutManager(gridManager);
         GridViewAdapter gridAdapter = new GridViewAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);

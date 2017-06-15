@@ -103,35 +103,35 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void signup() throws JSONException {
-        Log.d(TAG, "Signup");
+        Log.e(TAG, "Signup");
 
-        Log.d(TAG, "KEY_USERNAME--" + KEY_USERNAME);
-        Log.d(TAG, "KEY_PASSWORD--" + KEY_PASSWORD);
-        Log.d(TAG, "KEY_EMAIL--" + KEY_EMAIL);
-        Log.d(TAG, "KEY_MOBILE_NO--" + KEY_MOBILE_NO);
-        Log.d(TAG, "KEY_ADDRESS--" + KEY_ADDRESS);
-        Log.d(TAG, "KEY_TYPE--" + KEY_TYPE);
-        Log.d(TAG, "KEY_VENDORID--" + KEY_VENDORID);
+        Log.e(TAG, "KEY_USERNAME--" + KEY_USERNAME);
+        Log.e(TAG, "KEY_PASSWORD--" + KEY_PASSWORD);
+        Log.e(TAG, "KEY_EMAIL--" + KEY_EMAIL);
+        Log.e(TAG, "KEY_MOBILE_NO--" + KEY_MOBILE_NO);
+        Log.e(TAG, "KEY_ADDRESS--" + KEY_ADDRESS);
+        Log.e(TAG, "KEY_TYPE--" + KEY_TYPE);
+        Log.e(TAG, "KEY_VENDORID--" + KEY_VENDORID);
 
         _nameText = (EditText) findViewById(R.id.input_name);
         final String name = _nameText.getText().toString().trim();
-        Log.d(TAG, "name--" + name);
+        Log.e(TAG, "name--" + name);
 
         _addressText = (EditText) findViewById(R.id.input_address);
         final String address = _addressText.getText().toString().trim();
-        Log.d(TAG, "address--" + address);
+        Log.e(TAG, "address--" + address);
 
         _emailText = (EditText) findViewById(R.id.input_email);
         final String email = _emailText.getText().toString().trim();
-        Log.d(TAG, "email--" + email);
+        Log.e(TAG, "email--" + email);
 
         _mobileText = (EditText) findViewById(R.id.input_mobile);
         final String mobile = _mobileText.getText().toString().trim();
-        Log.d(TAG, "mobile--" + mobile);
+        Log.e(TAG, "mobile--" + mobile);
 
         _passwordText = (EditText) findViewById(R.id.input_password);
         final String password = _passwordText.getText().toString().trim();
-        Log.d(TAG, "password--" + password);
+        Log.e(TAG, "password--" + password);
 
         _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
 
@@ -150,24 +150,24 @@ public class SignupActivity extends AppCompatActivity {
 
         JSONObject request = new JSONObject();
         request.put("name", name);
-        Log.d(TAG, "name--" + name);
+        Log.e(TAG, "name--" + name);
         request.put("address", address);
-        Log.d(TAG, "address--" + address);
+        Log.e(TAG, "address--" + address);
         request.put("email", email);
-        Log.d(TAG, "email--" + email);
+        Log.e(TAG, "email--" + email);
         request.put("mobileNo", mobile);
-        Log.d(TAG, "mobile--" + mobile);
+        Log.e(TAG, "mobile--" + mobile);
         request.put("password", password);
-        Log.d(TAG, "password--" + password);
+        Log.e(TAG, "password--" + password);
         request.put("type", "CUSTOMER");
         // This Value should be changed when a user is reggistered under specific customer
         request.put("vendorId", "100000");
 
-        Log.d(TAG, "request--" + request);
+        Log.e(TAG, "request--" + request);
 
         JSONObject baseClass = new JSONObject();
         baseClass.put("request", request);
-        Log.d(TAG, "baseclass--" + baseClass);
+        Log.e(TAG, "baseclass--" + baseClass);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, baseClass, new Response.Listener<JSONObject>() {
             @Override
@@ -177,7 +177,7 @@ public class SignupActivity extends AppCompatActivity {
                     response = baseClass.getString("resp");
                     code = baseClass.getString("code");
                     message = baseClass.getString("message");
-                    Log.d(TAG, "response--" + response + "code--" + code + "message--" + message);
+                    Log.e(TAG, "response--" + response + "code--" + code + "message--" + message);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

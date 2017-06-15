@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/primary"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/primary_darker"
     android:orientation="vertical"
     android:paddingBottom="5dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -39,22 +39,22 @@
         android:id="@+id/lucidleanlabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:paddingTop="5dp"
+        android:gravity="center"
         android:text="@string/powered_lucidleanlabs"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <View
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="@color/white" />
 
     <TextView
         android:id="@+id/guest_image"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:paddingTop="3dp"
         android:text=""
         android:textColor="@color/black"
@@ -70,6 +70,7 @@
             android:id="@+id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="left"
             android:paddingTop="3dp"
             android:text="Hi, "
             android:textColor="@color/white"
@@ -79,6 +80,7 @@
             android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="left"
             android:paddingTop="3dp"
             android:text="@string/Logged_userName"
             android:textColor="@color/white"
@@ -88,9 +90,10 @@
 
     <TextView
         android:id="@+id/user_email"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoLink="email"
+        android:gravity="left"
         android:text="Email / phone number"
         android:textColor="@color/white"
         android:textSize="12sp" />

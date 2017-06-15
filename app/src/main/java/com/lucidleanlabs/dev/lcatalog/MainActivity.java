@@ -368,7 +368,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this, "Successfully Logged Out", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, LoginActivity.class);
+            Intent intent = new Intent(this, UserTypeActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_about) {
