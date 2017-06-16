@@ -3,10 +3,13 @@ package com.lucidleanlabs.dev.lcatalog;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.lucidleanlabs.dev.lcatalog.adapters.FullScreenImageAdapter;
 import com.lucidleanlabs.dev.lcatalog.utils.ImageUtils;
+import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 
 public class FullScreenImageViewActivity extends Activity {
 
@@ -28,6 +31,32 @@ public class FullScreenImageViewActivity extends Activity {
 
         // displaying selected image first
         viewPager.setCurrentItem(position);
+
+        if (NetworkConnectivity.checkInternetConnection(FullScreenImageViewActivity.this)){
+
+        }else {
+            InternetMessage();
+        }
+
+    }
+
+    private void InternetMessage() {
+        final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
+        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("RETRY", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+                if (NetworkConnectivity.checkInternetConnection(FullScreenImageViewActivity.this)) {
+
+                } else {
+
+                    InternetMessage();
+                    // CustomMessage.getInstance().CustomMessage(this,"Check Your Internet connection.");
+                }
+            }
+        });
+        snackbar.show();
     }
 
     @Override

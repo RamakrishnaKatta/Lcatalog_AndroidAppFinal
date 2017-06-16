@@ -1,6 +1,7 @@
 package com.lucidleanlabs.dev.lcatalog;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.lucidleanlabs.dev.lcatalog.adapters.NotificationAdapter;
+import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,7 +72,33 @@ public class NotifyActivity extends AppCompatActivity {
 
         GetNotificationData();
 
+        if (NetworkConnectivity.checkInternetConnection(NotifyActivity.this)){
+
+        }else {
+            InternetMessage();
+        }
     }
+
+    private void InternetMessage() {
+        final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
+        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("RETRY", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+                if (NetworkConnectivity.checkInternetConnection(NotifyActivity.this)) {
+                    Intent intent =  new Intent(NotifyActivity.this,AboutUsActivity.class);
+                    startActivity(intent);
+                } else {
+
+                    InternetMessage();
+                    // CustomMessage.getInstance().CustomMessage(this,"Check Your Internet connection.");
+                }
+            }
+        });
+        snackbar.show();
+    }
+
 
     private void GetNotificationData() {
         final ProgressDialog loading = ProgressDialog.show(this, "Please wait...", "Fetching data...", false, false);
@@ -114,6 +142,8 @@ public class NotifyActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+
+
     private void NotificationView(JSONArray resp) {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.Notification_recycler);
         recyclerView.setHasFixedSize(true);
@@ -151,6 +181,7 @@ public class NotifyActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onResume() {

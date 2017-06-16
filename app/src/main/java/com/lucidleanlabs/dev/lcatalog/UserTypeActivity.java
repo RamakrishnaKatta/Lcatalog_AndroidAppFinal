@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -23,6 +24,7 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
+import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 
 import java.io.File;
@@ -161,28 +163,50 @@ public class UserTypeActivity extends AppCompatActivity {
             Log.e(TAG, "Enter this loop of Folder Creation");
             CreateFolderStructure();
         }
-        checkInternetConnection();
-    }
+       // checkInternetConnection();
+        if (NetworkConnectivity.checkInternetConnection(UserTypeActivity.this)){
 
-    private boolean checkInternetConnection() {
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec = (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if (connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTING) {
-
-            // if connected with internet
-            return true;
-        } else if (
-                connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED) {
-
-            Toast.makeText(this, " Internet Not Available  ", Toast.LENGTH_LONG).show();
-            return false;
+        }else {
+            InternetMessage();
         }
-        return false;
     }
+
+    private void InternetMessage() {
+        final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
+        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        snackbar.setActionTextColor(getResources().getColor(R.color.red));
+        snackbar.setAction("RETRY", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+                if (NetworkConnectivity.checkInternetConnection(UserTypeActivity.this)) {
+                } else {
+                    InternetMessage();
+                }
+            }
+        });
+        snackbar.show();
+    }
+
+//    private boolean checkInternetConnection() {
+//        // get Connectivity Manager object to check connection
+//        ConnectivityManager connec = (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+//
+//        // Check for network connections
+//        if (connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTED ||
+//                connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTING) {
+//
+//            // if connected with internet
+//            return true;
+//        } else if (
+//                connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+//                        connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED) {
+//
+//            Toast.makeText(this, " Internet Not Available  ", Toast.LENGTH_LONG).show();
+//            return false;
+//        }
+//        return false;
+//    }
 
     private void CreateFolderStructure() {
         String root_Path = Environment.getExternalStorageDirectory().toString() + "//L_CATALOGUE";

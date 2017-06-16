@@ -3,6 +3,7 @@ package com.lucidleanlabs.dev.lcatalog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
+import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,6 +80,29 @@ public class VendorRegistrationActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (NetworkConnectivity.checkInternetConnection(VendorRegistrationActivity.this)){
+
+        }else {
+            InternetMessage();
+        }
+    }
+
+    private void InternetMessage() {
+        final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
+        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        snackbar.setActionTextColor(getResources().getColor(R.color.red));
+        snackbar.setAction("RETRY", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+                if (NetworkConnectivity.checkInternetConnection(VendorRegistrationActivity.this)) {
+                } else {
+                    InternetMessage();
+                }
+            }
+        });
+        snackbar.show();
     }
 
     private void vendorRegister() throws JSONException {

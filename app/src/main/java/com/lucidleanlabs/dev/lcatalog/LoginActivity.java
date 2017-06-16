@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
@@ -32,6 +33,7 @@ import com.android.volley.toolbox.Volley;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
+import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
 
@@ -135,7 +137,31 @@ public class LoginActivity extends AppCompatActivity {
         if (prefManager5.LoginActivityScreenLaunch()) {
             showcaseview();
         }
+
+        if (NetworkConnectivity.checkInternetConnection(LoginActivity.this)){
+
+        }else {
+            InternetMessage();
+        }
     }
+
+    private void InternetMessage() {
+        final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
+        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        snackbar.setActionTextColor(getResources().getColor(R.color.red));
+        snackbar.setAction("RETRY", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+                if (NetworkConnectivity.checkInternetConnection(LoginActivity.this)) {
+                } else {
+                    InternetMessage();
+                }
+            }
+        });
+        snackbar.show();
+    }
+
 
     private void showcaseview() {
         prefManager5.SetLoginActivityScreenLaunch(false);

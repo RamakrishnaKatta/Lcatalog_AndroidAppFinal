@@ -3,6 +3,7 @@ package com.lucidleanlabs.dev.lcatalog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.lucidleanlabs.dev.lcatalog.adapters.GridViewAdapter;
 import com.lucidleanlabs.dev.lcatalog.adapters.ListViewHorizontalAdapter;
 import com.lucidleanlabs.dev.lcatalog.adapters.ListViewVerticalAdapter;
+import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -154,6 +156,32 @@ public class CatalogActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (NetworkConnectivity.checkInternetConnection(CatalogActivity.this)){
+
+        }else {
+            InternetMessage();
+        }
+    }
+
+    /*Internet message for Network connectivity
+    * */
+
+    private void InternetMessage() {
+        final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
+        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        snackbar.setActionTextColor(getResources().getColor(R.color.red));
+        snackbar.setAction("RETRY", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+                if (NetworkConnectivity.checkInternetConnection(CatalogActivity.this)) {
+                } else {
+                    InternetMessage();
+                }
+            }
+        });
+        snackbar.show();
     }
 
     /*Json for the Articles in different views*/

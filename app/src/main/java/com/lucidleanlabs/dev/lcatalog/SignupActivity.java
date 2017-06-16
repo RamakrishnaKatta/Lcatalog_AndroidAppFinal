@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
+import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -100,6 +102,28 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+        if (NetworkConnectivity.checkInternetConnection(SignupActivity.this)){
+
+        }else {
+            InternetMessage();
+        }
+    }
+
+    private void InternetMessage() {
+        final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
+        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        snackbar.setActionTextColor(getResources().getColor(R.color.red));
+        snackbar.setAction("RETRY", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+                if (NetworkConnectivity.checkInternetConnection(SignupActivity.this)) {
+                } else {
+                    InternetMessage();
+                }
+            }
+        });
+        snackbar.show();
     }
 
     public void signup() throws JSONException {

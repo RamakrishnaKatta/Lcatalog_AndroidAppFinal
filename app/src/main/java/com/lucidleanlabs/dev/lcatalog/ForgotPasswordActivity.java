@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
+import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,7 +90,33 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (NetworkConnectivity.checkInternetConnection(ForgotPasswordActivity.this)){
+
+        }else {
+            InternetMessage();
+        }
     }
+
+    private void InternetMessage() {
+        final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
+        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("RETRY", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+                if (NetworkConnectivity.checkInternetConnection(ForgotPasswordActivity.this)) {
+
+                } else {
+
+                    InternetMessage();
+                    // CustomMessage.getInstance().CustomMessage(this,"Check Your Internet connection.");
+                }
+            }
+        });
+        snackbar.show();
+    }
+
 
     private void submit() throws JSONException {
         Log.e(TAG, "Password Update Request");

@@ -1,15 +1,20 @@
 package com.lucidleanlabs.dev.lcatalog;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridView;
 
 import com.lucidleanlabs.dev.lcatalog.adapters.GridViewImageAdapter;
 import com.lucidleanlabs.dev.lcatalog.utils.ImageUtils;
+import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 
 import java.util.ArrayList;
 
@@ -55,6 +60,31 @@ public class GalleryActivity extends AppCompatActivity {
 
         // setting grid view adapter
         gridView.setAdapter(adapter);
+
+        if (NetworkConnectivity.checkInternetConnection(GalleryActivity.this)){
+
+        }else {
+            InternetMessage();
+        }
+    }
+
+    private void InternetMessage() {
+        final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
+        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("RETRY", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+                if (NetworkConnectivity.checkInternetConnection(GalleryActivity.this)) {
+
+                } else {
+
+                    InternetMessage();
+                    // CustomMessage.getInstance().CustomMessage(this,"Check Your Internet connection.");
+                }
+            }
+        });
+        snackbar.show();
     }
 
     private void InitilizeGridLayout() {

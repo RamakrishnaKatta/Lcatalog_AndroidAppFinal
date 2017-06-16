@@ -48,6 +48,12 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
         linearLayout.setVisibility(View.VISIBLE);
         linearLayout.startAnimation(animFadeIn);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        if (NetworkConnectivity.checkInternetConnection(SplashScreenActivity.this)){
+
+        }else {
+            InternetMessage();
+        }
     }
 
     @Override
@@ -59,7 +65,8 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
 
         final View v = this.getWindow().getDecorView().findViewById(android.R.id.content);
         final Snackbar snackBar = Snackbar.make(v, "Check Your Internet connection.", Snackbar.LENGTH_INDEFINITE);
-        snackBar.setActionTextColor(Color.parseColor("#FF7373"));
+        snackBar.setActionTextColor(getResources().getColor(R.color.red));
+        //  snackBar.setActionTextColor(Color.parseColor("#FF7373"));
         snackBar.setAction("RETRY", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
