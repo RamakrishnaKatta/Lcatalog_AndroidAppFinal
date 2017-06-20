@@ -9,13 +9,13 @@
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_10"
             android:orientation="vertical">
 
             <TextView
@@ -33,7 +33,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="50"
-                android:padding="3dp"
+                android:padding="@dimen/margin_3"
                 android:text="please display the text here............"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -41,14 +41,14 @@
             <View
                 android:id="@+id/layout_separator2"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/margin_1"
                 android:background="@color/white" />
 
             <TextView
                 android:id="@+id/article_description"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="3dp"
+                android:padding="@dimen/margin_3"
                 android:text="DESCRIPTION :"
                 android:textColor="@color/white"
                 android:textSize="13sp"
@@ -59,7 +59,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="200"
-                android:padding="3dp"
+                android:padding="@dimen/margin_3"
                 android:text="Description of the product will be displayed here and also the the related products "
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -68,13 +68,13 @@
         <View
             android:id="@+id/layout_separator3"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/margin_1"
             android:background="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
+            android:layout_margin="@dimen/margin_3"
             android:orientation="horizontal">
 
             <TextView
@@ -82,10 +82,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/black"
-                android:paddingBottom="2dp"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
-                android:paddingTop="2dp"
+                android:paddingBottom="@dimen/margin_2"
+                android:paddingLeft="@dimen/margin_6"
+                android:paddingRight="@dimen/margin_6"
+                android:paddingTop="@dimen/margin_2"
                 android:text="4.3 *"
                 android:textColor="@color/white"
                 android:textSize="12sp"
@@ -95,7 +95,7 @@
                 android:id="@+id/text_ratings_reviews"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
+                android:layout_marginLeft="@dimen/margin_12"
                 android:text="50 ratings \u0026 15 reviews"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -105,13 +105,13 @@
         <View
             android:id="@+id/layout_separator4"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/margin_1"
             android:background="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="@dimen/margin_3"
             android:orientation="vertical">
 
             <LinearLayout
@@ -124,7 +124,7 @@
                     android:id="@+id/article_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:padding="@dimen/margin_5"
                     android:text="ORIGINAL PRICE :"
                     android:textColor="@color/white"
                     android:textSize="13sp"
@@ -134,14 +134,14 @@
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_gravity="center"
-                    android:padding="5dp"
+                    android:padding="@dimen/margin_5"
                     android:src="@drawable/greyrupee" />
 
                 <TextView
                     android:id="@+id/article_price_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingRight="20dp"
+                    android:paddingRight="@dimen/margin_20"
                     android:text="1000 Rs"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
@@ -151,10 +151,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/black"
-                    android:paddingBottom="3dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="3dp"
+                    android:paddingBottom="@dimen/margin_3"
+                    android:paddingLeft="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10"
+                    android:paddingTop="@dimen/margin_3"
                     android:text="20% OFF"
                     android:textAlignment="center"
                     android:textColor="@color/red"
@@ -172,7 +172,7 @@
                     android:id="@+id/article_price_new"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:padding="@dimen/margin_5"
                     android:text="AFTER DISCOUNT PRICE :"
                     android:textColor="@color/white"
                     android:textSize="13sp"
@@ -182,14 +182,14 @@
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_gravity="center"
-                    android:padding="5dp"
+                    android:padding="@dimen/margin_5"
                     android:src="@drawable/greyrupee" />
 
                 <TextView
                     android:id="@+id/article_price_value_new"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingRight="20dp"
+                    android:paddingRight="@dimen/margin_20"
                     android:text="800 Rs"
                     android:textColor="@color/white"
                     android:textColorHint="@color/jet"
@@ -203,13 +203,13 @@
         <View
             android:id="@+id/layout_separator5"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/margin_1"
             android:background="@color/white" />
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="@dimen/margin_3"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="3">
@@ -224,7 +224,7 @@
                     android:id="@+id/article_width"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:padding="@dimen/margin_3"
                     android:text="WIDTH :"
                     android:textColor="@color/white"
                     android:textSize="13sp"
@@ -234,7 +234,7 @@
                     android:id="@+id/article_width_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:padding="@dimen/margin_3"
                     android:text="30 inches"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
@@ -251,7 +251,7 @@
                     android:id="@+id/article_length"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:padding="@dimen/margin_3"
                     android:text="LENGTH :"
                     android:textColor="@color/white"
                     android:textSize="13sp"
@@ -261,7 +261,7 @@
                     android:id="@+id/article_length_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:padding="@dimen/margin_3"
                     android:text="25 inches"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
@@ -278,7 +278,7 @@
                     android:id="@+id/article_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="3dp"
+                    android:padding="@dimen/margin_3"
                     android:text="HEIGHT :"
                     android:textColor="@color/white"
                     android:textSize="13sp"
@@ -289,7 +289,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLength="200"
-                    android:padding="3dp"
+                    android:padding="@dimen/margin_3"
                     android:text="20 inches"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
@@ -301,13 +301,13 @@
         <View
             android:id="@+id/layout_separator6"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/margin_1"
             android:background="@color/white" />
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="@dimen/margin_3"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -320,7 +320,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:padding="5dp"
+                    android:padding="@dimen/margin_5"
                     android:text="PROVIDED BY :"
                     android:textColor="@color/white"
                     android:textSize="12sp"
@@ -336,7 +336,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:padding="5dp"
+                        android:padding="@dimen/margin_5"
                         android:text="      NAME :"
                         android:textColor="@color/white"
                         android:textSize="12sp"
@@ -346,7 +346,7 @@
                         android:id="@+id/article_vendor_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="@dimen/margin_5"
                         android:text="CMR"
                         android:textColor="@color/white"
                         android:textSize="12sp"
@@ -362,7 +362,7 @@
                         android:id="@+id/article_vendor_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="@dimen/margin_3"
                         android:text=" ADDRESS :"
                         android:textColor="@color/white"
                         android:textSize="12sp"
@@ -372,7 +372,7 @@
                         android:id="@+id/article_vendor_address_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="@dimen/margin_3"
                         android:text="@string/dummy_address"
                         android:textColor="@color/white"
                         android:textSize="12sp"
@@ -387,7 +387,7 @@
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:padding="3dp">
+                android:padding="@dimen/margin_3">
 
                 <ImageView
                     android:id="@+id/article_vendor_logo"
@@ -400,7 +400,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
 </android.support.constraint.ConstraintLayout>
 

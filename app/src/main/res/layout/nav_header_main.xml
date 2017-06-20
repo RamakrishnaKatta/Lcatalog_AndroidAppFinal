@@ -17,7 +17,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingTop="10dp">
+        android:paddingTop="@dimen/margin_10">
 
         <ImageView
             android:id="@+id/icon_image"
@@ -29,7 +29,7 @@
             android:id="@+id/application_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="3dp"
+            android:paddingLeft="@dimen/margin_3"
             android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="30sp" />
@@ -47,7 +47,7 @@
 
     <View
         android:layout_width="wrap_content"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/margin_1"
         android:background="@color/white" />
 
     <TextView
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:paddingTop="3dp"
+        android:paddingTop="@dimen/margin_3"
         android:text=""
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:paddingTop="3dp"
+            android:paddingTop="@dimen/margin_3"
             android:text="Hi, "
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -81,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:paddingTop="3dp"
+            android:paddingTop="@dimen/margin_3"
             android:text="@string/Logged_userName"
             android:textColor="@color/white"
             android:textSize="18sp" />

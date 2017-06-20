@@ -17,7 +17,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/margin_10">
 
             <ImageView
                 android:id="@+id/icon"
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="10dp"
+                android:padding="@dimen/margin_10"
                 android:text="Welcome Aboard"
                 android:textColor="@color/white"
                 android:textSize="24sp"
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="10dp"
+                android:padding="@dimen/margin_10"
                 android:text="Firstly, Who you are matters !!"
                 android:textColor="@color/white"
                 android:textSize="24sp"
@@ -78,7 +78,7 @@
                     android:id="@+id/layout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
+                    android:layout_margin="@dimen/custom_margin"
                     android:gravity="left"
                     android:orientation="horizontal">
 
@@ -109,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/txt_customer_text"
-                        android:paddingLeft="10dp"
+                        android:paddingLeft="@dimen/margin_10"
                         android:text="   If you are a customer already..."
                         android:textColor="@color/white"
                         android:textStyle="italic" />
@@ -120,7 +120,7 @@
                     android:id="@+id/layout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_10"
                     android:gravity="left"
                     android:orientation="horizontal">
 
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/txt_new_customer_text"
-                        android:paddingLeft="10dp"
+                        android:paddingLeft="@dimen/margin_10"
                         android:text="If you want to become a customer..."
                         android:textColor="@color/white"
                         android:textStyle="italic" />
@@ -162,7 +162,7 @@
                     android:id="@+id/layout3"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_10"
                     android:gravity="left"
                     android:orientation="horizontal">
 
@@ -193,7 +193,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/txt_shopper_text"
-                        android:paddingLeft="10dp"
+                        android:paddingLeft="@dimen/margin_10"
                         android:text="  If you are a oneTime Shopper..."
                         android:textColor="@color/white"
                         android:textStyle="italic" />

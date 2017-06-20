@@ -1,6 +1,8 @@
 package com.lucidleanlabs.dev.lcatalog;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -157,6 +159,8 @@ public class CatalogActivity extends AppCompatActivity {
             }
         });
 
+        checkInternetConnection();
+
         if (NetworkConnectivity.checkInternetConnection(CatalogActivity.this)){
 
         }else {
@@ -164,8 +168,30 @@ public class CatalogActivity extends AppCompatActivity {
         }
     }
 
-    /*Internet message for Network connectivity
-    * */
+    /*Internet message for Network connectivity*/
+
+    private boolean checkInternetConnection() {
+        // get Connectivity Manager object to check connection
+        ConnectivityManager connec =
+                (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+
+        // Check for network connections
+        if (connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTED ||
+                connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.CONNECTING) {
+
+            // if connected with internet
+            return true;
+
+        } else if (
+                connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                        connec.getActiveNetworkInfo().getState() == android.net.NetworkInfo.State.DISCONNECTED) {
+
+            Toast.makeText(this, " Internet Not Available  ", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return false;
+    }
+
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
@@ -387,6 +413,14 @@ public class CatalogActivity extends AppCompatActivity {
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+
     }
 
     @Override

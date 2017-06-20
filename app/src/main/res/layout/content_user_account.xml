@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background"
         android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:paddingTop="30dp">
+        android:paddingLeft="@dimen/margin_24"
+        android:paddingRight="@dimen/margin_24"
+        android:paddingTop="@dimen/margin_30">
 
 
         <LinearLayout
@@ -123,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/custom_margin"
-            android:padding="12dp"
+            android:padding="@dimen/margin_12"
             android:text="EDIT PROFILE"
             android:visibility="visible" />
 
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/custom_margin"
-            android:padding="12dp"
+            android:padding="@dimen/margin_12"
             android:text="UPDATE PROFILE"
             android:visibility="gone" />
 

@@ -2,8 +2,8 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2.5dp"
-    android:padding="1dp">
+    android:layout_margin="@dimen/margin_2.5"
+    android:padding="@dimen/margin_1">
 
     <LinearLayout
         android:id="@+id/main_container"
@@ -17,7 +17,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="2dp">
+            android:padding="@dimen/margin_2">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,14 +26,14 @@
                 android:layout_weight="1"
                 android:background="@drawable/background_curves"
                 android:gravity="center"
-                android:padding="3dp">
+                android:padding="@dimen/margin_3">
 
                 <ImageView
                     android:id="@+id/main_image1"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:cropToPadding="true"
-                    android:padding="3dp"
+                    android:padding="@dimen/margin_3"
                     android:src="@drawable/dummy_icon" />
 
             </LinearLayout>
@@ -41,36 +41,36 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="2dp"
+                android:layout_marginRight="@dimen/margin_2"
                 android:layout_weight="1"
                 android:background="@drawable/background_curves"
                 android:gravity="center"
-                android:padding="3dp">
+                android:padding="@dimen/margin_3">
 
                 <ImageView
                     android:id="@+id/main_image2"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:cropToPadding="true"
-                    android:padding="3dp"
+                    android:padding="@dimen/margin_3"
                     android:src="@drawable/dummy_icon" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="2dp"
+                android:layout_marginRight="@dimen/margin_2"
                 android:layout_weight="1"
                 android:background="@drawable/background_curves"
                 android:gravity="center"
-                android:padding="3dp">
+                android:padding="@dimen/margin_3">
 
                 <ImageView
                     android:id="@+id/main_image3"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:cropToPadding="true"
-                    android:padding="3dp"
+                    android:padding="@dimen/margin_3"
                     android:src="@drawable/dummy_icon" />
 
             </LinearLayout>
@@ -81,21 +81,21 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="2dp">
+            android:padding="@dimen/margin_2">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_curves"
                 android:gravity="center"
-                android:padding="3dp">
+                android:padding="@dimen/margin_3">
 
                 <ImageView
                     android:id="@+id/main_image4"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:cropToPadding="true"
-                    android:padding="3dp"
+                    android:padding="@dimen/margin_3"
                     android:src="@drawable/dummy_icon" />
             </LinearLayout>
 
@@ -111,7 +111,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="3dp"
+                    android:padding="@dimen/margin_3"
                     android:text="I am the Name of the Article"
                     android:textColor="@color/primary_darker"
                     android:textSize="12sp"
@@ -126,7 +126,7 @@
                         android:id="@+id/main_item_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="@dimen/margin_3"
                         android:text="Rs 60000/-"
                         android:textColor="@color/red"
                         android:textSize="12sp" />
@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/black"
                         android:gravity="end"
-                        android:padding="3dp"
+                        android:padding="@dimen/margin_3"
                         android:text=" -60% "
                         android:textAlignment="center"
                         android:textColor="@color/red"
@@ -148,7 +148,7 @@
                         android:id="@+id/main_item_price_new"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="@dimen/margin_3"
                         android:text="800/-"
                         android:textColor="@color/primary_darker"
                         android:textSize="14sp"
@@ -159,7 +159,7 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_10"
                     android:gravity="center"
                     android:orientation="horizontal">
 

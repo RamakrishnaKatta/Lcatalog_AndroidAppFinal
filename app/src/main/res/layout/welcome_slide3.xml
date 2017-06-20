@@ -26,8 +26,8 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:orientation="vertical"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp">
+                android:paddingLeft="@dimen/margin_30"
+                android:paddingRight="@dimen/margin_30">
 
                 <ImageView
                     android:id="@+id/capture_image"
@@ -71,8 +71,8 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:orientation="vertical"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp">
+                android:paddingLeft="@dimen/margin_30"
+                android:paddingRight="@dimen/margin_30">
 
                 <TextView
                     android:id="@+id/txt_welcome_32"
@@ -100,9 +100,9 @@
             android:id="@+id/txt_welcome_33"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:layout_marginTop="@dimen/margin_10"
+            android:paddingLeft="@dimen/margin_10"
+            android:paddingRight="@dimen/margin_10"
             android:text="@string/slide3_desc"
             android:textAlignment="center"
             android:textColor="@android:color/white"
