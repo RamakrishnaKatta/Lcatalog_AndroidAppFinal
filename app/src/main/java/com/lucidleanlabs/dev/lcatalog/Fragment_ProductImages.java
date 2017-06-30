@@ -1,9 +1,9 @@
 package com.lucidleanlabs.dev.lcatalog;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +22,6 @@ import android.widget.Toast;
 import com.lucidleanlabs.dev.lcatalog.adapters.ImageSliderAdapter;
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadManager;
-import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 import com.lucidleanlabs.dev.lcatalog.utils.UnzipUtil;
 
 import org.json.JSONException;
@@ -36,30 +34,22 @@ import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static android.app.Activity.RESULT_CANCELED;
 
+public class Fragment_ProductImages extends Fragment {
 
-public class Product_new extends Fragment {
+    private static final String TAG = "Fragment_ProductImages";
 
-    private static final String TAG = "Product_new";
-
-    private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/vendor/by?id=";
     private static String FILE_URL = "http://35.154.252.64:8080/models/";
     private static String EXTENDED_URL;
 
-    private static String VENDOR_URL = null;
-
     LinearLayout note;
-    ImageView vendor_logo, article_image;
     ImageButton article_share, article_download, article_3d_view, article_augment;
-    TextView article_title, article_description, article_price, article_discount, article_width, article_height, article_length, article_price_new;
-    TextView article_vendor_name, article_vendor_location;
 
     String article_images;
     // article_images is split in to five parts and assigned to each string
     String image1, image2, image3, image4, image5;
 
-    String position, name, id, description;
+    String article_name, article_id;
 
     private ViewPager ArticleViewPager;
     private LinearLayout Slider_dots;
@@ -72,11 +62,14 @@ public class Product_new extends Fragment {
     private boolean zip_downloaded = true;
     File zip_file, object_3d_file;
 
+    public Fragment_ProductImages() {
+        // Required empty public constructor
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_product_new, container, false);
-
+        final View view = inflater.inflate(R.layout.fragment_product_images, container, false);
 
         article_share = (ImageButton) view.findViewById(R.id.article_share_icon);
         article_download = (ImageButton) view.findViewById(R.id.article_download_icon);
@@ -84,6 +77,8 @@ public class Product_new extends Fragment {
         article_augment = (ImageButton) view.findViewById(R.id.article_augment_icon);
 
         article_images = getArguments().getString("article_images");
+        article_name = getArguments().getString("article_name");
+        article_id = getArguments().getString("article_id");
 
         try {
             JSONObject image_json = new JSONObject(article_images);
@@ -103,7 +98,6 @@ public class Product_new extends Fragment {
         Log.e(TAG, "Article Image 4----" + image4);
         Log.e(TAG, "Article Image 5----" + image5);
 
-
         final String[] Images = {image1, image2, image3, image4, image5};
 
         Collections.addAll(slider_images, Images);
@@ -116,11 +110,33 @@ public class Product_new extends Fragment {
 
         ArticleViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
             @Override
             public void onPageSelected(int position) {
                 addBottomDots(position);
+            }
+
+            public void addBottomDots(int currentPage) {
+
+                dots = new TextView[slider_images.size()];
+
+                int[] colorsActive = view.getResources().getIntArray(R.array.array_dot_active);
+                int[] colorsInactive = view.getResources().getIntArray(R.array.array_dot_inactive);
+
+                Slider_dots.removeAllViews();
+
+                for (int i = 0; i < dots.length; i++) {
+                    dots[i] = new TextView(view.getContext());
+                    dots[i].setText(Html.fromHtml("&#8226;"));
+                    dots[i].setTextSize(35);
+                    dots[i].setTextColor(colorsInactive[currentPage]);
+                    Slider_dots.addView(dots[i]);
+                }
+
+                if (dots.length > 0)
+                    dots[currentPage].setTextColor(colorsActive[currentPage]);
             }
 
             @Override
@@ -129,16 +145,14 @@ public class Product_new extends Fragment {
             }
         });
 
-
-        Article_ZipFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + article_title + "/" + id + ".zip";
+        Article_ZipFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + article_name + "/" + article_id + ".zip";
         Log.e(TAG, "ZipFileLocation--" + Article_ZipFileLocation);
-        Article_ExtractLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + name + "/";
+        Article_ExtractLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + article_name + "/";
         Log.e(TAG, "ExtractLocation--" + Article_ExtractLocation);
-        Article_3DSFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + name + "/article_view.3ds";
+        Article_3DSFileLocation = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + article_name + "/article_view.3ds";
         Log.e(TAG, "Object3DFileLocation--" + Article_3DSFileLocation);
 
         note = (LinearLayout) view.findViewById(R.id.download_note);
-
 
         zip_file = new File(Article_ZipFileLocation);
         object_3d_file = new File(Article_3DSFileLocation);
@@ -168,9 +182,9 @@ public class Product_new extends Fragment {
                             public void run() {
                                 try {
                                     addModelFolder();
-                                    EXTENDED_URL = FILE_URL + id + ".zip";
+                                    EXTENDED_URL = FILE_URL + article_id + ".zip";
                                     Log.e(TAG, "URL ---------- " + EXTENDED_URL);
-                                    new DownloadManager(EXTENDED_URL, name, id);
+                                    new DownloadManager(EXTENDED_URL, article_name, article_id);
 
                                     if (zip_file.exists()) {
                                         new UnzipUtil(Article_ZipFileLocation, Article_ExtractLocation);
@@ -204,14 +218,12 @@ public class Product_new extends Fragment {
                 if (zip_downloaded == true) {
 
                     Bundle b3 = new Bundle();
-                    b3.putString("article_name", name);
-                    b3.putString("article_position", position);
+                    b3.putString("article_name", article_name);
                     Intent _3d_intent = new Intent(getContext(), Article3dViewActivity.class).putExtras(b3);
                     startActivity(_3d_intent);
                 }
             }
         });
-
 
         article_share.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,7 +244,7 @@ public class Product_new extends Fragment {
             }
         });
 
-        addBottomDots(0);
+//        addBottomDots(0);
 
         final Handler handler = new Handler();
         final Runnable update = new Runnable() {
@@ -257,6 +269,8 @@ public class Product_new extends Fragment {
 
     }
 
+
+
     /*creation of directory in external storage */
 
     private void addModelFolder() throws IOException {
@@ -264,8 +278,8 @@ public class Product_new extends Fragment {
 
         File folder = null;
         if (state.contains(Environment.MEDIA_MOUNTED)) {
-            Log.e(TAG, "Article Name--" + name);
-            folder = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + name);
+            Log.e(TAG, "Article Name--" + article_name);
+            folder = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Models/" + article_name);
         }
         assert folder != null;
         if (!folder.exists()) {
@@ -274,27 +288,53 @@ public class Product_new extends Fragment {
         }
     }
 
-    private void addBottomDots(int currentPage) {
-        dots = new TextView[slider_images.size()];
+//    private void addBottomDots(int currentPage) {
+//        dots = new TextView[slider_images.size()];
+//
+////        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
+////        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
+//
+//        Slider_dots.removeAllViews();
+//
+//        for (int i = 0; i < dots.length; i++) {
+//            dots[i] = new TextView(this.getActivity());
+//            dots[i].setText(String.valueOf(i));
+//            dots[i].setTextSize(16);
+//            dots[i].setTextColor(Color.WHITE);
+//            Slider_dots.addView(dots[i]);
+//        }
+//
+//        if (dots.length > 0)
+//            dots[currentPage].setTextColor(Color.RED);
+//    }
 
-        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
-        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
-
-        Slider_dots.removeAllViews();
-
-        for (int i = 0; i < dots.length; i++) {
-            dots[i] = new TextView(getContext());
-            dots[i].setText(Html.fromHtml("&#8226;"));
-            dots[i].setTextSize(35);
-            dots[i].setTextColor(colorsInactive[currentPage]);
-            Slider_dots.addView(dots[i]);
-        }
-
-        if (dots.length > 0)
-            dots[currentPage].setTextColor(colorsActive[currentPage]);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
+        Activity activity;
+        if (context instanceof Activity) {
+            activity = (Activity) context;
+        }
+    }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 }

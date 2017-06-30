@@ -4,19 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_darker"
-    tools:context="com.lucidleanlabs.dev.lcatalog.Product_new">
+    tools:context="com.lucidleanlabs.dev.lcatalog.Fragment_ProductImages">
 
     <LinearLayout
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/article_image_slider_area"
-            android:layout_width="match_parent"
-            android:layout_height="400dp">
+            android:layout_width="fill_parent"
+            android:layout_height="300dp">
 
             <ImageView
                 android:id="@+id/article_image_view"
@@ -34,7 +32,7 @@
                 android:id="@+id/article_slider_dots"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dots_height"
-                android:layout_alignParentBottom="true"
+                android:layout_alignBottom="@+id/article_view_pager"
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:orientation="horizontal" />

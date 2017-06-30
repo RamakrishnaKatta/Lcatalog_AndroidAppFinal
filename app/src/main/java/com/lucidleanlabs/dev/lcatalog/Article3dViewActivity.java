@@ -25,7 +25,7 @@ public class Article3dViewActivity extends AppCompatActivity {
     private MyGLSurfaceView mGLView;
     private MyGLRenderer mRenderer;
     private SeekBar scaleBar;
-    String position, name;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +43,6 @@ public class Article3dViewActivity extends AppCompatActivity {
         Bundle b3 = getIntent().getExtras();
         name = (String) b3.getCharSequence("article_name");
         Log.e(TAG, "Name ---- " + name);
-
-        position = (String) b3.getCharSequence("article_position");
-        Log.e(TAG, "Position ---- " + position);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_3dView);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +73,7 @@ public class Article3dViewActivity extends AppCompatActivity {
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
             // Set the renderer for the GLSurfaceView
-            mRenderer = new MyGLRenderer(this, position, name);
+            mRenderer = new MyGLRenderer(this, name);
             mGLView.setRenderer(mRenderer, displayMetrics.density);
 
         } else {

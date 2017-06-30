@@ -90,15 +90,13 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
      */
     private float[] mTemporaryMatrix = new float[16];
 
-    private String model_position, model_name;
+    private String model_name;
 
-    public MyGLRenderer(final Context activityContext, String position, String name) {
+    public MyGLRenderer(final Context activityContext, String name) {
 
         //We need to pass the Main activity context
         mActivityContext = activityContext;
-        model_position = position;
         model_name = name;
-
     }
 
     @Override
