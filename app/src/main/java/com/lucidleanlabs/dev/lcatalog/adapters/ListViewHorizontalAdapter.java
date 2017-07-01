@@ -3,6 +3,7 @@ package com.lucidleanlabs.dev.lcatalog.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -125,9 +126,10 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
 
         viewHolder.item_name.setText(item_names.get(position));
         viewHolder.item_description.setText(item_descriptions.get(position));
-        viewHolder.item_price.setText("ORIGINAL PRICE: Rs " + (Html.fromHtml("<strike>" + item_prices.get(position) + "</strike>")) + "/-");
-        viewHolder.item_discount.setText(" Discount - " + item_discounts.get(position) + "% OFF");
-        viewHolder.item_price_new.setText("AFTER DISCOUNT PRICE: Rs " + itemNewPrice + "/-");
+        viewHolder.item_price.setText((Html.fromHtml("<strike>" + item_prices.get(position) + "</strike>")));
+        viewHolder.item_price.setPaintFlags(viewHolder.item_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        viewHolder.item_discount.setText(item_discounts.get(position) + "% OFF");
+        viewHolder.item_price_new.setText(itemNewPrice + "/-");
 
 
         viewHolder.h_container.setOnClickListener(new View.OnClickListener() {

@@ -258,13 +258,11 @@ public class UserTypeActivity extends AppCompatActivity {
 
         final TapTargetSequence sequence = new TapTargetSequence(this).targets(
                 TapTarget.forView(findViewById(R.id.btn_customer), "Click here if you visited before")
-                        .cancelable(false)
                         .tintTarget(false)
                         .transparentTarget(true)
                         .textColor(R.color.white)
                         .id(1),
                 TapTarget.forView(findViewById(R.id.btn_shopper), "Click here if you are Guest visitor")
-                        .cancelable(false)
                         .tintTarget(false)
                         .transparentTarget(true)
                         .textColor(R.color.white)

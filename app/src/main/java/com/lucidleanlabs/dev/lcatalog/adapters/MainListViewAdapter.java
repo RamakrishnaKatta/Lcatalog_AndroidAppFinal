@@ -1,6 +1,7 @@
 package com.lucidleanlabs.dev.lcatalog.adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -127,7 +128,8 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
         String itemNewPrice = Integer.toString(z);
 
         viewHolder.item_price.setText("Rs " + (Html.fromHtml("<strike>" + item_prices.get(position) + "</strike>")) + "/-");
-        viewHolder.item_discount.setText("-" + item_discounts.get(position) + "%");
+        viewHolder.item_price.setPaintFlags(viewHolder.item_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        viewHolder.item_discount.setText(item_discounts.get(position) + "%");
         viewHolder.item_price_new.setText(itemNewPrice + "/-");
     }
 

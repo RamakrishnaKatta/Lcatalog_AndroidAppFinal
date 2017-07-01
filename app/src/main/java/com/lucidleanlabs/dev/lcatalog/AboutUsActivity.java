@@ -27,21 +27,22 @@ public class AboutUsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        if (NetworkConnectivity.checkInternetConnection(AboutUsActivity.this)){
+        if (NetworkConnectivity.checkInternetConnection(AboutUsActivity.this)) {
 
-        }else {
+        } else {
             InternetMessage();
         }
     }
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction("RETRY", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 snackbar.dismiss();
                 if (NetworkConnectivity.checkInternetConnection(AboutUsActivity.this)) {
+
 
                 } else {
 
@@ -52,6 +53,7 @@ public class AboutUsActivity extends AppCompatActivity {
         });
         snackbar.show();
     }
+
 
     @Override
     public void onResume() {

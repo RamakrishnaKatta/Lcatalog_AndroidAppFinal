@@ -3,6 +3,7 @@ package com.lucidleanlabs.dev.lcatalog.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -126,8 +127,9 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
 
         viewHolder.item_name.setText(item_names.get(position));
         viewHolder.item_description.setText(item_descriptions.get(position) + "...");
-        viewHolder.item_price.setText("Rs " + (Html.fromHtml("<strike>" + item_prices.get(position) + "</strike>")) + "/-");
-        viewHolder.item_discount.setText("-" + item_discounts.get(position) + "%");
+        viewHolder.item_price.setText((Html.fromHtml("<strike>" + item_prices.get(position) + "</strike>")));
+        viewHolder.item_price.setPaintFlags(viewHolder.item_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        viewHolder.item_discount.setText(item_discounts.get(position) + "%");
         viewHolder.item_price_new.setText(itemNewPrice + "/-");
 
         viewHolder.grid_container.setOnClickListener(new View.OnClickListener() {

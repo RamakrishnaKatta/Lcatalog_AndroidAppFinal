@@ -26,8 +26,6 @@
             android:id="@+id/txt_welcome_11"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/margin_10"
-            android:paddingRight="@dimen/margin_10"
             android:text="L Catalog"
             android:textAlignment="center"
             android:textColor="@android:color/white"
