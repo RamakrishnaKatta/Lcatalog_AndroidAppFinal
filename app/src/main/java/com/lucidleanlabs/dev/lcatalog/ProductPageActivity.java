@@ -156,7 +156,7 @@ public class ProductPageActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CatalogActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("activity", "SplashScreen");
+        intent.putExtra("activity", "ProductPage");
         startActivity(intent);
         finish();
     }

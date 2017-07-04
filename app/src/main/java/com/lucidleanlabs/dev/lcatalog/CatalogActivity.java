@@ -417,9 +417,9 @@ public class CatalogActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        setResult(RESULT_CANCELED);
         super.onBackPressed();
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
+        finish();
 
     }
 

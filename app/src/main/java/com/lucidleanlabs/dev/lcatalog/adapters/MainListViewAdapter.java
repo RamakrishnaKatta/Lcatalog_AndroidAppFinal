@@ -127,7 +127,7 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
         Integer z = (x * (100 - y)) / 100;
         String itemNewPrice = Integer.toString(z);
 
-        viewHolder.item_price.setText("Rs " + (Html.fromHtml("<strike>" + item_prices.get(position) + "</strike>")) + "/-");
+        viewHolder.item_price.setText((Html.fromHtml("<strike>" + item_prices.get(position) + "</strike>")));
         viewHolder.item_price.setPaintFlags(viewHolder.item_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         viewHolder.item_discount.setText(item_discounts.get(position) + "%");
         viewHolder.item_price_new.setText(itemNewPrice + "/-");

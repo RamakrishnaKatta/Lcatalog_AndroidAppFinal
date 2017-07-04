@@ -2,6 +2,7 @@ package com.lucidleanlabs.dev.lcatalog;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
@@ -91,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         app_name.setTypeface(custom_font);
         powered.setTypeface(custom_font2);
         _forgot_password.setTypeface(custom_font2);
+        _forgot_password.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -138,16 +140,16 @@ public class LoginActivity extends AppCompatActivity {
             showcaseview();
         }
 
-        if (NetworkConnectivity.checkInternetConnection(LoginActivity.this)){
+        if (NetworkConnectivity.checkInternetConnection(LoginActivity.this)) {
 
-        }else {
+        } else {
             InternetMessage();
         }
     }
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
         snackbar.setActionTextColor(getResources().getColor(R.color.red));
         snackbar.setAction("RETRY", new View.OnClickListener() {
             @Override

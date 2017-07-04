@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/welcome_layout_4"
+    android:id="@+id/welcome_layout_3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
@@ -15,34 +15,95 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_gravity="center"
-            android:paddingLeft="@dimen/margin_10"
-            android:paddingRight="@dimen/margin_10"
-            android:src="@drawable/ic_augment" />
-
-        <TextView
-            android:id="@+id/txt_welcome_41"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/margin_10"
-            android:paddingRight="@dimen/margin_10"
-            android:text="@string/_augment_text"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:weightSum="2">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/margin_30"
+                android:paddingRight="@dimen/margin_30">
+
+                <ImageView
+                    android:id="@+id/capture_image"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:src="@drawable/ic_capture" />
+
+                <TextView
+                    android:id="@+id/txt_welcome_31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/capture_image"
+                    android:text="CAPTURE"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/margin_30"
+                android:paddingRight="@dimen/margin_30">
+
+                <TextView
+                    android:id="@+id/txt_welcome_32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="SHARE"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/share_image"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_below="@+id/txt_welcome_32"
+                    android:src="@drawable/ic_share" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/txt_welcome_42"
+            android:id="@+id/txt_welcome_33"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10"
             android:paddingLeft="@dimen/margin_10"
             android:paddingRight="@dimen/margin_10"
-            android:text="@string/_augment_desc"
+            android:text="@string/slide3_desc"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
