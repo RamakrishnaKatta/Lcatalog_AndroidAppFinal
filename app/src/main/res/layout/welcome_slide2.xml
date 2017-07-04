@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/welcome_layout_2"
+    android:id="@+id/welcome_layout_4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
@@ -21,32 +21,37 @@
             android:layout_gravity="center"
             android:paddingLeft="@dimen/margin_10"
             android:paddingRight="@dimen/margin_10"
-            android:src="@drawable/ic_3d_rotation" />
+            android:src="@drawable/ic_augment" />
 
         <TextView
-            android:id="@+id/txt_welcome_21"
+            android:id="@+id/txt_welcome_41"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/margin_10"
             android:paddingRight="@dimen/margin_10"
-            android:text="@string/_3d_text"
+            android:text="@string/_augment_text"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txt_welcome_22"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/margin_10"
+            android:orientation="vertical"
             android:paddingLeft="@dimen/margin_10"
-            android:paddingRight="@dimen/margin_10"
-            android:text="@string/_3d_description"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:paddingRight="@dimen/margin_10">
 
+            <TextView
+                android:id="@+id/txt_welcome_42"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/_augment_desc"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
