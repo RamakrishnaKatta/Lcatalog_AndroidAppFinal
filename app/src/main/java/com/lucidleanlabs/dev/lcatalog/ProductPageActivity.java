@@ -23,22 +23,7 @@ public class ProductPageActivity extends AppCompatActivity {
 
     private static final String TAG = "ProductPageActivity";
 
-    private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/vendor/by?id=";
-    private static String FILE_URL = "http://35.154.252.64:8080/models/";
-    private static String EXTENDED_URL;
-
-
-    LinearLayout note;
-    ImageView vendor_logo, article_image;
-    ImageButton article_share, article_download, article_3d_view, article_augment;
-    TextView article_title, article_description, article_price, article_discount, article_width, article_height, article_length, article_price_new;
-    TextView article_vendor_name, article_vendor_location;
-
-    private static String VENDOR_URL = null;
-
-    String article_images;
-    // article_images is split in to five parts and assigned to each string
-    String image1, image2, image3, image4, image5;
+    String images;
 
     String oldPrice, discount;
     // calculate the new price using the old price and discount and assign ti newPrice
@@ -51,7 +36,6 @@ public class ProductPageActivity extends AppCompatActivity {
     String position, name, id, description;
 
     String article_vendor_id;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,10 +81,9 @@ public class ProductPageActivity extends AppCompatActivity {
 
         article_vendor_id = (String) b.getCharSequence("article_vendor");
 
-        article_images = (String) b.getCharSequence("article_images");
+        images = (String) b.getCharSequence("article_images");
 
         // All this Data should be sent to fragments in the form of bundle !!
-
         Log.e(TAG, "Article Name----" + name);
         Log.e(TAG, "Article Description----" + description);
         Log.e(TAG, "Article NewPrice----" + newPrice);
@@ -109,7 +92,7 @@ public class ProductPageActivity extends AppCompatActivity {
         Log.e(TAG, "Article Height----" + height);
         Log.e(TAG, "Article Length----" + length);
         Log.e(TAG, "Article Position----" + position);
-        Log.e(TAG, "Article Images----" + article_images);
+        Log.e(TAG, "Article Images----" + images);
         Log.e(TAG, "Article Vendor Id----" + article_vendor_id);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.product_tab_layout);
@@ -119,7 +102,7 @@ public class ProductPageActivity extends AppCompatActivity {
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.product_pager);
         final ProductPageAdapter adapter = new ProductPageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),
-                name, description, oldPrice, discount, newPrice, dimensions, width, height, length, position, id, article_images, article_vendor_id);
+                name, description, oldPrice, discount, newPrice, dimensions, width, height, length, position, id, images, article_vendor_id);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -146,7 +129,6 @@ public class ProductPageActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void onBackPressed() {

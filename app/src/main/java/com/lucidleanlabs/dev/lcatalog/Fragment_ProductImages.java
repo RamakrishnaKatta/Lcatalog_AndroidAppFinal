@@ -118,7 +118,7 @@ public class Fragment_ProductImages extends Fragment {
                 addBottomDots(position);
             }
 
-            public void addBottomDots(int currentPage) {
+            private void addBottomDots(int currentPage) {
 
                 dots = new TextView[slider_images.size()];
 
@@ -269,10 +269,7 @@ public class Fragment_ProductImages extends Fragment {
 
     }
 
-
-
     /*creation of directory in external storage */
-
     private void addModelFolder() throws IOException {
         String state = Environment.getExternalStorageState();
 
@@ -287,26 +284,6 @@ public class Fragment_ProductImages extends Fragment {
             Log.e(TAG, "Model Directory is Created --- '" + wasSuccessful + "' Thank You !!");
         }
     }
-
-//    private void addBottomDots(int currentPage) {
-//        dots = new TextView[slider_images.size()];
-//
-////        int[] colorsActive = getResources().getIntArray(R.array.array_dot_active);
-////        int[] colorsInactive = getResources().getIntArray(R.array.array_dot_inactive);
-//
-//        Slider_dots.removeAllViews();
-//
-//        for (int i = 0; i < dots.length; i++) {
-//            dots[i] = new TextView(this.getActivity());
-//            dots[i].setText(String.valueOf(i));
-//            dots[i].setTextSize(16);
-//            dots[i].setTextColor(Color.WHITE);
-//            Slider_dots.addView(dots[i]);
-//        }
-//
-//        if (dots.length > 0)
-//            dots[currentPage].setTextColor(Color.RED);
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

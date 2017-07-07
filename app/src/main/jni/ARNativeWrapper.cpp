@@ -24,13 +24,12 @@
             GLMmodel *obj;
         } ARModel;
 
-        #define NUM_MODELS 10
+        #define NUM_MODELS 14
         static ARModel models[NUM_MODELS] = {0};
 
         static float lightAmbient[4] = {0.1f, 0.1f, 0.1f, 1.0f};
         static float lightDiffuse[4] = {1.0f, 1.0f, 1.0f, 1.0f};
         static float lightPosition[4] = {1.0f, 1.0f, 1.0f, 0.0f};
-
 
         JNIEXPORT void JNICALL JNIFUNCTION_DEMO(demoInitialise(JNIEnv * env, jobject object)) {
 
@@ -43,7 +42,11 @@
             const char *model6file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/dinning.obj";
             const char *model7file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/TEAKBED.obj";
             const char *model8file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wallpaint.obj";
-            const char *model9file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/folorencecompactsofa.obj";
+            const char *model9file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/florence_compact.obj";
+            const char *model10file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/4seated_dinning_table.obj";
+            const char *model11file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/alba_sheeshamcofee_table.obj";
+            const char *model12file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/chelsea.obj";
+            const char *model13file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/Multiple_Frames_Buddha_Art_Wall_Painting.obj";
 
             //Mapping to pattern 0 - bed sofa.obj
             models[0].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/one.patt;80");
@@ -191,10 +194,71 @@
                   LOGE("Error loading model from file '%s'.", model9file);
                   exit(-1);
                 }
-            glmScale(models[9].obj, 5.0f);
+            glmScale(models[9].obj, 15.0f);
             //glmRotate(models[9].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[9].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
                     models[9].visible = false;
+
+            //Mapping to pattern 10  - 4 Seated Dining table.obj
+            models[10].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/C.patt;80");
+            arwSetMarkerOptionBool(models[10].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
+            arwSetMarkerOptionBool(models[10].patternID, ARW_MARKER_OPTION_FILTERED, true);
+
+            models[10].obj = glmReadOBJ2(model10file, 0, 0); // context 10, don't read textures yet.
+                if (!models[10].obj) {
+                  LOGE("Error loading model from file '%s'.", model10file);
+                  exit(-1);
+                }
+            glmScale(models[10].obj, 15.0f);
+            //glmRotate(models[10].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
+            glmCreateArrays(models[10].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
+                    models[10].visible = false;
+
+            //Mapping to pattern 11  - Alba Sheesham Coffee Table.obj
+            models[11].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/D.patt;80");
+            arwSetMarkerOptionBool(models[11].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
+            arwSetMarkerOptionBool(models[11].patternID, ARW_MARKER_OPTION_FILTERED, true);
+
+            models[11].obj = glmReadOBJ2(model11file, 0, 0); // context 11, don't read textures yet.
+                if (!models[11].obj) {
+                  LOGE("Error loading model from file '%s'.", model11file);
+                  exit(-1);
+                }
+            glmScale(models[11].obj, 15.0f);
+            //glmRotate(models[11].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
+            glmCreateArrays(models[11].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
+                    models[11].visible = false;
+
+            //Mapping to pattern 12  - chelsea.obj
+            models[12].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/E.patt;80");
+            arwSetMarkerOptionBool(models[12].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
+            arwSetMarkerOptionBool(models[12].patternID, ARW_MARKER_OPTION_FILTERED, true);
+
+            models[12].obj = glmReadOBJ2(model12file, 0, 0); // context 12, don't read textures yet.
+                if (!models[12].obj) {
+                  LOGE("Error loading model from file '%s'.", model12file);
+                  exit(-1);
+                }
+            glmScale(models[12].obj, 15.0f);
+            //glmRotate(models[12].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
+            glmCreateArrays(models[12].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
+                    models[12].visible = false;
+
+            //Mapping to pattern 13  - Multiple_Frames_Buddha_Art_Wall_Painting.obj
+            models[13].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/F.patt;80");
+            arwSetMarkerOptionBool(models[13].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
+            arwSetMarkerOptionBool(models[13].patternID, ARW_MARKER_OPTION_FILTERED, true);
+
+            models[13].obj = glmReadOBJ2(model13file, 0, 0); // context 13, don't read textures yet.
+                if (!models[13].obj) {
+                  LOGE("Error loading model from file '%s'.", model13file);
+                  exit(-1);
+                }
+            glmScale(models[13].obj, 15.0f);
+            //glmRotate(models[13].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
+            glmCreateArrays(models[13].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
+                    models[13].visible = false;
+
         }
 
     JNIEXPORT void JNICALL JNIFUNCTION_DEMO(demoShutdown(JNIEnv * env, jobject object)) {}

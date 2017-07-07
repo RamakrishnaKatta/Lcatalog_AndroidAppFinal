@@ -15,7 +15,7 @@ public class ProductPageAdapter extends FragmentStatePagerAdapter {
 
 
     private String a_name, a_description, a_old_price, a_discount, a_newPrice, a_dimensions,
-            a_width, a_height, a_length, a_position, a_id, a_article_images, a_vendor_id;
+            a_width, a_height, a_length, a_position, a_id, a_images, a_vendor_id;
 
     private int mNumOfTabs;
 
@@ -23,7 +23,7 @@ public class ProductPageAdapter extends FragmentStatePagerAdapter {
                               String name, String description, String oldPrice,
                               String discount, String newPrice, String dimensions,
                               String width, String height, String length,
-                              String position, String id, String article_images, String article_vendor_id) {
+                              String position, String id, String images, String article_vendor_id) {
         super(fragmentManager);
         this.mNumOfTabs = tabCount;
         this.a_name = name;
@@ -35,7 +35,7 @@ public class ProductPageAdapter extends FragmentStatePagerAdapter {
         this.a_height = height;
         this.a_length = length;
         this.a_width = width;
-        this.a_article_images = article_images;
+        this.a_images = images;
         this.a_position = position;
         this.a_id = id;
         this.a_vendor_id = article_vendor_id;
@@ -53,7 +53,7 @@ public class ProductPageAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 Bundle b_tab1 = new Bundle();
-                b_tab1.putString("article_images", a_article_images);
+                b_tab1.putString("article_images", a_images);
                 b_tab1.putString("article_id", a_id);
                 b_tab1.putString("article_name", a_name);
 
