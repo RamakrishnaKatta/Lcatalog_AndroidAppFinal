@@ -67,12 +67,12 @@ public class GridViewImageAdapter extends BaseAdapter {
         return imageView;
     }
 
-    class OnImageClickListener implements View.OnClickListener {
+    private class OnImageClickListener implements View.OnClickListener {
 
         int _postion;
 
         // constructor
-        public OnImageClickListener(int position) {
+        OnImageClickListener(int position) {
             this._postion = position;
         }
 
@@ -89,7 +89,7 @@ public class GridViewImageAdapter extends BaseAdapter {
     /*
      * Resizing image size
      */
-    public static Bitmap decodeFile(String filePath, int WIDTH, int HIGHT) {
+    private static Bitmap decodeFile(String filePath, int WIDTH, int HIGHT) {
         try {
 
             File f = new File(filePath);

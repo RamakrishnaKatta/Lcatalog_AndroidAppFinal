@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -89,6 +90,11 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
             item_price = (TextView) view.findViewById(R.id.h_item_price);
             item_discount = (TextView) view.findViewById(R.id.h_item_discount_value);
             item_price_new = (TextView) view.findViewById(R.id.h_item_price_new);
+
+            Typeface custom_font = Typeface.createFromAsset(activity.getAssets(), "fonts/Graduate-Regular.ttf");
+            Typeface custom_font2 = Typeface.createFromAsset(activity.getAssets(), "fonts/Cookie-Regular.ttf");
+            item_name.setTypeface(custom_font);
+            item_description.setTypeface(custom_font2);
         }
     }
 
@@ -152,7 +158,6 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
                 b.putString("article_position", String.valueOf(position));
 
                 intent.putExtras(b);
-
                 context[0].startActivity(intent);
 
 //                Toast.makeText(activity, "Position clicked: " + position, Toast.LENGTH_SHORT).show();

@@ -300,4 +300,10 @@ public class WelcomeActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
     }
+
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        super.onBackPressed();
+        finish();
+    }
 }

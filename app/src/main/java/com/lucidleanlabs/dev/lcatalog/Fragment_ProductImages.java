@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.lucidleanlabs.dev.lcatalog.adapters.ImageSliderAdapter;
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadManager;
+import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 import com.lucidleanlabs.dev.lcatalog.utils.UnzipUtil;
 
 import org.json.JSONException;
@@ -34,6 +38,8 @@ import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.security.auth.login.LoginException;
+
 
 public class Fragment_ProductImages extends Fragment {
 
@@ -41,6 +47,8 @@ public class Fragment_ProductImages extends Fragment {
 
     private static String FILE_URL = "http://35.154.252.64:8080/models/";
     private static String EXTENDED_URL;
+
+    private PrefManager prefManager;
 
     LinearLayout note;
     ImageButton article_share, article_download, article_3d_view, article_augment;
@@ -264,9 +272,49 @@ public class Fragment_ProductImages extends Fragment {
                 handler.post(update);
             }
         }, 2000, 5000);
+        prefManager = new PrefManager(getActivity());
+        Log.e(TAG, " " + prefManager.ProductPageActivityScreenLaunch());
+        if (prefManager.ProductPageActivityScreenLaunch()) {
+            ShowcaseView(view);
+        }
 
         return view;
 
+    }
+
+    private void ShowcaseView(View view) {
+        prefManager.setProductPageActivityScreenLaunch(false);
+        Log.e(TAG, " " + prefManager.ProductPageActivityScreenLaunch());
+        final Display display = getActivity().getWindowManager().getDefaultDisplay();
+        final TapTargetSequence sequence = new TapTargetSequence(getActivity()).targets(
+                TapTarget.forView(view.findViewById(R.id.article_download_icon), "DOWNLOAD", "Click Here before you click the 3d & Augment ")
+                        .targetRadius(30)
+                        .outerCircleColor(R.color.primary_darker)
+                        .id(1),
+                TapTarget.forView(view.findViewById(R.id.article_augment_icon), "AUGMENT", "Click Here to Augment the Object")
+                        .cancelable(false)
+                        .targetRadius(30)
+                        .outerCircleColor(R.color.primary_darker)
+                        .id(2),
+                TapTarget.forView(view.findViewById(R.id.article_3dview_icon), "3D", "Click Here see the object in 3d View")
+                        .cancelable(false)
+                        .targetRadius(30)
+                        .outerCircleColor(R.color.primary_darker)
+                        .id(3)
+        ).listener(new TapTargetSequence.Listener() {
+            @Override
+            public void onSequenceFinish() {
+            }
+
+            @Override
+            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+            }
+
+            @Override
+            public void onSequenceCanceled(TapTarget lastTarget) {
+            }
+        });
+        sequence.start();
     }
 
     /*creation of directory in external storage */

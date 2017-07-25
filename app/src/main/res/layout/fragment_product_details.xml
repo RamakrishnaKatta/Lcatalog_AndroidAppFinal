@@ -1,13 +1,14 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_darker"
+    android:background="@color/transparent"
     tools:context="com.lucidleanlabs.dev.lcatalog.Fragment_ProductDetails">
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_5"
         android:orientation="vertical">
 
         <LinearLayout
@@ -23,24 +24,23 @@
                 android:padding="3dp"
                 android:text="TITLE : "
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/article_title_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="50"
                 android:padding="@dimen/margin_3"
                 android:text="please display the text here............"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <View
                 android:id="@+id/layout_separator2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_1"
-                android:background="@color/white" />
+                android:background="@color/white_overlay" />
 
             <TextView
                 android:id="@+id/article_description"
@@ -49,25 +49,24 @@
                 android:padding="@dimen/margin_3"
                 android:text="DESCRIPTION :"
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/article_description_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="200"
                 android:padding="@dimen/margin_3"
                 android:text="Description of the product will be displayed here and also the the related products "
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <View
             android:id="@+id/layout_separator3"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_1"
-            android:background="@color/white" />
+            android:background="@color/white_overlay" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,7 +85,7 @@
                 android:paddingTop="@dimen/margin_2"
                 android:text="4.3 *"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -96,7 +95,7 @@
                 android:layout_marginLeft="@dimen/margin_12"
                 android:text="50 ratings \u0026 15 reviews"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -104,7 +103,7 @@
             android:id="@+id/layout_separator4"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_1"
-            android:background="@color/white" />
+            android:background="@color/white_overlay" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -125,14 +124,14 @@
                     android:padding="@dimen/margin_5"
                     android:text="ORIGINAL PRICE :"
                     android:textColor="@color/white"
-                    android:textSize="13sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:padding="@dimen/margin_5"
+                    android:padding="@dimen/margin_3"
                     android:src="@drawable/greyrupee" />
 
                 <TextView
@@ -140,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/margin_20"
-                    android:text="1000 Rs"
+                    android:text="1000"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -155,8 +154,8 @@
                     android:paddingTop="@dimen/margin_3"
                     android:text="20% OFF"
                     android:textAlignment="center"
-                    android:textColor="@color/red"
-                    android:textSize="12sp"
+                    android:textColor="@color/maroon"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -173,14 +172,14 @@
                     android:padding="@dimen/margin_5"
                     android:text="AFTER DISCOUNT PRICE :"
                     android:textColor="@color/white"
-                    android:textSize="13sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center"
-                    android:padding="@dimen/margin_5"
+                    android:padding="@dimen/margin_3"
                     android:src="@drawable/greyrupee" />
 
                 <TextView
@@ -188,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/margin_20"
-                    android:text="800 Rs"
+                    android:text="800"
                     android:textColor="@color/white"
                     android:textColorHint="@color/jet"
                     android:textSize="14sp"
@@ -202,7 +201,7 @@
             android:id="@+id/layout_separator5"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_1"
-            android:background="@color/white" />
+            android:background="@color/white_overlay" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -225,7 +224,7 @@
                     android:padding="@dimen/margin_3"
                     android:text="WIDTH :"
                     android:textColor="@color/white"
-                    android:textSize="13sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -233,9 +232,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_3"
-                    android:text="30 inches"
+                    android:text="30 in"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -252,7 +251,7 @@
                     android:padding="@dimen/margin_3"
                     android:text="LENGTH :"
                     android:textColor="@color/white"
-                    android:textSize="13sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -260,9 +259,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_3"
-                    android:text="25 inches"
+                    android:text="25 in"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -279,7 +278,7 @@
                     android:padding="@dimen/margin_3"
                     android:text="HEIGHT :"
                     android:textColor="@color/white"
-                    android:textSize="13sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -288,9 +287,9 @@
                     android:layout_height="wrap_content"
                     android:maxLength="200"
                     android:padding="@dimen/margin_3"
-                    android:text="20 inches"
+                    android:text="20 in"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -300,7 +299,7 @@
             android:id="@+id/layout_separator6"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_1"
-            android:background="@color/white" />
+            android:background="@color/white_overlay" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -321,7 +320,7 @@
                     android:padding="@dimen/margin_5"
                     android:text="PROVIDED BY :"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -337,7 +336,7 @@
                         android:padding="@dimen/margin_5"
                         android:text="      NAME :"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -363,7 +362,7 @@
                         android:padding="@dimen/margin_3"
                         android:text=" ADDRESS :"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -373,7 +372,7 @@
                         android:padding="@dimen/margin_3"
                         android:text="@string/dummy_address"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         android:textStyle="italic" />
 
                 </LinearLayout>
@@ -399,5 +398,5 @@
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</ScrollView>
 

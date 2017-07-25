@@ -32,6 +32,8 @@ import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 
 import java.util.Objects;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private PrefManager prefManager3;
@@ -183,14 +185,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final Display display = getWindowManager().getDefaultDisplay();
 
         final TapTargetSequence sequence = new TapTargetSequence(this).targets(
-                TapTarget.forToolbarMenuItem(toolbar, R.id.action_notifications, "Notifications", "All the notifications can be displayed Here")
+                TapTarget.forToolbarMenuItem(toolbar, R.id.action_notifications, "NOTIFICATIONS", "All the notifications can be displayed Here")
                         .transparentTarget(true)
                         .outerCircleColor(R.color.primary_dark)
                         .targetRadius(25)
                         .textColor(R.color.white)
                         .tintTarget(true)
                         .id(1),
-                TapTarget.forToolbarMenuItem(toolbar, R.id.action_replay_info, "welcome", "If u miss the welcome screen you can see here ")
+                TapTarget.forToolbarMenuItem(toolbar, R.id.action_replay_info, "WELCOME", "If you miss the welcome screen you can see here ")
                         .transparentTarget(true)
                         .textColor(R.color.white)
                         .targetRadius(25)
@@ -199,13 +201,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .id(2))
                 .listener(new TapTargetSequence.Listener() {
                     @Override
-                    public void onSequenceFinish() { }
+                    public void onSequenceFinish() {
+                    }
 
                     @Override
-                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {  }
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                    }
 
                     @Override
-                    public void onSequenceCanceled(TapTarget lastTarget) {  }
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                    }
                 });
         sequence.start();
 
@@ -233,11 +238,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 doubleBackToExitPressedOnce = false;
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 System.exit(0);
             }
-        }, 2000);
+        }, 5000);
     }
 
     @Override

@@ -173,7 +173,7 @@ public class UserTypeActivity extends AppCompatActivity {
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
         snackbar.setActionTextColor(getResources().getColor(R.color.red));
         snackbar.setAction("RETRY", new View.OnClickListener() {
             @Override
@@ -257,36 +257,41 @@ public class UserTypeActivity extends AppCompatActivity {
         Log.e(TAG, "" + prefManager1.UserTypeActivityScreenLaunch());
 
         final TapTargetSequence sequence = new TapTargetSequence(this).targets(
+                TapTarget.forView(findViewById(R.id.btn_new_customer), "Click here if you are new...")
+                        .tintTarget(false)
+                        .targetRadius(25)
+                        .transparentTarget(true)
+                        .cancelable(false)
+                        .textColor(R.color.white)
+                        .id(1),
                 TapTarget.forView(findViewById(R.id.btn_customer), "Click here if you visited before")
                         .tintTarget(false)
                         .transparentTarget(true)
+                        .cancelable(false)
+                        .targetRadius(25)
                         .textColor(R.color.white)
-                        .id(1),
+                        .id(2),
                 TapTarget.forView(findViewById(R.id.btn_shopper), "Click here if you are Guest visitor")
                         .tintTarget(false)
                         .transparentTarget(true)
                         .textColor(R.color.white)
-                        .id(2)
+                        .targetRadius(25)
+                        .cancelable(false)
+                        .id(3)
         ).listener(new TapTargetSequence.Listener() {
             @Override
-            public void onSequenceFinish() { }
+            public void onSequenceFinish() {
+            }
+
             @Override
-            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) { }
+            public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+            }
+
             @Override
-            public void onSequenceCanceled(TapTarget lastTarget) { }
+            public void onSequenceCanceled(TapTarget lastTarget) {
+            }
         });
         sequence.start();
-        TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btn_new_customer), "Click here if you are new.. ")
-                        .cancelable(false)
-                        .tintTarget(false)
-                        .textColor(R.color.white)
-                , new TapTargetView.Listener() {
-
-                    @Override
-                    public void onTargetClick(TapTargetView view) {
-                        super.onTargetClick(view);
-                    }
-                });
     }
 
     @Override

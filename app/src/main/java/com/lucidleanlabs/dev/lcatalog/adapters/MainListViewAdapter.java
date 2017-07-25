@@ -2,16 +2,20 @@ package com.lucidleanlabs.dev.lcatalog.adapters;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lucidleanlabs.dev.lcatalog.Fragment_Overview;
 import com.lucidleanlabs.dev.lcatalog.R;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
@@ -33,25 +37,27 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
     private ArrayList<String> item_images;
     private ArrayList<String> item_prices;
     private ArrayList<String> item_discounts;
+    private ArrayList<String> item_descriptions;
 
-    public MainListViewAdapter(Fragment_Overview activity,
-                               ArrayList<String> item_ids,
+    public MainListViewAdapter(Fragment_Overview activity, ArrayList<String> item_ids,
                                ArrayList<String> item_names,
                                ArrayList<String> item_images,
                                ArrayList<String> item_prices,
-                               ArrayList<String> item_discounts) {
-
+                               ArrayList<String> item_discounts,
+                               ArrayList<String> item_descriptions) {
         this.item_ids = item_ids;
         this.item_names = item_names;
         this.item_images = item_images;
         this.item_prices = item_prices;
         this.item_discounts = item_discounts;
+        this.item_descriptions = item_descriptions;
 
         Log.e(TAG, "ids----" + item_ids);
         Log.e(TAG, "Images----" + item_images);
         Log.e(TAG, "names----" + item_names);
         Log.e(TAG, "prices----" + item_prices);
         Log.e(TAG, "discounts----" + item_discounts);
+        Log.e(TAG, "descriptions----" + item_descriptions);
 
         this.activity = activity;
     }
@@ -61,22 +67,24 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
      */
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView item_image1, item_image2, item_image3, item_image4;
-        private TextView item_name, item_price, item_discount, item_price_new;
+        ImageView item_image;
+        private TextView item_name, item_description, item_price, item_discount, item_price_new;
+
         LinearLayout main_container;
 
         ViewHolder(View view) {
             super(view);
 
             main_container = (LinearLayout) view.findViewById(R.id.main_container);
-            item_image1 = (ImageView) view.findViewById(R.id.main_image1);
-            item_image2 = (ImageView) view.findViewById(R.id.main_image2);
-            item_image3 = (ImageView) view.findViewById(R.id.main_image3);
-            item_image4 = (ImageView) view.findViewById(R.id.main_image4);
-            item_name = (TextView) view.findViewById(R.id.main_item_name);
-            item_price = (TextView) view.findViewById(R.id.main_item_price);
-            item_discount = (TextView) view.findViewById(R.id.main_item_discount_value);
-            item_price_new = (TextView) view.findViewById(R.id.main_item_price_new);
+            item_image = (ImageView) view.findViewById(R.id.main_image);
+            item_name = (TextView) view.findViewById(R.id.main_title);
+            item_description = (TextView) view.findViewById(R.id.main_data);
+
+            Typeface custom_font = Typeface.createFromAsset(activity.getActivity().getAssets(), "fonts/Graduate-Regular.ttf");
+            Typeface custom_font2 = Typeface.createFromAsset(activity.getActivity().getAssets(), "fonts/Cookie-Regular.ttf");
+            item_name.setTypeface(custom_font);
+            item_description.setTypeface(custom_font2);
+
         }
     }
 
@@ -85,7 +93,6 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
 
         LayoutInflater inflater = activity.getLayoutInflater(null);
         View view = inflater.inflate(R.layout.content_display, viewGroup, false);
-
         return new ViewHolder(view);
     }
 
@@ -94,43 +101,23 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
 
         final Context[] context = new Context[1];
 
-        viewHolder.item_image1.setImageResource(R.drawable.dummy_icon);
-        viewHolder.item_image2.setImageResource(R.drawable.dummy_icon);
-        viewHolder.item_image3.setImageResource(R.drawable.dummy_icon);
-        viewHolder.item_image4.setImageResource(R.drawable.dummy_icon);
+        viewHolder.item_image.setImageResource(R.drawable.dummy_icon);
 
-        String im1 = null, im2 = null, im3 = null, im4 = null;
+        String im1 = null;
         String get_image = item_images.get(position);
         try {
             JSONObject images_json = new JSONObject(get_image);
             im1 = images_json.getString("image1");
-            Log.e(TAG, "image1 >>>>" + im1);
-            im2 = images_json.getString("image2");
-            Log.e(TAG, "image2 >>>>" + im2);
-            im3 = images_json.getString("image3");
-            Log.e(TAG, "image3 >>>>" + im3);
-            im4 = images_json.getString("image4");
-            Log.e(TAG, "image4 >>>>" + im4);
+            Log.e(TAG, "image >>>>" + im1);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new DownloadImageTask(viewHolder.item_image1).execute(im1);
-        new DownloadImageTask(viewHolder.item_image2).execute(im2);
-        new DownloadImageTask(viewHolder.item_image3).execute(im3);
-        new DownloadImageTask(viewHolder.item_image4).execute(im4);
+        new DownloadImageTask(viewHolder.item_image).execute(im1);
 
         viewHolder.item_name.setText(item_names.get(position));
+        viewHolder.item_description.setText(item_descriptions.get(position));
 
-        Integer x = Integer.parseInt(item_prices.get(position));
-        Integer y = Integer.parseInt(item_discounts.get(position));
-        Integer z = (x * (100 - y)) / 100;
-        String itemNewPrice = Integer.toString(z);
-
-        viewHolder.item_price.setText((Html.fromHtml("<strike>" + item_prices.get(position) + "</strike>")));
-        viewHolder.item_price.setPaintFlags(viewHolder.item_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        viewHolder.item_discount.setText(item_discounts.get(position) + "%");
-        viewHolder.item_price_new.setText(itemNewPrice + "/-");
     }
 
     @Override

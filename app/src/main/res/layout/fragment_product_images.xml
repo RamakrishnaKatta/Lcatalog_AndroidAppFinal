@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_darker"
+    android:background="@color/transparent"
     tools:context="com.lucidleanlabs.dev.lcatalog.Fragment_ProductImages">
 
     <LinearLayout
@@ -20,8 +20,8 @@
                 android:id="@+id/article_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/dummy_icon" />
+                android:scaleType="fitCenter"/>
+                <!--android:src="@drawable/dummy_icon" />-->
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/article_view_pager"
@@ -49,14 +49,14 @@
             android:id="@+id/layout_separator0"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/white" />
+            android:background="@color/white_overlay" />
 
         <LinearLayout
             android:id="@+id/bottom_bar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:orientation="horizontal"
-            android:paddingRight="3dp"
+            android:padding="3dp"
             android:weightSum="4">
 
             <com.lucidleanlabs.dev.lcatalog.dots.fav_like_view
@@ -103,7 +103,7 @@
             android:id="@+id/layout_separator1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/white" />
+            android:background="@color/white_overlay" />
 
         <LinearLayout
             android:id="@+id/download_note"
@@ -116,9 +116,9 @@
                 android:id="@+id/download_note_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="3dp"
+                android:padding="@dimen/margin_10"
                 android:text="@string/note_download"
-                android:textColor="@color/maroon"
+                android:textColor="@color/red"
                 android:textSize="13sp"
                 android:textStyle="italic" />
 
@@ -126,7 +126,7 @@
                 android:id="@+id/layout_separator7"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white" />
+                android:background="@color/white_overlay" />
 
         </LinearLayout>
     </LinearLayout>

@@ -34,6 +34,7 @@ public class Fragment_Overview extends Fragment {
     private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/article/all";
 
     private ArrayList<String> item_ids;
+    private ArrayList<String> item_descriptions;
     private ArrayList<String> item_names;
     private ArrayList<String> item_images;
     private ArrayList<String> item_prices;
@@ -46,6 +47,7 @@ public class Fragment_Overview extends Fragment {
 
         item_ids = new ArrayList<>();
         item_names = new ArrayList<>();
+        item_descriptions = new ArrayList<>();
         item_images = new ArrayList<>();
         item_prices = new ArrayList<>();
         item_discounts = new ArrayList<>();
@@ -108,6 +110,7 @@ public class Fragment_Overview extends Fragment {
                 obj = m_jsonArray.getJSONObject(i);
 
                 item_ids.add(obj.getString("id"));
+                item_descriptions.add(obj.getString("description"));
                 item_images.add(obj.getString("images"));
                 item_names.add(obj.getString("name"));
                 item_prices.add(obj.getString("price"));
@@ -120,15 +123,17 @@ public class Fragment_Overview extends Fragment {
             Log.e(TAG, "ids******" + item_ids);
             Log.e(TAG, "images******" + item_images);
             Log.e(TAG, "names******" + item_names);
+            Log.e(TAG, "descriptions*******" + item_descriptions);
             Log.e(TAG, "prices******" + item_prices);
             Log.e(TAG, "discounts******" + item_discounts);
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             main_recycler.setLayoutManager(linearLayoutManager);
-            MainListViewAdapter gridAdapter = new MainListViewAdapter(this, item_ids, item_names, item_images, item_prices, item_discounts);
+            MainListViewAdapter gridAdapter = new MainListViewAdapter(this, item_ids, item_names, item_images, item_prices, item_discounts, item_descriptions);
             main_recycler.setAdapter(gridAdapter);
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
