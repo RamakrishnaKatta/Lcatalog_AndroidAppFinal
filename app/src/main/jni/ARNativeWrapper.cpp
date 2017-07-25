@@ -24,7 +24,7 @@
             GLMmodel *obj;
         } ARModel;
 
-        #define NUM_MODELS 14
+        #define NUM_MODELS 15
         static ARModel models[NUM_MODELS] = {0};
 
         static float lightAmbient[4] = {0.1f, 0.1f, 0.1f, 1.0f};
@@ -39,7 +39,7 @@
             const char *model3file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wardrobe.obj";
             const char *model4file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/study_table.obj";
             const char *model5file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/parasona.obj";
-            const char *model6file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/dinning.obj";
+            const char *model6file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wodden_dinning_table.obj";
             const char *model7file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/TEAKBED.obj";
             const char *model8file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wallpaint.obj";
             const char *model9file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/florence_compact.obj";
@@ -47,6 +47,7 @@
             const char *model11file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/alba_sheeshamcofee_table.obj";
             const char *model12file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/chelsea.obj";
             const char *model13file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/Multiple_Frames_Buddha_Art_Wall_Painting.obj";
+            const char *model14file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/cou.obj";
 
             //Mapping to pattern 0 - bed sofa.obj
             models[0].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/one.patt;80");
@@ -258,6 +259,21 @@
             //glmRotate(models[13].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[13].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
                     models[13].visible = false;
+
+            //Mapping to pattern 14  - counter chair.obj
+            models[14].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/G.patt;80");
+            arwSetMarkerOptionBool(models[14].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
+            arwSetMarkerOptionBool(models[14].patternID, ARW_MARKER_OPTION_FILTERED, true);
+
+            models[14].obj = glmReadOBJ2(model14file, 0, 0); // context 14, don't read textures yet.
+                if (!models[14].obj) {
+                  LOGE("Error loading model from file '%s'.", model14file);
+                  exit(-1);
+                }
+            glmScale(models[14].obj, 15.0f);
+            //glmRotate(models[14].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
+            glmCreateArrays(models[14].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
+                    models[14].visible = false;
 
         }
 
