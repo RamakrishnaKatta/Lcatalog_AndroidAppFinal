@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private static final String TAG = "LoginActivity";
-    private static final int REQUEST_SIGNUP = 0;
     private static final int REQUEST_LOGIN = 0;
     private static final int REQUEST_FORGOT_PASSWORD = 0;
 
@@ -165,13 +164,12 @@ public class LoginActivity extends AppCompatActivity {
         snackbar.show();
     }
 
-
     private void showcaseview() {
         prefManager5.SetLoginActivityScreenLaunch(false);
         Log.e(TAG, "" + prefManager5.LoginActivityScreenLaunch());
 
         final Display display = getWindowManager().getDefaultDisplay();
-        TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btn_get_data), "Click here to autofill your recent Details ")
+        TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.btn_get_data), "Click here to Autofill your recent details ")
                         .cancelable(false)
                         .tintTarget(false)
                         .textColor(R.color.white)
@@ -252,23 +250,17 @@ public class LoginActivity extends AppCompatActivity {
                     code = requestResponse.getString("code");
                     message = requestResponse.getString("message");
                     Log.e(TAG, "resp " + resp + " code--" + code + " message--" + message);
+
+                    JSONObject user_details = requestResponse.getJSONObject("resp");
+
+                    userName = user_details.getString("name");
+                    userAddress = user_details.getString("address");
+                    userEmail = user_details.getString("email");
+                    userPhone = user_details.getString("mobileNo");
+                    Log.e(TAG, "User Name > " + userName + "\n User Address > " + userAddress + "\n User Email > " + userEmail + "\n User Phone > " + userPhone);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
-
-                if (resp == "No Details Found") {
-                    try {
-                        JSONObject user_details = requestResponse.getJSONObject("resp");
-
-                        userName = user_details.getString("name");
-                        userAddress = user_details.getString("address");
-                        userEmail = user_details.getString("email");
-                        userPhone = user_details.getString("mobileNo");
-                        Log.e(TAG, "User Name > " + userName + "\n User Address > " + userAddress + "\n User Email > " + userEmail + "\n User Phone > " + userPhone);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         }, new Response.ErrorListener() {
@@ -304,14 +296,13 @@ public class LoginActivity extends AppCompatActivity {
                 return headers;
             }
         };
-        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(60000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
 
         new android.os.Handler().postDelayed(new Runnable() {
             public void run() {
                 // On complete call either onLoginSuccess or onLoginFailed
-                Log.e(TAG, " code--" + code + " message--" + message);
                 if (Objects.equals(message, "FAILURE") || Objects.equals(code, "500")) {
                     onLoginFailed();
                 } else {
@@ -324,7 +315,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SIGNUP) {
+        if (requestCode == REQUEST_LOGIN) {
             if (resultCode == RESULT_OK) {
                 // By default we just finish the Activity and log them in automatically
                 this.finish();

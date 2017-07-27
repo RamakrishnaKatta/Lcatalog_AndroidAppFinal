@@ -54,13 +54,13 @@ public class SignupActivity extends AppCompatActivity {
     private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/user/register";
 
 
-    private TextView app_name, powered;
+    TextView app_name, powered;
     private EditText _nameText, _addressText, _emailText, _mobileText, _passwordText, _reEnterPasswordText;
     private Button _signupButton;
 
     CoordinatorLayout SignupLayout;
 
-    String response, code, message;
+    String resp, code, message;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,7 +127,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void signup() throws JSONException {
-        Log.e(TAG, "Signup");
+        Log.e(TAG, "Sign Up");
 
         Log.e(TAG, "KEY_USERNAME--" + KEY_USERNAME);
         Log.e(TAG, "KEY_PASSWORD--" + KEY_PASSWORD);
@@ -170,38 +170,40 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        // SIGNUP LOGIC !!
+        // SIGN_UP LOGIC !!
+
+        JSONObject signup_parameters = new JSONObject();
+
+        signup_parameters.put("name", name);
+        signup_parameters.put("address", address);
+        signup_parameters.put("email", email);
+        signup_parameters.put("mobileNo", mobile);
+        signup_parameters.put("password", password);
+        signup_parameters.put("type", "CUSTOMER");
+        signup_parameters.put("vendorId", "100000"); // This Value should be changed when a user is registered under specific customer
+
+        Log.e(TAG, "address--" + address);
+        Log.e(TAG, "email--" + email);
+        Log.e(TAG, "mobile--" + mobile);
+        Log.e(TAG, "password--" + password);
+        Log.e(TAG, "name--" + name);
+
+        Log.e(TAG, "request--" + signup_parameters);
 
         JSONObject request = new JSONObject();
-        request.put("name", name);
-        Log.e(TAG, "name--" + name);
-        request.put("address", address);
-        Log.e(TAG, "address--" + address);
-        request.put("email", email);
-        Log.e(TAG, "email--" + email);
-        request.put("mobileNo", mobile);
-        Log.e(TAG, "mobile--" + mobile);
-        request.put("password", password);
-        Log.e(TAG, "password--" + password);
-        request.put("type", "CUSTOMER");
-        // This Value should be changed when a user is reggistered under specific customer
-        request.put("vendorId", "100000");
+        request.put("request", signup_parameters);
+        Log.e(TAG, "Request--" + request);
 
-        Log.e(TAG, "request--" + request);
-
-        JSONObject baseClass = new JSONObject();
-        baseClass.put("request", request);
-        Log.e(TAG, "baseclass--" + baseClass);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, baseClass, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, request, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject baseClass) {
-                Log.e(TAG, "response--" + baseClass);
+            public void onResponse(JSONObject requestResponse) {
+                Log.e(TAG, "response--" + requestResponse);
+
                 try {
-                    response = baseClass.getString("resp");
-                    code = baseClass.getString("code");
-                    message = baseClass.getString("message");
-                    Log.e(TAG, "response--" + response + "code--" + code + "message--" + message);
+                    resp = requestResponse.getString("resp");
+                    code = requestResponse.getString("code");
+                    message = requestResponse.getString("message");
+                    Log.e(TAG, "response--" + resp + " code--" + code + " message--" + message);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -234,9 +236,7 @@ public class SignupActivity extends AppCompatActivity {
                 params.put(KEY_ADDRESS, address);
                 params.put(KEY_MOBILE_NO, mobile);
                 params.put(KEY_TYPE, "CUSTOMER");
-
-                // This Value should be changed when a user is registered under specific customer
-                params.put(KEY_VENDORID, "600000");
+                params.put(KEY_VENDORID, "100000");  // This Value should be changed when a user is registered under specific customer
 
                 Log.e(TAG, "HashMap--" + String.valueOf(params));
                 Log.e(TAG, "HashMap--" + params);
@@ -251,15 +251,14 @@ public class SignupActivity extends AppCompatActivity {
                 return headers;
             }
         };
-        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(60000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonObjectRequest);
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        if (Objects.equals(message, "FAILURE")) {
+                        if (Objects.equals(message, "FAILURE") || Objects.equals(code, "500")) {
                             onSignupFailed();
                         } else {
                             onSignupSuccess();
