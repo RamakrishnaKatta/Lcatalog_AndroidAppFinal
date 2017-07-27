@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     ImageButton get_details;
     CoordinatorLayout LoginLayout;
 
-    String code, message;
+    String resp, code, message;
     String userName, userEmail, userPhone, userAddress;
     String email, password;
 
@@ -134,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         prefManager5 = new PrefManager(this);
         Log.e(TAG, "" + prefManager5.LoginActivityScreenLaunch());
         if (prefManager5.LoginActivityScreenLaunch()) {
@@ -245,20 +246,29 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject requestResponse) {
                 Log.e(TAG, "response--" + requestResponse);
-                try {
 
-                    JSONObject user_details = requestResponse.getJSONObject("resp");
-                    userName = user_details.getString("name");
-                    userAddress = user_details.getString("address");
-                    userEmail = user_details.getString("email");
-                    userPhone = user_details.getString("mobileNo");
-                    Log.e(TAG, "User Name > " + userName + "\n User Address > " + userAddress + "\n User Email > " + userEmail + "\n User Phone > " + userPhone);
+                try {
+                    resp = requestResponse.getString("resp");
                     code = requestResponse.getString("code");
                     message = requestResponse.getString("message");
-                    Log.e(TAG, " code--" + code + " message--" + message);
-
+                    Log.e(TAG, "resp " + resp + " code--" + code + " message--" + message);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }
+
+                if (resp == "No Details Found") {
+                    try {
+                        JSONObject user_details = requestResponse.getJSONObject("resp");
+
+                        userName = user_details.getString("name");
+                        userAddress = user_details.getString("address");
+                        userEmail = user_details.getString("email");
+                        userPhone = user_details.getString("mobileNo");
+                        Log.e(TAG, "User Name > " + userName + "\n User Address > " + userAddress + "\n User Email > " + userEmail + "\n User Phone > " + userPhone);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
@@ -301,7 +311,8 @@ public class LoginActivity extends AppCompatActivity {
         new android.os.Handler().postDelayed(new Runnable() {
             public void run() {
                 // On complete call either onLoginSuccess or onLoginFailed
-                if (Objects.equals(message, "FAILURE")) {
+                Log.e(TAG, " code--" + code + " message--" + message);
+                if (Objects.equals(message, "FAILURE") || Objects.equals(code, "500")) {
                     onLoginFailed();
                 } else {
                     onLoginSuccess();
@@ -343,7 +354,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginFailed() {
         Button _loginButton = (Button) findViewById(R.id.btn_login);
-        CustomMessage.getInstance().CustomMessage(LoginActivity.this, "Login failed Please Signup or Try Logging Again");
+        CustomMessage.getInstance().CustomMessage(LoginActivity.this, "Login failed Please Sign Up or Try Logging Again");
 
         _loginButton.setEnabled(true);
     }
