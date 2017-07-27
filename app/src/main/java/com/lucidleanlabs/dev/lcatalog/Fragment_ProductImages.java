@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -37,8 +38,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import javax.security.auth.login.LoginException;
 
 
 public class Fragment_ProductImages extends Fragment {
@@ -130,8 +129,8 @@ public class Fragment_ProductImages extends Fragment {
 
                 dots = new TextView[slider_images.size()];
 
-                int[] colorsActive = view.getResources().getIntArray(R.array.array_dot_active);
-                int[] colorsInactive = view.getResources().getIntArray(R.array.array_dot_inactive);
+//                int[] colorsActive = view.getResources().getIntArray(R.array.array_dot_active);
+//                int[] colorsInactive = view.getResources().getIntArray(R.array.array_dot_inactive);
 
                 Slider_dots.removeAllViews();
 
@@ -139,12 +138,12 @@ public class Fragment_ProductImages extends Fragment {
                     dots[i] = new TextView(view.getContext());
                     dots[i].setText(Html.fromHtml("&#8226;"));
                     dots[i].setTextSize(35);
-                    dots[i].setTextColor(colorsInactive[currentPage]);
+                    dots[i].setTextColor(Color.WHITE);
                     Slider_dots.addView(dots[i]);
                 }
 
                 if (dots.length > 0)
-                    dots[currentPage].setTextColor(colorsActive[currentPage]);
+                    dots[currentPage].setTextColor(Color.parseColor("#004D40"));
             }
 
             @Override
@@ -277,9 +276,7 @@ public class Fragment_ProductImages extends Fragment {
         if (prefManager.ProductPageActivityScreenLaunch()) {
             ShowcaseView(view);
         }
-
         return view;
-
     }
 
     private void ShowcaseView(View view) {
