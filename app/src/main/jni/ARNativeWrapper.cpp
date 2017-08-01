@@ -39,7 +39,7 @@
             const char *model3file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wardrobe.obj";
             const char *model4file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/study_table.obj";
             const char *model5file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/parasona.obj";
-            const char *model6file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wodden_dinning_table.obj";
+            const char *model6file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wooden_dinning.obj";
             const char *model7file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/TEAKBED.obj";
             const char *model8file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wallpaint.obj";
             const char *model9file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/florence_compact.obj";
