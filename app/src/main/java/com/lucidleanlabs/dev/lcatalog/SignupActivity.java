@@ -53,7 +53,6 @@ public class SignupActivity extends AppCompatActivity {
 
     private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/user/register";
 
-
     TextView app_name, powered;
     private EditText _nameText, _addressText, _emailText, _mobileText, _passwordText, _reEnterPasswordText;
     private Button _signupButton;
@@ -66,7 +65,6 @@ public class SignupActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
 
         powered = (TextView) findViewById(R.id.lucidleanlabs);
         app_name = (TextView) findViewById(R.id.application_name);
@@ -103,7 +101,6 @@ public class SignupActivity extends AppCompatActivity {
         });
 
         if (NetworkConnectivity.checkInternetConnection(SignupActivity.this)){
-
         }else {
             InternetMessage();
         }
@@ -171,16 +168,15 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.show();
 
         // SIGN_UP LOGIC !!
-
         JSONObject signup_parameters = new JSONObject();
 
-        signup_parameters.put("name", name);
-        signup_parameters.put("address", address);
-        signup_parameters.put("email", email);
-        signup_parameters.put("mobileNo", mobile);
-        signup_parameters.put("password", password);
-        signup_parameters.put("type", "CUSTOMER");
-        signup_parameters.put("vendorId", "100000"); // This Value should be changed when a user is registered under specific customer
+        signup_parameters.put(KEY_USERNAME, name);
+        signup_parameters.put(KEY_ADDRESS, address);
+        signup_parameters.put(KEY_EMAIL, email);
+        signup_parameters.put(KEY_MOBILE_NO, mobile);
+        signup_parameters.put(KEY_PASSWORD, password);
+        signup_parameters.put(KEY_TYPE, "CUSTOMER");
+        signup_parameters.put(KEY_VENDORID, "100000"); // This Value should be changed when a user is registered under specific customer
 
         Log.e(TAG, "address--" + address);
         Log.e(TAG, "email--" + email);

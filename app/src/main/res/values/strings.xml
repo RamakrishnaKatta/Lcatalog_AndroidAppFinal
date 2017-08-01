@@ -46,7 +46,7 @@
 
     <!--Strings related to New Vendor Registration Page-->
 
-    <string name="new_vendor_name">Name of your Company</string>
+    <string name="new_vendor_name">Your Company Name</string>
     <string name="new_vendor_address">Company Address</string>
     <string name="new_vendor_email">Company Email</string>
     <string name="new_vendor_ph_no">Mobile Number</string>
@@ -54,8 +54,8 @@
     <string name="new_vendor_submit">SUBMIT / REGISTER</string>
     <string name="new_vendor_contact_person">Person to be Contacted</string>
     <string name="new_vendor_no_of_models_req">No of Models/Designs required (Approx)</string>
-    <string name="new_vendor_state">Which State in India?</string>
-    <string name="new_vendor_pincode">What is the States PinCode?</string>
+    <string name="new_vendor_state">In which State?</string>
+    <string name="new_vendor_pincode">States PinCode?</string>
     <string name="new_vendor_location">Which City?</string>
     <string name="dummy_address">Chandra Layout, Bangalore- 560072</string>
     <string name="Logged_userName">UserName</string>

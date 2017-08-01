@@ -1,7 +1,6 @@
 package com.lucidleanlabs.dev.lcatalog;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +33,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class VendorRegistrationActivity extends AppCompatActivity {
 
@@ -49,10 +49,12 @@ public class VendorRegistrationActivity extends AppCompatActivity {
     public static final String KEY_V_PIN = "pin";
     public static final String KEY_V_MOBILENO = "mobile";
 
-    private static final String REGISTER_URL = "http://192.168.0.6:8080/lll/app/vendor/add_vendor_req";
+    private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/app/vendor/add_vendor_req";
 
     private EditText v_companyName, v_companyContactPerson, v_companyAddress, v_companyLocation, v_companyState, v_companyPin, v_companyEmail, v_companyMobileNo, v_totalModels;
     private Button v_registerButton;
+
+    String resp, code, message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,16 +83,16 @@ public class VendorRegistrationActivity extends AppCompatActivity {
             }
         });
 
-        if (NetworkConnectivity.checkInternetConnection(VendorRegistrationActivity.this)){
+        if (NetworkConnectivity.checkInternetConnection(VendorRegistrationActivity.this)) {
 
-        }else {
+        } else {
             InternetMessage();
         }
     }
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
         snackbar.setActionTextColor(getResources().getColor(R.color.red));
         snackbar.setAction("RETRY", new View.OnClickListener() {
             @Override
@@ -162,10 +164,11 @@ public class VendorRegistrationActivity extends AppCompatActivity {
 
         final ProgressDialog progressDialog = new ProgressDialog(VendorRegistrationActivity.this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Submitting Vendor Registration Form......");
+        progressDialog.setMessage("Submitting Vendor Registration Form to L Catalog......");
         progressDialog.show();
 
         JSONObject vendor_request = new JSONObject();
+
         vendor_request.put(KEY_V_COMPANYNAME, companyName);
         vendor_request.put(KEY_V_CONTACTPERSONNAME, companyContactName);
         vendor_request.put(KEY_V_ADDRESS, companyAddress);
@@ -175,17 +178,28 @@ public class VendorRegistrationActivity extends AppCompatActivity {
         vendor_request.put(KEY_V_EMAIL, companyEmail);
         vendor_request.put(KEY_V_MOBILENO, companyMobileNo);
         vendor_request.put(KEY_V_TOTALMODELS, companyModelCount);
+
         Log.e(TAG, "vendor_request--" + vendor_request);
 
-        final JSONObject baseClass = new JSONObject();
-        baseClass.put("request", vendor_request);
-        Log.e(TAG, "baseclass--" + baseClass);
+        final JSONObject request = new JSONObject();
+        request.put("request", vendor_request);
+        Log.e(TAG, "Request--" + request);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, baseClass, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, request, new Response.Listener<JSONObject>() {
 
             @Override
-            public void onResponse(JSONObject response) {
-                Log.e(TAG, "response--" + baseClass);
+            public void onResponse(JSONObject requestResponse) {
+                Log.e(TAG, "Response--" + requestResponse);
+
+                try {
+                    resp = requestResponse.getString("resp");
+                    code = requestResponse.getString("code");
+                    message = requestResponse.getString("message");
+                    Log.e(TAG, "response--" + resp + " code--" + code + " message--" + message);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -241,8 +255,12 @@ public class VendorRegistrationActivity extends AppCompatActivity {
                 new Runnable() {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed depending on success
-                        onVendorRegistrationSuccess();
-                        // onSignupFailed();
+
+                        if (Objects.equals(message, "SUCCESS") || Objects.equals(code, "200")) {
+                            onVendorRegistrationSuccess();
+                        } else {
+                            onVendorRegistrationFailed();
+                        }
                         progressDialog.dismiss();
                     }
                 }, 3000);
@@ -336,12 +354,12 @@ public class VendorRegistrationActivity extends AppCompatActivity {
     }
 
     public void onVendorRegistrationSuccess() {
+
+        CustomMessage.getInstance().CustomMessage(VendorRegistrationActivity.this, "Successfully registered your request, We will respond very soon! ");
+
         v_registerButton = (Button) findViewById(R.id.btn_vendor_submit);
         v_registerButton.setEnabled(true);
         setResult(RESULT_OK, null);
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
         finish();
     }
 
