@@ -83,9 +83,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:11.0.2'
     /*show Case View*/
     compile 'com.getkeepsafe.taptargetview:taptargetview:1.9.1'
-
     compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
-
     testCompile 'junit:junit:4.12'
     compile project(':aRBaseLib')
 }

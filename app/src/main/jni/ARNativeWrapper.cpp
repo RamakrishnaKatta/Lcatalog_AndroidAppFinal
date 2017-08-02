@@ -39,7 +39,7 @@
             const char *model3file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wardrobe.obj";
             const char *model4file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/study_table.obj";
             const char *model5file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/parasona.obj";
-            const char *model6file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wooden_dinning.obj";
+            const char *model6file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/barrelset.obj";
             const char *model7file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/TEAKBED.obj";
             const char *model8file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/wallpaint.obj";
             const char *model9file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/florence_compact.obj";
@@ -50,7 +50,7 @@
             const char *model14file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/cou.obj";
 
             //Mapping to pattern 0 - bed sofa.obj
-            models[0].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/one.patt;80");
+            models[0].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern1.patt;80");
 
             arwSetMarkerOptionBool(models[0].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[0].patternID, ARW_MARKER_OPTION_FILTERED, true);
@@ -66,7 +66,7 @@
             models[0].visible = false;
 
             //Mapping to pattern 1 - dressing_table.obj
-            models[1].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/two.patt;80");
+            models[1].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern2.patt;80");
             arwSetMarkerOptionBool(models[1].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[1].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
@@ -81,7 +81,7 @@
             models[1].visible = false;
 
             //Mapping to pattern 2 - outdoor sofa.obj
-            models[2].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/three.patt;80");
+            models[2].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern3.patt;80");
             arwSetMarkerOptionBool(models[2].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[2].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
@@ -96,7 +96,7 @@
             models[2].visible = false;
 
             //Mapping to pattern 3 - wardrobe.obj
-            models[3].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/four.patt;80");
+            models[3].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern4.patt;80");
             arwSetMarkerOptionBool(models[3].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[3].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
@@ -111,7 +111,7 @@
             models[3].visible = false;
 
              //Mapping to pattern 4 - study_table.obj
-            models[4].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/five.patt;80");
+            models[4].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern5.patt;80");
             arwSetMarkerOptionBool(models[4].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[4].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
@@ -126,7 +126,7 @@
                         models[4].visible = false;
 
             //Mapping to pattern 5 - parasona.obj
-            models[5].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/six.patt;80");
+            models[5].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern6.patt;80");
             arwSetMarkerOptionBool(models[5].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[5].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
@@ -140,8 +140,8 @@
             glmCreateArrays(models[5].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
                        models[5].visible = false;
 
-            //Mapping to pattern 6 - dinning.obj
-            models[6].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/seven.patt;80");
+            //Mapping to pattern 6 - Barrel Set.obj
+            models[6].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern7.patt;80");
             arwSetMarkerOptionBool(models[6].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[6].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
@@ -156,7 +156,7 @@
                       models[6].visible = false;
 
             //Mapping to pattern 7 - teak bed.obj
-            models[7].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/eight.patt;80");
+            models[7].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern8.patt;80");
             arwSetMarkerOptionBool(models[7].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[7].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
