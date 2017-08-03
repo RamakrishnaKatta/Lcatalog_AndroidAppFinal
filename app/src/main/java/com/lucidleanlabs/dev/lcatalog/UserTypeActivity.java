@@ -4,9 +4,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -22,13 +22,16 @@ import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.getkeepsafe.taptargetview.TapTargetView;
 import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
 import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
 import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UserTypeActivity extends AppCompatActivity {
 
@@ -163,10 +166,10 @@ public class UserTypeActivity extends AppCompatActivity {
             Log.e(TAG, "Enter this loop of Folder Creation");
             CreateFolderStructure();
         }
-       // checkInternetConnection();
-        if (NetworkConnectivity.checkInternetConnection(UserTypeActivity.this)){
+        // checkInternetConnection();
+        if (NetworkConnectivity.checkInternetConnection(UserTypeActivity.this)) {
 
-        }else {
+        } else {
             InternetMessage();
         }
     }
@@ -326,49 +329,122 @@ public class UserTypeActivity extends AppCompatActivity {
 
      /*Permissions Required for the app and granted*/
 
-    private void RequestPermissions() {
-        if (ContextCompat.checkSelfPermission(UserTypeActivity.this, android.Manifest.permission.CAMERA)
-                + ContextCompat.checkSelfPermission(UserTypeActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) +
-                +ContextCompat.checkSelfPermission(UserTypeActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+    private boolean RequestPermissions() {
 
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(UserTypeActivity.this, android.Manifest.permission.CAMERA) ||
-                    ActivityCompat.shouldShowRequestPermissionRationale(UserTypeActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
-                    ActivityCompat.shouldShowRequestPermissionRationale(UserTypeActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        int PermissionCamera = ContextCompat.checkSelfPermission(UserTypeActivity.this, android.Manifest.permission.CAMERA);
+        int PermissionReadStorage = ContextCompat.checkSelfPermission(UserTypeActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        int PermissionWriteStorage = ContextCompat.checkSelfPermission(UserTypeActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-         /*    Show an explanation to the user *asynchronously* -- don't block this thread waiting for the user's response!
-                After the user sees the explanation, try again to request the permission.*/
+//        if (PermissionCamera + PermissionReadStorage + PermissionWriteStorage != PackageManager.PERMISSION_GRANTED) {
+//
+//            // Should we show an explanation?
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(UserTypeActivity.this, android.Manifest.permission.CAMERA) ||
+//                    ActivityCompat.shouldShowRequestPermissionRationale(UserTypeActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+//                    ActivityCompat.shouldShowRequestPermissionRationale(UserTypeActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+//
+//         /*    Show an explanation to the user *asynchronously* -- don't block this thread waiting for the user's response!
+//                After the user sees the explanation, try again to request the permission.*/
+//
+//            } else {
+//
+//                // No explanation needed, we can request the permission.
+//
+//                ActivityCompat.requestPermissions(UserTypeActivity.this,
+//                        new String[]{android.Manifest.permission.CAMERA
+//                                , android.Manifest.permission.READ_EXTERNAL_STORAGE,
+//                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                        MY_PERMISSIONS_REQUEST);
+//
+//               /*  MY_PERMISSIONS_REQUEST is an app-defined int constant. The callback method gets the result of the request.*/
+//            }
+//        }
 
-            } else {
+        List<String> listPermissionsNeeded = new ArrayList<>();
 
-                // No explanation needed, we can request the permission.
+        if (PermissionCamera != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(android.Manifest.permission.CAMERA);
+        }
+        if (PermissionReadStorage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (PermissionWriteStorage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), MY_PERMISSIONS_REQUEST);
+            return false;
+        }
+        return true;
+    }
 
-                ActivityCompat.requestPermissions(UserTypeActivity.this,
-                        new String[]{android.Manifest.permission.CAMERA
-                                , android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        Log.e(TAG, "Permission callback called-------");
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST: {
+                Map<String, Integer> perms = new HashMap<>();
+                // Initialize the map with all three permissions
+                perms.put(android.Manifest.permission.CAMERA, PackageManager.PERMISSION_GRANTED);
+                perms.put(android.Manifest.permission.READ_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
+                perms.put(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
+                // Fill with actual results from user
+                if (grantResults.length > 0) {
+                    for (int i = 0; i < permissions.length; i++)
+                        perms.put(permissions[i], grantResults[i]);
+                    // Check all three permissions
+                    if (perms.get(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+                            && perms.get(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                            && perms.get(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        Log.e(TAG, "Camera and Storage(Read and Write) permission granted");
+                        // Process the normal flow
+                        // Else any one or both the permissions are not granted
+                    } else {
+                        Log.e(TAG, "Some permissions are not granted ask again ");
 
-               /*  MY_PERMISSIONS_REQUEST is an app-defined int constant. The callback method gets the result of the request.*/
+                        // Permission is denied (this is the first time, when "never ask again" is not checked) so ask again explaining the usage of permission
+                        // ShouldShowRequestPermissionRationale will return true
+                        // Show the dialog or SnackBar saying its necessary and try again otherwise proceed with setup.
+
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.CAMERA) ||
+                                ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) ||
+                                ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                            showDialogOK("Storage and Camera Services are Mandatory for this Application",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            switch (which) {
+                                                case DialogInterface.BUTTON_POSITIVE:
+                                                    RequestPermissions();
+                                                    break;
+                                                case DialogInterface.BUTTON_NEGATIVE:
+                                                    // proceed with logic by disabling the related features or quit the app.
+                                                    android.os.Process.killProcess(android.os.Process.myPid());
+                                                    System.exit(0);
+                                                    break;
+                                            }
+                                        }
+                                    });
+                        }
+                        // permission is denied (and never ask again is checked)
+                        // shouldShowRequestPermissionRationale will return false
+                        else {
+                            Toast.makeText(this, "Go to settings and enable permissions", Toast.LENGTH_LONG).show();
+                            // Proceed with logic by disabling the related features or quit the app.
+                        }
+                    } // other 'case' lines to check for other permissions this app might request
+                }
             }
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the tasks you need to do.
-                } else {
-                    // permission denied, boo! Disable the functionality that depends on this permission.
-                }
-            }
-            // other 'case' lines to check for other permissions this app might request
-        }
+    private void showDialogOK(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", okListener)
+                .create()
+                .show();
     }
 
     private static boolean isExternalStorageReadOnly() {
