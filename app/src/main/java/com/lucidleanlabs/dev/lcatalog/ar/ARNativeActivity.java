@@ -15,7 +15,6 @@ import com.lucidleanlabs.dev.lcatalog.R;
 
 import org.artoolkit.ar.base.ARActivity;
 import org.artoolkit.ar.base.assets.AssetHelper;
-import org.artoolkit.ar.base.camera.CaptureCameraPreview;
 import org.artoolkit.ar.base.rendering.ARRenderer;
 
 import java.io.File;

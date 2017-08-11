@@ -39,7 +39,7 @@ import java.util.ArrayList;
 
 public class CatalogActivity extends AppCompatActivity {
 
-    private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/article/all";
+    private static final String REGISTER_URL = "http://35.154.252.64:8080/lll/web/article/all?from=0&count=10";
     private static final String TAG = "CatalogActivity";
 
     private ArrayList<String> item_names;

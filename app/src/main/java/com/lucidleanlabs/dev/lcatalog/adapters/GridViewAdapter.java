@@ -73,7 +73,7 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
     }
 
     /**
-     * View holder to display each RecylerView item
+     * View holder to display each RecyclerView item
      */
     static class ViewHolder extends RecyclerView.ViewHolder {
 

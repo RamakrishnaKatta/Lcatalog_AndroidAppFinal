@@ -2,9 +2,6 @@ package com.lucidleanlabs.dev.lcatalog.ar;
 
 import android.app.Application;
 
-import org.artoolkit.ar.base.assets.AssetHelper;
-
-
 public class ARNativeApplication extends Application {
 
     private static Application sInstance;
