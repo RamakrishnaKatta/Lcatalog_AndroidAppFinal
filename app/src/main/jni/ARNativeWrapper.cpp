@@ -47,7 +47,7 @@
             const char *model11file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/alba_sheeshamcofee_table.obj";
             const char *model12file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/chelsea.obj";
             const char *model13file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/Multiple_Frames_Buddha_Art_Wall_Painting.obj";
-            const char *model14file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/cou.obj";
+            const char *model14file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/floorlamp.obj";
 
             //Mapping to pattern 0 - bed sofa.obj
             models[0].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern1.patt;80");
@@ -260,7 +260,7 @@
             glmCreateArrays(models[13].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
                     models[13].visible = false;
 
-            //Mapping to pattern 14  - counter chair.obj
+            //Mapping to pattern 14  - Floor Lamp.obj
             models[14].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/G.patt;80");
             arwSetMarkerOptionBool(models[14].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[14].patternID, ARW_MARKER_OPTION_FILTERED, true);
