@@ -205,30 +205,31 @@ public class CatalogActivity extends AppCompatActivity {
                 }
                 /*onscroll for Vertical Listview*/
                 else if (fab_vertical.getSize() == 0 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 1) {
+
                     int v_count = verticalManager.getChildCount();
                     int t_count = verticalManager.getItemCount();
                     int f_v_position = verticalManager.findFirstVisibleItemPosition();
-
                     if ((v_count + f_v_position) >= t_count && f_v_position >= 0) {
-                        Log.d(TAG, "onScrolled: reached bottom");
+                        Log.d(TAG, "onScrolled: reached Bottom");
+                        pagenumber += 1;
+                        Loadmore = true;
+                        createUrl();
+                    }
+                }
+                /*onscroll for Horizontal Listview*/
+                else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
+                    int v_count = horizontalManager.getChildCount();
+                    int t_count = horizontalManager.getItemCount();
+                    int f_v_position = horizontalManager.findFirstVisibleItemPosition();
+                    if ((v_count + f_v_position) >= t_count && f_v_position >= 0) {
+                        Log.d(TAG, "onScrolled: reached End");
                         pagenumber += 1;
                         Loadmore = true;
                         createUrl();
                     }
 
-                }
-                /*onscroll for Horizontal Listview*/
-                else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
 
-//                    v_count = horizontalManager.getChildCount();
-//                    t_count = horizontalManager.getItemCount();
-//                    f_v_position = horizontalManager.findFirstVisibleItemPosition();
-//                    if ((v_count + f_v_position) >= t_count && f_v_position >= 0) {
-//                        Log.d(TAG, "onScrolled: reached end");
-//                        pageNo += 1;
-//                        Loadmore = true;
-//                        createUrl();
-//                    }
+//
                 }
             }
         });
@@ -317,6 +318,7 @@ public class CatalogActivity extends AppCompatActivity {
         commonGetdata(url);
 
     }
+
 
     /*Internet message for Network connectivity*/
 
