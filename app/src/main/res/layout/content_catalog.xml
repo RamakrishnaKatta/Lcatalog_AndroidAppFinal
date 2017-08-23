@@ -8,31 +8,54 @@
     tools:context="com.lucidleanlabs.dev.lcatalog.CatalogActivity"
     tools:showIn="@layout/activity_catalog">
 
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/grid_recycler"
+        <RelativeLayout
+            android:id="@+id/layout_grid"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/thumbnail"
-            android:visibility="visible"/>
+            android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/horizontal_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/thumbnail"
-            android:visibility="visible"/>
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/vertical_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/thumbnail"
-            android:visibility="visible"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/thumbnail"
+                    android:visibility="visible" />
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progress_grid"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="visible"/>
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </RelativeLayout>
+
+        <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/horizontal_recycler"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:padding="@dimen/thumbnail"-->
+        <!--android:visibility="visible" />-->
+
+        <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/vertical_recycler"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:padding="@dimen/thumbnail"-->
+        <!--android:visibility="visible" />-->
 
     </LinearLayout>
 

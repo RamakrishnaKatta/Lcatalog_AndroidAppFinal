@@ -47,7 +47,7 @@ public class AboutUsActivity extends AppCompatActivity {
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String facebook_url = "https://www.facebook.com/lucidleanlabsOfficial/";
+                String facebook_url = "https://www.facebook.com/immersionslabs/";
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebook_url));
                 startActivity(browserIntent);
             }
@@ -55,7 +55,7 @@ public class AboutUsActivity extends AppCompatActivity {
         instagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String instagram_url = "https://www.instagram.com/lucidleanlabsofficial/";
+                String instagram_url = "https://www.instagram.com/immersionslabs/";
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(instagram_url));
                 startActivity(browserIntent);
             }
@@ -63,7 +63,7 @@ public class AboutUsActivity extends AppCompatActivity {
         twitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String twitter_url = "https://twitter.com/lucidleanlabs/";
+                String twitter_url = "https://twitter.com/immersionslabs/";
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(twitter_url));
                 startActivity(browserIntent);
             }
@@ -80,7 +80,7 @@ public class AboutUsActivity extends AppCompatActivity {
         youtube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String youtube_url = "https://www.youtube.com/channel/UCyKgvfN8KOHqOYEGNpqzsIA/";
+                String youtube_url = "https://www.youtube.com/channel/UCbFTPamOyx9GqVdlYqjckqQ/";
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(youtube_url));
                 startActivity(browserIntent);
             }
