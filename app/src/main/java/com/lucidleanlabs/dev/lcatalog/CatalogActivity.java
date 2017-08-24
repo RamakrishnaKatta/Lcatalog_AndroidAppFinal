@@ -63,11 +63,10 @@ public class CatalogActivity extends AppCompatActivity {
 
     RecyclerView recycler;
     ProgressBar progressBar;
-    GridLayoutManager gridManager;
-    LinearLayoutManager horizontalManager, verticalManager;
+    GridLayoutManager GridManager;
+    LinearLayoutManager HorizontalManager, VerticalManager;
     Boolean loading = false, refreshStatus = false;
     SwipeRefreshLayout refreshLayout;
-    String Url = "";
     FloatingActionButton fab_grid, fab_vertical, fab_horizontal;
     Boolean Loadmore = false;
     int to = 0;
@@ -86,9 +85,9 @@ public class CatalogActivity extends AppCompatActivity {
         recycler = (RecyclerView) findViewById(R.id.recycler);
         recycler.setHasFixedSize(true);
 
-        horizontalManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        verticalManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        gridManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+        HorizontalManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        VerticalManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        GridManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
 
 
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
@@ -126,7 +125,7 @@ public class CatalogActivity extends AppCompatActivity {
                 fab_vertical.setSize(1);
                 fab_horizontal.setSize(1);
                 fab_grid.setSize(0);
-                recycler.setLayoutManager(gridManager);
+                recycler.setLayoutManager(GridManager);
                 recycler.setAdapter(gridAdapter);
             }
         });
@@ -138,7 +137,7 @@ public class CatalogActivity extends AppCompatActivity {
                 fab_vertical.setSize(0);
                 fab_horizontal.setSize(1);
                 fab_grid.setSize(1);
-                recycler.setLayoutManager(verticalManager);
+                recycler.setLayoutManager(VerticalManager);
                 recycler.setAdapter(verticalAdapter);
             }
         });
@@ -150,19 +149,16 @@ public class CatalogActivity extends AppCompatActivity {
                 fab_vertical.setSize(1);
                 fab_horizontal.setSize(0);
                 fab_grid.setSize(1);
-                recycler.setLayoutManager(horizontalManager);
+                recycler.setLayoutManager(HorizontalManager);
                 recycler.setAdapter(horizontalAdapter);
             }
         });
 
         checkInternetConnection();
-
         if (NetworkConnectivity.checkInternetConnection(CatalogActivity.this)) {
-
         } else {
             InternetMessage();
         }
-
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -193,9 +189,9 @@ public class CatalogActivity extends AppCompatActivity {
 
                 /*onscroll for Gridview*/
                 if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 0) {
-                    int v_count = gridManager.getChildCount();
-                    int t_count = gridManager.getItemCount();
-                    int f_v_position = gridManager.findFirstVisibleItemPosition();
+                    int v_count = GridManager.getChildCount();
+                    int t_count = GridManager.getItemCount();
+                    int f_v_position = GridManager.findFirstVisibleItemPosition();
                     if (f_v_position + v_count >= t_count) {
                         Log.d(TAG, "onScrolled: reached grid bottom");
                         pagenumber += 1;
@@ -206,9 +202,9 @@ public class CatalogActivity extends AppCompatActivity {
                 /*onscroll for Vertical Listview*/
                 else if (fab_vertical.getSize() == 0 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 1) {
 
-                    int v_count = verticalManager.getChildCount();
-                    int t_count = verticalManager.getItemCount();
-                    int f_v_position = verticalManager.findFirstVisibleItemPosition();
+                    int v_count = VerticalManager.getChildCount();
+                    int t_count = VerticalManager.getItemCount();
+                    int f_v_position = VerticalManager.findFirstVisibleItemPosition();
                     if ((v_count + f_v_position) >= t_count && f_v_position >= 0) {
                         Log.d(TAG, "onScrolled: reached Bottom");
                         pagenumber += 1;
@@ -218,22 +214,18 @@ public class CatalogActivity extends AppCompatActivity {
                 }
                 /*onscroll for Horizontal Listview*/
                 else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
-                    int v_count = horizontalManager.getChildCount();
-                    int t_count = horizontalManager.getItemCount();
-                    int f_v_position = horizontalManager.findFirstVisibleItemPosition();
+                    int v_count = HorizontalManager.getChildCount();
+                    int t_count = HorizontalManager.getItemCount();
+                    int f_v_position = HorizontalManager.findFirstVisibleItemPosition();
                     if ((v_count + f_v_position) >= t_count && f_v_position >= 0) {
                         Log.d(TAG, "onScrolled: reached End");
                         pagenumber += 1;
                         Loadmore = true;
                         createUrl();
                     }
-
-
-//
                 }
             }
         });
-
     }
 
     private void commonGetdata(String url) {
@@ -451,13 +443,13 @@ public class CatalogActivity extends AppCompatActivity {
 
 
         if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 0) {
-            recycler.setLayoutManager(gridManager);
+            recycler.setLayoutManager(GridManager);
             recycler.setAdapter(gridAdapter);
         } else if (fab_vertical.getSize() == 0 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 1) {
-            recycler.setLayoutManager(verticalManager);
+            recycler.setLayoutManager(VerticalManager);
             recycler.setAdapter(verticalAdapter);
         } else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
-            recycler.setLayoutManager(horizontalManager);
+            recycler.setLayoutManager(HorizontalManager);
             recycler.setAdapter(horizontalAdapter);
         }
 
@@ -471,10 +463,6 @@ public class CatalogActivity extends AppCompatActivity {
 
     /*Adapter class for ListViewHorizotalAdapter*/
     public void horizontalRecyclerListView(JSONArray h_jsonArray) {
-//        horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
-//        vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);
-//        grid_recycler = (RecyclerView) findViewById(R.id.grid_recycler);
-//
 //        horizontal_recycler.setHasFixedSize(true);
 //
 //        for (int i = 0; i < h_jsonArray.length(); i++) {
