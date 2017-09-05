@@ -84,6 +84,7 @@ public class CatalogActivity extends AppCompatActivity {
         fab_horizontal = (FloatingActionButton) findViewById(R.id.fab_horizontal_list);
         recycler = (RecyclerView) findViewById(R.id.recycler);
         recycler.setHasFixedSize(true);
+        recycler.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
         HorizontalManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         VerticalManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
