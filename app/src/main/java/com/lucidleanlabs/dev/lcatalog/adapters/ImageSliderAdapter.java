@@ -58,7 +58,7 @@ public class ImageSliderAdapter extends PagerAdapter {
     }
 
     public Bitmap download_images(String urls) {
-        String urldisplay = "http://35.154.252.64:8080" + urls;
+        String urldisplay = "https://admin.immersionslabs.com" + urls;
         Bitmap mIcon = null;
         try {
 

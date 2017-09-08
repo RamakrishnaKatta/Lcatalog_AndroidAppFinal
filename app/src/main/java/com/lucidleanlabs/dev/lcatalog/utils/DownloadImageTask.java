@@ -17,7 +17,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected Bitmap doInBackground(String... urls) {
-        String urldisplay = "http://35.154.252.64:8080" + urls[0];
+        String urldisplay = "https://admin.immersionslabs.com" + urls[0];
         Bitmap mIcon = null;
         try {
 

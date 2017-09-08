@@ -44,7 +44,7 @@ public class Fragment_ProductImages extends Fragment {
 
     private static final String TAG = "Fragment_ProductImages";
 
-    private static String FILE_URL = "http://35.154.252.64:8080/models/";
+    private static String FILE_URL = "https://admin.immersionslabs.com/models/";
     private static String EXTENDED_URL;
 
     private PrefManager prefManager;
@@ -89,11 +89,13 @@ public class Fragment_ProductImages extends Fragment {
 
         try {
             JSONObject image_json = new JSONObject(article_images);
+
             image1 = image_json.getString("image1");
             image2 = image_json.getString("image2");
             image3 = image_json.getString("image3");
             image4 = image_json.getString("image4");
             image5 = image_json.getString("image5");
+
 
         } catch (JSONException e) {
             e.printStackTrace();

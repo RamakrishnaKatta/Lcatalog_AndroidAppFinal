@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final int REQUEST_LOGIN = 0;
     private static final int REQUEST_FORGOT_PASSWORD = 0;
 
-    private static final String LOGIN_URL = "http://35.154.252.64:8080/lll/web/user/login";
+    private static final String LOGIN_URL = "https://admin.immersionslabs.com/lll/web/user/login";
 
     TextView app_name, _forgot_password, powered;
     EditText _emailText, _passwordText;

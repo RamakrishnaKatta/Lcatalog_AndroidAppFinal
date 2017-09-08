@@ -15,10 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lucidleanlabs.dev.lcatalog.Fragment_Overview;
 import com.lucidleanlabs.dev.lcatalog.R;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -114,7 +116,7 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
             e.printStackTrace();
         }
         new DownloadImageTask(viewHolder.item_image).execute(im1);
-
+       // Picasso.with(activity.getContext()).load(im1).centerCrop().into(viewHolder.item_image);
         viewHolder.item_name.setText(item_names.get(position));
         viewHolder.item_description.setText(item_descriptions.get(position));
 
