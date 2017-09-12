@@ -27,7 +27,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:contentDescription="Company_Icon"
-                android:src="@drawable/logo" />
+                android:src="@drawable/companyicon" />
 
             <TextView
                 android:id="@+id/application_name"

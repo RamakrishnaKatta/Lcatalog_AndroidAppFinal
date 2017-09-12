@@ -33,7 +33,7 @@
                     android:layout_height="80dp"
                     android:layout_marginLeft="@dimen/margin_40"
                     android:contentDescription="Company_Icon"
-                    android:src="@drawable/logo" />
+                    android:src="@drawable/companyicon" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

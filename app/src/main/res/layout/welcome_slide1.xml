@@ -20,7 +20,7 @@
             android:layout_height="170dp"
             android:paddingLeft="@dimen/margin_10"
             android:paddingRight="@dimen/margin_10"
-            android:src="@drawable/logo" />
+            android:src="@drawable/companyicon" />
 
         <TextView
             android:id="@+id/txt_welcome_11"
