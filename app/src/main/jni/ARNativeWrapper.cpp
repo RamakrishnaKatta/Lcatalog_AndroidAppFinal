@@ -349,7 +349,7 @@
                     models[18].visible = false;
 
                 //Mapping to pattern 20  - royaloka_tvset.obj
-            models[19].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern20.patt;80");
+            models[19].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern21.patt;80");
             arwSetMarkerOptionBool(models[19].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
             arwSetMarkerOptionBool(models[19].patternID, ARW_MARKER_OPTION_FILTERED, true);
 
