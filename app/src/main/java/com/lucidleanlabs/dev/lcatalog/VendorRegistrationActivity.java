@@ -49,7 +49,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
     public static final String KEY_V_PIN = "pin";
     public static final String KEY_V_MOBILENO = "mobile";
 
-    private static final String REGISTER_URL = "https://admin.immersionslabs.com/lll/app/vendor/add_vendor_req";
+    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com/lll/app/vendor/add_vendor_req";
 
     private EditText v_companyName, v_companyContactPerson, v_companyAddress, v_companyLocation, v_companyState, v_companyPin, v_companyEmail, v_companyMobileNo, v_totalModels;
     private Button v_registerButton;

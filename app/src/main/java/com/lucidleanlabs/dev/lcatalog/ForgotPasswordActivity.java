@@ -39,7 +39,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private static final String TAG = "ForgotPassword";
     private static final int REQUEST_FORGOT = 0;
 
-    private static final String PASSWORD_UPDATE_URL = "https://admin.immersionslabs.com/lll/web/user/update_password";
+    private static final String PASSWORD_UPDATE_URL = "http://lcatalog.immersionslabs.com/lll/web/user/update_password";
 
     private TextView app_name, powered;
     private Button _submitButton;

@@ -1,7 +1,6 @@
 package com.lucidleanlabs.dev.lcatalog;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -42,10 +40,9 @@ import java.util.ArrayList;
 
 public class CatalogActivity extends AppCompatActivity {
 
-    private static final String REGISTER_URL = "https://admin.immersionslabs.com/lll/web/article/all?";
+    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com/lll/web/article/all?";
     private static final String TAG = "CatalogActivity";
 //    from=0&count=10
-
 
     private ArrayList<String> item_names;
     private ArrayList<String> item_descriptions;
@@ -56,16 +53,15 @@ public class CatalogActivity extends AppCompatActivity {
     private ArrayList<String> item_dimensions;
     private ArrayList<String> item_ids;
 
-
     GridViewAdapter gridAdapter;
-    ListViewVerticalAdapter verticalAdapter;
+    ListViewVerticalAdapter VerticalAdapter;
     ListViewHorizontalAdapter horizontalAdapter;
 
     RecyclerView recycler;
     ProgressBar progressBar;
     GridLayoutManager GridManager;
     LinearLayoutManager HorizontalManager, VerticalManager;
-    Boolean loading = false, refreshStatus = false;
+//    Boolean loading = false, refreshStatus = false;
     SwipeRefreshLayout refreshLayout;
     FloatingActionButton fab_grid, fab_vertical, fab_horizontal;
     Boolean Loadmore = false;
@@ -82,6 +78,7 @@ public class CatalogActivity extends AppCompatActivity {
         fab_grid = (FloatingActionButton) findViewById(R.id.fab_grid_list);
         fab_vertical = (FloatingActionButton) findViewById(R.id.fab_vertical_list);
         fab_horizontal = (FloatingActionButton) findViewById(R.id.fab_horizontal_list);
+
         recycler = (RecyclerView) findViewById(R.id.recycler);
         recycler.setHasFixedSize(true);
         recycler.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
@@ -90,10 +87,8 @@ public class CatalogActivity extends AppCompatActivity {
         VerticalManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         GridManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
 
-
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         progressBar = (ProgressBar) findViewById(R.id.progress_grid);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_catalog);
         setSupportActionBar(toolbar);
@@ -118,7 +113,6 @@ public class CatalogActivity extends AppCompatActivity {
 
         createUrl();
 
-
         /*Floating Button for Gridview*/
         fab_grid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,8 +124,8 @@ public class CatalogActivity extends AppCompatActivity {
                 recycler.setAdapter(gridAdapter);
             }
         });
-        /*Floating Button for Vertical Listview*/
 
+        /*Floating Button for Vertical Listview*/
         fab_vertical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,11 +133,11 @@ public class CatalogActivity extends AppCompatActivity {
                 fab_horizontal.setSize(1);
                 fab_grid.setSize(1);
                 recycler.setLayoutManager(VerticalManager);
-                recycler.setAdapter(verticalAdapter);
+                recycler.setAdapter(VerticalAdapter);
             }
         });
-        /*Floating Button for Horizontal listview*/
 
+        /*Floating Button for Horizontal Listview*/
         fab_horizontal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,7 +175,8 @@ public class CatalogActivity extends AppCompatActivity {
                 }
             }
         });
-            /*pagination for catalog Activity*/
+
+        /*pagination for catalog Activity*/
         recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
@@ -194,12 +189,14 @@ public class CatalogActivity extends AppCompatActivity {
                     int t_count = GridManager.getItemCount();
                     int f_v_position = GridManager.findFirstVisibleItemPosition();
                     if (f_v_position + v_count >= t_count) {
-                        Log.d(TAG, "onScrolled: reached grid bottom");
+
+                        Log.e(TAG, "onScrolled: reached grid bottom");
                         pagenumber += 1;
                         Loadmore = true;
                         createUrl();
                     }
                 }
+
                 /*onscroll for Vertical Listview*/
                 else if (fab_vertical.getSize() == 0 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 1) {
 
@@ -207,19 +204,22 @@ public class CatalogActivity extends AppCompatActivity {
                     int t_count = VerticalManager.getItemCount();
                     int f_v_position = VerticalManager.findFirstVisibleItemPosition();
                     if ((v_count + f_v_position) >= t_count && f_v_position >= 0) {
-                        Log.d(TAG, "onScrolled: reached Bottom");
+
+                        Log.e(TAG, "onScrolled: reached Vertical List Bottom");
                         pagenumber += 1;
                         Loadmore = true;
                         createUrl();
                     }
                 }
+
                 /*onscroll for Horizontal Listview*/
                 else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
                     int v_count = HorizontalManager.getChildCount();
                     int t_count = HorizontalManager.getItemCount();
                     int f_v_position = HorizontalManager.findFirstVisibleItemPosition();
                     if ((v_count + f_v_position) >= t_count && f_v_position >= 0) {
-                        Log.d(TAG, "onScrolled: reached End");
+
+                        Log.e(TAG, "onScrolled: reached Horizontal List Bottom");
                         pagenumber += 1;
                         Loadmore = true;
                         createUrl();
@@ -229,8 +229,16 @@ public class CatalogActivity extends AppCompatActivity {
         });
     }
 
+    private void createUrl() {
+
+        from = pagenumber * pagesize;
+        to = from + pagesize;
+        String url = REGISTER_URL + "from=" + from + "&count=" + to;
+        commonGetdata(url);
+    }
+
     private void commonGetdata(String url) {
-        Log.d(TAG, "commonGetdata: " + url);
+        Log.e(TAG, "commonGetdata: " + url);
         final JSONObject baseclass = new JSONObject();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, baseclass, new Response.Listener<JSONObject>() {
 
@@ -269,7 +277,7 @@ public class CatalogActivity extends AppCompatActivity {
                         if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 0) {
                             gridAdapter.notifyDataSetChanged();
                         } else if (fab_vertical.getSize() == 0 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 1) {
-                            verticalAdapter.notifyDataSetChanged();
+                            VerticalAdapter.notifyDataSetChanged();
                         } else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
                             horizontalAdapter.notifyDataSetChanged();
                         }
@@ -303,14 +311,6 @@ public class CatalogActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void createUrl() {
-
-        from = pagenumber * pagesize;
-        to = from + pagesize;
-        String url = REGISTER_URL + "from=" + from + "&count=" + to;
-        commonGetdata(url);
-
-    }
 
 
     /*Internet message for Network connectivity*/
@@ -337,7 +337,6 @@ public class CatalogActivity extends AppCompatActivity {
         return false;
     }
 
-
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
         final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
@@ -356,56 +355,55 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     /*Json for the Articles in different views*/
-
-    public void getData() throws JSONException {
-
-        final ProgressDialog loading = ProgressDialog.show(this, "Please wait...", "Fetching data...", false, false);
-
-        final JSONObject baseclass = new JSONObject();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, REGISTER_URL, baseclass, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.e(TAG, "response--" + response);
-
-                try {
-                    JSONArray resp = response.getJSONArray("resp");
-                    loading.dismiss();
-
-                    if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 0) {
-                        gridView(resp);
-                    } else if (fab_vertical.getSize() == 0 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 1) {
-                        verticalRecyclerListView(resp);
-                    } else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
-                        horizontalRecyclerListView(resp);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(CatalogActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                NetworkResponse response = error.networkResponse;
-                if (error instanceof ServerError && response != null) {
-                    try {
-                        String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                        // Now you can use any deserializer to make sense of data
-                        JSONObject request = new JSONObject(res);
-                        Log.e(TAG, "request--" + request);
-                    } catch (UnsupportedEncodingException | JSONException e1) {
-                        // Couldn't properly decode data to string
-                        e1.printStackTrace();
-                    }
-                }
-            }
-        });
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonObjectRequest);
-    }
+//    public void getData() throws JSONException {
+//
+//        final ProgressDialog loading = ProgressDialog.show(this, "Please wait...", "Fetching data...", false, false);
+//
+//        final JSONObject baseclass = new JSONObject();
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, REGISTER_URL, baseclass, new Response.Listener<JSONObject>() {
+//
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                Log.e(TAG, "response--" + response);
+//
+//                try {
+//                    JSONArray resp = response.getJSONArray("resp");
+//                    loading.dismiss();
+//
+//                    if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 0) {
+//                        gridView(resp);
+//                    } else if (fab_vertical.getSize() == 0 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 1) {
+//                        verticalRecyclerListView(resp);
+//                    } else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
+//                        horizontalRecyclerListView(resp);
+//                    }
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(CatalogActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+//                NetworkResponse response = error.networkResponse;
+//                if (error instanceof ServerError && response != null) {
+//                    try {
+//                        String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+//                        // Now you can use any deserializer to make sense of data
+//                        JSONObject request = new JSONObject(res);
+//                        Log.e(TAG, "request--" + request);
+//                    } catch (UnsupportedEncodingException | JSONException e1) {
+//                        // Couldn't properly decode data to string
+//                        e1.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//        requestQueue.add(jsonObjectRequest);
+//    }
 
     /*Adapter class for GridViewAdapter*/
     public void gridView(JSONArray g_jsonArray) {
@@ -440,7 +438,7 @@ public class CatalogActivity extends AppCompatActivity {
         recycler.removeAllViews();
         gridAdapter = new GridViewAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
         horizontalAdapter = new ListViewHorizontalAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
-        verticalAdapter = new ListViewVerticalAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
+        VerticalAdapter = new ListViewVerticalAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
 
 
         if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 0) {
@@ -448,7 +446,7 @@ public class CatalogActivity extends AppCompatActivity {
             recycler.setAdapter(gridAdapter);
         } else if (fab_vertical.getSize() == 0 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 1) {
             recycler.setLayoutManager(VerticalManager);
-            recycler.setAdapter(verticalAdapter);
+            recycler.setAdapter(VerticalAdapter);
         } else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
             recycler.setLayoutManager(HorizontalManager);
             recycler.setAdapter(horizontalAdapter);
@@ -463,7 +461,7 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     /*Adapter class for ListViewHorizotalAdapter*/
-    public void horizontalRecyclerListView(JSONArray h_jsonArray) {
+//    public void horizontalRecyclerListView(JSONArray h_jsonArray) {
 //        horizontal_recycler.setHasFixedSize(true);
 //
 //        for (int i = 0; i < h_jsonArray.length(); i++) {
@@ -502,10 +500,10 @@ public class CatalogActivity extends AppCompatActivity {
 //            vertical_recycler.setVisibility(View.GONE);
 //            horizontal_recycler.setVisibility(View.VISIBLE);
 //        }
-    }
+//    }
 
     /*Adapter class for ListViewVerticalAdapter*/
-    public void verticalRecyclerListView(JSONArray v_jsonArray) {
+//    public void verticalRecyclerListView(JSONArray v_jsonArray) {
 //        RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
 //        RecyclerView vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);
 //        RecyclerView grid_recycler = (RecyclerView) findViewById(R.id.grid_recycler);
@@ -548,7 +546,7 @@ public class CatalogActivity extends AppCompatActivity {
 //            horizontal_recycler.setVisibility(View.GONE);
 //            vertical_recycler.setVisibility(View.VISIBLE);
 //        }
-    }
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -17,7 +17,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected Bitmap doInBackground(String... urls) {
-        String urldisplay = "https://admin.immersionslabs.com" + urls[0];
+        String urldisplay = "http://lcatalog.immersionslabs.com" + urls[0];
         Bitmap mIcon = null;
         try {
 

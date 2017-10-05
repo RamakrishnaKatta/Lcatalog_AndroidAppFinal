@@ -54,9 +54,6 @@
             const char *model18file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/goldchain.obj";
             const char *model19file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/royaloka_tvset.obj";
 
-
-
-
             //Mapping to pattern 1 - bed sofa.obj
             models[0].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern1.patt;80");
 
@@ -331,8 +328,6 @@
             glmCreateArrays(models[17].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
                     models[17].visible = false;
 
-
-
               //Mapping to pattern 19  - goldchain.obj
             models[18].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern19.patt;80");
             arwSetMarkerOptionBool(models[18].patternID, ARW_MARKER_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION, false);
@@ -362,7 +357,6 @@
             //glmRotate(models[19].obj, 3.14159f / 2.0f, 1.0f, 0.0f, 0.0f);
             glmCreateArrays(models[19].obj, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE );
                     models[19].visible = false;
-
 
         }
 
