@@ -338,9 +338,16 @@ public class LoginActivity extends AppCompatActivity {
         user_data.putString("email", userEmail);
         Log.e(TAG, "User -- " + user_data);
 
-        Intent intent = new Intent(this, MainActivity.class).putExtras(user_data);
-        startActivity(intent);
-        finish();
+        if (userName != null | userPhone != null | userAddress != null | userEmail != null) {
+            Intent intent = new Intent(this, MainActivity.class).putExtras(user_data);
+            startActivity(intent);
+            finish();
+        } else {
+            _loginButton = (Button) findViewById(R.id.btn_login);
+            CustomMessage.getInstance().CustomMessage(LoginActivity.this, "There is a issue with your Login, maybe a network/server issue! \n Please try to login as guest for this time");
+
+            _loginButton.setEnabled(true);
+        }
     }
 
     public void onLoginFailed() {
