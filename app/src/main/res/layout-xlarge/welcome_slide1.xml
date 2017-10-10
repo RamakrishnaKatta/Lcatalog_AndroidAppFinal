@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/welcome_layout_1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="340dp"
+            android:layout_height="340dp"
+            android:paddingLeft="@dimen/margin_20"
+            android:paddingRight="@dimen/margin_20"
+            android:src="@drawable/companyicon" />
+
+        <TextView
+            android:id="@+id/txt_welcome_11"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="L Catalog"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="80sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_40"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/margin_20"
+            android:paddingRight="@dimen/margin_20">
+
+            <TextView
+                android:id="@+id/txt_welcome_12"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Powered by"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_welcome_13"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Immersion Software Labs"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="44sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_welcome_14"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="...the next big immersive experience"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="40sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
