@@ -94,7 +94,7 @@
                     android:layout_height="80dp"
                     android:layout_marginTop="@dimen/custom_margin"
                     android:padding="@dimen/margin_20"
-                    android:textSize="30sp"
+                    android:textSize="24sp"
                     android:text="Login" />
 
                 <ImageButton

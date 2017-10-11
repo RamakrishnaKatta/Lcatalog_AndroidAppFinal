@@ -54,7 +54,7 @@
             android:padding="@dimen/margin_6"
             android:text="I am the Description"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
         <LinearLayout

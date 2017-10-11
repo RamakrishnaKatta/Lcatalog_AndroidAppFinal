@@ -260,21 +260,21 @@ public class UserTypeActivity extends AppCompatActivity {
         Log.e(TAG, "" + prefManager1.UserTypeActivityScreenLaunch());
 
         final TapTargetSequence sequence = new TapTargetSequence(this).targets(
-                TapTarget.forView(findViewById(R.id.btn_new_customer), "Click here if you are new...")
+                TapTarget.forView(findViewById(R.id.btn_new_customer), "Click here if you wnat to signup with us...")
                         .tintTarget(false)
                         .targetRadius(25)
                         .transparentTarget(true)
                         .cancelable(false)
                         .textColor(R.color.white)
                         .id(1),
-                TapTarget.forView(findViewById(R.id.btn_customer), "Click here if you visited before")
+                TapTarget.forView(findViewById(R.id.btn_customer), "Click here if you visited us before")
                         .tintTarget(false)
                         .transparentTarget(true)
                         .cancelable(false)
                         .targetRadius(25)
                         .textColor(R.color.white)
                         .id(2),
-                TapTarget.forView(findViewById(R.id.btn_shopper), "Click here if you are Guest visitor")
+                TapTarget.forView(findViewById(R.id.btn_shopper), "Click here if you are a Onetime User")
                         .tintTarget(false)
                         .transparentTarget(true)
                         .textColor(R.color.white)

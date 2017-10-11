@@ -33,7 +33,7 @@
             android:paddingLeft="@dimen/margin_6"
             android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="60sp" />
+            android:textSize="40sp" />
     </LinearLayout>
 
     <TextView
@@ -43,7 +43,7 @@
         android:gravity="center"
         android:text="@string/powered_lucidleanlabs"
         android:textColor="@color/white"
-        android:textSize="32sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <View
@@ -59,7 +59,7 @@
         android:paddingTop="@dimen/margin_6"
         android:text=""
         android:textColor="@color/black"
-        android:textSize="36sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -75,7 +75,7 @@
             android:paddingTop="@dimen/margin_6"
             android:text="Hi, "
             android:textColor="@color/white"
-            android:textSize="36sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/user_name"
@@ -85,7 +85,7 @@
             android:paddingTop="@dimen/margin_6"
             android:text="@string/Logged_userName"
             android:textColor="@color/white"
-            android:textSize="36sp" />
+            android:textSize="24sp" />
 
     </LinearLayout>
 
@@ -97,6 +97,6 @@
         android:gravity="left"
         android:text="Email / phone number"
         android:textColor="@color/white"
-        android:textSize="24sp" />
+        android:textSize="18sp" />
 
 </LinearLayout>
