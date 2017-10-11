@@ -40,7 +40,7 @@ import java.util.ArrayList;
 
 public class CatalogActivity extends AppCompatActivity {
 
-    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com/lll/web/article/all?";
+    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com:8080/lll/web/article/all?";
     private static final String TAG = "CatalogActivity";
 //    from=0&count=10
 

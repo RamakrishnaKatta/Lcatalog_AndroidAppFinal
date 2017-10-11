@@ -51,7 +51,7 @@ public class SignupActivity extends AppCompatActivity {
     public static final String KEY_TYPE = "type";
     public static final String KEY_VENDORID = "vendorId";
 
-    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com/lll/web/user/register";
+    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com:8080/lll/web/user/register";
 
     TextView app_name, powered;
     private EditText _nameText, _addressText, _emailText, _mobileText, _passwordText, _reEnterPasswordText;

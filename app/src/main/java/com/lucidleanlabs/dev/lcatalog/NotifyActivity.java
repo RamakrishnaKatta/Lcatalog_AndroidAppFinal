@@ -35,7 +35,7 @@ import java.util.ArrayList;
 
 public class NotifyActivity extends AppCompatActivity {
 
-    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com/lll/app/notify/get_all";
+    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com:8080/lll/app/notify/get_all";
     private static final String TAG = "NotifyActivity";
 
     ArrayList<String> notification_titles;

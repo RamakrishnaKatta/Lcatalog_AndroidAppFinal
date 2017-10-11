@@ -34,7 +34,7 @@ public class Fragment_ProductDetails extends Fragment {
 
     private static final String TAG = "Fragment_ProductDetails";
 
-    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com/lll/web/vendor/by?id=";
+    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com:8080/lll/web/vendor/by?id=";
     private static String VENDOR_URL = null;
 
     //String Values assigned from the Bundle Arguments

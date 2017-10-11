@@ -44,7 +44,7 @@ public class Fragment_ProductImages extends Fragment {
 
     private static final String TAG = "Fragment_ProductImages";
 
-    private static String FILE_URL = "http://lcatalog.immersionslabs.com/models/";
+    private static String FILE_URL = "http://lcatalog.immersionslabs.com:8080/models/";
     private static String EXTENDED_URL;
 
     private PrefManager prefManager;
