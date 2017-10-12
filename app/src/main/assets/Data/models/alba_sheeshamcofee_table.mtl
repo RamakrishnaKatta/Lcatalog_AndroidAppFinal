@@ -1,4 +1,4 @@
-# Blender MTL File: 'alba sheeshamcofee_tableexp.blend'
+# Blender MTL File: 'alba sheeshamcofee_table.blend'
 # Material Count: 5
 
 newmtl Material
@@ -11,7 +11,6 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Kd ap.jpg
-map_Bump ap1.jpg
 
 newmtl Material.001
 Ns 96.078431
@@ -44,7 +43,6 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Bump ap1.jpg
 map_Kd ap.jpg
 
 newmtl None

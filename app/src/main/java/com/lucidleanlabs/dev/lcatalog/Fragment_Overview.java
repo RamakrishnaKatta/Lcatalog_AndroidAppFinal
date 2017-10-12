@@ -31,7 +31,7 @@ public class Fragment_Overview extends Fragment {
 
     private static final String TAG = "Fragment_Overview";
 
-    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com:8080/lll/web/article/all?from=0&count=10";
+    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com:8080/lll/web/article/all?from=0&count=25";
 
     private ArrayList<String> item_ids;
     private ArrayList<String> item_descriptions;

@@ -1,7 +1,17 @@
-# Blender MTL File: 'norland_book _shelfpaint.blend'
-# Material Count: 2
+# Blender MTL File: 'norland_book.blend'
+# Material Count: 3
 
 newmtl Material
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.132999 0.124749 0.178859
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.500000
+illum 2
+
+newmtl Material.002
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -10,14 +20,15 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd ay1.jpg
+map_Kd ay.jpg
 
-newmtl Material.001
+newmtl Material.002_ay.jpg
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
-Kd 0.017584 0.017584 0.017584
+Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
-d 0.800000
+d 1.000000
 illum 2
+map_Kd ay.jpg
