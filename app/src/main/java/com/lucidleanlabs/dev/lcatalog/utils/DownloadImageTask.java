@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    private static final String TAG = "DownloadImageTask";
     private ImageView bmImage;
 
     public DownloadImageTask(ImageView bmImage) {
@@ -17,7 +18,8 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected Bitmap doInBackground(String... urls) {
-        String urldisplay = "http://lcatalog.immersionslabs.com" + urls[0];
+        String urldisplay = "http://lcatalog.immersionslabs.com:8080" + urls[0];
+        Log.e(TAG, "image1URL : " + urldisplay);
         Bitmap mIcon = null;
         try {
 
@@ -38,5 +40,4 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             bmImage.setImageBitmap(result);
         }
     }
-
 }

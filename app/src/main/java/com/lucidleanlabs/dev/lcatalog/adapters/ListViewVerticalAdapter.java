@@ -96,7 +96,7 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
 
         LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.item_vertical_list, parent, false);
-    //    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_vertical_list, parent, false);
+        //    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_vertical_list, parent, false);
 
         return new ViewHolder(view);
     }

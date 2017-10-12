@@ -267,12 +267,14 @@ public class Fragment_ProductImages extends Fragment {
                 ArticleViewPager.setCurrentItem(page_position, true);
             }
         };
+
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 handler.post(update);
             }
         }, 2000, 5000);
+
         prefManager = new PrefManager(getActivity());
         Log.e(TAG, " " + prefManager.ProductPageActivityScreenLaunch());
         if (prefManager.ProductPageActivityScreenLaunch()) {

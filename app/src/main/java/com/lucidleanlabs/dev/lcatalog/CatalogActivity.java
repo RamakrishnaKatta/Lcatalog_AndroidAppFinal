@@ -1,6 +1,5 @@
 package com.lucidleanlabs.dev.lcatalog;
 
-import android.app.ProgressDialog;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -61,7 +60,7 @@ public class CatalogActivity extends AppCompatActivity {
     ProgressBar progressBar;
     GridLayoutManager GridManager;
     LinearLayoutManager HorizontalManager, VerticalManager;
-//    Boolean loading = false, refreshStatus = false;
+    //    Boolean loading = false, refreshStatus = false;
     SwipeRefreshLayout refreshLayout;
     FloatingActionButton fab_grid, fab_vertical, fab_horizontal;
     Boolean Loadmore = false;
@@ -160,6 +159,10 @@ public class CatalogActivity extends AppCompatActivity {
                 if (NetworkConnectivity.checkInternetConnection(CatalogActivity.this)) {
                     refreshLayout.setRefreshing(true);
 
+//                    Intent intent = getIntent();
+//                    finish();
+//                    startActivity(intent);
+
                     item_ids.clear();
                     item_names.clear();
                     item_descriptions.clear();
@@ -169,8 +172,7 @@ public class CatalogActivity extends AppCompatActivity {
                     item_images.clear();
                     item_dimensions.clear();
 
-                    pagenumber = 0;
-                    Loadmore = false;
+                    resetParameters();
                     createUrl();
                 }
             }
@@ -229,6 +231,14 @@ public class CatalogActivity extends AppCompatActivity {
         });
     }
 
+    private void resetParameters() {
+        pagenumber = 0;
+        to = 0;
+        from = 0;
+        pagesize = 10;
+        Loadmore = false;
+    }
+
     private void createUrl() {
 
         from = pagenumber * pagesize;
@@ -252,7 +262,7 @@ public class CatalogActivity extends AppCompatActivity {
                 try {
                     JSONArray resp = response.getJSONArray("resp");
                     if (!Loadmore) {
-                        gridView(resp);
+                        CatalogView(resp);
                     } else {
 
                         for (int i = 0; i < resp.length(); i++) {
@@ -311,10 +321,7 @@ public class CatalogActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-
-
     /*Internet message for Network connectivity*/
-
     private boolean checkInternetConnection() {
         // get Connectivity Manager object to check connection
         ConnectivityManager connec =
@@ -354,59 +361,8 @@ public class CatalogActivity extends AppCompatActivity {
         snackbar.show();
     }
 
-    /*Json for the Articles in different views*/
-//    public void getData() throws JSONException {
-//
-//        final ProgressDialog loading = ProgressDialog.show(this, "Please wait...", "Fetching data...", false, false);
-//
-//        final JSONObject baseclass = new JSONObject();
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, REGISTER_URL, baseclass, new Response.Listener<JSONObject>() {
-//
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                Log.e(TAG, "response--" + response);
-//
-//                try {
-//                    JSONArray resp = response.getJSONArray("resp");
-//                    loading.dismiss();
-//
-//                    if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 0) {
-//                        gridView(resp);
-//                    } else if (fab_vertical.getSize() == 0 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 1) {
-//                        verticalRecyclerListView(resp);
-//                    } else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
-//                        horizontalRecyclerListView(resp);
-//                    }
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(CatalogActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-//                NetworkResponse response = error.networkResponse;
-//                if (error instanceof ServerError && response != null) {
-//                    try {
-//                        String res = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-//                        // Now you can use any deserializer to make sense of data
-//                        JSONObject request = new JSONObject(res);
-//                        Log.e(TAG, "request--" + request);
-//                    } catch (UnsupportedEncodingException | JSONException e1) {
-//                        // Couldn't properly decode data to string
-//                        e1.printStackTrace();
-//                    }
-//                }
-//            }
-//        });
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//        requestQueue.add(jsonObjectRequest);
-//    }
-
-    /*Adapter class for GridViewAdapter*/
-    public void gridView(JSONArray g_jsonArray) {
+    /*Adapter class for GridView/ListViewHorizontal/ListViewVertical Adapter*/
+    public void CatalogView(JSONArray g_jsonArray) {
 
         for (int i = 0; i < g_jsonArray.length(); i++) {
             JSONObject obj = null;
@@ -426,6 +382,7 @@ public class CatalogActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
         Log.e(TAG, "ids******" + item_ids);
         Log.e(TAG, "names******" + item_names);
         Log.e(TAG, "descriptions******" + item_descriptions);
@@ -435,118 +392,26 @@ public class CatalogActivity extends AppCompatActivity {
         Log.e(TAG, "images******" + item_images);
         Log.e(TAG, "dimensions******" + item_dimensions);
 
-        recycler.removeAllViews();
         gridAdapter = new GridViewAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
         horizontalAdapter = new ListViewHorizontalAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
         VerticalAdapter = new ListViewVerticalAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
 
-
         if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 0) {
+            recycler.removeAllViews();
             recycler.setLayoutManager(GridManager);
             recycler.setAdapter(gridAdapter);
+
         } else if (fab_vertical.getSize() == 0 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 1) {
+            recycler.removeAllViews();
             recycler.setLayoutManager(VerticalManager);
             recycler.setAdapter(VerticalAdapter);
+
         } else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
+            recycler.removeAllViews();
             recycler.setLayoutManager(HorizontalManager);
             recycler.setAdapter(horizontalAdapter);
         }
-
-
-//        if (horizontal_recycler.getVisibility() == View.VISIBLE || vertical_recycler.getVisibility() == View.VISIBLE) {
-//            horizontal_recycler.setVisibility(View.GONE);
-//            vertical_recycler.setVisibility(View.GONE);
-//            grid_recycler.setVisibility(View.VISIBLE);
-//        }
     }
-
-    /*Adapter class for ListViewHorizotalAdapter*/
-//    public void horizontalRecyclerListView(JSONArray h_jsonArray) {
-//        horizontal_recycler.setHasFixedSize(true);
-//
-//        for (int i = 0; i < h_jsonArray.length(); i++) {
-//            JSONObject obj = null;
-//            try {
-//                obj = h_jsonArray.getJSONObject(i);
-//                item_ids.add(obj.getString("id"));
-//                item_names.add(obj.getString("name"));
-//                item_descriptions.add(obj.getString("description"));
-//                item_prices.add(obj.getString("price"));
-//                item_discounts.add(obj.getString("discount"));
-//                item_vendors.add(obj.getString("vendorId"));
-//                item_images.add(obj.getString("images"));
-//                item_dimensions.add(obj.getString("dimension"));
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        Log.e(TAG, "ids******" + item_ids);
-//        Log.e(TAG, "names******" + item_names);
-//        Log.e(TAG, "descriptions******" + item_descriptions);
-//        Log.e(TAG, "prices******" + item_prices);
-//        Log.e(TAG, "discounts******" + item_discounts);
-//        Log.e(TAG, "vendors******" + item_vendors);
-//        Log.e(TAG, "images******" + item_images);
-//        Log.e(TAG, "dimensions******" + item_dimensions);
-//
-//        horizontalManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//        horizontal_recycler.setLayoutManager(horizontalManager);
-//        ListViewHorizontalAdapter horizontalAdapter = new ListViewHorizontalAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
-//        horizontal_recycler.setAdapter(horizontalAdapter);
-//
-//        if (grid_recycler.getVisibility() == View.VISIBLE || vertical_recycler.getVisibility() == View.VISIBLE) {
-//            grid_recycler.setVisibility(View.GONE);
-//            vertical_recycler.setVisibility(View.GONE);
-//            horizontal_recycler.setVisibility(View.VISIBLE);
-//        }
-//    }
-
-    /*Adapter class for ListViewVerticalAdapter*/
-//    public void verticalRecyclerListView(JSONArray v_jsonArray) {
-//        RecyclerView horizontal_recycler = (RecyclerView) findViewById(R.id.horizontal_recycler);
-//        RecyclerView vertical_recycler = (RecyclerView) findViewById(R.id.vertical_recycler);
-//        RecyclerView grid_recycler = (RecyclerView) findViewById(R.id.grid_recycler);
-//
-//        vertical_recycler.setHasFixedSize(true);
-//
-//        for (int i = 0; i < v_jsonArray.length(); i++) {
-//            JSONObject obj = null;
-//            try {
-//                obj = v_jsonArray.getJSONObject(i);
-//                item_ids.add(obj.getString("id"));
-//                item_names.add(obj.getString("name"));
-//                item_descriptions.add(obj.getString("description"));
-//                item_prices.add(obj.getString("price"));
-//                item_discounts.add(obj.getString("discount"));
-//                item_vendors.add(obj.getString("vendorId"));
-//                item_images.add(obj.getString("images"));
-//                item_dimensions.add(obj.getString("dimension"));
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        Log.e(TAG, "ids******" + item_ids);
-//        Log.e(TAG, "names******" + item_names);
-//        Log.e(TAG, "descriptions******" + item_descriptions);
-//        Log.e(TAG, "prices******" + item_prices);
-//        Log.e(TAG, "images******" + item_images);
-//        Log.e(TAG, "discounts******" + item_discounts);
-//        Log.e(TAG, "vendors******" + item_vendors);
-//        Log.e(TAG, "dimensions******" + item_dimensions);
-//
-//        verticalManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-//        vertical_recycler.setLayoutManager(verticalManager);
-//        ListViewVerticalAdapter verticalAdapter = new ListViewVerticalAdapter(this, item_ids, item_names, item_descriptions, item_prices, item_discounts, item_vendors, item_images, item_dimensions);
-//        vertical_recycler.setAdapter(verticalAdapter);
-//
-//        if (grid_recycler.getVisibility() == View.VISIBLE || horizontal_recycler.getVisibility() == View.VISIBLE) {
-//            grid_recycler.setVisibility(View.GONE);
-//            horizontal_recycler.setVisibility(View.GONE);
-//            vertical_recycler.setVisibility(View.VISIBLE);
-//        }
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

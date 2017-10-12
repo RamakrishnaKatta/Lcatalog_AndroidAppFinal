@@ -49,7 +49,6 @@ public class ImageSliderAdapter extends PagerAdapter {
         images.setImageBitmap(b);
         container.addView(v);
         return v;
-
     }
 
     @Override
@@ -58,12 +57,11 @@ public class ImageSliderAdapter extends PagerAdapter {
     }
 
     public Bitmap download_images(String urls) {
-        String urldisplay = "http://lcatalog.immersionslabs.com" + urls;
+        String urldisplay = "http://lcatalog.immersionslabs.com:8080" + urls;
         Bitmap mIcon = null;
         try {
 
             InputStream in = new URL(urldisplay).openStream();
-
             mIcon = BitmapFactory.decodeStream(in);
 
         } catch (Exception e) {

@@ -16,8 +16,7 @@
             android:id="@+id/v_item_image"
             android:layout_width="@dimen/margin_100"
             android:layout_height="@dimen/margin_100"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/dummy_icon" />
+            android:contentDescription="@string/app_name" />
 
         <TextView
             android:id="@+id/v_item_name"
