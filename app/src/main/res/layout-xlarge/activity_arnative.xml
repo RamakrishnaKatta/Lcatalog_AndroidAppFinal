@@ -28,10 +28,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="40dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginBottom="@dimen/margin_40"
+        android:layout_marginRight="@dimen/margin_30"
         app:backgroundTint="@color/accent_dark"
-        app:fabSize="mini"
+        app:fabSize="normal"
         app:srcCompat="@mipmap/ic_camera" />
 
     <android.support.design.widget.FloatingActionButton
@@ -39,10 +39,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="40dp"
-        android:layout_marginRight="120dp"
+        android:layout_marginBottom="@dimen/margin_40"
+        android:layout_marginRight="@dimen/margin_120"
         app:backgroundTint="@color/accent_dark"
-        app:fabSize="mini"
+        app:fabSize="normal"
         app:srcCompat="@mipmap/ic_flash" />
 
     <android.support.design.widget.FloatingActionButton
@@ -50,10 +50,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="4dp"
-        android:layout_marginRight="210dp"
+        android:layout_marginBottom="@dimen/margin_40"
+        android:layout_marginRight="@dimen/margin_210"
         app:backgroundTint="@color/accent_dark"
-        app:fabSize="mini"
+        app:fabSize="normal"
         app:srcCompat="@mipmap/ic_screenshot" />
 
 </android.support.design.widget.CoordinatorLayout>

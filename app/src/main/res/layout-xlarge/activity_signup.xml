@@ -67,8 +67,8 @@
                 android:id="@+id/area_input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/custom_margin"
-                android:layout_marginTop="@dimen/custom_margin">
+                android:layout_marginBottom="@dimen/margin_6"
+                android:layout_marginTop="@dimen/margin_6">
 
                 <EditText
                     android:id="@+id/input_name"
@@ -83,7 +83,7 @@
                 android:id="@+id/area_input_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/custom_margin">
+                android:layout_marginTop="@dimen/margin_6">
 
                 <EditText
                     android:id="@+id/input_address"
@@ -98,7 +98,7 @@
                 android:id="@+id/area_input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/margin_6"
                 android:visibility="visible">
 
                 <EditText
@@ -114,7 +114,7 @@
                 android:id="@+id/area_input_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/margin_6"
                 android:visibility="visible">
 
                 <EditText
@@ -131,7 +131,7 @@
                 android:id="@+id/area_input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/margin_6"
                 android:visibility="visible"
                 app:passwordToggleEnabled="true">
 
@@ -148,7 +148,7 @@
                 android:id="@+id/area_input_reEnterPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/margin_6"
                 android:visibility="visible"
                 app:passwordToggleEnabled="true">
 
@@ -166,7 +166,7 @@
                 android:layout_width="400dp"
                 android:layout_height="80dp"
                 android:layout_marginBottom="@dimen/margin_6"
-                android:layout_marginTop="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/margin_6"
                 android:padding="@dimen/margin_24"
                 android:text="@string/create_account"
                 android:textAlignment="center"
@@ -180,7 +180,7 @@
         android:id="@+id/fab_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_10"
+        android:layout_margin="@dimen/margin_20"
         app:backgroundTint="@color/primary_darker"
         app:fabSize="normal"
         app:srcCompat="@mipmap/ic_back" />

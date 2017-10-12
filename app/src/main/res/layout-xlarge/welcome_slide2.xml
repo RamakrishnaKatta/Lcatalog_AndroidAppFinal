@@ -16,8 +16,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="340dp"
-            android:layout_height="340dp"
+            android:layout_width="@dimen/margin_340"
+            android:layout_height="@dimen/margin_340"
             android:layout_gravity="center"
             android:paddingLeft="@dimen/margin_20"
             android:paddingRight="@dimen/margin_20"

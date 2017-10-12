@@ -31,8 +31,8 @@
 
                 <ImageView
                     android:id="@+id/capture_image"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
+                    android:layout_width="@dimen/margin_110"
+                    android:layout_height="@dimen/margin_110"
                     android:src="@drawable/ic_capture" />
 
                 <TextView
@@ -86,8 +86,8 @@
 
                 <ImageView
                     android:id="@+id/share_image"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
+                    android:layout_width="@dimen/margin_110"
+                    android:layout_height="@dimen/margin_110"
                     android:layout_below="@+id/txt_welcome_32"
                     android:src="@drawable/ic_share" />
 

@@ -28,9 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_margin="@dimen/margin_32"
         app:backgroundTint="@color/accent_dark"
-        app:fabSize="mini"
+        app:fabSize="normal"
         app:srcCompat="@mipmap/ic_zoom_in" />
 
 </android.support.design.widget.CoordinatorLayout>

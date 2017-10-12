@@ -112,6 +112,7 @@
                         android:paddingLeft="@dimen/margin_20"
                         android:text="   If you are a customer already..."
                         android:textColor="@color/white"
+                        android:textSize="28sp"
                         android:textStyle="italic" />
 
                 </RelativeLayout>
@@ -154,6 +155,7 @@
                         android:paddingLeft="@dimen/margin_20"
                         android:text="If you want to become a customer..."
                         android:textColor="@color/white"
+                        android:textSize="28sp"
                         android:textStyle="italic" />
 
                 </RelativeLayout>
@@ -196,6 +198,7 @@
                         android:paddingLeft="@dimen/margin_20"
                         android:text="  If you are a oneTime Shopper..."
                         android:textColor="@color/white"
+                        android:textSize="28sp"
                         android:textStyle="italic" />
 
                 </RelativeLayout>

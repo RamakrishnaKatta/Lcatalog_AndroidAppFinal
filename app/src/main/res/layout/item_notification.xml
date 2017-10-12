@@ -15,7 +15,7 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/margin_150"
             android:layout_gravity="center"
             android:gravity="center">
 
@@ -48,7 +48,7 @@
                     android:id="@+id/notification_data"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="4"
+                    android:maxLines="3"
                     android:text="Hi welcome to the Lucid Lean Labs and you can avail so many offers from Lucid Lean Labs."
                     android:textColor="@color/white"
                     android:textSize="14sp"

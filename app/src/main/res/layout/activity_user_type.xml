@@ -110,6 +110,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/txt_customer_text"
                         android:paddingLeft="@dimen/margin_10"
+                        android:textSize="14sp"
                         android:text="   If you are a customer already..."
                         android:textColor="@color/white"
                         android:textStyle="italic" />
@@ -152,6 +153,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/txt_new_customer_text"
                         android:paddingLeft="@dimen/margin_10"
+                        android:textSize="14sp"
                         android:text="If you want to become a customer..."
                         android:textColor="@color/white"
                         android:textStyle="italic" />
@@ -194,6 +196,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/txt_shopper_text"
                         android:paddingLeft="@dimen/margin_10"
+                        android:textSize="14sp"
                         android:text="  If you are a oneTime Shopper..."
                         android:textColor="@color/white"
                         android:textStyle="italic" />

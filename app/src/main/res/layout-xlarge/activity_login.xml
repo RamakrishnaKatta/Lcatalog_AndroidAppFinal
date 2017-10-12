@@ -69,7 +69,7 @@
                 android:id="@+id/area_input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/custom_margin"
+                android:layout_marginTop="@dimen/margin_6"
                 android:visibility="visible"
                 app:passwordToggleEnabled="true">
 
@@ -92,7 +92,7 @@
                     android:id="@+id/btn_login"
                     android:layout_width="400dp"
                     android:layout_height="80dp"
-                    android:layout_marginTop="@dimen/custom_margin"
+                    android:layout_marginTop="@dimen/margin_6"
                     android:padding="@dimen/margin_20"
                     android:textSize="24sp"
                     android:text="Login" />
@@ -110,8 +110,8 @@
                 android:id="@+id/link_forgot_password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/thumbnail"
-                android:layout_marginTop="@dimen/custom_margin"
+                android:layout_marginBottom="@dimen/margin_12"
+                android:layout_marginTop="@dimen/margin_6"
                 android:gravity="center"
                 android:text="@string/forgot_password"
                 android:textSize="40sp" />
