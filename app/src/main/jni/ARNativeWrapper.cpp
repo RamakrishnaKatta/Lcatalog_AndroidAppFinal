@@ -55,7 +55,6 @@
             const char *model19file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/royaloka_tvset.obj";
             const char *model20file = "/storage/emulated/0/L_CATALOGUE/cache/Data/models/norland.obj";
 
-
             //Mapping to pattern 1 - bed sofa.obj
             models[0].patternID = arwAddMarker("single;/storage/emulated/0/L_CATALOGUE/cache/Data/patterns/pattern1.patt;80");
 
