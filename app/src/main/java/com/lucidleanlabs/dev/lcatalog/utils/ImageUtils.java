@@ -58,10 +58,10 @@ public class ImageUtils {
             if (listOfFiles.length > 0) {
 
                 // loop through all files
-                for (int i = 0; i < listOfFiles.length; i++) {
+                for (File listOfFile : listOfFiles) {
 
                     // get file path
-                    String filePath = listOfFiles[i].getAbsolutePath();
+                    String filePath = listOfFile.getAbsolutePath();
                     // check for supported file extension
                     if (IsSupportedFile(filePath)) {
                         // Add image path to array list
@@ -103,6 +103,7 @@ public class ImageUtils {
     public int getScreenWidth() {
         int columnWidth;
         WindowManager wm = (WindowManager) _context.getSystemService(Context.WINDOW_SERVICE);
+        assert wm != null;
         Display display = wm.getDefaultDisplay();
 
         final Point point = new Point();

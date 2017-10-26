@@ -2,7 +2,6 @@ package com.lucidleanlabs.dev.lcatalog.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,9 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.lucidleanlabs.dev.lcatalog.MainActivity;
 import com.lucidleanlabs.dev.lcatalog.NotifyActivity;
 import com.lucidleanlabs.dev.lcatalog.R;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
@@ -63,10 +60,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         ViewHolder(View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.notify_image);
-            container = (LinearLayout) itemView.findViewById(R.id.notification_container);
-            title = (TextView) itemView.findViewById(R.id.notification_title);
-            message = (TextView) itemView.findViewById(R.id.notification_data);
+            imageView = itemView.findViewById(R.id.notify_image);
+            container = itemView.findViewById(R.id.notification_container);
+            title = itemView.findViewById(R.id.notification_title);
+            message = itemView.findViewById(R.id.notification_data);
 
         }
     }

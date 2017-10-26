@@ -1,5 +1,6 @@
 package com.lucidleanlabs.dev.lcatalog.utils;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 public class DownloadimageTastFromLocal extends AsyncTask<String, Void, Bitmap> {
+    @SuppressLint("StaticFieldLeak")
     private ImageView bmImage;
 
     public DownloadimageTastFromLocal(ImageView bmImage) {

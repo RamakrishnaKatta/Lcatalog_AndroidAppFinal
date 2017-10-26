@@ -6,8 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 
-public class MyGLSurfaceView extends GLSurfaceView
-{
+public class MyGLSurfaceView extends GLSurfaceView {
     private MyGLRenderer mRenderer;
 
     // Offsets for touch events
@@ -17,28 +16,23 @@ public class MyGLSurfaceView extends GLSurfaceView
 
     private float mDensity;
 
-    public MyGLSurfaceView(final Context context)
-    {
+    public MyGLSurfaceView(final Context context) {
         super(context);
         the_context = context;
     }
 
-    public MyGLSurfaceView(Context context, AttributeSet attrs)
-    {
+    public MyGLSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event){
-        if (event != null)
-        {
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event != null) {
             float x = event.getX();
             float y = event.getY();
 
-            if (event.getAction() == MotionEvent.ACTION_MOVE)
-            {
-                if (mRenderer != null)
-                {
+            if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                if (mRenderer != null) {
                     float deltaX = (x - mPreviousX) / mDensity / 2f;
                     float deltaY = (y - mPreviousY) / mDensity / 2f;
 
@@ -51,16 +45,13 @@ public class MyGLSurfaceView extends GLSurfaceView
             mPreviousY = y;
 
             return true;
-        }
-        else
-        {
+        } else {
             return super.onTouchEvent(event);
         }
     }
 
     // Hides superclass method.
-    public void setRenderer(MyGLRenderer renderer, float density)
-    {
+    public void setRenderer(MyGLRenderer renderer, float density) {
         mRenderer = renderer;
         mDensity = density;
         super.setRenderer(renderer);

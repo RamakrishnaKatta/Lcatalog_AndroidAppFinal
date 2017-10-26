@@ -70,10 +70,10 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
         ViewHolder(View view) {
             super(view);
 
-            main_container = (LinearLayout) view.findViewById(R.id.main_container);
-            item_image = (ImageView) view.findViewById(R.id.main_image);
-            item_name = (TextView) view.findViewById(R.id.main_title);
-            item_description = (TextView) view.findViewById(R.id.main_data);
+            main_container = view.findViewById(R.id.main_container);
+            item_image = view.findViewById(R.id.main_image);
+            item_name = view.findViewById(R.id.main_title);
+            item_description = view.findViewById(R.id.main_data);
 
             Typeface custom_font = Typeface.createFromAsset(activity.getActivity().getAssets(), "fonts/Graduate-Regular.ttf");
             Typeface custom_font2 = Typeface.createFromAsset(activity.getActivity().getAssets(), "fonts/Cookie-Regular.ttf");
@@ -109,7 +109,7 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
             e.printStackTrace();
         }
         new DownloadImageTask(viewHolder.item_image).execute(im1);
-       // Picasso.with(activity.getContext()).load(im1).centerCrop().into(viewHolder.item_image);
+        // Picasso.with(activity.getContext()).load(im1).centerCrop().into(viewHolder.item_image);
         viewHolder.item_name.setText(item_names.get(position));
         viewHolder.item_description.setText(item_descriptions.get(position));
 

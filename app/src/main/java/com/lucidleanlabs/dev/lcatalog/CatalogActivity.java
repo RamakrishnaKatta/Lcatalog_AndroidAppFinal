@@ -74,11 +74,11 @@ public class CatalogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        fab_grid = (FloatingActionButton) findViewById(R.id.fab_grid_list);
-        fab_vertical = (FloatingActionButton) findViewById(R.id.fab_vertical_list);
-        fab_horizontal = (FloatingActionButton) findViewById(R.id.fab_horizontal_list);
+        fab_grid = findViewById(R.id.fab_grid_list);
+        fab_vertical = findViewById(R.id.fab_vertical_list);
+        fab_horizontal = findViewById(R.id.fab_horizontal_list);
 
-        recycler = (RecyclerView) findViewById(R.id.recycler);
+        recycler = findViewById(R.id.recycler);
         recycler.setHasFixedSize(true);
         recycler.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
@@ -86,10 +86,10 @@ public class CatalogActivity extends AppCompatActivity {
         VerticalManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         GridManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
 
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-        progressBar = (ProgressBar) findViewById(R.id.progress_grid);
+        refreshLayout = findViewById(R.id.swipe_refresh);
+        progressBar = findViewById(R.id.progress_grid);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_catalog);
+        Toolbar toolbar = findViewById(R.id.toolbar_catalog);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {

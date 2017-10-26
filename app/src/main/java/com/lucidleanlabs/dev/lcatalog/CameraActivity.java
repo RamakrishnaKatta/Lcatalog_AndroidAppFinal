@@ -31,7 +31,6 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
 
@@ -61,15 +60,15 @@ public class CameraActivity extends AppCompatActivity implements Callback, OnCli
         setContentView(R.layout.activity_camera);
 
         cameraId = CameraInfo.CAMERA_FACING_BACK;
-        flashCameraButton = (ImageButton) findViewById(R.id.camera_flash);
-        screenshot = (ImageButton) findViewById(R.id.camera_capture);
-        surfaceView = (SurfaceView) findViewById(R.id.surface_view);
+        flashCameraButton = findViewById(R.id.camera_flash);
+        screenshot = findViewById(R.id.camera_capture);
+        surfaceView = findViewById(R.id.surface_view);
         surfaceHolder = surfaceView.getHolder();
         surfaceHolder.addCallback(this);
         screenshot.setOnClickListener(this);
         flashCameraButton.setOnClickListener(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        imageView = (ImageView) findViewById(R.id.camera_view);
+        imageView = findViewById(R.id.camera_view);
 
         if (!getBaseContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
             flashCameraButton.setVisibility(View.GONE);

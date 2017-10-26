@@ -48,10 +48,10 @@ public class NotifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notify);
 
-        Toolbar notify_toolbar = (Toolbar) findViewById(R.id.notify_toolbar);
+        Toolbar notify_toolbar = findViewById(R.id.notify_toolbar);
         setSupportActionBar(notify_toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,22 +72,22 @@ public class NotifyActivity extends AppCompatActivity {
 
         GetNotificationData();
 
-        if (NetworkConnectivity.checkInternetConnection(NotifyActivity.this)){
+        if (NetworkConnectivity.checkInternetConnection(NotifyActivity.this)) {
 
-        }else {
+        } else {
             InternetMessage();
         }
     }
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction("RETRY", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 snackbar.dismiss();
                 if (NetworkConnectivity.checkInternetConnection(NotifyActivity.this)) {
-                    Intent intent =  new Intent(NotifyActivity.this,AboutUsActivity.class);
+                    Intent intent = new Intent(NotifyActivity.this, AboutUsActivity.class);
                     startActivity(intent);
                 } else {
 
@@ -143,9 +143,8 @@ public class NotifyActivity extends AppCompatActivity {
     }
 
 
-
     private void NotificationView(JSONArray resp) {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.Notification_recycler);
+        RecyclerView recyclerView = findViewById(R.id.Notification_recycler);
         recyclerView.setHasFixedSize(true);
 
         for (int i = 0; i < resp.length(); i++) {

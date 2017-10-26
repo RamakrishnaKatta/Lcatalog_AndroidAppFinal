@@ -101,7 +101,7 @@ public class Fragment_Overview extends Fragment {
 
     private void mainRecyclerView(JSONArray m_jsonArray) {
 
-        main_recycler = (RecyclerView) getView().findViewById(R.id.main_recycler);
+        main_recycler = getView().findViewById(R.id.main_recycler);
         main_recycler.setHasFixedSize(true);
 
         for (int i = 0; i < m_jsonArray.length(); i++) {

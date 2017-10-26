@@ -9,7 +9,7 @@ import com.lucidleanlabs.dev.lcatalog.Fragment_Illustration;
 import com.lucidleanlabs.dev.lcatalog.Fragment_Overview;
 
 public class MainPageAdapter extends FragmentStatePagerAdapter {
-    int mNumOfTabs;
+    private int mNumOfTabs;
 
     public MainPageAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
@@ -21,11 +21,9 @@ public class MainPageAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                Fragment_Illustration tab1 = new Fragment_Illustration();
-                return tab1;
+                return new Fragment_Illustration();
             case 1:
-                Fragment_Overview tab2 = new Fragment_Overview();
-                return tab2;
+                return new Fragment_Overview();
             default:
                 return null;
         }

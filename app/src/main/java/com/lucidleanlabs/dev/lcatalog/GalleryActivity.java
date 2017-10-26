@@ -1,7 +1,5 @@
 package com.lucidleanlabs.dev.lcatalog;
 
-import android.content.ComponentName;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -37,7 +35,7 @@ public class GalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery_view);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_gallery);
+        Toolbar toolbar = findViewById(R.id.toolbar_gallery);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
@@ -45,7 +43,7 @@ public class GalleryActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        gridView = (GridView) findViewById(R.id.image_grid_view);
+        gridView = findViewById(R.id.image_grid_view);
 
         imageUtils = new ImageUtils(this);
 
@@ -61,16 +59,16 @@ public class GalleryActivity extends AppCompatActivity {
         // setting grid view adapter
         gridView.setAdapter(adapter);
 
-        if (NetworkConnectivity.checkInternetConnection(GalleryActivity.this)){
+        if (NetworkConnectivity.checkInternetConnection(GalleryActivity.this)) {
 
-        }else {
+        } else {
             InternetMessage();
         }
     }
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction("RETRY", new View.OnClickListener() {
             @Override
             public void onClick(View v) {

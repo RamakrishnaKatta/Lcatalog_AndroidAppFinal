@@ -10,8 +10,8 @@ public class Object3ds {
     private int[] faces;
     private float[] textureUV;
     private float[] normals;
-    float[] vertexData;
-    float[] textureData;
+    private float[] vertexData;
+    private float[] textureData;
     private float scaleFactor;
     private int numFaces;
     private int textureHandle;
@@ -20,7 +20,7 @@ public class Object3ds {
     private FloatBuffer positionBuffer;
     private FloatBuffer textureBuffer;
     private FloatBuffer normalBuffer;
-    final int mBytesPerFloat = 4;
+    private final int mBytesPerFloat = 4;
 
     public void setVertices(float[] inputVertices) {
         vertices = inputVertices;
@@ -233,7 +233,7 @@ public class Object3ds {
         return (float) (Math.sqrt(p_vector[0] * p_vector[0] + p_vector[1] * p_vector[1] + p_vector[2] * p_vector[2]));
     }
 
-    float[] VectorDotProduct(float[] p_vector1, float[] p_vector2) {
+    private float[] VectorDotProduct(float[] p_vector1, float[] p_vector2) {
         float[] result_vector = new float[3];
         result_vector[0] = (p_vector1[1] * p_vector2[2]) - (p_vector1[2] * p_vector2[1]);
         result_vector[1] = (p_vector1[2] * p_vector2[0]) - (p_vector1[0] * p_vector2[2]);

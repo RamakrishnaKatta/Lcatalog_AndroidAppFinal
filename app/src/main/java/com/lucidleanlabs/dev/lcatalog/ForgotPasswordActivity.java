@@ -52,9 +52,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        app_name = (TextView) findViewById(R.id.application_name);
-        powered = (TextView) findViewById(R.id.lucidleanlabs);
-        _submitButton = (Button) findViewById(R.id.btn_submit);
+        app_name = findViewById(R.id.application_name);
+        powered = findViewById(R.id.lucidleanlabs);
+        _submitButton = findViewById(R.id.btn_submit);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,7 +69,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_forgot_password);
+        FloatingActionButton fab = findViewById(R.id.fab_forgot_password);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,16 +91,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
-        if (NetworkConnectivity.checkInternetConnection(ForgotPasswordActivity.this)){
+        if (NetworkConnectivity.checkInternetConnection(ForgotPasswordActivity.this)) {
 
-        }else {
+        } else {
             InternetMessage();
         }
     }
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction("RETRY", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +125,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             onSubmitFailed();
             return;
         }
-        _submitButton = (Button) findViewById(R.id.btn_submit);
+        _submitButton = findViewById(R.id.btn_submit);
         _submitButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(ForgotPasswordActivity.this,
@@ -134,9 +134,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         progressDialog.setMessage("Updating Password...");
         progressDialog.show();
 
-        _emailText = (EditText) findViewById(R.id.input_forgot_email);
-        _passwordText = (EditText) findViewById(R.id.input_New_password);
-        _reenterPasswordText = (EditText) findViewById(R.id.input_reEnter_New_Password);
+        _emailText = findViewById(R.id.input_forgot_email);
+        _passwordText = findViewById(R.id.input_New_password);
+        _reenterPasswordText = findViewById(R.id.input_reEnter_New_Password);
 
         email = _emailText.getText().toString().trim();
         password = _passwordText.getText().toString().trim();
@@ -209,9 +209,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     /*Validations for the Forgot Password Activity*/
     private boolean validate() {
         boolean valid = true;
-        _emailText = (EditText) findViewById(R.id.input_forgot_email);
-        _passwordText = (EditText) findViewById(R.id.input_New_password);
-        _reenterPasswordText = (EditText) findViewById(R.id.input_reEnter_New_Password);
+        _emailText = findViewById(R.id.input_forgot_email);
+        _passwordText = findViewById(R.id.input_New_password);
+        _reenterPasswordText = findViewById(R.id.input_reEnter_New_Password);
 
         email = _emailText.getText().toString();
         password = _passwordText.getText().toString();
@@ -252,7 +252,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void onSubmitSuccess() {
-        _submitButton = (Button) findViewById(R.id.btn_submit);
+        _submitButton = findViewById(R.id.btn_submit);
         _submitButton.setEnabled(false);
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
@@ -260,7 +260,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void onSubmitFailed() {
-        Button _submitbtn = (Button) findViewById(R.id.btn_submit);
+        Button _submitbtn = findViewById(R.id.btn_submit);
         CustomMessage.getInstance().CustomMessage(ForgotPasswordActivity.this, "Please Enter valid Email Id");
 
         _submitbtn.setEnabled(true);

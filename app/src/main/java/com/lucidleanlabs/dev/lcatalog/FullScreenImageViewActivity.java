@@ -18,7 +18,7 @@ public class FullScreenImageViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen_image_view);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        ViewPager viewPager = findViewById(R.id.pager);
 
         ImageUtils imageUtils = new ImageUtils(getApplicationContext());
 
@@ -32,9 +32,9 @@ public class FullScreenImageViewActivity extends Activity {
         // displaying selected image first
         viewPager.setCurrentItem(position);
 
-        if (NetworkConnectivity.checkInternetConnection(FullScreenImageViewActivity.this)){
+        if (NetworkConnectivity.checkInternetConnection(FullScreenImageViewActivity.this)) {
 
-        }else {
+        } else {
             InternetMessage();
         }
 
@@ -42,7 +42,7 @@ public class FullScreenImageViewActivity extends Activity {
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction("RETRY", new View.OnClickListener() {
             @Override
             public void onClick(View v) {

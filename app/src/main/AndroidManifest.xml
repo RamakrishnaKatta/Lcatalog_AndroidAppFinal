@@ -131,6 +131,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".notifications.NotificationCountSetClass" />
 
         <service
             android:name=".services.NotifyIDService"

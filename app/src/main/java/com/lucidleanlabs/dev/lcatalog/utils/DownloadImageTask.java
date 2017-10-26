@@ -1,5 +1,6 @@
 package com.lucidleanlabs.dev.lcatalog.utils;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -11,6 +12,7 @@ import java.net.URL;
 
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     private static final String TAG = "DownloadImageTask";
+    @SuppressLint("StaticFieldLeak")
     private ImageView bmImage;
 
     public DownloadImageTask(ImageView bmImage) {

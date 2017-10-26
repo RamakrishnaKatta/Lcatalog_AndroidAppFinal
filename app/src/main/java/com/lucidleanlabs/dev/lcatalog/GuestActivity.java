@@ -49,10 +49,10 @@ public class GuestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_guest);
 
 
-        app_name = (TextView) findViewById(R.id.application_name);
-        powered = (TextView) findViewById(R.id.lucidleanlabs);
-        _guestLoginButton = (Button) findViewById(R.id.btn_guest);
-        get_details = (ImageButton) findViewById(R.id.btn_get_data);
+        app_name = findViewById(R.id.application_name);
+        powered = findViewById(R.id.lucidleanlabs);
+        _guestLoginButton = findViewById(R.id.btn_guest);
+        get_details = findViewById(R.id.btn_get_data);
 
 
         String guest_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/guest.txt";
@@ -67,7 +67,7 @@ public class GuestActivity extends AppCompatActivity {
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_guest);
+        FloatingActionButton fab = findViewById(R.id.fab_guest);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,16 +99,16 @@ public class GuestActivity extends AppCompatActivity {
             ShowcaseView();
         }
 
-        if (NetworkConnectivity.checkInternetConnection(GuestActivity.this)){
+        if (NetworkConnectivity.checkInternetConnection(GuestActivity.this)) {
 
-        }else {
+        } else {
             InternetMessage();
         }
     }
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
         snackbar.setActionTextColor(getResources().getColor(R.color.red));
         snackbar.setAction("RETRY", new View.OnClickListener() {
             @Override
@@ -148,10 +148,10 @@ public class GuestActivity extends AppCompatActivity {
         } else {
             text_from_guest_file = UserCheckUtil.readFromFile("guest").split(" ### ");
 
-            _guestNameText = (EditText) findViewById(R.id.input_name);
+            _guestNameText = findViewById(R.id.input_name);
             _guestNameText.setText(text_from_guest_file[0].trim());
 
-            _GuestPhoneText = (EditText) findViewById(R.id.input_mobile);
+            _GuestPhoneText = findViewById(R.id.input_mobile);
             _GuestPhoneText.setText(text_from_guest_file[1].trim());
         }
     }
@@ -174,13 +174,13 @@ public class GuestActivity extends AppCompatActivity {
             return;
         }
 
-        _guestLoginButton = (Button) findViewById(R.id.btn_guest);
+        _guestLoginButton = findViewById(R.id.btn_guest);
         _guestLoginButton.setEnabled(false);
 
-        _guestNameText = (EditText) findViewById(R.id.input_name);
+        _guestNameText = findViewById(R.id.input_name);
         guest_name = _guestNameText.getText().toString().trim();
 
-        _GuestPhoneText = (EditText) findViewById(R.id.input_mobile);
+        _GuestPhoneText = findViewById(R.id.input_mobile);
         guest_phone = _GuestPhoneText.getText().toString().trim();
 
 
@@ -201,14 +201,14 @@ public class GuestActivity extends AppCompatActivity {
     }
 
     public void onLoginFailed() {
-        Button _guestLoginButton = (Button) findViewById(R.id.btn_guest);
+        Button _guestLoginButton = findViewById(R.id.btn_guest);
 
         CustomMessage.getInstance().CustomMessage(GuestActivity.this, "Login failed Please Signup or Try Logging Again");
         _guestLoginButton.setEnabled(true);
     }
 
     public void onLoginSuccess() {
-        _guestLoginButton = (Button) findViewById(R.id.btn_guest);
+        _guestLoginButton = findViewById(R.id.btn_guest);
         CustomMessage.getInstance().CustomMessage(GuestActivity.this, "Login Success");
 
         Bundle user_data = new Bundle();
@@ -236,8 +236,8 @@ public class GuestActivity extends AppCompatActivity {
     public boolean validateGuest() {
         boolean validGuest = true;
 
-        _nameText = (EditText) findViewById(R.id.input_name);
-        _mobileText = (EditText) findViewById(R.id.input_mobile);
+        _nameText = findViewById(R.id.input_name);
+        _mobileText = findViewById(R.id.input_mobile);
 
         String name = _nameText.getText().toString();
         String mobile = _mobileText.getText().toString();

@@ -54,12 +54,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_welcome);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnSkip = (Button) findViewById(R.id.btn_skip);
+        viewPager = findViewById(R.id.view_pager);
+        dotsLayout = findViewById(R.id.layoutDots);
+        btnSkip = findViewById(R.id.btn_skip);
         btnSkip.setTextSize(20);
         btnSkip.setTypeface(btnSkip.getTypeface(), Typeface.BOLD_ITALIC);
-        btnNext = (Button) findViewById(R.id.btn_next);
+        btnNext = findViewById(R.id.btn_next);
         btnNext.setTextSize(20);
         btnNext.setTypeface(btnNext.getTypeface(), Typeface.BOLD_ITALIC);
 
@@ -105,16 +105,16 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-        if (NetworkConnectivity.checkInternetConnection(WelcomeActivity.this)){
+        if (NetworkConnectivity.checkInternetConnection(WelcomeActivity.this)) {
 
-        }else {
+        } else {
             InternetMessage();
         }
     }
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction("RETRY", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,53 +218,53 @@ public class WelcomeActivity extends AppCompatActivity {
             Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
 
             // Titles
-            welcome_11 = (TextView) view.findViewById(R.id.txt_welcome_11);
+            welcome_11 = view.findViewById(R.id.txt_welcome_11);
             if (welcome_11 != null) {
                 welcome_11.setTypeface(custom_font);
             }
 
-            welcome_13 = (TextView) view.findViewById(R.id.txt_welcome_13);
+            welcome_13 = view.findViewById(R.id.txt_welcome_13);
             if (welcome_13 != null) {
                 welcome_13.setTypeface(custom_font);
             }
 
-            welcome_21 = (TextView) view.findViewById(R.id.txt_welcome_21);
+            welcome_21 = view.findViewById(R.id.txt_welcome_21);
             if (welcome_21 != null) {
                 welcome_21.setTypeface(custom_font);
             }
 
-            welcome_31 = (TextView) view.findViewById(R.id.txt_welcome_31);
+            welcome_31 = view.findViewById(R.id.txt_welcome_31);
             if (welcome_31 != null) {
                 welcome_31.setTypeface(custom_font);
             }
 
-            welcome_32 = (TextView) view.findViewById(R.id.txt_welcome_32);
+            welcome_32 = view.findViewById(R.id.txt_welcome_32);
             if (welcome_32 != null) {
                 welcome_32.setTypeface(custom_font);
             }
 
-            welcome_41 = (TextView) view.findViewById(R.id.txt_welcome_41);
+            welcome_41 = view.findViewById(R.id.txt_welcome_41);
             if (welcome_41 != null) {
                 welcome_41.setTypeface(custom_font);
             }
 
             //SubTitles
-            welcome_42 = (TextView) view.findViewById(R.id.txt_welcome_42);
+            welcome_42 = view.findViewById(R.id.txt_welcome_42);
             if (welcome_42 != null) {
                 welcome_42.setTypeface(custom_font2);
             }
 
-            welcome_33 = (TextView) view.findViewById(R.id.txt_welcome_33);
+            welcome_33 = view.findViewById(R.id.txt_welcome_33);
             if (welcome_33 != null) {
                 welcome_33.setTypeface(custom_font2);
             }
 
-            welcome_22 = (TextView) view.findViewById(R.id.txt_welcome_22);
+            welcome_22 = view.findViewById(R.id.txt_welcome_22);
             if (welcome_22 != null) {
                 welcome_22.setTypeface(custom_font2);
             }
 
-            welcome_14 = (TextView) view.findViewById(R.id.txt_welcome_14);
+            welcome_14 = view.findViewById(R.id.txt_welcome_14);
             if (welcome_14 != null) {
                 welcome_14.setTypeface(custom_font2);
             }

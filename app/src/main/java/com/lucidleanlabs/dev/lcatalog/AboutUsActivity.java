@@ -2,16 +2,13 @@ package com.lucidleanlabs.dev.lcatalog;
 
 import android.content.Intent;
 import android.graphics.Paint;
-import android.media.Image;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,15 +25,15 @@ public class AboutUsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
 
-        facebook = (ImageView) findViewById(R.id.facebook_about);
-        instagram = (ImageView) findViewById(R.id.instagram_about);
-        twitter = (ImageView) findViewById(R.id.twitter_about);
-        linkedIn = (ImageView) findViewById(R.id.linkedin_about);
-        youtube = (ImageView) findViewById(R.id.youtube_about);
+        facebook = findViewById(R.id.facebook_about);
+        instagram = findViewById(R.id.instagram_about);
+        twitter = findViewById(R.id.twitter_about);
+        linkedIn = findViewById(R.id.linkedin_about);
+        youtube = findViewById(R.id.youtube_about);
 
-        heading3 = (TextView) findViewById(R.id.textview5);
-        heading4 = (TextView) findViewById(R.id.textview7);
-        heading5 = (TextView) findViewById(R.id.textview9);
+        heading3 = findViewById(R.id.textview5);
+        heading4 = findViewById(R.id.textview7);
+        heading5 = findViewById(R.id.textview9);
 
 
         heading3.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);

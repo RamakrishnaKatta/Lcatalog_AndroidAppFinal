@@ -1,5 +1,6 @@
 package com.lucidleanlabs.dev.lcatalog.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -25,6 +26,7 @@ public class PrefManager {
     private static final String LOGINACTIVITY_LAUNCH_SCREEN = "LoginActivityLaunchScreen";
 
 
+    @SuppressLint("CommitPrefEdits")
     public PrefManager(Context context) {
         int PRIVATE_MODE = 0;
         pref = context.getSharedPreferences(PREF_NAME_1, PRIVATE_MODE);

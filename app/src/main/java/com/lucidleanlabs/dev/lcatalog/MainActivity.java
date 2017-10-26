@@ -53,15 +53,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("ILLUSTRATION"));
         tabLayout.addTab(tabLayout.newTab().setText("OVERVIEW"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final ViewPager viewPager = findViewById(R.id.pager);
         final MainPageAdapter adapter = new MainPageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -111,19 +111,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         guest_phone = guest_data.getString("guest_phone");
         Log.e(TAG, "guest phone:  " + guest_phone);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         View header = navigationView.getHeaderView(0);
 
-        app_name = (TextView) header.findViewById(R.id.application_name);
-        powered = (TextView) header.findViewById(R.id.lucidleanlabs);
+        app_name = header.findViewById(R.id.application_name);
+        powered = header.findViewById(R.id.lucidleanlabs);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
         app_name.setTypeface(custom_font);
         powered.setTypeface(custom_font2);
 
-        user_name = (TextView) header.findViewById(R.id.user_name);
+        user_name = header.findViewById(R.id.user_name);
 
         if (name != null) {
             user_name.setText(name);
@@ -131,9 +131,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             user_name.setText(guest_name);
         }
 
-        user_type = (TextView) header.findViewById(R.id.guest_image);
+        user_type = header.findViewById(R.id.guest_image);
 
-        user_email = (TextView) header.findViewById(R.id.user_email);
+        user_email = header.findViewById(R.id.user_email);
         if (email != null) {
             user_email.setText(email);
             user_type.setText("CUSTOMER");
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         prefManager3.SetMainActivityScreenLaunch(false);
         Log.e(TAG, "" + prefManager3.MainActivityScreenLaunch());
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.main);
         final Display display = getWindowManager().getDefaultDisplay();
 
@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
 
         if (doubleBackToExitPressedOnce) {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);
             }

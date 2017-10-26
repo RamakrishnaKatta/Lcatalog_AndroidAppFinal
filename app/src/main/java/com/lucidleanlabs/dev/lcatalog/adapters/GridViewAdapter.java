@@ -82,13 +82,13 @@ public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.ViewHo
 
         ViewHolder(View view) {
             super(view);
-            grid_container = (RelativeLayout) view.findViewById(R.id.grid_container);
-            item_image = (ImageView) view.findViewById(R.id.grid_item_image);
-            item_name = (TextView) view.findViewById(R.id.grid_item_name);
-            item_description = (TextView) view.findViewById(R.id.grid_item_description);
-            item_price = (TextView) view.findViewById(R.id.grid_item_price);
-            item_discount = (TextView) view.findViewById(R.id.grid_item_discount_value);
-            item_price_new = (TextView) view.findViewById(R.id.grid_item_price_new);
+            grid_container = view.findViewById(R.id.grid_container);
+            item_image = view.findViewById(R.id.grid_item_image);
+            item_name = view.findViewById(R.id.grid_item_name);
+            item_description = view.findViewById(R.id.grid_item_description);
+            item_price = view.findViewById(R.id.grid_item_price);
+            item_discount = view.findViewById(R.id.grid_item_discount_value);
+            item_price_new = view.findViewById(R.id.grid_item_price_new);
         }
     }
 

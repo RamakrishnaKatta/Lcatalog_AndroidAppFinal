@@ -66,9 +66,9 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        powered = (TextView) findViewById(R.id.lucidleanlabs);
-        app_name = (TextView) findViewById(R.id.application_name);
-        SignupLayout = (CoordinatorLayout) findViewById(R.id.SignupLayout);
+        powered = findViewById(R.id.lucidleanlabs);
+        app_name = findViewById(R.id.application_name);
+        SignupLayout = findViewById(R.id.SignupLayout);
 
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
@@ -77,7 +77,7 @@ public class SignupActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_signup);
+        FloatingActionButton fab = findViewById(R.id.fab_signup);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +88,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        _signupButton = (Button) findViewById(R.id.btn_signup);
+        _signupButton = findViewById(R.id.btn_signup);
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,15 +100,15 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        if (NetworkConnectivity.checkInternetConnection(SignupActivity.this)){
-        }else {
+        if (NetworkConnectivity.checkInternetConnection(SignupActivity.this)) {
+        } else {
             InternetMessage();
         }
     }
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
         snackbar.setActionTextColor(getResources().getColor(R.color.red));
         snackbar.setAction("RETRY", new View.OnClickListener() {
             @Override
@@ -134,27 +134,27 @@ public class SignupActivity extends AppCompatActivity {
         Log.e(TAG, "KEY_TYPE--" + KEY_TYPE);
         Log.e(TAG, "KEY_VENDORID--" + KEY_VENDORID);
 
-        _nameText = (EditText) findViewById(R.id.input_name);
+        _nameText = findViewById(R.id.input_name);
         final String name = _nameText.getText().toString().trim();
         Log.e(TAG, "name--" + name);
 
-        _addressText = (EditText) findViewById(R.id.input_address);
+        _addressText = findViewById(R.id.input_address);
         final String address = _addressText.getText().toString().trim();
         Log.e(TAG, "address--" + address);
 
-        _emailText = (EditText) findViewById(R.id.input_email);
+        _emailText = findViewById(R.id.input_email);
         final String email = _emailText.getText().toString().trim();
         Log.e(TAG, "email--" + email);
 
-        _mobileText = (EditText) findViewById(R.id.input_mobile);
+        _mobileText = findViewById(R.id.input_mobile);
         final String mobile = _mobileText.getText().toString().trim();
         Log.e(TAG, "mobile--" + mobile);
 
-        _passwordText = (EditText) findViewById(R.id.input_password);
+        _passwordText = findViewById(R.id.input_password);
         final String password = _passwordText.getText().toString().trim();
         Log.e(TAG, "password--" + password);
 
-        _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
+        _reEnterPasswordText = findViewById(R.id.input_reEnterPassword);
 
         if (!validate()) {
             onSignupFailed();
@@ -277,7 +277,7 @@ public class SignupActivity extends AppCompatActivity {
     public void onSignupSuccess() {
         CustomMessage.getInstance().CustomMessage(SignupActivity.this, "SignUp Success, Welcome");
 
-        _signupButton = (Button) findViewById(R.id.btn_signup);
+        _signupButton = findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
 
@@ -289,7 +289,7 @@ public class SignupActivity extends AppCompatActivity {
     public void onSignupFailed() {
         CustomMessage.getInstance().CustomMessage(SignupActivity.this, "SignUp failed, Please Try Again");
 
-        _signupButton = (Button) findViewById(R.id.btn_signup);
+        _signupButton = findViewById(R.id.btn_signup);
         _signupButton.setEnabled(true);
     }
 
@@ -303,12 +303,12 @@ public class SignupActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
-        _nameText = (EditText) findViewById(R.id.input_name);
-        _addressText = (EditText) findViewById(R.id.input_address);
-        _emailText = (EditText) findViewById(R.id.input_email);
-        _mobileText = (EditText) findViewById(R.id.input_mobile);
-        _passwordText = (EditText) findViewById(R.id.input_password);
-        _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
+        _nameText = findViewById(R.id.input_name);
+        _addressText = findViewById(R.id.input_address);
+        _emailText = findViewById(R.id.input_email);
+        _mobileText = findViewById(R.id.input_mobile);
+        _passwordText = findViewById(R.id.input_password);
+        _reEnterPasswordText = findViewById(R.id.input_reEnterPassword);
 
         String name = _nameText.getText().toString().trim();
         String address = _addressText.getText().toString().trim();

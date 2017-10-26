@@ -57,19 +57,19 @@ public class UserTypeActivity extends AppCompatActivity {
         Typeface custom_font1 = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
 
-        app_name = (TextView) findViewById(R.id.application_name);
+        app_name = findViewById(R.id.application_name);
         app_name.setTypeface(custom_font1);
 
-        welcome_aboard = (TextView) findViewById(R.id.welcome_aboard);
+        welcome_aboard = findViewById(R.id.welcome_aboard);
         welcome_aboard.setTypeface(custom_font2);
 
-        who_are_you = (TextView) findViewById(R.id.who_are_you);
+        who_are_you = findViewById(R.id.who_are_you);
         who_are_you.setTypeface(custom_font2);
 
-        powered = (TextView) findViewById(R.id.lucidleanlabs);
+        powered = findViewById(R.id.lucidleanlabs);
         powered.setTypeface(custom_font2);
 
-        delete_cache = (ImageView) findViewById(R.id.icon);
+        delete_cache = findViewById(R.id.icon);
         delete_cache.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,32 +123,48 @@ public class UserTypeActivity extends AppCompatActivity {
             }
         });
 
-        _customer = (ImageButton) findViewById(R.id.btn_customer);
+        _customer = findViewById(R.id.btn_customer);
         _customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserTypeActivity.this, LoginActivity.class);
                 startActivity(intent);
+
+                if (!isExternalStorageReadOnly() && isExternalStorageAvailable()) {
+                    Log.e(TAG, "Enter this loop of Folder Creation");
+                    CreateFolderStructure();
+                }
+
                 finish();
             }
         });
 
-        _newCustomer = (ImageButton) findViewById(R.id.btn_new_customer);
+        _newCustomer = findViewById(R.id.btn_new_customer);
         _newCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserTypeActivity.this, SignupActivity.class);
                 startActivity(intent);
+
+                if (!isExternalStorageReadOnly() && isExternalStorageAvailable()) {
+                    Log.e(TAG, "Enter this loop of Folder Creation");
+                    CreateFolderStructure();
+                }
                 finish();
             }
         });
 
-        _shopper = (ImageButton) findViewById(R.id.btn_shopper);
+        _shopper = findViewById(R.id.btn_shopper);
         _shopper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserTypeActivity.this, GuestActivity.class);
                 startActivity(intent);
+
+                if (!isExternalStorageReadOnly() && isExternalStorageAvailable()) {
+                    Log.e(TAG, "Enter this loop of Folder Creation");
+                    CreateFolderStructure();
+                }
                 finish();
             }
         });
@@ -162,10 +178,7 @@ public class UserTypeActivity extends AppCompatActivity {
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        if (!isExternalStorageReadOnly() && isExternalStorageAvailable()) {
-            Log.e(TAG, "Enter this loop of Folder Creation");
-            CreateFolderStructure();
-        }
+
         // checkInternetConnection();
         if (NetworkConnectivity.checkInternetConnection(UserTypeActivity.this)) {
 

@@ -82,13 +82,13 @@ public class ListViewHorizontalAdapter extends RecyclerView.Adapter<ListViewHori
 
         ViewHolder(View view) {
             super(view);
-            h_container = (RelativeLayout) view.findViewById(R.id.h_container);
-            item_image = (ImageView) view.findViewById(R.id.h_item_image);
-            item_name = (TextView) view.findViewById(R.id.h_item_name);
-            item_description = (TextView) view.findViewById(R.id.h_item_description);
-            item_price = (TextView) view.findViewById(R.id.h_item_price);
-            item_discount = (TextView) view.findViewById(R.id.h_item_discount_value);
-            item_price_new = (TextView) view.findViewById(R.id.h_item_price_new);
+            h_container = view.findViewById(R.id.h_container);
+            item_image = view.findViewById(R.id.h_item_image);
+            item_name = view.findViewById(R.id.h_item_name);
+            item_description = view.findViewById(R.id.h_item_description);
+            item_price = view.findViewById(R.id.h_item_price);
+            item_discount = view.findViewById(R.id.h_item_discount_value);
+            item_price_new = view.findViewById(R.id.h_item_price_new);
 
             Typeface custom_font = Typeface.createFromAsset(activity.getAssets(), "fonts/Graduate-Regular.ttf");
             Typeface custom_font2 = Typeface.createFromAsset(activity.getAssets(), "fonts/Cookie-Regular.ttf");

@@ -78,10 +78,10 @@ public class Fragment_ProductImages extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_product_images, container, false);
 
-        article_share = (ImageButton) view.findViewById(R.id.article_share_icon);
-        article_download = (ImageButton) view.findViewById(R.id.article_download_icon);
-        article_3d_view = (ImageButton) view.findViewById(R.id.article_3dview_icon);
-        article_augment = (ImageButton) view.findViewById(R.id.article_augment_icon);
+        article_share = view.findViewById(R.id.article_share_icon);
+        article_download = view.findViewById(R.id.article_download_icon);
+        article_3d_view = view.findViewById(R.id.article_3dview_icon);
+        article_augment = view.findViewById(R.id.article_augment_icon);
 
         article_images = getArguments().getString("article_images");
         article_name = getArguments().getString("article_name");
@@ -111,11 +111,11 @@ public class Fragment_ProductImages extends Fragment {
 
         Collections.addAll(slider_images, Images);
 
-        ArticleViewPager = (ViewPager) view.findViewById(R.id.article_view_pager);
+        ArticleViewPager = view.findViewById(R.id.article_view_pager);
         imagesliderAdapter = new ImageSliderAdapter(getContext(), slider_images);
         ArticleViewPager.setAdapter(imagesliderAdapter);
 
-        Slider_dots = (LinearLayout) view.findViewById(R.id.article_slider_dots);
+        Slider_dots = view.findViewById(R.id.article_slider_dots);
 
         ArticleViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

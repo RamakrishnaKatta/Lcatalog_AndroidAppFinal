@@ -1,7 +1,6 @@
 package com.lucidleanlabs.dev.lcatalog;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -27,8 +26,8 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        app_name = (TextView) findViewById(R.id.application_name);
-        powered = (TextView) findViewById(R.id.lucidleanlabs);
+        app_name = findViewById(R.id.application_name);
+        powered = findViewById(R.id.lucidleanlabs);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         Typeface custom_font2 = Typeface.createFromAsset(getAssets(), "fonts/Cookie-Regular.ttf");
 
@@ -43,15 +42,15 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
         // set animation listener
         animFadeIn.setAnimationListener(this);
         // animation for image
-        linearLayout = (LinearLayout) findViewById(R.id.splash_layout);
+        linearLayout = findViewById(R.id.splash_layout);
         // start the animation
         linearLayout.setVisibility(View.VISIBLE);
         linearLayout.startAnimation(animFadeIn);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        if (NetworkConnectivity.checkInternetConnection(SplashScreenActivity.this)){
+        if (NetworkConnectivity.checkInternetConnection(SplashScreenActivity.this)) {
 
-        }else {
+        } else {
             InternetMessage();
         }
     }
@@ -61,7 +60,8 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
         this.finish();
         super.onBackPressed();
     }
-    private void InternetMessage(){
+
+    private void InternetMessage() {
 
         final View v = this.getWindow().getDecorView().findViewById(android.R.id.content);
         final Snackbar snackBar = Snackbar.make(v, "Check Your Internet connection.", Snackbar.LENGTH_INDEFINITE);
@@ -98,7 +98,7 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
 
     public void animate() {
 
-        final ImageView imageView = (ImageView) findViewById(R.id.splash_icon);
+        final ImageView imageView = findViewById(R.id.splash_icon);
         final Animation animation_1 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.rotate);
         final Animation animation_2 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.anti_rotate);
 

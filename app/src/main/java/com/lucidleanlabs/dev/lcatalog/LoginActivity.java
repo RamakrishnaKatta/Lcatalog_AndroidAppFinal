@@ -75,12 +75,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        app_name = (TextView) findViewById(R.id.application_name);
-        powered = (TextView) findViewById(R.id.lucidleanlabs);
-        _loginButton = (Button) findViewById(R.id.btn_login);
-        _forgot_password = (TextView) findViewById(R.id.link_forgot_password);
-        get_details = (ImageButton) findViewById(R.id.btn_get_data);
-        LoginLayout = (CoordinatorLayout) findViewById(R.id.LoginLayout);
+        app_name = findViewById(R.id.application_name);
+        powered = findViewById(R.id.lucidleanlabs);
+        _loginButton = findViewById(R.id.btn_login);
+        _forgot_password = findViewById(R.id.link_forgot_password);
+        get_details = findViewById(R.id.btn_get_data);
+        LoginLayout = findViewById(R.id.LoginLayout);
 
         String customer_text_file_location = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/customer.txt";
         file_customer = new File(customer_text_file_location);
@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         //Disables the keyboard to appear on the activity launch
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_login);
+        FloatingActionButton fab = findViewById(R.id.fab_login);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -208,7 +208,7 @@ public class LoginActivity extends AppCompatActivity {
             onLoginFailed();
             return;
         }
-        _loginButton = (Button) findViewById(R.id.btn_login);
+        _loginButton = findViewById(R.id.btn_login);
         _loginButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
@@ -216,11 +216,11 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        _emailText = (EditText) findViewById(R.id.input_email);
+        _emailText = findViewById(R.id.input_email);
         email = _emailText.getText().toString().trim();
         Log.e(TAG, "Entered email--" + email);
 
-        _passwordText = (EditText) findViewById(R.id.input_password);
+        _passwordText = findViewById(R.id.input_password);
         password = _passwordText.getText().toString().trim();
         Log.e(TAG, "Entered password--" + password);
 
@@ -324,7 +324,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginSuccess() {
-        Button _loginButton = (Button) findViewById(R.id.btn_login);
+        Button _loginButton = findViewById(R.id.btn_login);
 
         CustomMessage.getInstance().CustomMessage(LoginActivity.this, "Login Success");
 
@@ -343,7 +343,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else {
-            _loginButton = (Button) findViewById(R.id.btn_login);
+            _loginButton = findViewById(R.id.btn_login);
             CustomMessage.getInstance().CustomMessage(LoginActivity.this, "There is a issue with your Login, maybe a network/server issue! \n Please try to login as guest for this time");
 
             _loginButton.setEnabled(true);
@@ -351,7 +351,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginFailed() {
-        Button _loginButton = (Button) findViewById(R.id.btn_login);
+        Button _loginButton = findViewById(R.id.btn_login);
         CustomMessage.getInstance().CustomMessage(LoginActivity.this, "Login failed Please Sign Up or Try Logging Again");
 
         _loginButton.setEnabled(true);
@@ -366,8 +366,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean validate() {
 
-        EditText _emailText = (EditText) findViewById(R.id.input_email);
-        EditText _passwordText = (EditText) findViewById(R.id.input_password);
+        EditText _emailText = findViewById(R.id.input_email);
+        EditText _passwordText = findViewById(R.id.input_password);
         boolean valid = true;
 
         String email = _emailText.getText().toString();

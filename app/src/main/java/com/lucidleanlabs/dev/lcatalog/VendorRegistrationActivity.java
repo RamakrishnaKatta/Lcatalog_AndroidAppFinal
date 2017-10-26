@@ -63,7 +63,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_vendor_reg);
+        Toolbar toolbar = findViewById(R.id.toolbar_vendor_reg);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
@@ -71,7 +71,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        v_registerButton = (Button) findViewById(R.id.btn_vendor_submit);
+        v_registerButton = findViewById(R.id.btn_vendor_submit);
         v_registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,39 +120,39 @@ public class VendorRegistrationActivity extends AppCompatActivity {
         Log.e(TAG, "KEY_V_PIN--" + KEY_V_PIN);
         Log.e(TAG, "KEY_V_MOBILENO--" + KEY_V_MOBILENO);
 
-        v_companyName = (EditText) findViewById(R.id.vendor_name);
+        v_companyName = findViewById(R.id.vendor_name);
         final String companyName = v_companyName.getText().toString().trim();
         Log.e(TAG, "Company Name--" + companyName);
 
-        v_companyContactPerson = (EditText) findViewById(R.id.vendor_contact_name);
+        v_companyContactPerson = findViewById(R.id.vendor_contact_name);
         final String companyContactName = v_companyContactPerson.getText().toString().trim();
         Log.e(TAG, "Company ContactName--" + companyContactName);
 
-        v_companyAddress = (EditText) findViewById(R.id.vendor_address);
+        v_companyAddress = findViewById(R.id.vendor_address);
         final String companyAddress = v_companyAddress.getText().toString().trim();
         Log.e(TAG, "Company Address--" + companyAddress);
 
-        v_companyLocation = (EditText) findViewById(R.id.vendor_location);
+        v_companyLocation = findViewById(R.id.vendor_location);
         final String companyLocation = v_companyLocation.getText().toString().trim();
         Log.e(TAG, "Company Location--" + companyLocation);
 
-        v_companyState = (EditText) findViewById(R.id.vendor_state);
+        v_companyState = findViewById(R.id.vendor_state);
         final String companyState = v_companyState.getText().toString().trim();
         Log.e(TAG, "Company State--" + companyState);
 
-        v_companyPin = (EditText) findViewById(R.id.vendor_pincode);
+        v_companyPin = findViewById(R.id.vendor_pincode);
         final String companyPin = v_companyPin.getText().toString().trim();
         Log.e(TAG, "company PinCode--" + companyPin);
 
-        v_companyEmail = (EditText) findViewById(R.id.vendor_email);
+        v_companyEmail = findViewById(R.id.vendor_email);
         final String companyEmail = v_companyEmail.getText().toString().trim();
         Log.e(TAG, "Company Email--" + companyEmail);
 
-        v_companyMobileNo = (EditText) findViewById(R.id.vendor_mobile);
+        v_companyMobileNo = findViewById(R.id.vendor_mobile);
         final String companyMobileNo = v_companyMobileNo.getText().toString().trim();
         Log.e(TAG, "company Mobile No--" + companyMobileNo);
 
-        v_totalModels = (EditText) findViewById(R.id.vendor_modelcount);
+        v_totalModels = findViewById(R.id.vendor_modelcount);
         final String companyModelCount = v_totalModels.getText().toString().trim();
         Log.e(TAG, "Company Model Count--" + companyModelCount);
 
@@ -269,7 +269,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
-        v_companyName = (EditText) findViewById(R.id.vendor_name);
+        v_companyName = findViewById(R.id.vendor_name);
         String companyName = v_companyName.getText().toString().trim();
         if (companyName.isEmpty() || companyName.length() < 3) {
             v_companyName.setError("Enter Valid Name, at least 3 characters");
@@ -278,7 +278,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
             v_companyName.setError(null);
         }
 
-        v_companyContactPerson = (EditText) findViewById(R.id.vendor_contact_name);
+        v_companyContactPerson = findViewById(R.id.vendor_contact_name);
         String companyContactName = v_companyContactPerson.getText().toString().trim();
         if (companyContactName.isEmpty() || companyContactName.length() < 3) {
             v_companyContactPerson.setError("Enter Valid Name, at least 3 characters");
@@ -287,7 +287,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
             v_companyContactPerson.setError(null);
         }
 
-        v_companyAddress = (EditText) findViewById(R.id.vendor_address);
+        v_companyAddress = findViewById(R.id.vendor_address);
         String companyAddress = v_companyAddress.getText().toString().trim();
         if (companyAddress.isEmpty()) {
             v_companyAddress.setError("Enter Valid Address");
@@ -296,7 +296,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
             v_companyAddress.setError(null);
         }
 
-        v_companyLocation = (EditText) findViewById(R.id.vendor_location);
+        v_companyLocation = findViewById(R.id.vendor_location);
         final String companyLocation = v_companyLocation.getText().toString().trim();
         if (companyLocation.isEmpty()) {
             v_companyLocation.setError("Enter Valid Location");
@@ -305,7 +305,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
             v_companyLocation.setError(null);
         }
 
-        v_companyState = (EditText) findViewById(R.id.vendor_state);
+        v_companyState = findViewById(R.id.vendor_state);
         String companyState = v_companyState.getText().toString().trim();
         if (companyState.isEmpty()) {
             v_companyState.setError("Enter Valid State");
@@ -314,7 +314,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
             v_companyState.setError(null);
         }
 
-        v_companyPin = (EditText) findViewById(R.id.vendor_pincode);
+        v_companyPin = findViewById(R.id.vendor_pincode);
         String companyPin = v_companyPin.getText().toString().trim();
         if (companyPin.isEmpty()) {
             v_companyPin.setError("Enter Valid Pin");
@@ -323,7 +323,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
             v_companyPin.setError(null);
         }
 
-        v_companyEmail = (EditText) findViewById(R.id.vendor_email);
+        v_companyEmail = findViewById(R.id.vendor_email);
         String companyEmail = v_companyEmail.getText().toString().trim();
         if (companyEmail.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(companyEmail).matches()) {
             v_companyEmail.setError("enter a valid email address");
@@ -332,7 +332,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
             v_companyEmail.setError(null);
         }
 
-        v_companyMobileNo = (EditText) findViewById(R.id.vendor_mobile);
+        v_companyMobileNo = findViewById(R.id.vendor_mobile);
         String companyMobileNo = v_companyMobileNo.getText().toString().trim();
         if (companyMobileNo.isEmpty() || companyMobileNo.length() != 10) {
             v_companyMobileNo.setError("Enter Valid Mobile Number");
@@ -341,7 +341,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
             v_companyMobileNo.setError(null);
         }
 
-        v_totalModels = (EditText) findViewById(R.id.vendor_modelcount);
+        v_totalModels = findViewById(R.id.vendor_modelcount);
         String companyModelCount = v_totalModels.getText().toString().trim();
         if (companyModelCount.isEmpty()) {
             v_totalModels.setError("Enter a valid no of models you require");
@@ -357,7 +357,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
 
         CustomMessage.getInstance().CustomMessage(VendorRegistrationActivity.this, "Successfully registered your request, We will respond very soon! ");
 
-        v_registerButton = (Button) findViewById(R.id.btn_vendor_submit);
+        v_registerButton = findViewById(R.id.btn_vendor_submit);
         v_registerButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
@@ -367,7 +367,7 @@ public class VendorRegistrationActivity extends AppCompatActivity {
 
         CustomMessage.getInstance().CustomMessage(VendorRegistrationActivity.this, "Vendor Registration Failed");
 
-        v_registerButton = (Button) findViewById(R.id.btn_vendor_submit);
+        v_registerButton = findViewById(R.id.btn_vendor_submit);
         v_registerButton.setEnabled(true);
     }
 

@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lucidleanlabs.dev.lcatalog.utils.CustomMessage;
 import com.lucidleanlabs.dev.lcatalog.utils.NetworkConnectivity;
@@ -39,10 +38,10 @@ public class UserAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_account);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_user_account);
+        Toolbar toolbar = findViewById(R.id.toolbar_user_account);
         setSupportActionBar(toolbar);
 
-        TextView app_name = (TextView) findViewById(R.id.application_name);
+        TextView app_name = findViewById(R.id.application_name);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
         app_name.setTypeface(custom_font);
 
@@ -59,23 +58,23 @@ public class UserAccountActivity extends AppCompatActivity {
         user_phone = user_details.getString("user_phone");
         user_type = user_details.getString("user_type");
 
-        name = (EditText) findViewById(R.id.user_input_name);
+        name = findViewById(R.id.user_input_name);
         disableEditText(name);
         name.setText(user_name);
 
-        address = (EditText) findViewById(R.id.user_input_address);
+        address = findViewById(R.id.user_input_address);
         disableEditText(address);
         address.setText(user_address);
 
-        email = (EditText) findViewById(R.id.user_input_email);
+        email = findViewById(R.id.user_input_email);
         disableEditText(email);
         email.setText(user_email);
 
-        mobile = (EditText) findViewById(R.id.user_input_mobile);
+        mobile = findViewById(R.id.user_input_mobile);
         disableEditText(mobile);
         mobile.setText(user_phone);
 
-        edit_user = (Button) findViewById(R.id.btn_edit_account);
+        edit_user = findViewById(R.id.btn_edit_account);
         edit_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v1) {
@@ -86,7 +85,7 @@ public class UserAccountActivity extends AppCompatActivity {
                 enableEditText(mobile);
 
                 edit_user.setVisibility(View.GONE);
-                update_user = (Button) findViewById(R.id.btn_update_account);
+                update_user = findViewById(R.id.btn_update_account);
                 update_user.setVisibility(View.VISIBLE);
                 update_user.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -97,16 +96,16 @@ public class UserAccountActivity extends AppCompatActivity {
             }
         });
 
-        if (NetworkConnectivity.checkInternetConnection(UserAccountActivity.this)){
+        if (NetworkConnectivity.checkInternetConnection(UserAccountActivity.this)) {
 
-        }else {
+        } else {
             InternetMessage();
         }
     }
 
     private void InternetMessage() {
         final View view = this.getWindow().getDecorView().findViewById(android.R.id.content);
-        final Snackbar snackbar = Snackbar.make(view,"Check Your Internet connection",Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackbar = Snackbar.make(view, "Check Your Internet connection", Snackbar.LENGTH_INDEFINITE);
         snackbar.setActionTextColor(getResources().getColor(R.color.red));
         snackbar.setAction("RETRY", new View.OnClickListener() {
             @Override
@@ -209,10 +208,10 @@ public class UserAccountActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
-        name = (EditText) findViewById(R.id.user_input_name);
-        address = (EditText) findViewById(R.id.user_input_address);
-        email = (EditText) findViewById(R.id.user_input_email);
-        mobile = (EditText) findViewById(R.id.user_input_mobile);
+        name = findViewById(R.id.user_input_name);
+        address = findViewById(R.id.user_input_address);
+        email = findViewById(R.id.user_input_email);
+        mobile = findViewById(R.id.user_input_mobile);
 
         String user_name = name.getText().toString().trim();
         String user_address = address.getText().toString().trim();
