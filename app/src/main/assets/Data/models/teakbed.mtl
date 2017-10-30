@@ -1,5 +1,5 @@
-# Blender MTL File: 'TEAKBED.blend'
-# Material Count: 14
+# Blender MTL File: 'TEAKBEDuvmapped.blend'
+# Material Count: 13
 
 newmtl Foregrou
 Ns 96.078431
@@ -12,6 +12,17 @@ d 1.000000
 illum 2
 
 newmtl Material.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd wx.jpg
+
+newmtl Material.001_NONE
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -45,17 +56,6 @@ illum 2
 map_Kd wx.jpg
 
 newmtl Material.004
-Ns 96.078431
-Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.640000 0.640000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
-illum 2
-map_Kd wx.jpg
-
-newmtl Material.005
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -131,17 +131,6 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Kd ac.jpg
-
-newmtl Material.013
-Ns 96.078431
-Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.640000 0.640000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
-illum 2
-map_Kd wx.jpg
 
 newmtl _1
 Ns 96.078431

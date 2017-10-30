@@ -1,28 +1,28 @@
-# Blender MTL File: 'wallpartitionraw1.blend'
+# Blender MTL File: 'wallpartition.blend'
 # Material Count: 4
 
 newmtl Material
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
-Kd 0.602061 0.640000 0.640000
+Kd 0.400091 0.603622 0.640000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
+map_Kd whtwap.jpg
 
-newmtl Material.001
+newmtl Material_NONE
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.640000 0.640000
+Kd 0.400091 0.603622 0.640000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd wudtkwap.jpg
 
-newmtl Material.002
+newmtl marble
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
@@ -33,10 +33,13 @@ d 1.000000
 illum 2
 map_Kd mrblwap.jpg
 
-newmtl None
-Ns 0
-Ka 0.000000 0.000000 0.000000
-Kd 0.8 0.8 0.8
-Ks 0.8 0.8 0.8
-d 1
+newmtl wood
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
 illum 2
+map_Kd wudtkwap.jpg

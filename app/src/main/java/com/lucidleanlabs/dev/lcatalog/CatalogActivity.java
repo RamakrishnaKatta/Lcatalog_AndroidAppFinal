@@ -39,7 +39,7 @@ import java.util.ArrayList;
 
 public class CatalogActivity extends AppCompatActivity {
 
-    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com:8080/lll/web/article/all?";
+    private static final String REGISTER_URL = "http://lcatalog.immersionslabs.com:8080/lll/web/article/all?from=0&count=50";
     private static final String TAG = "CatalogActivity";
 //    from=0&count=10
 
@@ -64,10 +64,10 @@ public class CatalogActivity extends AppCompatActivity {
     SwipeRefreshLayout refreshLayout;
     FloatingActionButton fab_grid, fab_vertical, fab_horizontal;
     Boolean Loadmore = false;
-    int to = 0;
-    int from = 0;
-    int pagesize = 10;
-    int pagenumber = 0;
+//    int to = 0;
+//    int from = 0;
+//    int pagesize = 10;
+//    int pagenumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +110,9 @@ public class CatalogActivity extends AppCompatActivity {
         fab_horizontal.setSize(1);
         fab_grid.setSize(0);
 
-        createUrl();
+//        createUrl();
+
+        commonGetdata();
 
         /*Floating Button for Gridview*/
         fab_grid.setOnClickListener(new View.OnClickListener() {
@@ -172,85 +174,87 @@ public class CatalogActivity extends AppCompatActivity {
                     item_images.clear();
                     item_dimensions.clear();
 
-                    resetParameters();
-                    createUrl();
-                }
-            }
-        });
-
-        /*pagination for catalog Activity*/
-        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                /*onscroll for Gridview*/
-                if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 0) {
-                    int v_count = GridManager.getChildCount();
-                    int t_count = GridManager.getItemCount();
-                    int f_v_position = GridManager.findFirstVisibleItemPosition();
-                    if (f_v_position + v_count >= t_count) {
-
-                        Log.e(TAG, "onScrolled: reached grid bottom");
-                        pagenumber += 1;
-                        Loadmore = true;
-                        createUrl();
-                    }
-                }
-
-                /*onscroll for Vertical Listview*/
-                else if (fab_vertical.getSize() == 0 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 1) {
-
-                    int v_count = VerticalManager.getChildCount();
-                    int t_count = VerticalManager.getItemCount();
-                    int f_v_position = VerticalManager.findFirstVisibleItemPosition();
-                    if ((v_count + f_v_position) >= t_count && f_v_position >= 0) {
-
-                        Log.e(TAG, "onScrolled: reached Vertical List Bottom");
-                        pagenumber += 1;
-                        Loadmore = true;
-                        createUrl();
-                    }
-                }
-
-                /*onscroll for Horizontal Listview*/
-                else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
-                    int v_count = HorizontalManager.getChildCount();
-                    int t_count = HorizontalManager.getItemCount();
-                    int f_v_position = HorizontalManager.findFirstVisibleItemPosition();
-                    if ((v_count + f_v_position) >= t_count && f_v_position >= 0) {
-
-                        Log.e(TAG, "onScrolled: reached Horizontal List Bottom");
-                        pagenumber += 1;
-                        Loadmore = true;
-                        createUrl();
-                    }
+                    commonGetdata();
+//                    resetParameters();
+//                    createUrl();
                 }
             }
         });
     }
+        /*commented the pagination for future*/
+//        /*pagination for catalog Activity*/
+//        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//
+//                /*onscroll for Gridview*/
+//                if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 0) {
+//                    int v_count = GridManager.getChildCount();
+//                    int t_count = GridManager.getItemCount();
+//                    int f_v_position = GridManager.findFirstVisibleItemPosition();
+//                    if (f_v_position + v_count >= t_count) {
+//
+//                        Log.e(TAG, "onScrolled: reached grid bottom");
+//                        pagenumber += 1;
+//                        Loadmore = true;
+//                        createUrl();
+//                    }
+//                }
+//
+//                /*onscroll for Vertical Listview*/
+//                else if (fab_vertical.getSize() == 0 && fab_horizontal.getSize() == 1 && fab_grid.getSize() == 1) {
+//
+//                    int v_count = VerticalManager.getChildCount();
+//                    int t_count = VerticalManager.getItemCount();
+//                    int f_v_position = VerticalManager.findFirstVisibleItemPosition();
+//                    if ((v_count + f_v_position) >= t_count && f_v_position >= 0) {
+//
+//                        Log.e(TAG, "onScrolled: reached Vertical List Bottom");
+//                        pagenumber += 1;
+//                        Loadmore = true;
+//                        createUrl();
+//                    }
+//                }
+//
+//                /*onscroll for Horizontal Listview*/
+//                else if (fab_vertical.getSize() == 1 && fab_horizontal.getSize() == 0 && fab_grid.getSize() == 1) {
+//                    int v_count = HorizontalManager.getChildCount();
+//                    int t_count = HorizontalManager.getItemCount();
+//                    int f_v_position = HorizontalManager.findFirstVisibleItemPosition();
+//                    if ((v_count + f_v_position) >= t_count && f_v_position >= 0) {
+//
+//                        Log.e(TAG, "onScrolled: reached Horizontal List Bottom");
+//                        pagenumber += 1;
+//                        Loadmore = true;
+//                        createUrl();
+//                    }
+//                }
+//            }
+//        });
 
-    private void resetParameters() {
-        pagenumber = 0;
-        to = 0;
-        from = 0;
-        pagesize = 10;
-        Loadmore = false;
-    }
 
-    private void createUrl() {
+//    private void resetParameters() {
+//        pagenumber = 0;
+//        to = 0;
+//        from = 0;
+//        pagesize = 10;
+//        Loadmore = false;
+//    }
 
-        from = pagenumber * pagesize;
-        to = from + pagesize;
-        String url = REGISTER_URL + "from=" + from + "&count=" + to;
-        commonGetdata(url);
-    }
+//    private void createUrl() {
+//
+//        from = pagenumber * pagesize;
+//        to = from + pagesize;
+//        String url = REGISTER_URL + "from=" + from + "&count=" + to;
+//        commonGetdata(url);
+//    }
 
-    private void commonGetdata(String url) {
-        Log.e(TAG, "commonGetdata: " + url);
+    private void commonGetdata() {
+        Log.e(TAG, "commonGetdata: " + REGISTER_URL);
         final JSONObject baseclass = new JSONObject();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, baseclass, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, REGISTER_URL, baseclass, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
