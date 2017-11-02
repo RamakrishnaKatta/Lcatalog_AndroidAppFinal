@@ -115,6 +115,9 @@ public abstract class ARActivity extends Activity implements CameraEventListener
 
     private ImageButton mSettingButton;
 
+    private ImageButton mFlashButton;
+    private ImageButton mCaptureButton;
+
     @SuppressWarnings("unused")
     public Context getAppContext() {
         return mContext;
@@ -252,6 +255,16 @@ public abstract class ARActivity extends Activity implements CameraEventListener
         mainFrameLayout.addView(settingsButtonLayout);
         mSettingButton.setOnClickListener(this);
 
+        //Load settings button
+        View OptionsButtonLayout = this.getLayoutInflater().inflate(R.layout.options_buttons_layout, mainFrameLayout, false);
+
+        mFlashButton = OptionsButtonLayout.findViewById(R.id.button_flash);
+        mCaptureButton = OptionsButtonLayout.findViewById(R.id.button_capture);
+        mainFrameLayout.addView(OptionsButtonLayout);
+
+        mFlashButton.setOnClickListener(this);
+        mCaptureButton.setOnClickListener(this);
+
     }
 
     @Override
@@ -283,6 +296,16 @@ public abstract class ARActivity extends Activity implements CameraEventListener
     public void onClick(View v) {
         if (v.equals(mSettingButton)) {
             v.getContext().startActivity(new Intent(v.getContext(), CameraPreferencesActivity.class));
+        }
+        if (v.equals(mFlashButton)) {
+            Toast toast = Toast.makeText(this, "You Clicked on Flash Button", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+        }
+        if (v.equals(mCaptureButton)) {
+            Toast toast = Toast.makeText(this, "You Clicked on Capture Button", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
         }
     }
 
