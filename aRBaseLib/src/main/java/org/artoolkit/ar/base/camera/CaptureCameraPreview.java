@@ -228,6 +228,9 @@ public class CaptureCameraPreview extends SurfaceView implements SurfaceHolder.C
         Log.e(TAG, "surfaceChanged(): CameraResolution : " + Integer.parseInt(dims[0]) + "x" + Integer.parseInt(dims[1]));
         parameters.setPreviewSize(Integer.parseInt(dims[0]), Integer.parseInt(dims[1]));
         parameters.setPreviewFrameRate(10);
+        if (parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+        }
         camera.setParameters(parameters);
 
         parameters = camera.getParameters();
