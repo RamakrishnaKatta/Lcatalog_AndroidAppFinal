@@ -82,7 +82,7 @@ import org.artoolkit.ar.base.rendering.gles20.ARRendererGLES20;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.sql.Timestamp;
+import java.util.Date;
 
 //import android.os.AsyncTask;
 //import android.os.AsyncTask.Status;
@@ -130,7 +130,7 @@ public abstract class ARActivity extends Activity implements CameraEventListener
 
     private ImageButton mFlashButton;
     private ImageButton mCaptureButton;
-
+    private ImageButton mScrrenshotButton;
 
     private boolean flashmode = false;
 
@@ -276,15 +276,19 @@ public abstract class ARActivity extends Activity implements CameraEventListener
 
         mFlashButton = OptionsButtonLayout.findViewById(R.id.button_flash);
         mCaptureButton = OptionsButtonLayout.findViewById(R.id.button_capture);
+        mScrrenshotButton = OptionsButtonLayout.findViewById(R.id.button_screenshot);
         mainFrameLayout.addView(OptionsButtonLayout);
 
         mFlashButton.setOnClickListener(this);
         mCaptureButton.setOnClickListener(this);
+        mScrrenshotButton.setOnClickListener(this);
+
+        //For debugging Purpose!!
+        mScrrenshotButton.setVisibility(View.GONE);
 
         if (!getBaseContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
             mFlashButton.setVisibility(View.GONE);
         }
-
     }
 
     @Override
@@ -311,7 +315,6 @@ public abstract class ARActivity extends Activity implements CameraEventListener
         super.onStop();
     }
 
-
     @Override
     public void onClick(View v) {
         if (v.equals(mSettingButton)) {
@@ -323,101 +326,186 @@ public abstract class ARActivity extends Activity implements CameraEventListener
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
 
-            if (preview.camera != null) {
-                try {
-                    Camera.Parameters param = preview.camera.getParameters();
-                    param.setFlashMode(!flashmode ? Camera.Parameters.FLASH_MODE_TORCH
-                            : Camera.Parameters.FLASH_MODE_OFF);
-                    preview.camera.setParameters(param);
-                    flashmode = !flashmode;
-                } catch (Exception e) {
-                    // TODO: handle exception
-                }
-            }
+            CameraFlash();
         }
+
         if (v.equals(mCaptureButton)) {
             Toast toast = Toast.makeText(this, "You Clicked on Capture Button", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
 
-            preview.camera.takePicture(null, null, new Camera.PictureCallback() {
+            CameraImage();
+        }
 
-                private File imageFile;
+        if (v.equals(mScrrenshotButton)) {
+            Toast toast = Toast.makeText(this, "You Clicked on ScreenCapture Button", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
 
-                @Override
-                public void onPictureTaken(byte[] data, Camera camera) {
-                    try {
-                        // convert byte array into bitmap
-                        Bitmap loadedImage = null;
-                        Bitmap rotatedBitmap = null;
-                        loadedImage = BitmapFactory.decodeByteArray(data, 0,
-                                data.length);
-                        // rotate Image
-                        Matrix rotateMatrix = new Matrix();
-                        rotateMatrix.postRotate(preview.rotation);
-                        rotatedBitmap = Bitmap.createBitmap(loadedImage, 0, 0, loadedImage.getWidth(), loadedImage.getHeight(), rotateMatrix, false);
-                        File folder;
-                        if (Environment.getExternalStorageState().contains(Environment.MEDIA_MOUNTED)) {
-                            folder = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots");
-                        } else {
-                            folder = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots");
-                        }
-                        boolean success = true;
-                        if (!folder.exists()) {
-                            success = folder.mkdirs();
-                        }
-                        if (success) {
-                            java.util.Date date = new java.util.Date();
-                            imageFile = new File(folder.getAbsolutePath() + File.separator + new Timestamp(date.getTime()).toString() + "Image.jpg");
-                            imageFile.createNewFile();
-
-                            Toast toast;
-                            toast = Toast.makeText(mContext, "Image Saved to your gallery", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                            toast.show();
-                        } else {
-
-                            Toast toast;
-                            toast = Toast.makeText(mContext, "Image Not Saved", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                            toast.show();
-
-                            return;
-                        }
-                        ByteArrayOutputStream ostream = new ByteArrayOutputStream();
-
-                        // save image into gallery
-                        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
-
-                        FileOutputStream fout = new FileOutputStream(imageFile);
-                        fout.write(ostream.toByteArray());
-                        fout.close();
-                        ContentValues values = new ContentValues();
-
-                        values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
-                        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                        values.put(MediaStore.MediaColumns.DATA, imageFile.getAbsolutePath());
-
-                        mContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    camera.startPreview();
-                }
-            });
+            TakeScreenshot();
         }
     }
 
-//    @Override
-//    public void onWindowFocusChanged(boolean hasFocus) {
-//        super.onWindowFocusChanged(hasFocus);
-//        View decorView = getWindow().getDecorView();
-//        if (hasFocus) {
-//            // Now can configure view to run  full screen
-//            decorView.setSystemUiVisibility(AndroidUtils.VIEW_VISIBILITY);
-//        }
-//    }
+    private void TakeScreenshot() {
+        File screenShotFile;
+
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            String sPath = Environment.getExternalStorageDirectory().toString() + "/L_CATALOGUE/Screenshots";
+
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File folder;
+            if (Environment.getExternalStorageState().contains(Environment.MEDIA_MOUNTED)) {
+                folder = new File(sPath);
+            } else {
+                folder = new File(sPath);
+            }
+
+            boolean success = true;
+            if (!folder.exists()) {
+                success = folder.mkdirs();
+            }
+            if (success) {
+                Date now = new Date();
+                android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+                String ScreenShotFileName = folder.getAbsolutePath() + File.separator + now + ".jpg";
+                Log.i(TAG, "ScreenShotFileName : " + ScreenShotFileName);
+                screenShotFile = new File(ScreenShotFileName);
+                screenShotFile.createNewFile();
+
+                Toast toast;
+                toast = Toast.makeText(mContext, "Screenshot Saved to your gallery", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
+            } else {
+
+                Toast toast;
+                toast = Toast.makeText(mContext, "Screenshot Not Captured and Saved", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
+
+                return;
+            }
+
+            FileOutputStream outputStream = new FileOutputStream(screenShotFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            ContentValues values = new ContentValues();
+
+            values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+            values.put(MediaStore.MediaColumns.DATA, screenShotFile.getAbsolutePath());
+
+            mContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        } catch (Throwable e) {
+            // Several error may come out with file handling or DOM
+            e.printStackTrace();
+        }
+    }
+
+    private void CameraFlash() {
+
+        if (preview.camera != null) {
+            try {
+                Camera.Parameters param = preview.camera.getParameters();
+                param.setFlashMode(!flashmode ? Camera.Parameters.FLASH_MODE_TORCH
+                        : Camera.Parameters.FLASH_MODE_OFF);
+                preview.camera.setParameters(param);
+                flashmode = !flashmode;
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+        }
+
+    }
+
+    private void CameraImage() {
+
+        preview.camera.takePicture(null, null, new Camera.PictureCallback() {
+
+            private File imageFile;
+
+            @Override
+            public void onPictureTaken(byte[] data, Camera camera) {
+                try {
+
+                    String cPath = Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots";
+
+                    // convert byte array into bitmap
+                    Bitmap loadedImage = null;
+                    Bitmap rotatedBitmap = null;
+                    loadedImage = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+                    // rotate Image
+                    Matrix rotateMatrix = new Matrix();
+                    rotateMatrix.postRotate(preview.rotation);
+                    rotatedBitmap = Bitmap.createBitmap(loadedImage, 0, 0, loadedImage.getWidth(), loadedImage.getHeight(), rotateMatrix, false);
+
+                    File folder;
+                    if (Environment.getExternalStorageState().contains(Environment.MEDIA_MOUNTED)) {
+                        folder = new File(cPath);
+                    } else {
+                        folder = new File(cPath);
+                    }
+                    boolean success = true;
+                    if (!folder.exists()) {
+                        success = folder.mkdirs();
+                    }
+                    if (success) {
+                        Date now = new Date();
+                        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+                        String ImageFileName = folder.getAbsolutePath() + File.separator + now + ".jpg";
+                        Log.i(TAG, "ScreenShotFileName : " + ImageFileName);
+                        imageFile = new File(ImageFileName);
+                        imageFile.createNewFile();
+
+                        Toast toast;
+                        toast = Toast.makeText(mContext, "Image Saved to your gallery", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
+                    } else {
+
+                        Toast toast;
+                        toast = Toast.makeText(mContext, "Image Not Captured and Saved", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
+
+                        return;
+                    }
+                    ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+
+                    // save image into gallery
+                    rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
+
+                    FileOutputStream fout = new FileOutputStream(imageFile);
+                    fout.write(ostream.toByteArray());
+                    fout.close();
+                    ContentValues values = new ContentValues();
+
+                    values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
+                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                    values.put(MediaStore.MediaColumns.DATA, imageFile.getAbsolutePath());
+
+                    mContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                camera.startPreview();
+            }
+        });
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -13,7 +13,8 @@
     <string name="pref_defaultValue_cameraResolution">1280x720</string>
 
     <string name="pref_title_cameraIndex">Change camera</string>
-    <string name="settingsDesc">Open settings</string>
+    <string name="settingsDesc">Open Settings</string>
+    <string name="buttonsDesc">Open Button</string>
     <string name="pref_cameraResolutionString">pref_cameraResolution</string>
     <string name="pref_defaultValue_cameraIndex">0</string>
     <string-array name="pref_entries_cameraIndex">

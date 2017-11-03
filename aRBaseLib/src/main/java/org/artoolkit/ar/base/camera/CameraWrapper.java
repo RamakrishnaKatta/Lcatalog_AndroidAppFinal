@@ -85,7 +85,7 @@ class CameraWrapper {
     }
 
     public boolean frameReceived(byte[] data) {
-        Log.e(TAG, "frameReceived");
+        //Log.e(TAG, "frameReceived");
 
         if (usingBuffers) {
             return addCallbackBuffer(data);
@@ -132,7 +132,7 @@ class CameraWrapper {
         try {
 
             addCallbackBufferMethod.invoke(camera, data);
-            Log.e(TAG, "Returned camera data buffer to pool");
+            //Log.e(TAG, "Returned camera data buffer to pool");
 
         } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
