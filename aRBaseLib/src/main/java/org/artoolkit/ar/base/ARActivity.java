@@ -41,17 +41,25 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ConfigurationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.PixelFormat;
+import android.hardware.Camera;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -70,6 +78,11 @@ import org.artoolkit.ar.base.camera.CameraPreferencesActivity;
 import org.artoolkit.ar.base.camera.CaptureCameraPreview;
 import org.artoolkit.ar.base.rendering.ARRenderer;
 import org.artoolkit.ar.base.rendering.gles20.ARRendererGLES20;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.sql.Timestamp;
 
 //import android.os.AsyncTask;
 //import android.os.AsyncTask.Status;
@@ -117,6 +130,9 @@ public abstract class ARActivity extends Activity implements CameraEventListener
 
     private ImageButton mFlashButton;
     private ImageButton mCaptureButton;
+
+
+    private boolean flashmode = false;
 
     @SuppressWarnings("unused")
     public Context getAppContext() {
@@ -265,6 +281,10 @@ public abstract class ARActivity extends Activity implements CameraEventListener
         mFlashButton.setOnClickListener(this);
         mCaptureButton.setOnClickListener(this);
 
+        if (!getBaseContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+            mFlashButton.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -298,14 +318,94 @@ public abstract class ARActivity extends Activity implements CameraEventListener
             v.getContext().startActivity(new Intent(v.getContext(), CameraPreferencesActivity.class));
         }
         if (v.equals(mFlashButton)) {
+
             Toast toast = Toast.makeText(this, "You Clicked on Flash Button", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
+
+            if (preview.camera != null) {
+                try {
+                    Camera.Parameters param = preview.camera.getParameters();
+                    param.setFlashMode(!flashmode ? Camera.Parameters.FLASH_MODE_TORCH
+                            : Camera.Parameters.FLASH_MODE_OFF);
+                    preview.camera.setParameters(param);
+                    flashmode = !flashmode;
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+            }
         }
         if (v.equals(mCaptureButton)) {
             Toast toast = Toast.makeText(this, "You Clicked on Capture Button", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
+
+            preview.camera.takePicture(null, null, new Camera.PictureCallback() {
+
+                private File imageFile;
+
+                @Override
+                public void onPictureTaken(byte[] data, Camera camera) {
+                    try {
+                        // convert byte array into bitmap
+                        Bitmap loadedImage = null;
+                        Bitmap rotatedBitmap = null;
+                        loadedImage = BitmapFactory.decodeByteArray(data, 0,
+                                data.length);
+                        // rotate Image
+                        Matrix rotateMatrix = new Matrix();
+                        rotateMatrix.postRotate(preview.rotation);
+                        rotatedBitmap = Bitmap.createBitmap(loadedImage, 0, 0, loadedImage.getWidth(), loadedImage.getHeight(), rotateMatrix, false);
+                        File folder;
+                        if (Environment.getExternalStorageState().contains(Environment.MEDIA_MOUNTED)) {
+                            folder = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots");
+                        } else {
+                            folder = new File(Environment.getExternalStorageDirectory() + "/L_CATALOGUE/Screenshots");
+                        }
+                        boolean success = true;
+                        if (!folder.exists()) {
+                            success = folder.mkdirs();
+                        }
+                        if (success) {
+                            java.util.Date date = new java.util.Date();
+                            imageFile = new File(folder.getAbsolutePath() + File.separator + new Timestamp(date.getTime()).toString() + "Image.jpg");
+                            imageFile.createNewFile();
+
+                            Toast toast;
+                            toast = Toast.makeText(mContext, "Image Saved to your gallery", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                            toast.show();
+                        } else {
+
+                            Toast toast;
+                            toast = Toast.makeText(mContext, "Image Not Saved", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                            toast.show();
+
+                            return;
+                        }
+                        ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+
+                        // save image into gallery
+                        rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
+
+                        FileOutputStream fout = new FileOutputStream(imageFile);
+                        fout.write(ostream.toByteArray());
+                        fout.close();
+                        ContentValues values = new ContentValues();
+
+                        values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
+                        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                        values.put(MediaStore.MediaColumns.DATA, imageFile.getAbsolutePath());
+
+                        mContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    camera.startPreview();
+                }
+            });
         }
     }
 

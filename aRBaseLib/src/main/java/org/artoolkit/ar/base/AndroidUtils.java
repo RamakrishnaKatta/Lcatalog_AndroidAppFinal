@@ -1,40 +1,3 @@
-/*
- *  AndroidUtils.java
- *  ARToolKit5
- *
- *  This file is part of ARToolKit.
- *
- *  ARToolKit is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  ARToolKit is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public License
- *  along with ARToolKit.  If not, see <http://www.gnu.org/licenses/>.
- *
- *  As a special exception, the copyright holders of this library give you
- *  permission to link this library with independent modules to produce an
- *  executable, regardless of the license terms of these independent modules, and to
- *  copy and distribute the resulting executable under terms of your choice,
- *  provided that you also meet, for each linked independent module, the terms and
- *  conditions of the license of that module. An independent module is a module
- *  which is neither derived from nor based on this library. If you modify this
- *  library, you may extend this exception to your version of the library, but you
- *  are not obligated to do so. If you do not wish to do so, delete this exception
- *  statement from your version.
- *
- *  Copyright 2015 Daqri, LLC.
- *  Copyright 2011-2015 ARToolworks, Inc.
- *
- *  Author(s): Julian Looser, Philip Lamb
- *
- */
-
 package org.artoolkit.ar.base;
 
 import android.app.Activity;
@@ -43,7 +6,6 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -58,16 +20,12 @@ public class AndroidUtils {
      */
     private static final String TAG = "AndroidUtils";
 
-    public static final int VIEW_VISIBILITY = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN |
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-
     /**
      * Returns a String summarising the Android build information.
      *
      * @return The Android build information.
      */
+    @SuppressWarnings("unused")
     public static String androidBuildVersion() {
 
         StringBuffer buf = new StringBuffer();
@@ -110,6 +68,7 @@ public class AndroidUtils {
      *
      * @return Bytes of external storage available.
      */
+    @SuppressWarnings("unused")
     static public long getAvailableExternalMemorySize() {
         if (isSDCardMounted()) {
             File path = Environment.getExternalStorageDirectory();
@@ -127,6 +86,7 @@ public class AndroidUtils {
      *
      * @return Bytes of external storage in total, or -1 if no SD card mounted.
      */
+    @SuppressWarnings("unused")
     static public long getTotalExternalMemorySize() {
         if (isSDCardMounted()) {
             File path = Environment.getExternalStorageDirectory();
@@ -148,6 +108,7 @@ public class AndroidUtils {
      * @param bytes The number of bytes to be reported.
      * @return The specified number of bytes, formatted as a string, in bytes, KB, MB or GB.
      */
+    @SuppressWarnings("unused")
     static public String formatBytes(long bytes) {
 
         double val = 0;
