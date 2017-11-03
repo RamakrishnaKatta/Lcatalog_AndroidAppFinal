@@ -90,10 +90,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CameraActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark" />
-        <activity
             android:name=".ar.ARNativeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity

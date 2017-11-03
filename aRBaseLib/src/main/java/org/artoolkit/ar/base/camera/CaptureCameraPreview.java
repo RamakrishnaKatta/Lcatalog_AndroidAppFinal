@@ -231,6 +231,9 @@ public class CaptureCameraPreview extends SurfaceView implements SurfaceHolder.C
         if (parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         }
+        parameters.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_AUTO);
+        parameters.setSceneMode(Camera.Parameters.SCENE_MODE_AUTO);
+        parameters.setExposureCompensation(0);
         camera.setParameters(parameters);
 
         parameters = camera.getParameters();

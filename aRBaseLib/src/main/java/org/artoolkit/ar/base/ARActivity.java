@@ -41,6 +41,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -57,6 +58,7 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -134,6 +136,8 @@ public abstract class ARActivity extends Activity implements CameraEventListener
 
     private boolean flashmode = false;
 
+    private ProgressDialog progressDialog;
+
     @SuppressWarnings("unused")
     public Context getAppContext() {
         return mContext;
@@ -158,9 +162,12 @@ public abstract class ARActivity extends Activity implements CameraEventListener
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        Toast toast = Toast.makeText(this, "WAIT !! " + "\n" + "We are configuring your Camera for Augmentation !!", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        toast.show();
+        progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setTitle("Configuring your Camera");
+        progressDialog.setMessage("It Takes few minutes, Please be patient.");
+        progressDialog.show();
 
         AndroidUtils.reportDisplayInformation(this);
     }
@@ -186,6 +193,7 @@ public abstract class ARActivity extends Activity implements CameraEventListener
         super.onStart();
 
         Log.i(TAG, "onStart(): Activity starting.");
+        progressDialog.setMessage("We made sure its worth waiting !!");
 
         if (!ARToolKit.getInstance().initialiseNative(this.getCacheDir().getAbsolutePath())) { // Use cache directory for Data files.
             notifyFinish("The native library is not loaded. The application cannot continue.");
@@ -550,9 +558,8 @@ public abstract class ARActivity extends Activity implements CameraEventListener
         if (ARToolKit.getInstance().initialiseAR(width, height, "/storage/emulated/0/L_CATALOGUE/cache/Data/camera_para.dat", cameraIndex, cameraIsFrontFacing)) {
             // Expects Data to be already in the cache dir. This can be done with the AssetUnpacker.
 
-            Toast toast = Toast.makeText(this, "Almost there, Few more seconds !!", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            toast.show();
+            progressDialog.setMessage("Another couple of Minutes");
+            startTimer(130000);
 
             Log.e(TAG, "getGLView(): Camera initialised");
         } else {
@@ -566,6 +573,21 @@ public abstract class ARActivity extends Activity implements CameraEventListener
         firstUpdate = true;
     }
 
+    public void startTimer(final long finish) {
+        new CountDownTimer(finish, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                long remainedSecs = millisUntilFinished / 1000;
+                progressDialog.setMessage("Estimated Time Left :    " + (remainedSecs / 60) + "Minutes  :" + (remainedSecs % 60) + "Seconds");
+            }
+
+            public void onFinish() {
+                progressDialog.setMessage("DONE, Opening Camera");
+                cancel();
+            }
+        }.start();
+    }
+
     @Override
     public void cameraPreviewFrame(byte[] frame) {
 
@@ -573,12 +595,15 @@ public abstract class ARActivity extends Activity implements CameraEventListener
             // ARToolKit has been initialised. The renderer can now add markers, etc...
             if (renderer.configureARScene()) {
 
-
-                Toast toast = Toast.makeText(this, "YES" + "\n" + "Thank You for your patience, The furniture is ready to get Augmented !!", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                toast.show();
-
                 Log.e(TAG, "cameraPreviewFrame(): Scene configured successfully");
+
+                new android.os.Handler().postDelayed(new Runnable() {
+                    public void run() {
+
+                        progressDialog.dismiss();
+                    }
+                }, 130000);
+
             } else {
                 // Error
                 Log.e(TAG, "cameraPreviewFrame(): Error configuring scene. Cannot continue.");
@@ -595,6 +620,7 @@ public abstract class ARActivity extends Activity implements CameraEventListener
 
             onFrameProcessed();
         }
+
 
     }
 

@@ -347,12 +347,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
 
-        } else if (id == R.id.nav_camera) {
-
-            Toast.makeText(this, "You are now entering the custom camera !!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, CameraActivity.class);
-            startActivity(intent);
-
         } else if (id == R.id.nav_ven_reg) {
 
             Toast.makeText(this, "We will not disappoint you, Lets get in Touch !!", Toast.LENGTH_SHORT).show();
@@ -382,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

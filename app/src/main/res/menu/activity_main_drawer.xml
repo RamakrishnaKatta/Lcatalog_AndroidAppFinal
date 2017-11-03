@@ -12,10 +12,6 @@
             android:icon="@mipmap/ic_augment"
             android:title="Augment" />
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@mipmap/ic_camera"
-            android:title="Camera" />
-        <item
             android:id="@+id/nav_gallery"
             android:icon="@mipmap/ic_menu_slideshow"
             android:title="Gallery" />
