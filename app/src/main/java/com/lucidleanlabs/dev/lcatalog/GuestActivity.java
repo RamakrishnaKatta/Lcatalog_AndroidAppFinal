@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,6 +32,8 @@ import java.util.Calendar;
 
 public class GuestActivity extends AppCompatActivity {
 
+    AlarmManager alarmManager;
+    PendingIntent pendingIntent;
     private PrefManager prefManager2;
 
     private static final String TAG = "GuestActivity";
@@ -211,9 +212,9 @@ public class GuestActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putInt("val", 8);
         myIntent.putExtras(bundle);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0,
+        pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0,
                 myIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.add(Calendar.MINUTE, 13);
@@ -293,10 +294,17 @@ public class GuestActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        if (alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+            Log.d(TAG, "onPause: Scheduled Alarm Cancelled ");
+        }
     }
-
     @Override
     public void onPause() {
         super.onPause();
     }
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
 }
