@@ -11,9 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lucidleanlabs.dev.lcatalog.NotifyActivity;
 import com.lucidleanlabs.dev.lcatalog.R;
-import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -78,19 +79,27 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
         final Context[] context = new Context[1];
-        holder.imageView.setImageResource(R.drawable.dummy_icon);
+        viewHolder.imageView.setImageResource(R.drawable.dummy_icon);
 
 
         String get_image = notification_images.get(position);
         String new_image = get_image.replace("\\", File.separator);
 
-        new DownloadImageTask(holder.imageView).execute(new_image);
 
-        holder.title.setText(notification_titles.get(position));
-        holder.message.setText(notification_messages.get(position));
+        Glide
+                .with(activity)
+                .load("http://lcatalog.immersionslabs.com:8080" + get_image)
+                .placeholder(R.drawable.dummy_icon)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(viewHolder.imageView);
+
+//        new DownloadImageTask(viewHolder.imageView).execute(new_image);
+
+        viewHolder.title.setText(notification_titles.get(position));
+        viewHolder.message.setText(notification_messages.get(position));
 
 //        holder.container.setOnClickListener(new View.OnClickListener() {
 //            @Override

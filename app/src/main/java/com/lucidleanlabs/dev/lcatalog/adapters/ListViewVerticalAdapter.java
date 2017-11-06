@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lucidleanlabs.dev.lcatalog.ProductPageActivity;
 import com.lucidleanlabs.dev.lcatalog.R;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
@@ -116,7 +118,14 @@ public class ListViewVerticalAdapter extends RecyclerView.Adapter<ListViewVertic
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new DownloadImageTask(viewHolder.item_image).execute(im1);
+
+        Glide
+                .with(activity)
+                .load("http://lcatalog.immersionslabs.com:8080" + im1)
+                .placeholder(R.drawable.dummy_icon)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(viewHolder.item_image);
+//        new DownloadImageTask(viewHolder.item_image).execute(im1);
 
         Integer x = Integer.parseInt(item_prices.get(position));
         Integer y = Integer.parseInt(item_discounts.get(position));

@@ -11,9 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lucidleanlabs.dev.lcatalog.Fragment_Overview;
 import com.lucidleanlabs.dev.lcatalog.R;
-import com.lucidleanlabs.dev.lcatalog.utils.DownloadImageTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -108,7 +109,13 @@ public class MainListViewAdapter extends RecyclerView.Adapter<MainListViewAdapte
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new DownloadImageTask(viewHolder.item_image).execute(im1);
+
+           Glide.with(activity)
+                .load("http://lcatalog.immersionslabs.com:8080" + im1)
+                .placeholder(R.drawable.dummy_icon)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(viewHolder.item_image);
+//        new DownloadImageTask(viewHolder.item_image).execute(im1);
         // Picasso.with(activity.getContext()).load(im1).centerCrop().into(viewHolder.item_image);
         viewHolder.item_name.setText(item_names.get(position));
         viewHolder.item_description.setText(item_descriptions.get(position));

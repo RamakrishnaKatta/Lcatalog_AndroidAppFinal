@@ -1,7 +1,10 @@
 package com.lucidleanlabs.dev.lcatalog;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
@@ -25,6 +29,7 @@ import com.lucidleanlabs.dev.lcatalog.utils.PrefManager;
 import com.lucidleanlabs.dev.lcatalog.utils.UserCheckUtil;
 
 import java.io.File;
+import java.util.Calendar;
 
 public class GuestActivity extends AppCompatActivity {
 
@@ -200,6 +205,28 @@ public class GuestActivity extends AppCompatActivity {
                 }, 3000);
     }
 
+
+    public void scheduleAlarm() {
+        Intent myIntent = new Intent(getBaseContext(), MyScheduledReceiver.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("val", 8);
+        myIntent.putExtras(bundle);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0,
+                myIntent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.add(Calendar.MINUTE, 13);
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                pendingIntent);
+        Log.v("GuestAcivity", "session valid for 15 minutes");
+
+    }
+
+
     public void onLoginFailed() {
         Button _guestLoginButton = findViewById(R.id.btn_guest);
 
@@ -210,6 +237,8 @@ public class GuestActivity extends AppCompatActivity {
     public void onLoginSuccess() {
         _guestLoginButton = findViewById(R.id.btn_guest);
         CustomMessage.getInstance().CustomMessage(GuestActivity.this, "Login Success");
+//        CustomMessage.getInstance().CustomMessage(this, "You are the Guest User Your session is Valid for 15 minutes,Thank you");
+        Toast.makeText(this, "You are the Guest User Your Session is valid for 15 minutes only,Thank you", Toast.LENGTH_LONG).show();
 
         Bundle user_data = new Bundle();
         user_data.putString("guest_name", guest_name);
@@ -221,8 +250,10 @@ public class GuestActivity extends AppCompatActivity {
         String text_file_date = UserCheckUtil.readFromFile("guest");
         Log.e(TAG, "User Details-- " + text_file_date);
 
+        Log.d(TAG, "onLoginSuccess: ");
         Intent intent = new Intent(this, MainActivity.class).putExtras(user_data);
         startActivity(intent);
+        scheduleAlarm();
         finish();
     }
 
