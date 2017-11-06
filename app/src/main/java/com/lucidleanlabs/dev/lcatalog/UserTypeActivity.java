@@ -323,7 +323,9 @@ public class UserTypeActivity extends AppCompatActivity {
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                android.os.Process.killProcess(android.os.Process.myPid());
                 System.exit(0);
+                UserTypeActivity.super.onDestroy();
             }
         });
         builder.setNegativeButton("Cancel", null);

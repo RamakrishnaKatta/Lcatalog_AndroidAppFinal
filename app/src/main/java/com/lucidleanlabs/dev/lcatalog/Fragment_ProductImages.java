@@ -23,6 +23,9 @@ import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.like.LikeButton;
+import com.like.OnAnimationEndListener;
+import com.like.OnLikeListener;
 import com.lucidleanlabs.dev.lcatalog.adapters.ImageSliderAdapter;
 import com.lucidleanlabs.dev.lcatalog.ar.ARNativeActivity;
 import com.lucidleanlabs.dev.lcatalog.utils.DownloadManager;
@@ -40,7 +43,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class Fragment_ProductImages extends Fragment {
+public class Fragment_ProductImages extends Fragment implements OnAnimationEndListener, OnLikeListener {
 
     private static final String TAG = "Fragment_ProductImages";
 
@@ -65,6 +68,8 @@ public class Fragment_ProductImages extends Fragment {
     TextView[] dots;
     int page_position = 0;
 
+    LikeButton likeButton;
+
     String Article_ZipFileLocation, Article_ExtractLocation, Article_3DSFileLocation;
     private boolean zip_downloaded = true;
     File zip_file, object_3d_file;
@@ -78,6 +83,9 @@ public class Fragment_ProductImages extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_product_images, container, false);
 
+        likeButton = view.findViewById(R.id.article_fav_icon);
+        likeButton.setOnLikeListener(this);
+        likeButton.setOnAnimationEndListener(this);
         article_share = view.findViewById(R.id.article_share_icon);
         article_download = view.findViewById(R.id.article_download_icon);
         article_3d_view = view.findViewById(R.id.article_3dview_icon);
@@ -334,6 +342,18 @@ public class Fragment_ProductImages extends Fragment {
         }
     }
 
+    @Override
+    public void onAnimationEnd(LikeButton likeButton) {
+    }
+    @Override
+    public void liked(LikeButton likeButton) {
+        Toast.makeText(getContext(), "Liked!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void unLiked(LikeButton likeButton) {
+        Toast.makeText(getContext(), "Disliked!", Toast.LENGTH_SHORT).show();
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

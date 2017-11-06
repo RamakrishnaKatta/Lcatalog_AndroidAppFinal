@@ -20,8 +20,8 @@
                 android:id="@+id/article_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitCenter"/>
-                <!--android:src="@drawable/dummy_icon" />-->
+                android:scaleType="fitCenter" />
+            <!--android:src="@drawable/dummy_icon" />-->
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/article_view_pager"
@@ -57,18 +57,33 @@
             android:layout_height="@dimen/margin_40"
             android:orientation="horizontal"
             android:padding="@dimen/margin_3"
-            android:weightSum="4">
+            android:weightSum="5">
 
-            <com.lucidleanlabs.dev.lcatalog.dots.fav_like_view
-                android:id="@+id/article_fav_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!--<com.lucidleanlabs.dev.lcatalog.dots.fav_like_view-->
+            <!--android:id="@+id/article_fav_icon"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.like.LikeButton
+                    android:id="@+id/article_fav_icon"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    app:icon_size="60dp"
+                    app:icon_type="heart"
+                    app:like_drawable="@mipmap/ic_fav_on"
+                    app:unlike_drawable="@mipmap/ic_fav_off" />
+            </LinearLayout>
 
             <ImageButton
                 android:id="@+id/article_share_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=".5"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
                 app:srcCompat="@mipmap/ic_menu_share" />
 

@@ -90,6 +90,8 @@ dependencies {
     /*show Case View*/
     compile 'com.getkeepsafe.taptargetview:taptargetview:1.9.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.jd-alexander:LikeButton:0.2.3'
+
 
     compile project(':aRBaseLib')
 }
