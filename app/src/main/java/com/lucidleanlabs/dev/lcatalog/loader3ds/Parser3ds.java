@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-
 public class Parser3ds {
 
     private BufferedInputStream stream;

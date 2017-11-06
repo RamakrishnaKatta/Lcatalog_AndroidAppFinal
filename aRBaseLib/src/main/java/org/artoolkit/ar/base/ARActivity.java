@@ -1,40 +1,3 @@
-/*
- *  ARActivity.java
- *  ARToolKit5
- *
- *  This file is part of ARToolKit.
- *
- *  ARToolKit is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  ARToolKit is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public License
- *  along with ARToolKit.  If not, see <http://www.gnu.org/licenses/>.
- *
- *  As a special exception, the copyright holders of this library give you
- *  permission to link this library with independent modules to produce an
- *  executable, regardless of the license terms of these independent modules, and to
- *  copy and distribute the resulting executable under terms of your choice,
- *  provided that you also meet, for each linked independent module, the terms and
- *  conditions of the license of that module. An independent module is a module
- *  which is neither derived from nor based on this library. If you modify this
- *  library, you may extend this exception to your version of the library, but you
- *  are not obligated to do so. If you do not wish to do so, delete this exception
- *  statement from your version.
- *
- *  Copyright 2015 Daqri, LLC.
- *  Copyright 2011-2015 ARToolworks, Inc.
- *
- *  Author(s): Julian Looser, Philip Lamb
- *
- */
-
 package org.artoolkit.ar.base;
 
 import android.annotation.TargetApi;
@@ -112,6 +75,7 @@ public abstract class ARActivity extends Activity implements CameraEventListener
      * Renderer to use. This is provided by the subclass using {@link #supplyRenderer() Renderer()}.
      */
     protected ARRenderer renderer;
+
     /**
      * Layout that will be filled with the camera preview and GL views. This is provided by the subclass using {@link #supplyFrameLayout() supplyFrameLayout()}.
      */
@@ -132,7 +96,7 @@ public abstract class ARActivity extends Activity implements CameraEventListener
 
     private ImageButton mFlashButton;
     private ImageButton mCaptureButton;
-    private ImageButton mScrrenshotButton;
+    private ImageButton mScreenshotButton;
 
     private boolean flashmode = false;
 
@@ -279,20 +243,17 @@ public abstract class ARActivity extends Activity implements CameraEventListener
         mainFrameLayout.addView(settingsButtonLayout);
         mSettingButton.setOnClickListener(this);
 
-        //Load settings button
+        //Load Options buttons
         View OptionsButtonLayout = this.getLayoutInflater().inflate(R.layout.options_buttons_layout, mainFrameLayout, false);
 
         mFlashButton = OptionsButtonLayout.findViewById(R.id.button_flash);
         mCaptureButton = OptionsButtonLayout.findViewById(R.id.button_capture);
-        mScrrenshotButton = OptionsButtonLayout.findViewById(R.id.button_screenshot);
+        mScreenshotButton = OptionsButtonLayout.findViewById(R.id.button_screenshot);
         mainFrameLayout.addView(OptionsButtonLayout);
 
         mFlashButton.setOnClickListener(this);
         mCaptureButton.setOnClickListener(this);
-        mScrrenshotButton.setOnClickListener(this);
-
-        //For debugging Purpose!!
-        mScrrenshotButton.setVisibility(View.GONE);
+        mScreenshotButton.setOnClickListener(this);
 
         if (!getBaseContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
             mFlashButton.setVisibility(View.GONE);
@@ -345,79 +306,12 @@ public abstract class ARActivity extends Activity implements CameraEventListener
             CameraImage();
         }
 
-        if (v.equals(mScrrenshotButton)) {
+        if (v.equals(mScreenshotButton)) {
             Toast toast = Toast.makeText(this, "You Clicked on ScreenCapture Button", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
 
-            TakeScreenshot();
-        }
-    }
-
-    private void TakeScreenshot() {
-        File screenShotFile;
-
-        try {
-            // image naming and path  to include sd card  appending name you choose for file
-            String sPath = Environment.getExternalStorageDirectory().toString() + "/L_CATALOGUE/Screenshots";
-
-            // create bitmap screen capture
-            View v1 = getWindow().getDecorView().getRootView();
-            v1.setDrawingCacheEnabled(true);
-            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-            v1.setDrawingCacheEnabled(false);
-
-            File folder;
-            if (Environment.getExternalStorageState().contains(Environment.MEDIA_MOUNTED)) {
-                folder = new File(sPath);
-            } else {
-                folder = new File(sPath);
-            }
-
-            boolean success = true;
-            if (!folder.exists()) {
-                success = folder.mkdirs();
-            }
-            if (success) {
-                Date now = new Date();
-                android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
-
-                String ScreenShotFileName = folder.getAbsolutePath() + File.separator + now + ".jpg";
-                Log.i(TAG, "ScreenShotFileName : " + ScreenShotFileName);
-                screenShotFile = new File(ScreenShotFileName);
-                screenShotFile.createNewFile();
-
-                Toast toast;
-                toast = Toast.makeText(mContext, "Screenshot Saved to your gallery", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                toast.show();
-            } else {
-
-                Toast toast;
-                toast = Toast.makeText(mContext, "Screenshot Not Captured and Saved", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                toast.show();
-
-                return;
-            }
-
-            FileOutputStream outputStream = new FileOutputStream(screenShotFile);
-            int quality = 100;
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
-            outputStream.flush();
-            outputStream.close();
-
-            ContentValues values = new ContentValues();
-
-            values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
-            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-            values.put(MediaStore.MediaColumns.DATA, screenShotFile.getAbsolutePath());
-
-            mContext.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-
-        } catch (Throwable e) {
-            // Several error may come out with file handling or DOM
-            e.printStackTrace();
+            renderer.printOptionEnable = true;
         }
     }
 
@@ -578,7 +472,7 @@ public abstract class ARActivity extends Activity implements CameraEventListener
 
             public void onTick(long millisUntilFinished) {
                 long remainedSecs = millisUntilFinished / 1000;
-                progressDialog.setMessage("Estimated Time Left :    " + (remainedSecs / 60) + "Minutes  :" + (remainedSecs % 60) + "Seconds");
+                progressDialog.setMessage("Estimated Time Left :    " + (remainedSecs / 60) + " Minutes  : " + (remainedSecs % 60) + " Seconds");
             }
 
             public void onFinish() {
@@ -620,8 +514,6 @@ public abstract class ARActivity extends Activity implements CameraEventListener
 
             onFrameProcessed();
         }
-
-
     }
 
     public void onFrameProcessed() {

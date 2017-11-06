@@ -108,13 +108,12 @@ public class CaptureCameraPreview extends SurfaceView implements SurfaceHolder.C
         if (!setPreviewOrientationAndSurface(surfaceHolderInstance, cameraIndex)) {
             Log.e(TAG, "surfaceCreated(): call to setPreviewOrientationAndSurface() failed.");
         } else {
-            Log.i(TAG, "surfaceCreated(): succeeded");
+            Log.e(TAG, "surfaceCreated(): succeeded");
         }
-
     }
 
     private boolean setPreviewOrientationAndSurface(SurfaceHolder surfaceHolderInstance, int cameraIndex) {
-        Log.i(TAG, "setPreviewOrientationAndSurface(): called");
+        Log.e(TAG, "setPreviewOrientationAndSurface(): called");
         boolean success = true;
         try {
             setCameraPreviewDisplayOrientation(cameraIndex, camera);
@@ -212,7 +211,7 @@ public class CaptureCameraPreview extends SurfaceView implements SurfaceHolder.C
         String cam_height = Integer.toString(height);
         String cam_width = Integer.toString(width);
         String CameraResolution = cam_width + "x" + cam_height;
-        Log.e(TAG, "surfaceChanged(): CameraResolution : " + CameraResolution);
+        Log.e(TAG, "surfaceChanged(): CameraResolution : (Acquired) " + CameraResolution);
 
         Log.e(TAG, "surfaceChanged(): Surfaced changed, setting up camera and starting preview");
 
@@ -224,24 +223,24 @@ public class CaptureCameraPreview extends SurfaceView implements SurfaceHolder.C
 //        String camResolution = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(CameraResolution, CameraResolution);
         String[] dims = camResolution.split("x", 2);
         Camera.Parameters parameters = camera.getParameters();
-        Log.e(TAG, "surfaceChanged(): CameraParameters(Old) : " + parameters);
-        Log.e(TAG, "surfaceChanged(): CameraResolution : " + Integer.parseInt(dims[0]) + "x" + Integer.parseInt(dims[1]));
+        Log.e(TAG, "surfaceChanged(): CameraResolution : (Applied) " + Integer.parseInt(dims[0]) + "x" + Integer.parseInt(dims[1]));
         parameters.setPreviewSize(Integer.parseInt(dims[0]), Integer.parseInt(dims[1]));
-        parameters.setPreviewFrameRate(10);
+        parameters.setPreviewFrameRate(30);
+
         if (parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
         }
+
         parameters.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_AUTO);
         parameters.setSceneMode(Camera.Parameters.SCENE_MODE_AUTO);
         parameters.setExposureCompensation(0);
         camera.setParameters(parameters);
 
         parameters = camera.getParameters();
-        Log.e(TAG, "surfaceChanged(): CameraParameters(New) : " + parameters);
         captureWidth = parameters.getPreviewSize().width;
         captureHeight = parameters.getPreviewSize().height;
         captureRate = parameters.getPreviewFrameRate();
-        Log.e(TAG, "surfaceChanged(): Camera parameters will be : " + "CameraCaptureWidth" + captureWidth + "CameraCaptureHeight" + captureHeight + "CameraCaptureRate" + captureRate);
+        Log.e(TAG, "surfaceChanged(): Applied Camera parameters will be : " + "CameraCaptureWidth: " + captureWidth + "CameraCaptureHeight: " + captureHeight + " CameraCaptureRate: " + captureRate);
 
         int pixelformat = parameters.getPreviewFormat(); // android.graphics.imageformat
         PixelFormat pixelinfo = new PixelFormat();
