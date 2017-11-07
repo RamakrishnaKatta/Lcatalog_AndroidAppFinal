@@ -118,6 +118,11 @@
             android:label="@string/title_activity_article_3dView"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FeedbackActivity"
+            android:label="@string/title_activity_feedback"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
 
         <activity android:name="org.artoolkit.ar.base.camera.CameraPreferencesActivity" />
         <activity

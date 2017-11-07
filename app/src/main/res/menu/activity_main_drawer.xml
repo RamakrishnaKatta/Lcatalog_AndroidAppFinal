@@ -55,8 +55,8 @@
     <item android:title="Help &amp; Support">
         <menu>
             <item
-                android:id="@+id/nav_contact_us"
-                android:title="Contact Us" />
+                android:id="@+id/nav_feedback"
+                android:title="FeedBack" />
             <item
                 android:id="@+id/nav_terms_conditions"
                 android:title="Terms &amp; Conditions" />
