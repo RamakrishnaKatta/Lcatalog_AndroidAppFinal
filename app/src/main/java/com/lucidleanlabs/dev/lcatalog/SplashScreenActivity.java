@@ -26,6 +26,11 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
         app_name = findViewById(R.id.application_name);
         powered = findViewById(R.id.lucidleanlabs);
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Graduate-Regular.ttf");
@@ -33,7 +38,6 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
 
         app_name.setTypeface(custom_font);
         powered.setTypeface(custom_font2);
-
 
         animate();
 
@@ -78,8 +82,6 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
                     InternetMessage();
                     // CustomMessage.getInstance().CustomMessage(this,"Check Your Internet connection.");
                 }
-
-
             }
         });
         snackBar.show();
