@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/Feedbacklayout"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     tools:context=".FeedbackActivity">
 
@@ -17,7 +17,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
             android:fitsSystemWindows="true"
             android:gravity="center"
             android:orientation="vertical"
@@ -69,8 +68,8 @@
                 android:id="@+id/area_input_feed_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_3"
-                android:layout_marginTop="@dimen/margin_3"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:layout_marginTop="@dimen/margin_5"
                 android:textColorHint="@color/white"
                 android:visibility="visible">
 
@@ -78,6 +77,7 @@
                     android:id="@+id/input_feed_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
                     android:hint="@string/name"
                     android:inputType="textPersonName"
                     android:maxLength="50"
@@ -85,9 +85,33 @@
 
             </android.support.design.widget.TextInputLayout>
 
+
+            <!-- Name Label -->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/area_input_feed_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:layout_marginTop="@dimen/margin_5"
+                android:textColorHint="@color/white"
+                android:visibility="visible">
+
+                <EditText
+                    android:id="@+id/input_feed_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape"
+                    android:hint="@string/mobile_number"
+                    android:inputType="number"
+                    android:maxLength="10" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_20"
                 android:orientation="vertical">
 
@@ -95,35 +119,36 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/area_input_feed_subject"
                     android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginTop="@dimen/margin_3"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/margin_30"
                     android:textColorHint="@color/white"
                     android:visibility="visible">
 
                     <EditText
                         android:id="@+id/input_feed_subject"
                         android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_marginBottom="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/shape"
                         android:gravity="top|left"
-                        android:hint="FeedBack Subject"
+                        android:hint="@string/FeedBack_Subject"
                         android:inputType="textMultiLine"
                         android:lines="10"
-                        android:maxLength="300"
-                        android:scrollbars="vertical"
-                        android:textColor="@color/white" />
+                        android:paddingBottom="@dimen/margin_5"
+                        android:scrollbars="vertical" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_login"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_10"
                 android:layout_marginTop="20dp"
-                android:padding="@dimen/margin_10"
-                android:text="SUBMIT" />
+                android:paddingTop="@dimen/margin_10"
+                android:text="THANK YOU" />
         </LinearLayout>
 
 
@@ -133,8 +158,7 @@
         android:id="@+id/fab_feed_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_20"
-        android:layout_marginTop="@dimen/margin_5"
+        android:layout_margin="@dimen/margin_10"
         app:backgroundTint="@color/primary_darker"
         app:fabSize="mini"
         app:srcCompat="@mipmap/ic_back" />
